@@ -231,10 +231,32 @@ module TSOS {
             if (args.length > 0) {
                 var topic = args[0];
                 switch (topic) {
+                    // TODO: Make descriptive MANual page entries for the the rest of the shell commands here.
+                    case "ver":
+                        _StdOut.putText("")
+                        break;
                     case "help":
                         _StdOut.putText("Help displays a list of (hopefully) valid commands.");
                         break;
-                    // TODO: Make descriptive MANual page entries for the the rest of the shell commands here.
+                    case "shutdown":
+                        _StdOut.putText("")
+                        break;
+                    case "cls":
+                        _StdOut.putText("")
+                        break;
+                    case "man":
+                        _StdOut.putText("")
+                        break;
+                    case "trace":
+                        _StdOut.putText("")
+                        break;
+                    case "rot13":
+                        _StdOut.putText("")
+                        break;
+                    case "shellprompt":
+                        _StdOut.putText("")
+                        break;
+
                     default:
                         _StdOut.putText("No manual entry for " + args[0] + ".");
                 }
