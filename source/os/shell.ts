@@ -28,49 +28,57 @@ module TSOS {
             // ver
             sc = new ShellCommand(this.shellVer,
                                   "ver",
-                                  "- Displays the current version data.");
+                                  "- Displays the current version data.",
+                                  "Ver displays the current version data.");
             this.commandList[this.commandList.length] = sc;
 
             // help
             sc = new ShellCommand(this.shellHelp,
                                   "help",
-                                  "- This is the help command. Seek help.");
+                                  "- This is the help command. Seek help.",
+                                  "Help displays a list of (hopefully) valid commands.",);
             this.commandList[this.commandList.length] = sc;
 
             // shutdown
             sc = new ShellCommand(this.shellShutdown,
                                   "shutdown",
-                                  "- Shuts down the virtual OS but leaves the underlying host / hardware simulation running.");
+                                  "- Shuts down the virtual OS but leaves the underlying host / hardware simulation running.",
+                                  "Shutdown shuts down the virtual OS but leaves the underlying host / hardware simulation running.");
             this.commandList[this.commandList.length] = sc;
 
             // cls
             sc = new ShellCommand(this.shellCls,
                                   "cls",
-                                  "- Clears the screen and resets the cursor position.");
+                                  "- Clears the screen and resets the cursor position.",
+                                  "Cls clears the screen and resets the cursor position.");
             this.commandList[this.commandList.length] = sc;
 
             // man <topic>
             sc = new ShellCommand(this.shellMan,
                                   "man",
-                                  "<topic> - Displays the MANual page for <topic>.");
+                                  "<topic> - Displays the MANual page for <topic>.",
+                                  "Man displays the manual page for a given shell command. You just used it, nice job.");
             this.commandList[this.commandList.length] = sc;
 
             // trace <on | off>
             sc = new ShellCommand(this.shellTrace,
                                   "trace",
-                                  "<on | off> - Turns the OS trace on or off.");
+                                  "<on | off> - Turns the OS trace on or off.",
+                                  "Trace turns the OS trace on or off.");
             this.commandList[this.commandList.length] = sc;
 
             // rot13 <string>
             sc = new ShellCommand(this.shellRot13,
                                   "rot13",
-                                  "<string> - Does rot13 obfuscation on <string>.");
+                                  "<string> - Does rot13 obfuscation on <string>.",
+                                  "Rot13 does a rot13 obfuscation on a given string");
             this.commandList[this.commandList.length] = sc;
 
             // prompt <string>
             sc = new ShellCommand(this.shellPrompt,
                                   "prompt",
-                                  "<string> - Sets the prompt.");
+                                  "<string> - Sets the prompt.",
+                                  "Prompt sets the prompt to the given string.");
             this.commandList[this.commandList.length] = sc;
 
             // ps  - list the running processes and their IDs
@@ -245,25 +253,30 @@ module TSOS {
                         _StdOut.putText("Cls clears the screen and resets the cursor position.");
                         break;
                     case "man":
-                        _StdOut.putText("Man Displays the manual page for a given shell command. You just used it, nice job.");
-                        _StdOut.putText("man <topic>")
+                        _StdOut.putText("Man displays the manual page for a given shell command. You just used it, nice job.");
+                        _StdOut.advanceLine();
+                        _StdOut.putText("man <topic>");
                         break;
                     case "trace":
                         _StdOut.putText("Trace turns the OS trace on or off.");
+                        _StdOut.advanceLine();
                         _StdOut.putText("trace <on | off>");
                         break;
                     case "rot13":
                         _StdOut.putText("Rot13 does a rot13 obfuscation on a given string");
+                        _StdOut.advanceLine();
                         _StdOut.putText("rot13 <string>");
                         break;
-                    case "shellprompt":
-                        _StdOut.putText("Shellprompt sets the prompt to the given string.");
-                        _StdOut.putText("shellprompt <string>");
+                    case "prompt":
+                        _StdOut.putText("Prompt sets the prompt to the given string.");
+                        _StdOut.advanceLine();
+                        _StdOut.putText("prompt <string>");
                         break;
 
                     default:
                         _StdOut.putText("No manual entry for " + args[0] + ".");
                 }
+                
             } else {
                 _StdOut.putText("Usage: man <topic>  Please supply a topic.");
             }

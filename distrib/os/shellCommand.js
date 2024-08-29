@@ -4,10 +4,12 @@ var TSOS;
         func;
         command;
         description;
-        constructor(func, command = "", description = "") {
+        manual;
+        constructor(func, command = "", description = "", manual = "") {
             this.func = func;
             this.command = command;
             this.description = description;
+            this.manual = manual;
         }
     }
     TSOS.ShellCommand = ShellCommand;
