@@ -325,17 +325,17 @@ var TSOS;
         }
         shellPalindrome(args) {
             if (args.length > 0) {
+                //make the parameter into one string
                 var word = "";
                 for (let i = 0; i < args.length; i++) {
                     word += args[i].toUpperCase();
                 }
-                //_StdOut.putText(word);
-                word = "Tacocat"; //test for caps
+                //create a backwards version
                 var backwards = "";
                 for (let j = 0; j < word.length; j++) {
                     backwards = word[j] + backwards;
                 }
-                //_StdOut.putText(backwards);
+                //do the backwards and forwards versions match?
                 if (backwards === word) {
                     _StdOut.putText("It is a palindrome!");
                 }
