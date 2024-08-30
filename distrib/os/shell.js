@@ -246,6 +246,9 @@ var TSOS;
                         _StdOut.advanceLine();
                         _StdOut.putText("prompt <string>");
                         break;
+                    case "date":
+                        _StdOut.putText("Date displays the current date and time.");
+                        break;
                     default:
                         _StdOut.putText("No manual entry for " + args[0] + ".");
                 }
@@ -296,6 +299,11 @@ var TSOS;
             else {
                 _StdOut.putText("Usage: prompt <string>  Please supply a string.");
             }
+        }
+        shellDate(args) {
+            let currentDate = new Date();
+            //_StdOut.putText("test");
+            _StdOut.putText(currentDate.toDateString() + ". " + currentDate.toLocaleTimeString());
         }
     }
     TSOS.Shell = Shell;
