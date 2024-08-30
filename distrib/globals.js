@@ -51,4 +51,6 @@ var _GLaDOS = null; // If the above is linked in, this is the instantiated insta
 var onDocumentLoad = function () {
     TSOS.Control.hostInit();
 };
+//
+const _Locations = ["A", "B", "C", "D"];
 //# sourceMappingURL=globals.js.map

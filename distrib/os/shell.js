@@ -307,11 +307,15 @@ var TSOS;
             }
         }
         shellDate(args) {
+            //get the current date and print it
             let currentDate = new Date();
             _StdOut.putText(currentDate.toDateString() + ". " + currentDate.toLocaleTimeString());
         }
         shellWhereami(args) {
-            _StdOut.putText("Funny location");
+            //choose from a random list of locations
+            var locations = ["Hancock 3007", "Arby's mobile order spot #6", "The short urinal", "308 Negra Arroyo Lane", "The dungeon", "I have no clue", "Hopefully the library", "Dublin, Ireland", "The neighborhood electrical box", "The back of an Uber", "Eddie Munson's trailer", "An elevator with way too many people in it", "The Chuck E Cheese ticket blaster", "Wing Kingdom", "Monk's Cafe", "i3n7a1s9i4m7u0l8a1t6i2o5n"];
+            var randomNum = Math.floor(Math.random() * locations.length);
+            _StdOut.putText("" + locations[randomNum]);
         }
     }
     TSOS.Shell = Shell;
