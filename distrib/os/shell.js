@@ -51,6 +51,9 @@ var TSOS;
             // whereami
             sc = new TSOS.ShellCommand(this.shellWhereami, "whereami", " - Displays the current location... kinda.", "Whereami displays your totally accurate location.");
             this.commandList[this.commandList.length] = sc;
+            // palindrome <string>
+            sc = new TSOS.ShellCommand(this.shellPalindrome, "palindrome", "<string> - Decides if <string> is a palindrome.", "Palindrome determines if the given string is a palindrome or not.");
+            this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
             // Display the initial prompt.
@@ -255,6 +258,9 @@ var TSOS;
                     case "whereami":
                         _StdOut.putText("Whereami displays your totally accurate location.");
                         break;
+                    case "palindrome":
+                        _StdOut.putText("Palindrome determines if the given string is a palindrome or not.");
+                        break;
                     default:
                         _StdOut.putText("No manual entry for " + args[0] + ".");
                 }
@@ -316,6 +322,30 @@ var TSOS;
             var locations = ["Hancock 3007", "Arby's mobile order spot #6", "The short urinal", "308 Negra Arroyo Lane", "The dungeon", "I have no clue", "Hopefully the library", "Dublin, Ireland", "The neighborhood electrical box", "The back of an Uber", "Eddie Munson's trailer", "An elevator with way too many people in it", "The Chuck E Cheese ticket blaster", "Wing Kingdom", "Monk's Cafe", "i3n7a1s9i4m7u0l8a1t6i2o5n"];
             var randomNum = Math.floor(Math.random() * locations.length);
             _StdOut.putText("" + locations[randomNum]);
+        }
+        shellPalindrome(args) {
+            if (args.length > 0) {
+                var word = "";
+                for (let i = 0; i < args.length; i++) {
+                    word += args[i].toUpperCase();
+                }
+                //_StdOut.putText(word);
+                word = "Tacocat"; //test for caps
+                var backwards = "";
+                for (let j = 0; j < word.length; j++) {
+                    backwards = word[j] + backwards;
+                }
+                //_StdOut.putText(backwards);
+                if (backwards === word) {
+                    _StdOut.putText("It is a palindrome!");
+                }
+                else {
+                    _StdOut.putText("Nope, not a palindrome.");
+                }
+            }
+            else {
+                _StdOut.putText("Usage: palindrome <string>  Please supply a string.");
+            }
         }
     }
     TSOS.Shell = Shell;
