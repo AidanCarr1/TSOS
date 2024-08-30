@@ -189,6 +189,26 @@ var TSOS;
         shellMan(args) {
             if (args.length > 0) {
                 var topic = args[0];
+                var index = 0;
+                var found = false;
+                var manualDesc = "";
+                while (!found && index < this.commandList.length) {
+                    if (this.commandList[index].command === topic) {
+                        found = true;
+                        manualDesc = this.commandList[index].manual;
+                        _StdOut.putText("test");
+                    }
+                    else {
+                        ++index;
+                    }
+                }
+                if (found) {
+                    _StdOut.putText(manualDesc);
+                }
+                else {
+                    _StdOut.putText("Usage: man <topic>  Please supply a topic.");
+                }
+                /*
                 switch (topic) {
                     // TODO: Make descriptive MANual page entries for the the rest of the shell commands here.
                     case "ver":
@@ -223,9 +243,11 @@ var TSOS;
                         _StdOut.advanceLine();
                         _StdOut.putText("prompt <string>");
                         break;
+
                     default:
                         _StdOut.putText("No manual entry for " + args[0] + ".");
                 }
+                */
             }
             else {
                 _StdOut.putText("Usage: man <topic>  Please supply a topic.");
