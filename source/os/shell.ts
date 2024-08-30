@@ -81,6 +81,13 @@ module TSOS {
                                   "Prompt sets the prompt to the given string.");
             this.commandList[this.commandList.length] = sc;
 
+            // date
+            sc = new ShellCommand(this.shellDate,
+                                  "date",
+                                  " - Displays the current date and time.",
+                                  "Date displays the current date and time.");
+            this.commandList[this.commandList.length] = sc;
+
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
@@ -239,6 +246,7 @@ module TSOS {
             if (args.length > 0) {
                 var topic = args[0];
 
+                /*
                 var index: number = 0;
                 var found: boolean = false;
                 var manualDesc : string = "";
@@ -247,6 +255,7 @@ module TSOS {
                         found = true;
                         manualDesc = this.commandList[index].manual;
                         _StdOut.putText("test");
+                        break;
                     } else {
                         ++index;
                     }
@@ -254,10 +263,10 @@ module TSOS {
                 if (found) {
                     _StdOut.putText(manualDesc);
                 } else {
-                    _StdOut.putText("Usage: man <topic>  Please supply a topic.");
+                    _StdOut.putText("No manual entry for " + topic + ".");
                 }
-
-                /*
+                */
+                
                 switch (topic) {
                     // TODO: Make descriptive MANual page entries for the the rest of the shell commands here.
                     case "ver":
@@ -296,7 +305,7 @@ module TSOS {
                     default:
                         _StdOut.putText("No manual entry for " + args[0] + ".");
                 }
-                */
+                //*/
             } else {
                 _StdOut.putText("Usage: man <topic>  Please supply a topic.");
             }
