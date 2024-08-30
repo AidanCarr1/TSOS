@@ -88,6 +88,13 @@ module TSOS {
                                   "Date displays the current date and time.");
             this.commandList[this.commandList.length] = sc;
 
+            // whereami
+            sc = new ShellCommand(this.shellWhereami,
+                                  "whereami",
+                                  " - Displays the current location... kinda.",
+                                  "Whereami displays your totally accurate location.");
+            this.commandList[this.commandList.length] = sc;
+
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
@@ -304,6 +311,9 @@ module TSOS {
                     case "date":
                         _StdOut.putText("Date displays the current date and time.");
                         break;
+                    case "whereami":
+                        _StdOut.putText("Whereami displays your totally accurate location.");
+                        break;
 
                     default:
                         _StdOut.putText("No manual entry for " + args[0] + ".");
@@ -357,8 +367,11 @@ module TSOS {
 
         public shellDate(args: string[]) {
             let currentDate = new Date()
-            //_StdOut.putText("test");
             _StdOut.putText(currentDate.toDateString() + ". " + currentDate.toLocaleTimeString());
+        }
+
+        public shellWhereami(args: string[]) {
+            _StdOut.putText("Funny location");
         }
 
     }
