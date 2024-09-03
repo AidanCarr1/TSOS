@@ -198,19 +198,15 @@ var TSOS;
         shellMan(args) {
             if (args.length > 0) {
                 var topic = args[0];
-                //_StdOut.putText("test1");
-                ///*
                 var index = 0;
                 var found = false;
                 var manualDesc = "";
-                //_StdOut.putText("test2");
-                //_StdOut.putText(""+_OsShell.commandList[2]);
+                //find if the <topic> is a valid command
                 while (!found && index < _OsShell.commandList.length) {
-                    //_StdOut.putText("test3");
                     if (_OsShell.commandList[index].command === topic) {
                         found = true;
+                        //set description to the command's man description attribute
                         manualDesc = _OsShell.commandList[index].manual;
-                        //_StdOut.putText("test");
                         break;
                     }
                     else {
@@ -223,9 +219,7 @@ var TSOS;
                 else {
                     _StdOut.putText("No manual entry for " + topic + ".");
                 }
-                //*/
                 /*
-                
                 switch (topic) {
                     // TODO: Make descriptive MANual page entries for the the rest of the shell commands here.
                     case "ver":
