@@ -201,7 +201,7 @@ var TSOS;
                 var index = 0;
                 var found = false;
                 var manualDesc = "";
-                //find if the <topic> is a valid command
+                //find if the <topic> is a valid command in the command list
                 while (!found && index < _OsShell.commandList.length) {
                     if (_OsShell.commandList[index].command === topic) {
                         found = true;
@@ -280,7 +280,7 @@ var TSOS;
         }
         shellPalindrome(args) {
             if (args.length > 0) {
-                //make the parameter into one string
+                //make the parameter into one string (without spaces)
                 var word = "";
                 for (let i = 0; i < args.length; i++) {
                     word += args[i].toUpperCase();

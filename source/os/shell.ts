@@ -263,7 +263,7 @@ module TSOS {
                 var index: number = 0;
                 var found: boolean = false;
                 var manualDesc : string = "";
-                //find if the <topic> is a valid command
+                //find if the <topic> is a valid command in the command list
                 while (!found && index < _OsShell.commandList.length) {
                     if (_OsShell.commandList[index].command === topic) {
                         found = true;
@@ -343,7 +343,7 @@ module TSOS {
         public shellPalindrome(args: string[]) {
             if (args.length > 0) {
                 
-                //make the parameter into one string
+                //make the parameter into one string (without spaces)
                 var word: string = "";
                 for (let i = 0; i < args.length; i++) {
                     word += args[i].toUpperCase();
