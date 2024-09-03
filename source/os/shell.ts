@@ -259,20 +259,20 @@ module TSOS {
         public shellMan(args: string[]) {
             if (args.length > 0) {
                 var topic = args[0];
-                _StdOut.putText("test1");
+                //_StdOut.putText("test1");
 
                 ///*
                 var index: number = 0;
                 var found: boolean = false;
                 var manualDesc : string = "";
-                _StdOut.putText("test2");
-                _StdOut.putText(""+_OsShell.commandList[2]);
+                //_StdOut.putText("test2");
+                //_StdOut.putText(""+_OsShell.commandList[2]);
                 while (!found && index < _OsShell.commandList.length) {
-                    _StdOut.putText("test3");
+                    //_StdOut.putText("test3");
                     if (_OsShell.commandList[index].command === topic) {
                         found = true;
                         manualDesc = _OsShell.commandList[index].manual;
-                        _StdOut.putText("test");
+                        //_StdOut.putText("test");
                         break;
                     } else {
                         ++index;
