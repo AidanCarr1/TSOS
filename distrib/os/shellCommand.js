@@ -5,7 +5,8 @@ var TSOS;
         command;
         description;
         manual;
-        constructor(func, command = "", description = "", manual = "") {
+        constructor(func, command = "", description = "", //for help command
+        manual = "") {
             this.func = func;
             this.command = command;
             this.description = description;

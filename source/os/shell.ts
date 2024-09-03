@@ -280,55 +280,7 @@ module TSOS {
                     _StdOut.putText("No manual entry for " + topic + ".");
                 }
 
-                /*
-                switch (topic) {
-                    // TODO: Make descriptive MANual page entries for the the rest of the shell commands here.
-                    case "ver":
-                        _StdOut.putText("Ver displays the current version data.");
-                        break;
-                    case "help":
-                        _StdOut.putText("Help displays a list of (hopefully) valid commands.");
-                        break;
-                    case "shutdown":
-                        _StdOut.putText("Shutdown shuts down the virtual OS but leaves the underlying host / hardware simulation running.");
-                        break;
-                    case "cls":
-                        _StdOut.putText("Cls clears the screen and resets the cursor position.");
-                        break;
-                    case "man":
-                        _StdOut.putText("Man displays the manual page for a given shell command. You just used it, nice job.");
-                        _StdOut.advanceLine();
-                        _StdOut.putText("man <topic>");
-                        break;
-                    case "trace":
-                        _StdOut.putText("Trace turns the OS trace on or off.");
-                        _StdOut.advanceLine();
-                        _StdOut.putText("trace <on | off>");
-                        break;
-                    case "rot13":
-                        _StdOut.putText("Rot13 does a rot13 obfuscation on a given string");
-                        _StdOut.advanceLine();
-                        _StdOut.putText("rot13 <string>");
-                        break;
-                    case "prompt":
-                        _StdOut.putText("Prompt sets the prompt to the given string.");
-                        _StdOut.advanceLine();
-                        _StdOut.putText("prompt <string>");
-                        break;
-                    case "date":
-                        _StdOut.putText("Date displays the current date and time.");
-                        break;
-                    case "whereami":
-                        _StdOut.putText("Whereami displays your totally accurate location.");
-                        break;
-                    case "palindrome":
-                        _StdOut.putText("Palindrome determines if the given string is a palindrome or not.");
-                        break;
-
-                    default:
-                        _StdOut.putText("No manual entry for " + args[0] + ".");
-                }
-                //*/
+            //empty <topic>
             } else {
                 _StdOut.putText("Usage: man <topic>  Please supply a topic.");
             }
