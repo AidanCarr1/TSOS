@@ -259,15 +259,19 @@ module TSOS {
         public shellMan(args: string[]) {
             if (args.length > 0) {
                 var topic = args[0];
+                _StdOut.putText("test1");
 
-                /*
+                ///*
                 var index: number = 0;
                 var found: boolean = false;
                 var manualDesc : string = "";
-                while (!found && index < this.commandList.length) {
-                    if (this.commandList[index].command === topic) {
+                _StdOut.putText("test2");
+                _StdOut.putText(""+_OsShell.commandList[2]);
+                while (!found && index < _OsShell.commandList.length) {
+                    _StdOut.putText("test3");
+                    if (_OsShell.commandList[index].command === topic) {
                         found = true;
-                        manualDesc = this.commandList[index].manual;
+                        manualDesc = _OsShell.commandList[index].manual;
                         _StdOut.putText("test");
                         break;
                     } else {
@@ -279,7 +283,8 @@ module TSOS {
                 } else {
                     _StdOut.putText("No manual entry for " + topic + ".");
                 }
-                */
+                //*/
+                /*
                 
                 switch (topic) {
                     // TODO: Make descriptive MANual page entries for the the rest of the shell commands here.
