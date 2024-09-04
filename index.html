@@ -39,42 +39,47 @@
 
 <div id="divMain" style="width:100%;">
 
-   <div id="divButtonBar" style="margin:4px;">
-      <input type="button"
-             id = "btnStartOS"
-             name="brnStartOS"
-             class="normal_button"
-             value="Start"
-             tabindex="0"
-             onclick="TSOS.Control.hostBtnStartOS_click(this);">
+   <div id="divHead" style="width:100%; height:70px; background-color:rgb(142, 185, 218);">
 
-      <input type="button"
-             id = "btnHaltOS"
-             name="brnHaltOS"
-             class="normal_button"
-             disabled="disabled"
-             value="Halt"
-             tabindex="1"
-             onclick="TSOS.Control.hostBtnHaltOS_click(this);">
-
-      <input type="button"
-             id = "btnReset"
-             name="brnReset"
-             class="normal_button"
-             disabled="disabled"
-             value="Reset"
-             tabindex="2"
-             onclick="TSOS.Control.hostBtnReset_click(this);">
-   </div>
-
-   <div id="divTaskbar" style="margin:4px; width:500px; float:left; vertical-align: middle;">
-      <div id="divTime" style="width:35%; float:left; background-color: cornflowerblue;">
-         <p></p>
+      <div id="divButtonBar" style="margin:4px; width:500px; float:left;">
+         <input type="button"
+                id = "btnStartOS"
+                name="brnStartOS"
+                class="normal_button"
+                value="Start"
+                tabindex="0"
+                onclick="TSOS.Control.hostBtnStartOS_click(this);">
+   
+         <input type="button"
+                id = "btnHaltOS"
+                name="brnHaltOS"
+                class="normal_button"
+                disabled="disabled"
+                value="Halt"
+                tabindex="1"
+                onclick="TSOS.Control.hostBtnHaltOS_click(this);">
+   
+         <input type="button"
+                id = "btnReset"
+                name="brnReset"
+                class="normal_button"
+                disabled="disabled"
+                value="Reset"
+                tabindex="2"
+                onclick="TSOS.Control.hostBtnReset_click(this);">
       </div>
-      <div id="divStatus" style="width:65%; height:100%; float:left; vertical-align: center; background-color: darkgoldenrod;">
-         <p>Status: </p>
+   
+      <div id="divTaskbar" style="width:60%; height:100%; float:left; vertical-align: middle;">
+         <div id="divTime" style="width:170px; height:100%; float:left;">
+            <p></p>
+         </div>
+         <div id="divStatus" style="width:60%; height:100%; float:left; vertical-align:middle;">
+            <p>Status: </p>
+         </div>
       </div>
    </div>
+   
+   <br style= "clear:left;">
 
    <div id="divConsole" style="margin:4px; width:500px; height:500px; float:left;">
       <canvas id="display"
