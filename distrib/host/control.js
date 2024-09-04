@@ -57,16 +57,16 @@ var TSOS;
             var hours = (currentDate.getHours() + 11) % 12 + 1;
             var mins = currentDate.getMinutes();
             var secs = currentDate.getSeconds();
+            var timeString = "" + hours;
             var sun = " PM";
             if (currentDate.getHours() < 12) {
                 sun = " AM";
             }
-            var timeString = hours + ":";
             if (mins < 10) {
-                timeString += "0" + mins + ":";
+                timeString += ":0" + mins;
             }
             else {
-                timeString += mins;
+                timeString += ":" + mins;
             }
             timeString += sun;
             document.getElementById("divTime").innerHTML = "<p>" + timeString + "</p><p>" + dateString + "</p>";
