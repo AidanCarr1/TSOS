@@ -79,6 +79,11 @@ var TSOS;
                 _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
                 _FontHeightMargin;
             // TODO: Handle scrolling. (iProject 1)
+            if (this.currentYPosition > 500 - this.currentFontSize) {
+                //repaint all previous lines one line higher
+                //make cursor go to the bottom
+                this.currentYPosition = 500 - this.currentFontSize;
+            }
         }
     }
     TSOS.Console = Console;
