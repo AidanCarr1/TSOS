@@ -42,12 +42,33 @@ var TSOS;
                 _GLaDOS = new Glados();
                 _GLaDOS.init();
             }
-            // Set the taskbar clock
+            // Set the taskbar clock to update every secon
             setInterval(Control.doClockTick, 1000);
         }
+        //every tick, update clock
         static doClockTick() {
             var currentDate = new Date();
-            document.getElementById("divTime").innerHTML = "<p>8:30pm</p>";
+            var hours = (currentDate.getHours() + 11) % 12 + 1;
+            var mins = currentDate.getMinutes();
+            var secs = currentDate.getSeconds();
+            var sun = " PM";
+            if (currentDate.getHours() < 12) {
+                sun = " AM";
+            }
+            var timeString = hours + ":";
+            if (mins < 10) {
+                timeString += "0" + mins + ":";
+            }
+            else {
+                timeString += mins + ":";
+            }
+            if (secs < 10) {
+                timeString += "0" + secs + " " + sun;
+            }
+            else {
+                timeString += secs + sun;
+            }
+            document.getElementById("divTime").innerHTML = timeString;
         }
         static hostLog(msg, source = "?") {
             // Note the OS CLOCK.
