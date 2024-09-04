@@ -46,3 +46,8 @@ h3 {
   font-size: 8pt;
   text-align: center;
 }
+
+.divTaskbar {
+  background-color: aliceblue;
+  padding-left: 15px;
+}

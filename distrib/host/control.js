@@ -70,7 +70,7 @@ var TSOS;
                 timeString += ":" + mins;
             }
             timeString += sun;
-            document.getElementById("divTime").innerHTML = "<p>" + timeString + "</p><p>" + dateString + "</p>";
+            document.getElementById("divTime").innerHTML = "<p>" + timeString + "<br>" + dateString + "</p>";
         }
         static hostLog(msg, source = "?") {
             // Note the OS CLOCK.

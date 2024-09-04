@@ -84,7 +84,7 @@ module TSOS {
             }
             timeString += sun;
             
-            (<HTMLInputElement> document.getElementById("divTime")).innerHTML = "<p>" + timeString + "</p><p>" + dateString + "</p>";
+            (<HTMLInputElement> document.getElementById("divTime")).innerHTML = "<p>" + timeString + "<br>" + dateString + "</p>";
             
         }
 

@@ -102,6 +102,13 @@ module TSOS {
                                   "Palindrome determines if the given string is a palindrome or not.");
             this.commandList[this.commandList.length] = sc;
 
+            // status <string>
+            sc = new ShellCommand(this.shellStatus,
+                                  "status",
+                                  "<string> - makes <string> the new status message.",
+                                  "Status updates the status message to the given string.");
+                                  this.commandList[this.commandList.length] = sc;
+
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
 
