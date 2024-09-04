@@ -49,10 +49,11 @@ var TSOS;
         static doClockTick() {
             var currentDate = new Date();
             //set date variables
-            var date = currentDate.getDay();
-            var month = currentDate.getMonth();
-            var year = currentDate.getFullYear();
-            var dateString = "" + month + "/" + date + "/" + year;
+            var dateString = currentDate.toDateString(); //correct date
+            //var date = currentDate.getDay(); //this number is 1 behind
+            //var month = currentDate.getMonth() + 1; //month is 0 based so 8 is actually "9"
+            //var year = currentDate.getFullYear();
+            //var dateString = "" + month + "/" + date + "/" + year; //date getDay is not doing what i want
             //set time variables
             var hours = (currentDate.getHours() + 11) % 12 + 1;
             var mins = currentDate.getMinutes();
