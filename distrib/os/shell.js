@@ -302,6 +302,20 @@ var TSOS;
                 _StdOut.putText("Usage: palindrome <string>  Please supply a string.");
             }
         }
+        shellStatus(args) {
+            if (args.length > 0) {
+                //make the parameter into one string (with spaces)
+                var newStatus = args[0];
+                for (let i = 1; i < args.length; i++) {
+                    newStatus += " " + args[i];
+                }
+                //update the HTML
+                document.getElementById("divStatus").innerHTML = "<p> Status: " + newStatus + "</p>";
+            }
+            else {
+                _StdOut.putText("Usage: status <string>  Please supply a string.");
+            }
+        }
     }
     TSOS.Shell = Shell;
 })(TSOS || (TSOS = {}));

@@ -367,5 +367,21 @@ module TSOS {
             }
         }
 
+        public shellStatus(args: string[]) {
+            if (args.length > 0) {
+                
+                //make the parameter into one string (with spaces)
+                var newStatus: string = args[0];
+                for (let i = 1; i < args.length; i++) {
+                    newStatus += " " + args[i];
+                }
+                //update the HTML
+                (<HTMLInputElement> document.getElementById("divStatus")).innerHTML = "<p> Status: " + newStatus + "</p>";
+
+            } else {
+                _StdOut.putText("Usage: status <string>  Please supply a string.");
+            }
+        }
+
     }
 }
