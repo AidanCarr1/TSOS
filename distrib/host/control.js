@@ -48,6 +48,12 @@ var TSOS;
         //every tick, update clock
         static doClockTick() {
             var currentDate = new Date();
+            //set date variables
+            var date = currentDate.getDay();
+            var month = currentDate.getMonth();
+            var year = currentDate.getFullYear();
+            var dateString = "" + month + "/" + date + "/" + year;
+            //set time variables
             var hours = (currentDate.getHours() + 11) % 12 + 1;
             var mins = currentDate.getMinutes();
             var secs = currentDate.getSeconds();
@@ -60,15 +66,10 @@ var TSOS;
                 timeString += "0" + mins + ":";
             }
             else {
-                timeString += mins + ":";
+                timeString += mins;
             }
-            if (secs < 10) {
-                timeString += "0" + secs + " " + sun;
-            }
-            else {
-                timeString += secs + sun;
-            }
-            document.getElementById("divTime").innerHTML = timeString;
+            timeString += sun;
+            document.getElementById("divTime").innerHTML = "<p>" + timeString + "</p><p>" + dateString + "</p>";
         }
         static hostLog(msg, source = "?") {
             // Note the OS CLOCK.
