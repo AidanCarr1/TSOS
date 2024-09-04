@@ -84,6 +84,10 @@ module TSOS {
             if (this.currentYPosition > 500 - this.currentFontSize){
                 //repaint all previous lines one line higher
 
+                //IDEA
+                //everytime we draw character/text, we store it in a queue
+                //every command we use is also stored in another queue (up arrow purposes)
+                //when we need to scroll, check the queue of drawn characters, but this time draw them one line higher
                 //make cursor go to the bottom
                 this.currentYPosition = 500 - this.currentFontSize;
             }
