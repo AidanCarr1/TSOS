@@ -50,6 +50,14 @@ module TSOS {
                 _GLaDOS = new Glados();
                 _GLaDOS.init();
             }
+
+            // Set the taskbar clock
+            setInterval(Control.doClockTick,1000);
+        }
+
+        public static doClockTick(){
+            var currentDate = new Date();
+            (<HTMLInputElement> document.getElementById("divTime")).innerHTML ="<p>8:30pm</p>";
         }
 
         public static hostLog(msg: string, source: string = "?"): void {

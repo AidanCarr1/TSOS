@@ -42,6 +42,12 @@ var TSOS;
                 _GLaDOS = new Glados();
                 _GLaDOS.init();
             }
+            // Set the taskbar clock
+            setInterval(Control.doClockTick, 1000);
+        }
+        static doClockTick() {
+            var currentDate = new Date();
+            document.getElementById("divTime").innerHTML = "<p>8:30pm</p>";
         }
         static hostLog(msg, source = "?") {
             // Note the OS CLOCK.
