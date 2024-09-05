@@ -56,17 +56,31 @@ var TSOS;
                 _KernelInputQueue.enqueue(chr);
             }
             //Symbols pt 1
-            else if ((keyCode >= 186) && (keyCode >= 192)) {
-                // 186 187  188  189  190  191  192 
-                var shiftedSymbols = [':', '+', '<', '_', '>', '?', '~'];
-                var symbols = [';', '=', ',', '-', '.', '/', '`'];
+            else if ((keyCode >= 186) && (keyCode <= 192)) {
+                if (isShifted === true) {
+                    // Top part of key              186  187  188  189  190  191  192 
+                    var shiftedSymbols = [':', '+', '<', '_', '>', '?', '~'];
+                    chr = shiftedSymbols[keyCode - 186];
+                }
+                else {
+                    // Bottom part of key           186  187  188  189  190  191  192 
+                    var symbols = [';', '=', ',', '-', '.', '/', '`'];
+                    chr = symbols[keyCode - 186];
+                }
                 _KernelInputQueue.enqueue(chr);
             }
             //Symbols pt 2
-            else if ((keyCode >= 186) && (keyCode >= 192)) {
-                // 219  220   221  222
-                var shiftedSymbols = ['{', '|', '}', "\""];
-                var symbols = ['[', '\\', ']', "\'"];
+            else if ((keyCode >= 219) && (keyCode <= 222)) {
+                if (isShifted === true) {
+                    // Top part of key              219  220   221  222
+                    var shiftedSymbols = ['{', '|', '}', "\""];
+                    chr = shiftedSymbols[keyCode - 219];
+                }
+                else {
+                    //Bottom part of key            219  220   221  222
+                    var symbols = ['[', '\\', ']', "\'"];
+                    chr = symbols[keyCode - 219];
+                }
                 _KernelInputQueue.enqueue(chr);
             }
             //Non shiftable characters
