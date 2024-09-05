@@ -84,16 +84,26 @@ module TSOS {
             if (this.currentYPosition > 500 - this.currentFontSize){
                 //repaint all previous lines one line higher
 
-                //IDEA
-                //everytime we draw character/text, we store it in a queue
-                //every command we use is also stored in another queue (up arrow purposes)
-                //when we need to scroll, check the queue of drawn characters, but this time draw them one line higher
+                //IDEA (kinda) from stackoverflow
+                //https://stackoverflow.com/questions/32451628/how-to-move-a-drawn-image-on-html5-canvas
                 
+                //create a photocopy of the current canvas
+                var copyOfCanvas = document.createElement("canvas");
+                var copyOfContext = copyOfCanvas.getContext("2d");
+
+                //copy canvas onto the photocopy of current canvas
+                
+                //clear the REAL canvas
+                this.clearScreen();
+                
+                //redraw photo copy of our canvas, but up a little higher onto the canvas
+                _DrawingContext.drawImage(copyOfCanvas, 0, 0, _Canvas.width, _Canvas.height);
+
                 //make cursor go to the bottom
-                this.currentYPosition = 500 - this.currentFontSize;
+                this.currentYPosition = 500 - this.currentFontSize; //_FontHeightMargin or fontDescent
 
                 //BACKSPACE IDEA
-                //clear screen in certain area (remeber the size with the queue?)
+                //clear screen in certain area (remember the size with the queue?)
             }
         }
     }
