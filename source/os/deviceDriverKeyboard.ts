@@ -60,6 +60,23 @@ module TSOS {
                 _KernelInputQueue.enqueue(chr);
             } 
             
+            //Symbols pt 1
+            else if ((keyCode >= 186) && (keyCode >= 192)) {
+                                              // 186 187  188  189  190  191  192 
+                var shiftedSymbols: string[] =  [':', '+', '<', '_', '>', '?', '~'];
+                var symbols: string[] =         [';', '=', ',', '-', '.', '/', '`'];
+
+                _KernelInputQueue.enqueue(chr);
+            }
+
+            //Symbols pt 2
+            else if ((keyCode >= 186) && (keyCode >= 192)) {
+                                              // 219  220   221  222
+                var shiftedSymbols: string[] =  ['{', '|',  '}', "\""];
+                var symbols: string[] =         ['[', '\\', ']', "\'"];
+
+                _KernelInputQueue.enqueue(chr);
+            }
             //Non shiftable characters
             else if (   (keyCode == 32)     ||  // space
                         (keyCode == 13))    {   // enter
