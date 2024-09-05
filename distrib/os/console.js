@@ -75,12 +75,12 @@ var TSOS;
              * Font descent measures from the baseline to the lowest point in the font.
              * Font height margin is extra spacing between the lines.
              */
-            this.currentYPosition += _DefaultFontSize +
+            var changeInY = this.currentFontSize +
                 _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
                 _FontHeightMargin;
-            // TODO: Handle scrolling. (iProject 1)
-            if (this.currentYPosition > 500 - this.currentFontSize) {
-                //repaint all previous lines one line higher
+            this.currentYPosition += changeInY;
+            // Scrolling: if position is off the canvas, move everything up
+            if (this.currentYPosition > _Canvas.height) {
                 //IDEA (kinda) from stackoverflow
                 //https://stackoverflow.com/questions/32451628/how-to-move-a-drawn-image-on-html5-canvas
                 //create a new, temporary canvas
@@ -93,9 +93,9 @@ var TSOS;
                 //clear the REAL canvas
                 this.clearScreen();
                 //redraw photo copy of our canvas, but up a little higher onto the canvas
-                _DrawingContext.drawImage(copyOfCanvas, 0, -(this.currentFontSize + _FontHeightMargin), _Canvas.width, _Canvas.height);
+                _DrawingContext.drawImage(copyOfCanvas, 0, -changeInY, _Canvas.width, _Canvas.height);
                 //make cursor go to the bottom
-                this.currentYPosition = 500 - this.currentFontSize; //_FontHeightMargin or fontDescent
+                this.currentYPosition = _Canvas.height - this.currentFontSize; //_FontHeightMargin or fontDescent
                 //BACKSPACE IDEA
                 //clear screen in certain area (remember the size with the queue?)
             }
