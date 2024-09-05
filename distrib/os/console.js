@@ -77,6 +77,7 @@ var TSOS;
              */
             var changeInY = this.currentFontSize +
                 _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
+                //_DrawingContext.descent(this.currentFont, this.currentFontSize) +
                 _FontHeightMargin;
             this.currentYPosition += changeInY;
             // Scrolling: if position is off the canvas, move everything up
@@ -93,7 +94,7 @@ var TSOS;
                 //clear the REAL canvas
                 this.clearScreen();
                 //redraw photo copy of our canvas, but up a little higher onto the canvas
-                _DrawingContext.drawImage(copyOfCanvas, 0, -changeInY, _Canvas.width, _Canvas.height);
+                _DrawingContext.drawImage(copyOfCanvas, 0, -(changeInY), _Canvas.width, _Canvas.height);
                 //make cursor go to the bottom
                 this.currentYPosition = _Canvas.height - this.currentFontSize; //_FontHeightMargin or fontDescent
                 //BACKSPACE IDEA
