@@ -88,8 +88,12 @@ module TSOS {
                 //everytime we draw character/text, we store it in a queue
                 //every command we use is also stored in another queue (up arrow purposes)
                 //when we need to scroll, check the queue of drawn characters, but this time draw them one line higher
+                
                 //make cursor go to the bottom
                 this.currentYPosition = 500 - this.currentFontSize;
+
+                //BACKSPACE IDEA
+                //clear screen in certain area (remeber the size with the queue?)
             }
         }
     }
