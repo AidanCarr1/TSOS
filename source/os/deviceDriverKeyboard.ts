@@ -34,17 +34,35 @@ module TSOS {
             _Kernel.krnTrace("Key code:" + keyCode + " shifted:" + isShifted);
             var chr = "";
             // Check to see if we even want to deal with the key that was pressed.
-            if ((keyCode >= 65) && (keyCode <= 90)) { // letter
-                if (isShifted === true) { 
-                    chr = String.fromCharCode(keyCode); // Uppercase A-Z
+            //Letters
+            if ((keyCode >= 65) && (keyCode <= 90)) {
+                if (isShifted === true) {
+                    // Uppercase A-Z 
+                    chr = String.fromCharCode(keyCode); 
                 } else {
-                    chr = String.fromCharCode(keyCode + 32); // Lowercase a-z
+                    // Lowercase a-z
+                    chr = String.fromCharCode(keyCode + 32); 
                 }
                 // TODO: Check for caps-lock and handle as shifted if so.
                 _KernelInputQueue.enqueue(chr);
-            } else if (((keyCode >= 48) && (keyCode <= 57)) ||   // digits
-                        (keyCode == 32)                     ||   // space
-                        (keyCode == 13)) {                       // enter
+            } 
+            
+            //Numbers (top row)
+            else if ((keyCode >= 48) && (keyCode <= 57)) { 
+                if (isShifted === true) {
+                    // Special Symbols 
+                    var topRowSymbols: string[] = [')', '!', '@', '#', '$', '%', '^', '&', '*', '('];
+                    chr = topRowSymbols[keyCode-48]; 
+                } else {
+                    // Normal number
+                    chr = String.fromCharCode(keyCode); 
+                }
+                _KernelInputQueue.enqueue(chr);
+            } 
+            
+            //Non shiftable characters
+            else if (   (keyCode == 32)     ||  // space
+                        (keyCode == 13))    {   // enter
                 chr = String.fromCharCode(keyCode);
                 _KernelInputQueue.enqueue(chr);
             }

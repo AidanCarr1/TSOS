@@ -97,8 +97,6 @@ var TSOS;
                 _DrawingContext.drawImage(copyOfCanvas, 0, -(changeInY), _Canvas.width, _Canvas.height);
                 //make cursor go to the bottom
                 this.currentYPosition = this.currentYPosition - changeInY;
-                //BACKSPACE IDEA
-                //clear screen in certain area (remember the size with the queue?)
             }
         }
     }
