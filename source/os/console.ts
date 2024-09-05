@@ -87,17 +87,20 @@ module TSOS {
                 //IDEA (kinda) from stackoverflow
                 //https://stackoverflow.com/questions/32451628/how-to-move-a-drawn-image-on-html5-canvas
                 
-                //create a photocopy of the current canvas
+                //create a new, temporary canvas
                 var copyOfCanvas = document.createElement("canvas");
                 var copyOfContext = copyOfCanvas.getContext("2d");
+                copyOfCanvas.width = _Canvas.width;
+                copyOfCanvas.height = _Canvas.height;
 
                 //copy canvas onto the photocopy of current canvas
-                
+                copyOfContext.drawImage(_Canvas, 0, 0, _Canvas.width, _Canvas.height);
+
                 //clear the REAL canvas
                 this.clearScreen();
                 
                 //redraw photo copy of our canvas, but up a little higher onto the canvas
-                _DrawingContext.drawImage(copyOfCanvas, 0, 0, _Canvas.width, _Canvas.height);
+                _DrawingContext.drawImage(copyOfCanvas, 0, -(this.currentFontSize + _FontHeightMargin), _Canvas.width, _Canvas.height);
 
                 //make cursor go to the bottom
                 this.currentYPosition = 500 - this.currentFontSize; //_FontHeightMargin or fontDescent
