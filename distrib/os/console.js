@@ -76,8 +76,8 @@ var TSOS;
              * Font height margin is extra spacing between the lines.
              */
             var changeInY = this.currentFontSize +
-                _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
-                //_DrawingContext.descent(this.currentFont, this.currentFontSize) +
+                _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) + //issue here
+                //4 +
                 _FontHeightMargin;
             this.currentYPosition += changeInY;
             // Scrolling: if position is off the canvas, move everything up
@@ -96,7 +96,7 @@ var TSOS;
                 //redraw photo copy of our canvas, but up a little higher onto the canvas
                 _DrawingContext.drawImage(copyOfCanvas, 0, -(changeInY), _Canvas.width, _Canvas.height);
                 //make cursor go to the bottom
-                this.currentYPosition = _Canvas.height - this.currentFontSize; //_FontHeightMargin or fontDescent
+                this.currentYPosition = this.currentYPosition - changeInY;
                 //BACKSPACE IDEA
                 //clear screen in certain area (remember the size with the queue?)
             }

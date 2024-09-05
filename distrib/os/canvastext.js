@@ -127,7 +127,7 @@ var TSOS;
             return size;
         }
         static descent(font, size) {
-            return 7.0 * size / 25.0;
+            return Math.floor(7.0 * size / 25.0);
         }
         static measure(font, size, str) {
             var total = 0;
