@@ -84,14 +84,14 @@ module TSOS {
             // date
             sc = new ShellCommand(this.shellDate,
                                   "date",
-                                  " - Displays the current date and time.",
+                                  "- Displays the current date and time.",
                                   "Date displays the current date and time.");
             this.commandList[this.commandList.length] = sc;
 
             // whereami
             sc = new ShellCommand(this.shellWhereami,
                                   "whereami",
-                                  " - Displays the current location... kinda.",
+                                  "- Displays the current location... kinda.",
                                   "Whereami displays your totally accurate location.");
             this.commandList[this.commandList.length] = sc;
 
@@ -270,6 +270,7 @@ module TSOS {
             if (args.length > 0) {
 
                 var topic = args[0];
+                topic = topic.toLowerCase();
                 var index: number = 0;
                 var found: boolean = false;
                 var manualDesc : string = "";
@@ -299,6 +300,7 @@ module TSOS {
         public shellTrace(args: string[]) {
             if (args.length > 0) {
                 var setting = args[0];
+                setting = setting.toLowerCase();
                 switch (setting) {
                     case "on":
                         if (_Trace && _SarcasticMode) {

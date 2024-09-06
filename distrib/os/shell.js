@@ -46,10 +46,10 @@ var TSOS;
             sc = new TSOS.ShellCommand(this.shellPrompt, "prompt", "<string> - Sets the prompt.", "Prompt sets the prompt to the given string.");
             this.commandList[this.commandList.length] = sc;
             // date
-            sc = new TSOS.ShellCommand(this.shellDate, "date", " - Displays the current date and time.", "Date displays the current date and time.");
+            sc = new TSOS.ShellCommand(this.shellDate, "date", "- Displays the current date and time.", "Date displays the current date and time.");
             this.commandList[this.commandList.length] = sc;
             // whereami
-            sc = new TSOS.ShellCommand(this.shellWhereami, "whereami", " - Displays the current location... kinda.", "Whereami displays your totally accurate location.");
+            sc = new TSOS.ShellCommand(this.shellWhereami, "whereami", "- Displays the current location... kinda.", "Whereami displays your totally accurate location.");
             this.commandList[this.commandList.length] = sc;
             // palindrome <string>
             sc = new TSOS.ShellCommand(this.shellPalindrome, "palindrome", "<string> - Decides if <string> is a palindrome.", "Palindrome determines if the given string is a palindrome or not.");
@@ -203,6 +203,7 @@ var TSOS;
         shellMan(args) {
             if (args.length > 0) {
                 var topic = args[0];
+                topic = topic.toLowerCase();
                 var index = 0;
                 var found = false;
                 var manualDesc = "";
@@ -233,6 +234,7 @@ var TSOS;
         shellTrace(args) {
             if (args.length > 0) {
                 var setting = args[0];
+                setting = setting.toLowerCase();
                 switch (setting) {
                     case "on":
                         if (_Trace && _SarcasticMode) {
