@@ -24,6 +24,7 @@ var TSOS;
         }
         krnKbdDispatchKeyPress(params) {
             // Parse the params.  TODO: Check that the params are valid and osTrapError if not.
+            // TODO: Check for caps-lock and handle as shifted if so.
             var keyCode = params[0];
             var isShifted = params[1];
             _Kernel.krnTrace("Key code:" + keyCode + " shifted:" + isShifted);
@@ -39,8 +40,7 @@ var TSOS;
                     // Lowercase a-z
                     chr = String.fromCharCode(keyCode + 32);
                 }
-                // TODO: Check for caps-lock and handle as shifted if so.
-                _KernelInputQueue.enqueue(chr);
+                //_KernelInputQueue.enqueue(chr);
             }
             //Numbers (top row)
             else if ((keyCode >= 48) && (keyCode <= 57)) {
@@ -53,7 +53,7 @@ var TSOS;
                     // Normal number 0 through 9
                     chr = String.fromCharCode(keyCode);
                 }
-                _KernelInputQueue.enqueue(chr);
+                //_KernelInputQueue.enqueue(chr);
             }
             //Symbols pt 1
             else if ((keyCode >= 186) && (keyCode <= 192)) {
@@ -67,7 +67,7 @@ var TSOS;
                     var symbols = [';', '=', ',', '-', '.', '/', '`'];
                     chr = symbols[keyCode - 186];
                 }
-                _KernelInputQueue.enqueue(chr);
+                //_KernelInputQueue.enqueue(chr);
             }
             //Symbols pt 2
             else if ((keyCode >= 219) && (keyCode <= 222)) {
@@ -81,14 +81,26 @@ var TSOS;
                     var symbols = ['[', '\\', ']', "\'"];
                     chr = symbols[keyCode - 219];
                 }
-                _KernelInputQueue.enqueue(chr);
+                //_KernelInputQueue.enqueue(chr);
             }
             //Non shiftable characters
             else if ((keyCode == 32) || // space
                 (keyCode == 13)) { // enter
                 chr = String.fromCharCode(keyCode);
-                _KernelInputQueue.enqueue(chr);
+                //_KernelInputQueue.enqueue(chr);
             }
+            //Backspace
+            else if ((keyCode == 8)) {
+                //_KernelInputQueue.pop();
+            }
+            //If unknown character, leave before queuing anything
+            else {
+                return;
+            }
+            //Queue the character to Kernel input
+            _KernelInputQueue.enqueue(chr);
+            //Also queue character to Kernel History (for Backspace purposes)
+            _KernelInputQueueHistory.enqueue(chr);
         }
     }
     TSOS.DeviceDriverKeyboard = DeviceDriverKeyboard;

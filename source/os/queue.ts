@@ -8,7 +8,7 @@
 
    ------------ */
 
-module TSOS {
+module TSOS { 
     export class Queue {
         constructor(public q = new Array()) {
         }
@@ -39,6 +39,10 @@ module TSOS {
                 retVal += "[" + this.q[i] + "] ";
             }
             return retVal;
+        }
+
+        public pop() {
+            return this.q.pop();
         }
     }
 }

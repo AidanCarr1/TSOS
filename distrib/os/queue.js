@@ -37,6 +37,9 @@ var TSOS;
             }
             return retVal;
         }
+        pop() {
+            return this.q.pop();
+        }
     }
     TSOS.Queue = Queue;
 })(TSOS || (TSOS = {}));

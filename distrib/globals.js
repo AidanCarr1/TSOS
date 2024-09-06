@@ -33,6 +33,7 @@ var _Trace = true; // Default the OS trace to be on.
 var _Kernel;
 var _KernelInterruptQueue = null;
 var _KernelInputQueue = null;
+var _KernelInputQueueHistory = null;
 var _KernelBuffers = null;
 // Standard input and output
 var _StdIn = null;
