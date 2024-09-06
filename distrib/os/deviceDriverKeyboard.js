@@ -45,12 +45,12 @@ var TSOS;
             //Numbers (top row)
             else if ((keyCode >= 48) && (keyCode <= 57)) {
                 if (isShifted === true) {
-                    // Special Symbols 
+                    // Special Symbols              0    1    2    3    4    5    6    7    8    9
                     var topRowSymbols = [')', '!', '@', '#', '$', '%', '^', '&', '*', '('];
                     chr = topRowSymbols[keyCode - 48];
                 }
                 else {
-                    // Normal number
+                    // Normal number 0 through 9
                     chr = String.fromCharCode(keyCode);
                 }
                 _KernelInputQueue.enqueue(chr);

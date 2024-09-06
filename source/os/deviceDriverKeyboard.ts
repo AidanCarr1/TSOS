@@ -34,6 +34,7 @@ module TSOS {
             _Kernel.krnTrace("Key code:" + keyCode + " shifted:" + isShifted);
             var chr = "";
             // Check to see if we even want to deal with the key that was pressed.
+            
             //Letters
             if ((keyCode >= 65) && (keyCode <= 90)) {
                 if (isShifted === true) {
@@ -50,11 +51,11 @@ module TSOS {
             //Numbers (top row)
             else if ((keyCode >= 48) && (keyCode <= 57)) { 
                 if (isShifted === true) {
-                    // Special Symbols 
+                    // Special Symbols              0    1    2    3    4    5    6    7    8    9
                     var topRowSymbols: string[] = [')', '!', '@', '#', '$', '%', '^', '&', '*', '('];
-                    chr = topRowSymbols[keyCode-48]; 
+                    chr = topRowSymbols[keyCode - 48]; 
                 } else {
-                    // Normal number
+                    // Normal number 0 through 9
                     chr = String.fromCharCode(keyCode); 
                 }
                 _KernelInputQueue.enqueue(chr);
