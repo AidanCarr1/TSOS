@@ -42,6 +42,15 @@ var TSOS;
                     // ... and reset our buffer.
                     this.buffer = "";
                 }
+                //Backspace
+                else if (chr === String.fromCharCode(8)) {
+                    //if last key was enter
+                    //dont backspace
+                    //else
+                    //remove last letter from history
+                    //remove last letter from buffer
+                    //remove from canvas (with new function)
+                }
                 else {
                     // This is a "normal" character, so ...
                     // ... draw it on the screen...
