@@ -46,9 +46,10 @@ var TSOS;
                 ///*
                 else if (chr === String.fromCharCode(8)) {
                     //remove backspace from history
-                    _KernelInputQueueHistory.pop();
+                    //_KernelInputQueueHistory.pop();
                     //if last key was enter/other special characters (ctrl+c...)
-                    var recentChar = _KernelInputQueueHistory.pop();
+                    //var recentChar = _KernelInputQueueHistory.pop();
+                    var recentChar = "p";
                     if (recentChar === String.fromCharCode(13)) {
                         //dont backspace - put it back in queue
                         _KernelInputQueueHistory.enqueue(recentChar);
@@ -56,11 +57,11 @@ var TSOS;
                     //else
                     else {
                         //remove last letter from history
-                        _KernelInputQueueHistory.pop();
+                        //_KernelInputQueueHistory.pop();
                         //remove last letter from buffer
                         var length = this.buffer.length;
                         if (length > 0) {
-                            this.buffer = this.buffer.substring(0, this.buffer.length - 1);
+                            this.buffer = this.buffer.substring(0, length - 1);
                         }
                         //remove from canvas (with new function)
                     }
