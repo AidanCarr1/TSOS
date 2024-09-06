@@ -96,6 +96,7 @@ module TSOS {
             }
             //Backspace
             else if ((keyCode == 8)) {
+                //chr = String.fromCharCode(keyCode);
                 //_KernelInputQueue.pop();
             }
             //If unknown character, leave before queuing anything
@@ -105,7 +106,7 @@ module TSOS {
             //Queue the character to Kernel input
             _KernelInputQueue.enqueue(chr);
             //Also queue character to Kernel History (for Backspace purposes)
-            _KernelInputQueueHistory.enqueue(chr);
+            //_KernelInputQueueHistory.enqueue(chr);
         }
     }
 }

@@ -43,14 +43,30 @@ module TSOS {
                     this.buffer = "";
                 } 
                 //Backspace
+                ///*
                 else if (chr === String.fromCharCode(8)){
-                    //if last key was enter
-                        //dont backspace
+                    //remove backspace from history
+                    _KernelInputQueueHistory.pop();
+                    //if last key was enter/other special characters (ctrl+c...)
+                    var recentChar = _KernelInputQueueHistory.pop();
+                    if (recentChar === String.fromCharCode(13)) {
+                        //dont backspace - put it back in queue
+                        _KernelInputQueueHistory.enqueue(recentChar);
+                    }    
                     //else
+                    else {
                         //remove last letter from history
+                        _KernelInputQueueHistory.pop();
                         //remove last letter from buffer
+                        var length = this.buffer.length;
+                        if (length > 0){
+                            this.buffer = this.buffer.substring(0, this.buffer.length - 1)
+
+                        }
                         //remove from canvas (with new function)
-                }    
+                    }       
+                }   
+                //*/ 
                 else {
                     // This is a "normal" character, so ...
                     // ... draw it on the screen...
