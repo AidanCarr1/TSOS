@@ -50,9 +50,10 @@ var TSOS;
                     //if last key was enter/other special characters (ctrl+c...)
                     //var recentChar = _KernelInputQueueHistory.pop();
                     var recentChar = "p";
+                    this.putText(this.buffer); //test show that theres backsapace
                     if (recentChar === String.fromCharCode(13)) {
                         //dont backspace - put it back in queue
-                        _KernelInputQueueHistory.enqueue(recentChar);
+                        //_KernelInputQueueHistory.enqueue(recentChar);
                     }
                     //else
                     else {
@@ -61,7 +62,9 @@ var TSOS;
                         //remove last letter from buffer
                         var length = this.buffer.length;
                         if (length > 0) {
-                            this.buffer = this.buffer.substring(0, length - 1);
+                            this.buffer += chr;
+                            //this.buffer = this.buffer.substring(0, length - 1);
+                            this.putText(this.buffer); //test
                         }
                         //remove from canvas (with new function)
                     }

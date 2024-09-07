@@ -92,6 +92,7 @@ var TSOS;
             //Backspace
             else if ((keyCode == 8)) {
                 //chr = String.fromCharCode(keyCode);
+                _Console.putText("_");
                 //_KernelInputQueue.pop();
             }
             //If unknown character, leave before queuing anything
