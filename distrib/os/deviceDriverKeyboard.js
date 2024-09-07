@@ -91,8 +91,16 @@ var TSOS;
             }
             //Backspace
             else if ((keyCode == 8)) {
-                //chr = String.fromCharCode(keyCode);
-                _Console.putText("_");
+                //make sure there is at least something in the buffer first
+                if (_Console.buffer.length > 0) {
+                    //remove final character
+                    _Console.buffer = _Console.buffer.substring(0, _Console.buffer.length - 1);
+                    //remove character visually (new function)
+                    //go back to correct location
+                    _Console.putText("_"); //test visualizer
+                    _Console.putText(_Console.buffer); //test
+                }
+                return;
                 //_KernelInputQueue.pop();
             }
             //If unknown character, leave before queuing anything
@@ -101,8 +109,6 @@ var TSOS;
             }
             //Queue the character to Kernel input
             _KernelInputQueue.enqueue(chr);
-            //Also queue character to Kernel History (for Backspace purposes)
-            //_KernelInputQueueHistory.enqueue(chr);
         }
     }
     TSOS.DeviceDriverKeyboard = DeviceDriverKeyboard;

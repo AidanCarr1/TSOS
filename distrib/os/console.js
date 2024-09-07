@@ -42,34 +42,7 @@ var TSOS;
                     // ... and reset our buffer.
                     this.buffer = "";
                 }
-                //Backspace
-                ///*
-                else if (chr === String.fromCharCode(8)) {
-                    //remove backspace from history
-                    //_KernelInputQueueHistory.pop();
-                    //if last key was enter/other special characters (ctrl+c...)
-                    //var recentChar = _KernelInputQueueHistory.pop();
-                    var recentChar = "p";
-                    this.putText(this.buffer); //test show that theres backsapace
-                    if (recentChar === String.fromCharCode(13)) {
-                        //dont backspace - put it back in queue
-                        //_KernelInputQueueHistory.enqueue(recentChar);
-                    }
-                    //else
-                    else {
-                        //remove last letter from history
-                        //_KernelInputQueueHistory.pop();
-                        //remove last letter from buffer
-                        var length = this.buffer.length;
-                        if (length > 0) {
-                            this.buffer += chr;
-                            //this.buffer = this.buffer.substring(0, length - 1);
-                            this.putText(this.buffer); //test
-                        }
-                        //remove from canvas (with new function)
-                    }
-                }
-                //*/ 
+                //normal characters 
                 else {
                     // This is a "normal" character, so ...
                     // ... draw it on the screen...
