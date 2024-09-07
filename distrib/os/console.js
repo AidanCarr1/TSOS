@@ -69,6 +69,12 @@ var TSOS;
                 this.currentXPosition = this.currentXPosition + offset;
             }
         }
+        deleteText(text) {
+            _DrawingContext.erase(this.currentFont, this.currentFontSize, this.currentXPosition, this.currentYPosition, text);
+            var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, text);
+            //go backwards
+            this.currentXPosition = this.currentXPosition - offset;
+        }
         advanceLine() {
             this.currentXPosition = 0;
             /*

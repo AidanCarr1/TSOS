@@ -69,7 +69,14 @@ module TSOS {
                 var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, text);
                 this.currentXPosition = this.currentXPosition + offset;
             }
-         }
+        }
+
+        public deleteText(text): void {
+            _DrawingContext.erase(this.currentFont, this.currentFontSize, this.currentXPosition, this.currentYPosition, text);
+            var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, text);
+            //go backwards
+            this.currentXPosition = this.currentXPosition - offset;
+        }
 
         public advanceLine(): void {
             this.currentXPosition = 0;
