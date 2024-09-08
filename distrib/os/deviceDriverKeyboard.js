@@ -105,6 +105,34 @@ var TSOS;
             else if ((keyCode == 9)) {
                 //make sure there is at least something to complete first
                 if (_Console.buffer.length > 0) {
+                    //compare buffer to list of shell commands
+                    var searchingFor = _Console.buffer.toLowerCase();
+                    var searchingLength = searchingFor.length;
+                    var index = 0;
+                    var numFound = 0;
+                    var output = "";
+                    //can the buffer be found in the command list?
+                    while (index < _OsShell.commandList.length) {
+                        if ((_OsShell.commandList[index].command).substring(0, searchingLength) === searchingFor) {
+                            numFound++;
+                            if (numFound > 1) {
+                                output += " ";
+                            }
+                            output += _OsShell.commandList[index].command;
+                        }
+                        index++;
+                    }
+                    if (numFound == 0) {
+                        return;
+                    }
+                    else if (numFound == 1) {
+                        //replace current line with the only command possible
+                        _StdOut.putText("found1"); //test
+                    }
+                    else {
+                        //print all possible commands
+                        _StdOut.putText("found+"); //test
+                    }
                 }
                 return;
             }
