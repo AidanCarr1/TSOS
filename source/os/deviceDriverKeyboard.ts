@@ -88,12 +88,14 @@ module TSOS {
                 }
                 //_KernelInputQueue.enqueue(chr);
             }
+
             //Non shiftable characters
             else if (   (keyCode == 32)     ||  // space
                         (keyCode == 13))    {   // enter
                 chr = String.fromCharCode(keyCode);
                 //_KernelInputQueue.enqueue(chr);
             }
+            
             //Backspace
             else if ((keyCode == 8)) {
                 //make sure there is at least something in the buffer first
@@ -103,13 +105,18 @@ module TSOS {
                     _Console.buffer = _Console.buffer.substring(0, _Console.buffer.length - 1);
                     //remove character visually (new function), and move backwards
                     _Console.deleteText(removing);
-
-                    //_Console.putText("_"); //test visualizer
-                    //_Console.putText(_Console.buffer); //test
                 }
                 return;
-                //_KernelInputQueue.pop();
             }
+
+            //Tab
+            else if ((keyCode == 9)){
+                //make sure there is at least something to complete first
+                if (_Console.buffer.length > 0){
+                }
+                return;
+            }
+
             //If unknown character, leave before queuing anything
             else {
                 return;
