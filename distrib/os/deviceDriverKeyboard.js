@@ -151,10 +151,18 @@ var TSOS;
             else if ((keyCode == 38) || (keyCode == 40)) {
                 var copiedLine = "";
                 //up
-                if ((keyCode == 38)) {
+                if ((keyCode == 38) && (_Console.historyPointer > 0)) {
                     _Console.historyPointer--;
-                    copiedLine = _Console.bufferHistory[_Console.historyPointer];
                 }
+                //down
+                else if ((keyCode == 40) && (_Console.historyPointer < _Console.bufferHistory.length - 1)) {
+                    _Console.historyPointer++;
+                }
+                //reached a limit, dont edit the line
+                else {
+                    return;
+                }
+                copiedLine = _Console.bufferHistory[_Console.historyPointer];
                 //delete current line
                 _Console.deleteText(_Console.buffer);
                 //replace with full command

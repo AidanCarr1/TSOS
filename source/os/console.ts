@@ -14,7 +14,7 @@ module TSOS {
                     public currentXPosition = 0,
                     public currentYPosition = _DefaultFontSize,
                     public buffer = "",
-                    public bufferHistory:string[] = ["",""],
+                    public bufferHistory:string[] = [],
                     public historyPointer = 0) {
         }
 
