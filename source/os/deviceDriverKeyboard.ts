@@ -136,12 +136,15 @@ module TSOS {
                         return;
                     } 
                     else if (numFound == 1) {
-                        //replace current line with the only command possible
-                        _StdOut.putText("found1"); //test
+                        //delete current line
+                        _Console.deleteText(_Console.buffer);
+                        //replace with full command
+                        _StdOut.putText(output);
+                        _Console.buffer = output;
                     }
                     else {
                         //print all possible commands
-                        _StdOut.putText("found+"); //test
+                        _StdOut.putText(output); //test
                     }
                 }
                 return;
