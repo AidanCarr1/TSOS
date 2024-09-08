@@ -126,7 +126,7 @@ module TSOS {
                         if ((_OsShell.commandList[index].command).substring(0,searchingLength) === searchingFor) {
                             numFound ++;
                             if (numFound > 1){
-                                output += " ";
+                                output += "  ";
                             }
                             output += _OsShell.commandList[index].command; 
                         }
@@ -142,9 +142,17 @@ module TSOS {
                         _StdOut.putText(output);
                         _Console.buffer = output;
                     }
-                    else {
+                    else { //(numFound > 1)
                         //print all possible commands
-                        _StdOut.putText(output); //test
+                        _StdOut.advanceLine();
+                        _StdOut.putText("Commands:");
+                        _StdOut.advanceLine();
+                        _StdOut.putText("  ");
+                        _StdOut.putText(output);
+                        //rewrite prompt and buffer again
+                        _StdOut.advanceLine();
+                        _OsShell.putPrompt();
+                        _StdOut.putText(_Console.buffer);
                     }
                 }
                 return;
