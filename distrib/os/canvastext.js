@@ -177,7 +177,11 @@ var TSOS;
             return total;
         }
         static erase(ctx, font, size, x, y, str) {
-            //clear rect x,y to the size...
+            var x1 = x - ctx.measureText(font, size, str); //left
+            var x2 = _Canvas.width; //right
+            var y1 = y - size; //top
+            var y2 = _Canvas.height; //bottom
+            ctx.clearRect(x1, y1, x2, y2);
         }
         static enable(ctx) {
             ctx.drawText = function (font, size, x, y, text) { return CanvasTextFunctions.draw(ctx, font, size, x, y, text); };

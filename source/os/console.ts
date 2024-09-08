@@ -72,7 +72,7 @@ module TSOS {
         }
 
         public deleteText(text): void {
-            //_DrawingContext.eraseText(this.currentFont, this.currentFontSize, this.currentXPosition, this.currentYPosition, text);
+            _DrawingContext.eraseText(this.currentFont, this.currentFontSize, this.currentXPosition, this.currentYPosition, text);
             var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, text);
             //Move current X position backwards
             this.currentXPosition = this.currentXPosition - offset;
