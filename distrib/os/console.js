@@ -14,7 +14,7 @@ var TSOS;
         buffer;
         bufferHistory;
         historyPointer;
-        constructor(currentFont = _DefaultFontFamily, currentFontSize = _DefaultFontSize, currentXPosition = 0, currentYPosition = _DefaultFontSize, buffer = "", bufferHistory, historyPointer = 0) {
+        constructor(currentFont = _DefaultFontFamily, currentFontSize = _DefaultFontSize, currentXPosition = 0, currentYPosition = _DefaultFontSize, buffer = "", bufferHistory = ["", ""], historyPointer = 0) {
             this.currentFont = currentFont;
             this.currentFontSize = currentFontSize;
             this.currentXPosition = currentXPosition;
@@ -44,8 +44,9 @@ var TSOS;
                     // ... tell the shell ...
                     _OsShell.handleInput(this.buffer);
                     // store in buffer history (for up/down arrow purposes)
+                    this.bufferHistory.push(this.buffer);
                     this.historyPointer = this.bufferHistory.length; //resets arrow pressing for next line
-                    this.bufferHistory[this.historyPointer] = this.buffer;
+                    //this.historyPointer ++;
                     // ... and reset our buffer.
                     this.buffer = "";
                 }
