@@ -190,7 +190,7 @@ module TSOS {
         public static erase(ctx, font, size, x, y, str) {
             var x1 = x - ctx.measureText(font,size,str); //left
             var x2 = _Canvas.width; //right
-            var y1 = y - size; //top
+            var y1 = y - (size + this.descent(font,size)); //top
             var y2 = _Canvas.height; //bottom
             ctx.clearRect(x1,y1,x2,y2);
         }

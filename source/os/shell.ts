@@ -389,7 +389,8 @@ module TSOS {
                 }
                 //update the HTML
                 (<HTMLInputElement> document.getElementById("divStatus")).innerHTML = "<p> Status: " + newStatus + "</p>";
-
+                //feedback
+                _StdOut.putText("Status updated.");
             } else {
                 _StdOut.putText("Usage: status <string>  Please supply a string.");
             }

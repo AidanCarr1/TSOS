@@ -318,6 +318,8 @@ var TSOS;
                 }
                 //update the HTML
                 document.getElementById("divStatus").innerHTML = "<p> Status: " + newStatus + "</p>";
+                //feedback
+                _StdOut.putText("Status updated.");
             }
             else {
                 _StdOut.putText("Usage: status <string>  Please supply a string.");
