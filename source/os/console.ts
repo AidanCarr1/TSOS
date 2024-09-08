@@ -45,7 +45,6 @@ module TSOS {
                     // store in buffer history (for up/down arrow purposes)
                     this.bufferHistory.push(this.buffer);
                     this.historyPointer = this.bufferHistory.length; //resets arrow pressing for next line
-                    //this.historyPointer ++;
                     
                     // ... and reset our buffer.
                     this.buffer = "";
