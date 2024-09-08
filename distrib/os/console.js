@@ -12,12 +12,16 @@ var TSOS;
         currentXPosition;
         currentYPosition;
         buffer;
-        constructor(currentFont = _DefaultFontFamily, currentFontSize = _DefaultFontSize, currentXPosition = 0, currentYPosition = _DefaultFontSize, buffer = "") {
+        bufferHistory;
+        historyPointer;
+        constructor(currentFont = _DefaultFontFamily, currentFontSize = _DefaultFontSize, currentXPosition = 0, currentYPosition = _DefaultFontSize, buffer = "", bufferHistory, historyPointer = 0) {
             this.currentFont = currentFont;
             this.currentFontSize = currentFontSize;
             this.currentXPosition = currentXPosition;
             this.currentYPosition = currentYPosition;
             this.buffer = buffer;
+            this.bufferHistory = bufferHistory;
+            this.historyPointer = historyPointer;
         }
         init() {
             this.clearScreen();
@@ -39,6 +43,9 @@ var TSOS;
                     // The enter key marks the end of a console command, so ...
                     // ... tell the shell ...
                     _OsShell.handleInput(this.buffer);
+                    // store in buffer history (for up/down arrow purposes)
+                    this.historyPointer = this.bufferHistory.length; //resets arrow pressing for next line
+                    this.bufferHistory[this.historyPointer] = this.buffer;
                     // ... and reset our buffer.
                     this.buffer = "";
                 }

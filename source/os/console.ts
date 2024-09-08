@@ -13,7 +13,9 @@ module TSOS {
                     public currentFontSize = _DefaultFontSize,
                     public currentXPosition = 0,
                     public currentYPosition = _DefaultFontSize,
-                    public buffer = "") {
+                    public buffer = "",
+                    public bufferHistory:string[],
+                    public historyPointer = 0) {
         }
 
         public init(): void {
@@ -39,6 +41,11 @@ module TSOS {
                     // The enter key marks the end of a console command, so ...
                     // ... tell the shell ...
                     _OsShell.handleInput(this.buffer);
+                    
+                    // store in buffer history (for up/down arrow purposes)
+                    this.historyPointer = this.bufferHistory.length; //resets arrow pressing for next line
+                    this.bufferHistory[this.historyPointer] = this.buffer;
+                    
                     // ... and reset our buffer.
                     this.buffer = "";
                 } 
