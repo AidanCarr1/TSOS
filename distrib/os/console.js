@@ -70,10 +70,11 @@ var TSOS;
             }
         }
         deleteText(text) {
-            _DrawingContext.erase(this.currentFont, this.currentFontSize, this.currentXPosition, this.currentYPosition, text);
+            //_DrawingContext.eraseText(this.currentFont, this.currentFontSize, this.currentXPosition, this.currentYPosition, text);
             var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, text);
-            //go backwards
+            //Move current X position backwards
             this.currentXPosition = this.currentXPosition - offset;
+            //this.putText("-");
         }
         advanceLine() {
             this.currentXPosition = 0;
@@ -83,8 +84,7 @@ var TSOS;
              * Font height margin is extra spacing between the lines.
              */
             var changeInY = this.currentFontSize +
-                _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) + //issue here
-                //4 +
+                _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
                 _FontHeightMargin;
             this.currentYPosition += changeInY;
             // Scrolling: if position is off the canvas, move everything up

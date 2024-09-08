@@ -188,10 +188,12 @@ module TSOS {
         }
 
         public static erase(ctx, font, size, x, y, str) {
+            //clear rect x,y to the size...
         }
 
         public static enable(ctx) {
             ctx.drawText = function(font,size,x,y,text) { return CanvasTextFunctions.draw( ctx, font,size,x,y,text); };
+            ctx.eraseText = function(font,size,x,y,text) { return CanvasTextFunctions.erase( ctx, font,size,x,y,text); };
             ctx.measureText = function(font,size,text) { return CanvasTextFunctions.measure( font,size,text); };
             ctx.fontAscent = function(font,size) { return CanvasTextFunctions.ascent(font,size); };
             ctx.fontDescent = function(font,size) { return CanvasTextFunctions.descent(font,size); };

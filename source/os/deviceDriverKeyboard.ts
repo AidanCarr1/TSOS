@@ -99,13 +99,13 @@ module TSOS {
                 //make sure there is at least something in the buffer first
                 if (_Console.buffer.length > 0){
                     //remove final character
-                    var removing = _Console.buffer.substring(_Console.buffer.length);
+                    var removing = _Console.buffer.substring(_Console.buffer.length - 1);
                     _Console.buffer = _Console.buffer.substring(0, _Console.buffer.length - 1);
-                    //remove character visually (new function)
-                    //go back to correct location
+                    //remove character visually (new function), and move backwards
                     _Console.deleteText(removing);
-                    _Console.putText("_"); //test visualizer
-                    _Console.putText(_Console.buffer); //test
+
+                    //_Console.putText("_"); //test visualizer
+                    //_Console.putText(_Console.buffer); //test
                 }
                 return;
                 //_KernelInputQueue.pop();
