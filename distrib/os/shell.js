@@ -195,6 +195,7 @@ var TSOS;
         }
         shellShutdown(args) {
             _StdOut.putText("Shutting down...");
+            this.promptStr = ""; // "temporary" fix to Professor Labouseur's OCD
             // Call Kernel shutdown routine.
             _Kernel.krnShutdown();
             // TODO: Stop the final prompt from being displayed. If possible. Not a high priority. (Damn OCD!)
@@ -329,7 +330,10 @@ var TSOS;
             }
         }
         shellBsod() {
-            _StdOut.putText("BSOD");
+            _StdOut.putText("BSOD"); //placeholder
+            _DrawingContext.paintItBlue();
+            this.promptStr = "";
+            _Kernel.krnShutdown();
         }
     }
     TSOS.Shell = Shell;

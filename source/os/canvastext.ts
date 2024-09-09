@@ -195,6 +195,11 @@ module TSOS {
             ctx.clearRect(x1,y1,x2,y2);
         }
 
+        public static paintItBlue(ctx) {
+            ctx.fillStyle = "blue";
+            ctx.fillRect(0, 0, _Canvas.width, _Canvas.height);
+        }
+
         public static enable(ctx) {
             ctx.drawText = function(font,size,x,y,text) { return CanvasTextFunctions.draw( ctx, font,size,x,y,text); };
             ctx.eraseText = function(font,size,x,y,text) { return CanvasTextFunctions.erase( ctx, font,size,x,y,text); };
@@ -209,6 +214,8 @@ module TSOS {
                 var w = CanvasTextFunctions.measure(font,size,text);
                 return CanvasTextFunctions.draw( ctx, font,size,x-w/2,y,text);
             };
+            ctx.paintItBlue = function() { return CanvasTextFunctions.paintItBlue(ctx); };
         }
+
     }
 }

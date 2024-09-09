@@ -262,8 +262,9 @@ module TSOS {
         }
 
         public shellShutdown(args: string[]) {
-             _StdOut.putText("Shutting down...");
-             // Call Kernel shutdown routine.
+            _StdOut.putText("Shutting down...");
+            this.promptStr = ""; // "temporary" fix to Professor Labouseur's OCD
+            // Call Kernel shutdown routine.
             _Kernel.krnShutdown();
             // TODO: Stop the final prompt from being displayed. If possible. Not a high priority. (Damn OCD!)
         }
@@ -404,7 +405,10 @@ module TSOS {
         }
 
         public shellBsod() {
-            _StdOut.putText("BSOD");
+            _StdOut.putText("BSOD"); //placeholder
+            _DrawingContext.paintItBlue();
+            this.promptStr = "";
+            _Kernel.krnShutdown();
         }
 
     }
