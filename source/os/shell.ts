@@ -421,7 +421,8 @@ module TSOS {
         }
 
         public shellLoad() {
-
+            var userInput = (<HTMLInputElement> document.getElementById("taProgramInput")).value;
+            _StdOut.putText(userInput); //test
         }
     }
 }

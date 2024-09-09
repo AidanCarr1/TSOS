@@ -341,6 +341,8 @@ var TSOS;
             //shutdown is not always reliable here
         }
         shellLoad() {
+            var userInput = document.getElementById("taProgramInput").value;
+            _StdOut.putText(userInput); //test
         }
     }
     TSOS.Shell = Shell;
