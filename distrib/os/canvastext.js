@@ -184,9 +184,11 @@ var TSOS;
             ctx.clearRect(x1, y1, x2, y2);
         }
         static paintItBlue(ctx) {
-            const blueImg = new Image(); // Create new img element
+            // Create new image element for my cool picture
+            const blueImg = new Image();
             blueImg.src = "distrib/images/blueAhh.png";
-            //ctx.drawImage(blueImg, 0, 0, _Canvas.width, _Canvas.height);
+            // create/call function to draw image "onload"
+            // Help from Ian Marsh:
             function drawImageOnCanvas() {
                 ctx.drawImage(blueImg, 0, 0, _Canvas.width, _Canvas.height);
             }

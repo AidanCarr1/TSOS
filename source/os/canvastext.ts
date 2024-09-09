@@ -225,6 +225,5 @@ module TSOS {
             };
             ctx.paintItBlue = function() { return CanvasTextFunctions.paintItBlue(ctx); };
         }
-
     }
 }
