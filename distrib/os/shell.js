@@ -57,6 +57,9 @@ var TSOS;
             // status <string>
             sc = new TSOS.ShellCommand(this.shellStatus, "status", "<string> - makes <string> the new status message.", "Status updates the status message to the given string.");
             this.commandList[this.commandList.length] = sc;
+            //bsod
+            sc = new TSOS.ShellCommand(this.shellBsod, "bsod", "- test the blue screen of death.", "BSOD displays the blue screen of death.");
+            this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
             // Display the initial prompt.
@@ -324,6 +327,9 @@ var TSOS;
             else {
                 _StdOut.putText("Usage: status <string>  Please supply a string.");
             }
+        }
+        shellBsod() {
+            _StdOut.putText("BSOD");
         }
     }
     TSOS.Shell = Shell;
