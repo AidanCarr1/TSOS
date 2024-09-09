@@ -115,6 +115,13 @@ module TSOS {
                                   "- test the blue screen of death.",
                                   "BSOD displays the blue screen of death.");
                                   this.commandList[this.commandList.length] = sc;
+
+            //load
+            sc = new ShellCommand(this.shellLoad,
+                                  "load",
+                                  "- load from user input.",
+                                  "Load checks and runs the user's program.");
+                                  this.commandList[this.commandList.length] = sc;
                                    
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
@@ -411,6 +418,10 @@ module TSOS {
             _Kernel.krnShutdown();
             _Kernel.krnShutdown();  
             //shutdown is not always reliable here
+        }
+
+        public shellLoad() {
+
         }
     }
 }

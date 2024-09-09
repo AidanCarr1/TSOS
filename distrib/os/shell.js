@@ -60,6 +60,9 @@ var TSOS;
             //bsod
             sc = new TSOS.ShellCommand(this.shellBsod, "bsod", "- test the blue screen of death.", "BSOD displays the blue screen of death.");
             this.commandList[this.commandList.length] = sc;
+            //load
+            sc = new TSOS.ShellCommand(this.shellLoad, "load", "- load from user input.", "Load checks and runs the user's program.");
+            this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
             // Display the initial prompt.
@@ -336,6 +339,8 @@ var TSOS;
             _Kernel.krnShutdown();
             _Kernel.krnShutdown();
             //shutdown is not always reliable here
+        }
+        shellLoad() {
         }
     }
     TSOS.Shell = Shell;

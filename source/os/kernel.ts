@@ -171,7 +171,7 @@ module TSOS {
             Control.hostLog("OS ERROR - TRAP: " + msg);
             // Display BSOD error
             _OsShell.shellBsod();
-            this.krnShutdown(); //may be a redundant shutdown
+            //this.krnShutdown(); //may be a redundant shutdown
         }
     }
 }
