@@ -341,8 +341,13 @@ var TSOS;
             //shutdown is not always reliable here
         }
         shellLoad() {
-            var userInput = document.getElementById("taProgramInput").value;
-            _StdOut.putText(userInput); //test
+            var userProgramStr = document.getElementById("taProgramInput").value;
+            userProgramStr = userProgramStr.toUpperCase();
+            TSOS.Utils.trim(userProgramStr);
+            var userProgramList = userProgramStr.split(" ");
+            for (var i in userProgramList) {
+                //check if it is valid hex
+            }
         }
     }
     TSOS.Shell = Shell;

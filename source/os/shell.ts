@@ -421,8 +421,16 @@ module TSOS {
         }
 
         public shellLoad() {
-            var userInput = (<HTMLInputElement> document.getElementById("taProgramInput")).value;
-            _StdOut.putText(userInput); //test
+            var userProgramStr = (<HTMLInputElement> document.getElementById("taProgramInput")).value;
+
+            userProgramStr = userProgramStr.toUpperCase();
+            Utils.trim(userProgramStr);
+
+            var userProgramList = userProgramStr.split(" ");
+
+            for (var i in userProgramList) {
+                //check if it is valid hex
+            }
         }
     }
 }
