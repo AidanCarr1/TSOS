@@ -184,8 +184,14 @@ var TSOS;
             ctx.clearRect(x1, y1, x2, y2);
         }
         static paintItBlue(ctx) {
-            ctx.fillStyle = "blue";
-            ctx.fillRect(0, 0, _Canvas.width, _Canvas.height);
+            const blueImg = new Image(); // Create new img element
+            blueImg.src = "distrib/images/blueAhh.png";
+            //ctx.drawImage(blueImg, 0, 0, _Canvas.width, _Canvas.height);
+            function drawImageOnCanvas() {
+                ctx.drawImage(blueImg, 0, 0, _Canvas.width, _Canvas.height);
+            }
+            // Call the function to draw the image on the canvas
+            blueImg.onload = drawImageOnCanvas;
         }
         static enable(ctx) {
             ctx.drawText = function (font, size, x, y, text) { return CanvasTextFunctions.draw(ctx, font, size, x, y, text); };

@@ -196,8 +196,17 @@ module TSOS {
         }
 
         public static paintItBlue(ctx) {
-            ctx.fillStyle = "blue";
-            ctx.fillRect(0, 0, _Canvas.width, _Canvas.height);
+            // Create new image element for my cool picture
+            const blueImg = new Image(); 
+            blueImg.src = "distrib/images/blueAhh.png";  
+
+            // create/call function to draw image "onload"
+            // Help from Ian Marsh:
+            function drawImageOnCanvas() {
+                ctx.drawImage(blueImg, 0, 0, _Canvas.width, _Canvas.height);
+            }
+            // Call the function to draw the image on the canvas
+            blueImg.onload = drawImageOnCanvas;
         }
 
         public static enable(ctx) {
