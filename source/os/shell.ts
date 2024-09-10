@@ -428,8 +428,21 @@ module TSOS {
 
             var userProgramList = userProgramStr.split(" ");
 
+            var isValid = true;
             for (var i in userProgramList) {
-                //check if it is valid hex
+                var validDigits = "0123456789ABCDEF";
+                
+                //check if first and second digit is valid hex
+                if (!(validDigits.includes(i[0]) && validDigits.includes(i[1]))) {
+                    //one or both is invalid
+                    isValid = false;
+                    break;
+                }
+            }
+            if (isValid) {
+                _StdOut.putText("Valid Hex");
+            } else {
+                _StdOut.putText("Invalid Hex");
             }
         }
     }
