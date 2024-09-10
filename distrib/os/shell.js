@@ -344,15 +344,22 @@ var TSOS;
             var userProgramStr = document.getElementById("taProgramInput").value;
             userProgramStr = userProgramStr.toUpperCase();
             TSOS.Utils.trim(userProgramStr);
+            _StdOut.putText(" hex: " + userProgramStr);
             var userProgramList = userProgramStr.split(" ");
+            _StdOut.putText(" hex[0]: " + userProgramList[0]);
             var isValid = true;
-            for (var i in userProgramList) {
-                var validDigits = "0123456789ABCDEF";
-                //check if first and second digit is valid hex
-                if (!(validDigits.includes(i[0]) && validDigits.includes(i[1]))) {
-                    //one or both is invalid
-                    isValid = false;
-                    break;
+            var validDigits = "0123456789ABCDEF";
+            for (var hex in userProgramList) {
+                if (hex != "") {
+                    hex = TSOS.Utils.trim(hex);
+                    _StdOut.putText(" hex: " + hex);
+                    //check if first and second digit is valid hex
+                    if (!(validDigits.includes(hex[0]) && validDigits.includes(hex[1]))) {
+                        //one or both is invalid
+                        _StdOut.putText("... " + hex[0] + " " + validDigits.includes(hex[0]) + ". " + hex[1] + " " + validDigits.includes(hex[1]));
+                        isValid = false;
+                        break;
+                    }
                 }
             }
             if (isValid) {
