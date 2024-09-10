@@ -425,29 +425,35 @@ module TSOS {
 
             userProgramStr = userProgramStr.toUpperCase();
             Utils.trim(userProgramStr);
-            _StdOut.putText(" hex: " + userProgramStr);
+            _StdOut.putText(" all hexes: " + userProgramStr);
+            _StdOut.advanceLine();
+
 
             var userProgramList = userProgramStr.split(" ");
             _StdOut.putText(" hex[0]: " + userProgramList[0]);
+            _StdOut.putText(" hex[1]: " + userProgramList[1]);
+            _StdOut.putText(" hex[2]: " + userProgramList[2]);
+            _StdOut.putText(" hex[3]: " + userProgramList[3]);
+            _StdOut.advanceLine();
 
 
             var isValid = true;
             var validDigits = "0123456789ABCDEF";
 
-            for (var hex in userProgramList) {
+            for (var i in userProgramList) {
 
-                if (hex != ""){
-                    hex = Utils.trim(hex);
-                    _StdOut.putText(" hex: " + hex);
-                    //check if first and second digit is valid hex
-                    if (!(validDigits.includes(hex[0]) && validDigits.includes(hex[1]))) {
-                        //one or both is invalid
-                        
-                        _StdOut.putText("... " + hex[0] + " " + validDigits.includes(hex[0]) + ". "  +hex[1] + " " + validDigits.includes(hex[1]));
-                        isValid = false;
-                        break;
-                    }
+                var hex = Utils.trim(userProgramList[i]);
+                    
+                _StdOut.putText("current hex: " + hex);
+                //check if first and second digit is valid hex
+                if (!validDigits.includes(hex[0]) || !validDigits.includes(hex[1])) {
+                    //if at least one is invalid
+                    _StdOut.putText("... " + hex[0] + " " + validDigits.includes(hex[0]) + ". "  +hex[1] + " " + validDigits.includes(hex[1]));
+                    _StdOut.advanceLine();
+                    isValid = false;
+                    break;
                 }
+                
                
             }
             if (isValid) {
