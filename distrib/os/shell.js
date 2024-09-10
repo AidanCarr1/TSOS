@@ -344,34 +344,38 @@ var TSOS;
             var userProgramStr = document.getElementById("taProgramInput").value;
             userProgramStr = userProgramStr.toUpperCase();
             TSOS.Utils.trim(userProgramStr);
-            _StdOut.putText(" all hexes: " + userProgramStr);
-            _StdOut.advanceLine();
+            //_StdOut.putText(" all hexes: " + userProgramStr);
+            //_StdOut.advanceLine();
             var userProgramList = userProgramStr.split(" ");
-            _StdOut.putText(" hex[0]: " + userProgramList[0]);
-            _StdOut.putText(" hex[1]: " + userProgramList[1]);
-            _StdOut.putText(" hex[2]: " + userProgramList[2]);
-            _StdOut.putText(" hex[3]: " + userProgramList[3]);
-            _StdOut.advanceLine();
+            //_StdOut.putText(" hex[0]: " + userProgramList[0]);
+            //_StdOut.putText(" hex[1]: " + userProgramList[1]);
+            //_StdOut.putText(" hex[2]: " + userProgramList[2]);
+            //_StdOut.putText(" hex[3]: " + userProgramList[3]);
+            //_StdOut.advanceLine();
             var isValid = true;
             var validDigits = "0123456789ABCDEF";
             for (var i in userProgramList) {
                 var hex = TSOS.Utils.trim(userProgramList[i]);
-                _StdOut.putText("current hex: " + hex);
+                //_StdOut.putText("current hex: " + hex);
                 //check if first and second digit is valid hex
-                if (!validDigits.includes(hex[0]) || !validDigits.includes(hex[1])) {
-                    //if at least one is invalid
-                    _StdOut.putText("... " + hex[0] + " " + validDigits.includes(hex[0]) + ". " + hex[1] + " " + validDigits.includes(hex[1]));
-                    _StdOut.advanceLine();
+                if (hex == "") {
+                    //then skip this index
+                }
+                else if (hex.length != 2) {
                     isValid = false;
-                    break;
+                    _StdOut.putText("Invalid Hex");
+                    return;
+                }
+                else if (!validDigits.includes(hex[0]) || !validDigits.includes(hex[1])) {
+                    //if at least one is invalid
+                    //_StdOut.putText("... " + hex[0] + " " + validDigits.includes(hex[0]) + ". "  +hex[1] + " " + validDigits.includes(hex[1]));
+                    //_StdOut.advanceLine();
+                    isValid = false;
+                    _StdOut.putText("Invalid Hex");
+                    return;
                 }
             }
-            if (isValid) {
-                _StdOut.putText("Valid Hex");
-            }
-            else {
-                _StdOut.putText("Invalid Hex");
-            }
+            _StdOut.putText("Valid Hex");
         }
     }
     TSOS.Shell = Shell;
