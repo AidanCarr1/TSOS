@@ -347,6 +347,7 @@ var TSOS;
             TSOS.Utils.trim(userProgramStr);
             var userProgramList = userProgramStr.split(" ");
             var validDigits = "0123456789ABCDEF";
+            var isValid = false;
             //check each hex
             for (var i in userProgramList) {
                 var hex = userProgramList[i];
@@ -363,8 +364,16 @@ var TSOS;
                     _StdOut.putText("Invalid Hex");
                     return;
                 }
+                else {
+                    isValid = true;
+                }
             }
-            _StdOut.putText("Valid Hex");
+            if (isValid) {
+                _StdOut.putText("Valid Hex");
+            }
+            else {
+                _StdOut.putText("Invalid Hex");
+            }
         }
     }
     TSOS.Shell = Shell;
