@@ -1,1 +1,1 @@
-{"version":3,"file":"memory.js","sourceRoot":"","sources":["../../source/host/memory.ts"],"names":[],"mappings":""}
+{"version":3,"file":"memory.js","sourceRoot":"","sources":["../../source/host/memory.ts"],"names":[],"mappings":"AAAA;;;;oBAIoB;AAEpB,IAAO,IAAI,CAgBV;AAhBD,WAAO,IAAI;IAEP,MAAa,MAAM;QAEI;QAAnB,YAAmB,UAAU;YAAV,eAAU,GAAV,UAAU,CAAA;YACzB,IAAI,CAAC,qBAAqB,EAAE,CAAC;QACjC,CAAC;QAED,+DAA+D;QACxD,qBAAqB;YACxB,IAAI,CAAC,UAAU,GAAG,IAAI,KAAK,CAAC,MAAM,CAAC,CAAC;YAEpC,0BAA0B;YAC1B,cAAc;QAClB,CAAC;KACJ;IAbY,WAAM,SAalB,CAAA;AACL,CAAC,EAhBM,IAAI,KAAJ,IAAI,QAgBV"}
