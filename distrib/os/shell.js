@@ -366,7 +366,7 @@ var TSOS;
                 else {
                     var currentDecimal = TSOS.Utils.hexStringToDecimal(hex);
                     _StdOut.putText("0x" + hex + ":" + currentDecimal + ", "); //test
-                    decimalList.push(currentDecimal);
+                    //decimalList[decimalList.length] = currentDecimal;
                 }
             }
             //if its valid, load it

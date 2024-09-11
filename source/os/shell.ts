@@ -449,8 +449,8 @@ module TSOS {
                 }
                 else {
                     var currentDecimal = Utils.hexStringToDecimal(hex);
-                    _StdOut.putText("0x"+hex + ":" + currentDecimal +", "); //test
-                    decimalList.push(currentDecimal);
+                    _StdOut.putText("0x"+ hex + ":" + currentDecimal + ", "); //test
+                    //decimalList[decimalList.length] = currentDecimal;
                 }
             }
 
