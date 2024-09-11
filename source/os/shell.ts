@@ -451,6 +451,8 @@ module TSOS {
             //if its valid, load it
             if (isValid && userProgramList.length > 0) {
                 _StdOut.putText("Valid Hex");
+                _Memory.setMemoryStr(userProgramList, 0x0000);
+                _StdOut.putText("Loaded into main memory");
             } else {
                 _StdOut.putText("Invalid Hex");
                 return;

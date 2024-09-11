@@ -43,5 +43,9 @@ module TSOS {
             }
             return retVal;
         }
+
+        public static strToNum(str: string): number{
+            return 1;
+        }
     }
 }

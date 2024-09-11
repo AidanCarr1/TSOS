@@ -42,6 +42,9 @@ var TSOS;
             }
             return retVal;
         }
+        static strToNum(str) {
+            return 1;
+        }
     }
     TSOS.Utils = Utils;
 })(TSOS || (TSOS = {}));
