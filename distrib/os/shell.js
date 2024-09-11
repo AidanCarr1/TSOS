@@ -344,6 +344,7 @@ var TSOS;
             userProgramStr = userProgramStr.toUpperCase();
             TSOS.Utils.trim(userProgramStr);
             var userProgramList = userProgramStr.split(" ");
+            var decimalList;
             var validDigits = "0123456789ABCDEF";
             var isValid = true;
             //check each hex
@@ -362,11 +363,18 @@ var TSOS;
                 else if (!validDigits.includes(hex[0]) || !validDigits.includes(hex[1])) {
                     isValid = false;
                 }
+                else {
+                    var currentDecimal = TSOS.Utils.hexStringToDecimal(hex);
+                    _StdOut.putText("0x" + hex + ":" + currentDecimal + ", "); //test
+                    decimalList.push(currentDecimal);
+                }
             }
             //if its valid, load it
             if (isValid && userProgramList.length > 0) {
                 _StdOut.putText("Valid Hex");
-                _Memory.setMemoryStr(userProgramList, 0x0000);
+                _StdOut.advanceLine();
+                //_Memory.setMemoryStr(userProgramList, 0x0000);
+                _Memory.setMemoryDec(decimalList, 0x0000);
                 _StdOut.putText("Loaded into main memory");
             }
             else {

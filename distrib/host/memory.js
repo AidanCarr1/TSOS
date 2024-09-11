@@ -25,13 +25,38 @@ var TSOS;
         }
         //given a starting position and string list of hexes, set memory elements to a given hex
         setMemoryStr(hexList, startIndex) {
+            _StdOut.putText("before loop"); //test
+            _StdOut.advanceLine();
             //loop through list of hex strings
             for (var i = 0; i < hexList.length; i++) {
                 var currentMemoryIndex = i + startIndex;
-                //convert str to hex
-                var currentHex = TSOS.Utils.hexStringToDecimal(hexList[i]);
+                var currentHex = hexList[i];
+                _StdOut.putText("before util"); //test
+                _StdOut.advanceLine();
+                //convert str hex to decimal
+                var currentDecimal = TSOS.Utils.hexStringToDecimal(currentHex);
+                _StdOut.putText("after util"); //test
+                _StdOut.advanceLine();
                 //put number into memory
-                this.mainMemory[currentMemoryIndex] = currentHex;
+                this.mainMemory[currentMemoryIndex] = currentDecimal;
+                //test print
+                _StdOut.putText("0x" + currentHex + " = " + currentDecimal + ". Memory: $" + currentMemoryIndex);
+                _StdOut.advanceLine();
+            }
+        }
+        //given a starting position and list of decimals, set memory elements to a given decimal
+        setMemoryDec(decList, startIndex) {
+            _StdOut.putText("before loop"); //test
+            _StdOut.advanceLine();
+            //loop through list of hex strings
+            for (var i = 0; i < decList.length; i++) {
+                var currentMemoryIndex = i + startIndex;
+                var currentDec = decList[i];
+                //put number into memory
+                this.mainMemory[currentMemoryIndex] = decList;
+                //test print
+                _StdOut.putText("Memory $" + currentMemoryIndex + " - " + currentDec);
+                _StdOut.advanceLine();
             }
         }
     }

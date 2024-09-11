@@ -46,11 +46,11 @@ var TSOS;
         static hexStringToDecimal(hexStr) {
             var decimalValue = 0;
             var hexChars = "0123456789ABCDEF";
-            var power = 1;
+            var power = 0;
             //start from last digit, move left
             for (var i = hexStr.length - 1; i >= 0; i--) {
                 var currentDigitValue = hexChars.indexOf(hexStr[i]);
-                decimalValue += Math.pow(currentDigitValue, power);
+                decimalValue += Math.pow(0x10, power) * currentDigitValue;
                 power++;
             }
             return decimalValue;
