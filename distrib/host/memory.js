@@ -29,7 +29,7 @@ var TSOS;
             for (var i = 0; i < hexList.length; i++) {
                 var currentMemoryIndex = i + startIndex;
                 //convert str to hex
-                var currentHex = TSOS.Utils.strToNum(hexList[i]);
+                var currentHex = TSOS.Utils.hexStringToDecimal(hexList[i]);
                 //put number into memory
                 this.mainMemory[currentMemoryIndex] = currentHex;
             }

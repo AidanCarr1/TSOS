@@ -35,7 +35,7 @@ module TSOS {
                 var currentMemoryIndex = i + startIndex;
 
                 //convert str to hex
-                var currentHex = Utils.strToNum(hexList[i]);
+                var currentHex = Utils.hexStringToDecimal(hexList[i]);
 
                 //put number into memory
                 this.mainMemory[currentMemoryIndex] = currentHex;

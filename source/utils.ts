@@ -44,8 +44,20 @@ module TSOS {
             return retVal;
         }
 
-        public static strToNum(str: string): number{
-            return 1;
+        //take a hex number string ("1A") and return the decimal equivalent (26)
+        public static hexStringToDecimal(hexStr: string): number{
+            var decimalValue = 0;
+            var hexChars = "0123456789ABCDEF";
+            var power = 1;
+
+            //start from last digit, move left
+            for (var i = hexStr.length - 1; i >= 0; i--) {
+
+                var currentDigitValue = hexChars.indexOf(hexStr[i]);
+                decimalValue += Math.pow(currentDigitValue, power);
+                power++;
+            }
+            return decimalValue;
         }
     }
 }
