@@ -432,11 +432,13 @@ module TSOS {
             var isValid = false;
 
             //check each hex
-            for (var i in userProgramList) {
+            for (var i = 0; i < userProgramList.length; i++) {
                 var hex = userProgramList[i];
 
                 //skip empty strings
                 if (hex == ""){
+                    userProgramList.splice(i,1);
+                    i--;
                 }
                 //hex must be two digits
                 else if (hex.length != 2) {
@@ -454,6 +456,9 @@ module TSOS {
             }
             if (isValid) {
                 _StdOut.putText("Valid Hex");
+                // for (var i = 0; i < userProgramList.length; i++) {
+                //    _StdOut.putText(i+":"+ userProgramList[i] +", "); //test
+                // }
             } else {
                 _StdOut.putText("Invalid Hex");
             }
