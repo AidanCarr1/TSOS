@@ -335,8 +335,6 @@ var TSOS;
         shellBsod() {
             //blue -> death
             _DrawingContext.paintItBlue();
-            //this.promptStr = "";
-            _Kernel.krnShutdown();
             _Kernel.krnShutdown();
             //shutdown is not always reliable here
         }
@@ -347,7 +345,7 @@ var TSOS;
             TSOS.Utils.trim(userProgramStr);
             var userProgramList = userProgramStr.split(" ");
             var validDigits = "0123456789ABCDEF";
-            var isValid = false;
+            var isValid = true;
             //check each hex
             for (var i = 0; i < userProgramList.length; i++) {
                 var hex = userProgramList[i];
@@ -358,26 +356,20 @@ var TSOS;
                 }
                 //hex must be two digits
                 else if (hex.length != 2) {
-                    _StdOut.putText("Invalid Hex");
-                    return;
+                    isValid = false;
                 }
                 //even if one digit is invalid
                 else if (!validDigits.includes(hex[0]) || !validDigits.includes(hex[1])) {
-                    _StdOut.putText("Invalid Hex");
-                    return;
-                }
-                else {
-                    isValid = true;
+                    isValid = false;
                 }
             }
-            if (isValid) {
+            //if its valid, load it
+            if (isValid && userProgramList.length > 0) {
                 _StdOut.putText("Valid Hex");
-                // for (var i = 0; i < userProgramList.length; i++) {
-                //    _StdOut.putText(i+":"+ userProgramList[i] +", "); //test
-                // }
             }
             else {
                 _StdOut.putText("Invalid Hex");
+                return;
             }
         }
     }
