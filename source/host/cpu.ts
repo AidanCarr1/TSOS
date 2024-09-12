@@ -44,12 +44,22 @@ module TSOS {
 
             // A9 LDA: Load the accumulator with constant
             if (this.instructionRegister == 0xA9) {
-
+                this.PC ++;
+                this.Acc = _Memory.mainMemory[this.PC];
+                this.PC ++; //next step
             }
 
             // 8D STA: Store the accumulator in memory
             else if (this.instructionRegister == 0x8D) {
-                //remeber little endian
+                this.PC ++;
+                var lowOrderByte = _Memory.mainMemory[this.PC];
+                this.PC ++;
+                var highOrderByte = _Memory.mainMemory[this.PC];
+                this.PC ++; //next step
+
+                //remember little endian
+                var memoryLocation = (0x0100 * highOrderByte) + lowOrderByte;
+                _Memory.mainMemory[memoryLocation] = this.Acc;
             }
 
             else {
