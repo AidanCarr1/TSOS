@@ -18,13 +18,15 @@ var TSOS;
         Xreg;
         Yreg;
         Zflag;
+        instructionRegister;
         isExecuting;
-        constructor(PC = 0, Acc = 0, Xreg = 0, Yreg = 0, Zflag = 0, isExecuting = false) {
+        constructor(PC = 0, Acc = 0, Xreg = 0, Yreg = 0, Zflag = 0, instructionRegister = 0x00, isExecuting = false) {
             this.PC = PC;
             this.Acc = Acc;
             this.Xreg = Xreg;
             this.Yreg = Yreg;
             this.Zflag = Zflag;
+            this.instructionRegister = instructionRegister;
             this.isExecuting = isExecuting;
         }
         init() {
@@ -34,11 +36,20 @@ var TSOS;
             this.Yreg = 0;
             this.Zflag = 0;
             this.isExecuting = false;
+            this.instructionRegister = 0x00;
         }
         cycle() {
             _Kernel.krnTrace('CPU cycle');
             // TODO: Accumulate CPU usage and profiling statistics here.
             // Do the real work here. Be sure to set this.isExecuting appropriately.
+            this.instructionRegister = _Memory.mainMemory[this.PC];
+            // A9 LDA: Load the accumulator with constant
+            if (this.instructionRegister == 0xA9) {
+            }
+            // 8D STA: Store the accumulator in memory
+            else if (this.instructionRegister == 0x8D) {
+                //remeber little endian
+            }
         }
     }
     TSOS.Cpu = Cpu;
