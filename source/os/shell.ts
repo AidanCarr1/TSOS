@@ -463,9 +463,9 @@ module TSOS {
 
             //if its valid, load it
             if (isValid && userProgramList.length > 0) {
-                _StdOut.putText("Valid Hex");
-                _StdOut.advanceLine();
-                _Memory.setMemoryDec(decimalList,0x0000);
+                //assign PID
+                _MemoryManager.assignPID();
+                _Memory.setMemoryDec(decimalList, 0x0000);
                 _StdOut.putText("Loaded into main memory");
             } else {
                 _StdOut.putText("Invalid Hex");
@@ -473,8 +473,14 @@ module TSOS {
             }
         }
         
-        public shellRun() {
-
+        //run the given process
+        public shellRun(args: string[]) {
+            if (args.length > 0) {
+                var currentPID = args[0];
+                _StdOut.putText("Running");
+            } else {
+                _StdOut.putText("Usage: run <pid>  Please supply a process identification.");
+            }
         }
     }
 }

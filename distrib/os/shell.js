@@ -374,8 +374,8 @@ var TSOS;
             }
             //if its valid, load it
             if (isValid && userProgramList.length > 0) {
-                _StdOut.putText("Valid Hex");
-                _StdOut.advanceLine();
+                //assign PID
+                _MemoryManager.assignPID();
                 _Memory.setMemoryDec(decimalList, 0x0000);
                 _StdOut.putText("Loaded into main memory");
             }
@@ -384,7 +384,15 @@ var TSOS;
                 return;
             }
         }
-        shellRun() {
+        //run the given process
+        shellRun(args) {
+            if (args.length > 0) {
+                var currentPID = args[0];
+                _StdOut.putText("Running");
+            }
+            else {
+                _StdOut.putText("Usage: run <pid>  Please supply a process identification.");
+            }
         }
     }
     TSOS.Shell = Shell;
