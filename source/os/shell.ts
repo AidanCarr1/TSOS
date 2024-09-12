@@ -463,11 +463,16 @@ module TSOS {
 
             //if its valid, load it
             if (isValid && userProgramList.length > 0) {
-                //assign PID
-                _MemoryManager.assignPID();
+
+                //load into memory
                 _Memory.setMemoryDec(decimalList, 0x0000);
                 _StdOut.putText("Loaded into main memory");
-            } else {
+                //assign PID
+                var pid = _MemoryManager.newProcess(decimalList);
+                _StdOut.putText(". Process ID: " + pid);
+            }
+
+            else {
                 _StdOut.putText("Invalid Hex");
                 return;
             }
