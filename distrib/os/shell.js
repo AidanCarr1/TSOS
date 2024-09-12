@@ -344,7 +344,7 @@ var TSOS;
             userProgramStr = userProgramStr.toUpperCase();
             TSOS.Utils.trim(userProgramStr);
             var userProgramList = userProgramStr.split(" ");
-            var decimalList;
+            var decimalList = [];
             var validDigits = "0123456789ABCDEF";
             var isValid = true;
             //check each hex
@@ -366,7 +366,7 @@ var TSOS;
                 else {
                     var currentDecimal = TSOS.Utils.hexStringToDecimal(hex);
                     _StdOut.putText("0x" + hex + ":" + currentDecimal + ", "); //test
-                    //decimalList[decimalList.length] = currentDecimal;
+                    decimalList[decimalList.length] = currentDecimal;
                 }
             }
             //if its valid, load it

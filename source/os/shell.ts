@@ -425,7 +425,7 @@ module TSOS {
             userProgramStr = userProgramStr.toUpperCase();
             Utils.trim(userProgramStr);
             var userProgramList = userProgramStr.split(" ");
-            var decimalList: number[];
+            var decimalList: number[] = [];
 
             var validDigits = "0123456789ABCDEF";
             var isValid = true;
@@ -450,7 +450,7 @@ module TSOS {
                 else {
                     var currentDecimal = Utils.hexStringToDecimal(hex);
                     _StdOut.putText("0x"+ hex + ":" + currentDecimal + ", "); //test
-                    //decimalList[decimalList.length] = currentDecimal;
+                    decimalList[decimalList.length] = currentDecimal;
                 }
             }
 
