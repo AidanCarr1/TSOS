@@ -70,9 +70,12 @@ module TSOS {
             }
 
             //00 HLT: end of program
-            else if (this.instructionRegister == 0x8D) {
-                _StdOut.putText("Program done.");
+            else if (this.instructionRegister == 0x00) {
+                _StdOut.putText("Program done. ");
                 this.isExecuting = false;
+                //test print memory $0010
+                //_StdOut.putText("memory $0010: " + Utils.toHex(_Memory.mainMemory[0x0010]));
+                //damn that worked
             }
 
             else {

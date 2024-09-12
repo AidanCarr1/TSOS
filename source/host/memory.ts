@@ -36,7 +36,7 @@ module TSOS {
                 this.mainMemory[currentMemoryIndex] = currentDec;
                 
                 //test print
-                _StdOut.putText("Memory $" + currentMemoryIndex + " - " + currentDec);
+                _StdOut.putText("Memory $" + Utils.toHex(currentMemoryIndex) + " - " + Utils.toHex(currentDec));
                 _StdOut.advanceLine();
             }
         }

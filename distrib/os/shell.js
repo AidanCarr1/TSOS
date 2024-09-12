@@ -368,7 +368,6 @@ var TSOS;
                 }
                 else {
                     var currentDecimal = TSOS.Utils.hexStringToDecimal(hex);
-                    //_StdOut.putText("0x"+ hex + ":" + currentDecimal + ", "); //test
                     decimalList[decimalList.length] = currentDecimal;
                 }
             }

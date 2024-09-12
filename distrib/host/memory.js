@@ -29,7 +29,7 @@ var TSOS;
                 //put number into memory
                 this.mainMemory[currentMemoryIndex] = currentDec;
                 //test print
-                _StdOut.putText("Memory $" + currentMemoryIndex + " - " + currentDec);
+                _StdOut.putText("Memory $" + TSOS.Utils.toHex(currentMemoryIndex) + " - " + TSOS.Utils.toHex(currentDec));
                 _StdOut.advanceLine();
             }
         }
