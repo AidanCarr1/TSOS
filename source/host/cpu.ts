@@ -62,6 +62,11 @@ module TSOS {
                 _Memory.mainMemory[memoryLocation] = this.Acc;
             }
 
+            //00 HLT: end of program
+            else if (this.instructionRegister == 0x8D) {
+                this.isExecuting = false;
+            }
+
             else {
                 _StdOut.putText("Unknown instruction: " + Utils.toHex(this.instructionRegister));
             }

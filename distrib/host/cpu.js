@@ -60,6 +60,10 @@ var TSOS;
                 var memoryLocation = (0x0100 * highOrderByte) + lowOrderByte;
                 _Memory.mainMemory[memoryLocation] = this.Acc;
             }
+            //00 HLT: end of program
+            else if (this.instructionRegister == 0x8D) {
+                this.isExecuting = false;
+            }
             else {
                 _StdOut.putText("Unknown instruction: " + TSOS.Utils.toHex(this.instructionRegister));
             }
