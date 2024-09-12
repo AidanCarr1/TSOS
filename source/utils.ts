@@ -59,5 +59,10 @@ module TSOS {
             }
             return decimalValue;
         }
+
+        //take a number (26) and return the hex equivalent string ("0x1A")
+        public static toHex(decimal: number): string{
+            return "0x" + decimal.toString(16);
+        }
     }
 }

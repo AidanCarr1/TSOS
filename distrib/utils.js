@@ -55,6 +55,10 @@ var TSOS;
             }
             return decimalValue;
         }
+        //take a number (26) and return the hex equivalent string ("0x1A")
+        static toHex(decimal) {
+            return "0x" + decimal.toString(16);
+        }
     }
     TSOS.Utils = Utils;
 })(TSOS || (TSOS = {}));

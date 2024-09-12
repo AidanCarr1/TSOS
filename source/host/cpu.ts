@@ -51,6 +51,10 @@ module TSOS {
             else if (this.instructionRegister == 0x8D) {
                 //remeber little endian
             }
+
+            else {
+                _StdOut.putText("Unknown instruction: " + Utils.toHex(this.instructionRegister));
+            }
             
         }
     }

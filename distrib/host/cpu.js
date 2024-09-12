@@ -50,6 +50,9 @@ var TSOS;
             else if (this.instructionRegister == 0x8D) {
                 //remeber little endian
             }
+            else {
+                _StdOut.putText("Unknown instruction: " + TSOS.Utils.toHex(this.instructionRegister));
+            }
         }
     }
     TSOS.Cpu = Cpu;
