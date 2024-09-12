@@ -390,7 +390,8 @@ var TSOS;
         shellRun(args) {
             if (args.length > 0) {
                 var currentPID = args[0];
-                _StdOut.putText("Running");
+                _StdOut.putText("Running program...");
+                //use pid to find memory location, run it
             }
             else {
                 _StdOut.putText("Usage: run <pid>  Please supply a process identification.");
