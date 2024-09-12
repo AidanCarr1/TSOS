@@ -365,7 +365,7 @@ var TSOS;
                 }
                 else {
                     var currentDecimal = TSOS.Utils.hexStringToDecimal(hex);
-                    _StdOut.putText("0x" + hex + ":" + currentDecimal + ", "); //test
+                    //_StdOut.putText("0x"+ hex + ":" + currentDecimal + ", "); //test
                     decimalList[decimalList.length] = currentDecimal;
                 }
             }
@@ -373,7 +373,6 @@ var TSOS;
             if (isValid && userProgramList.length > 0) {
                 _StdOut.putText("Valid Hex");
                 _StdOut.advanceLine();
-                //_Memory.setMemoryStr(userProgramList, 0x0000);
                 _Memory.setMemoryDec(decimalList, 0x0000);
                 _StdOut.putText("Loaded into main memory");
             }

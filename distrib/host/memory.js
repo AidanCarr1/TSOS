@@ -27,16 +27,10 @@ var TSOS;
         }
         //given a starting position and list of decimals, set memory elements to a given decimal
         setMemoryDec(decList, startIndex) {
-            _StdOut.putText("declist len: " + decList[1]); //test
-            _StdOut.advanceLine();
             //loop through list of hex strings
             for (var i = 0; i < decList.length; i++) {
-                _StdOut.putText("in loop"); //test
-                _StdOut.advanceLine();
                 var currentMemoryIndex = i + startIndex;
                 var currentDec = decList[i];
-                _StdOut.putText("before memory"); //test
-                _StdOut.advanceLine();
                 //put number into memory
                 this.mainMemory[currentMemoryIndex] = currentDec;
                 //test print
