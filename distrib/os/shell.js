@@ -61,7 +61,10 @@ var TSOS;
             sc = new TSOS.ShellCommand(this.shellBsod, "bsod", "- test the blue screen of death.", "BSOD displays the blue screen of death.");
             this.commandList[this.commandList.length] = sc;
             //load
-            sc = new TSOS.ShellCommand(this.shellLoad, "load", "- load from user input.", "Load checks and runs the user's program.");
+            sc = new TSOS.ShellCommand(this.shellLoad, "load", "- load from user input.", "Load puts the user's program into memory and assigns it a pid.");
+            this.commandList[this.commandList.length] = sc;
+            //load
+            sc = new TSOS.ShellCommand(this.shellRun, "run", "<pid> - run a process given the process identification.", "Run executes a process given the process identification.");
             this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
             // kill <id> - kills the specified process id.
@@ -380,6 +383,8 @@ var TSOS;
                 _StdOut.putText("Invalid Hex");
                 return;
             }
+        }
+        shellRun() {
         }
     }
     TSOS.Shell = Shell;

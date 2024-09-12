@@ -120,7 +120,14 @@ module TSOS {
             sc = new ShellCommand(this.shellLoad,
                                   "load",
                                   "- load from user input.",
-                                  "Load checks and runs the user's program.");
+                                  "Load puts the user's program into memory and assigns it a pid.");
+                                  this.commandList[this.commandList.length] = sc;
+
+            //load
+            sc = new ShellCommand(this.shellRun,
+                                  "run",
+                                  "<pid> - run a process given the process identification.",
+                                  "Run executes a process given the process identification.");
                                   this.commandList[this.commandList.length] = sc;
                                    
             // ps  - list the running processes and their IDs
@@ -464,6 +471,10 @@ module TSOS {
                 _StdOut.putText("Invalid Hex");
                 return;
             }
+        }
+        
+        public shellRun() {
+
         }
     }
 }

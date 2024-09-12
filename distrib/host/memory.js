@@ -9,19 +9,14 @@ var TSOS;
         mainMemory;
         constructor(mainMemory = []) {
             this.mainMemory = mainMemory;
-            this.initializeMemoryArray();
         }
         init() {
-        }
-        //create mainMemory in array form: space of 0xffff 
-        initializeMemoryArray() {
-            //this.mainMemory = new Array(0xffff);
-            //initialize to all 0x00's
+            //initialize main memory to all 0x00's
             this.reset();
         }
         //(re)set all mainMemory elements to 0x00
         reset() {
-            for (let i = 0x0000; i < 0xffff; i++) {
+            for (let i = 0x0000; i <= 0xffff; i++) {
                 this.mainMemory[i] = (0x00);
             }
         }
