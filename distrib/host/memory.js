@@ -7,7 +7,7 @@ var TSOS;
 (function (TSOS) {
     class Memory {
         mainMemory;
-        constructor(mainMemory) {
+        constructor(mainMemory = []) {
             this.mainMemory = mainMemory;
             this.initializeMemoryArray();
         }
@@ -15,7 +15,7 @@ var TSOS;
         }
         //create mainMemory in array form: space of 0xffff 
         initializeMemoryArray() {
-            this.mainMemory = new Array(0xffff);
+            //this.mainMemory = new Array(0xffff);
             //initialize to all 0x00's
             this.reset();
         }
@@ -34,7 +34,7 @@ var TSOS;
                 var currentMemoryIndex = i + startIndex;
                 var currentDec = decList[i];
                 //put number into memory
-                this.mainMemory[currentMemoryIndex] = decList;
+                this.mainMemory[currentMemoryIndex] = currentDec;
                 //test print
                 _StdOut.putText("Memory $" + currentMemoryIndex + " - " + currentDec);
                 _StdOut.advanceLine();

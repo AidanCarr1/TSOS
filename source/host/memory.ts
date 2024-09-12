@@ -8,7 +8,7 @@ module TSOS {
 
     export class Memory {
 
-        constructor(public mainMemory) {
+        constructor(public mainMemory: number[] = []) {
             this.initializeMemoryArray();
         }
 
@@ -17,7 +17,7 @@ module TSOS {
 
         //create mainMemory in array form: space of 0xffff 
         public initializeMemoryArray(){
-            this.mainMemory = new Array(0xffff);
+            //this.mainMemory = new Array(0xffff);
             
             //initialize to all 0x00's
             this.reset()
@@ -42,7 +42,7 @@ module TSOS {
                 var currentDec = decList[i];
 
                 //put number into memory
-                this.mainMemory[currentMemoryIndex] = decList;
+                this.mainMemory[currentMemoryIndex] = currentDec;
                 
                 //test print
                 _StdOut.putText("Memory $" + currentMemoryIndex + " - " + currentDec);
