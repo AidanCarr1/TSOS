@@ -29,5 +29,9 @@ module TSOS {
             
             return this.pidCounter;
         }
+
+        public getStartingMemory(pid: number): number{
+            return this.startingLocations[pid];
+        }
     }
 }

@@ -38,6 +38,12 @@ var TSOS;
             this.isExecuting = false;
             this.instructionRegister = 0x00;
         }
+        run(pid) {
+            //set starting location
+            this.PC = _MemoryManager.getStartingMemory(pid);
+            //go
+            this.isExecuting = true;
+        }
         cycle() {
             _Kernel.krnTrace('CPU cycle');
             // TODO: Accumulate CPU usage and profiling statistics here.
@@ -62,6 +68,7 @@ var TSOS;
             }
             //00 HLT: end of program
             else if (this.instructionRegister == 0x8D) {
+                _StdOut.putText("Program done.");
                 this.isExecuting = false;
             }
             else {

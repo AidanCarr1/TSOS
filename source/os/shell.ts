@@ -481,8 +481,14 @@ module TSOS {
         //run the given process
         public shellRun(args: string[]) {
             if (args.length > 0) {
-                var currentPID = args[0];
+                var stringPID = args[0];
+                //convert to number
+                var numPID = +stringPID;
                 _StdOut.putText("Running program...");
+                _StdOut.advanceLine();
+                //run the given pid
+                _CPU.run(numPID);
+
                 //use pid to find memory location, run it
 
             } else {

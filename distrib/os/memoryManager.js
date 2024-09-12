@@ -27,6 +27,9 @@ var TSOS;
             // do that here
             return this.pidCounter;
         }
+        getStartingMemory(pid) {
+            return this.startingLocations[pid];
+        }
     }
     TSOS.MemoryManager = MemoryManager;
 })(TSOS || (TSOS = {}));

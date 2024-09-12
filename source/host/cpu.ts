@@ -35,6 +35,13 @@ module TSOS {
             this.instructionRegister = 0x00; 
         }
 
+        public run(pid: number) {
+            //set starting location
+            this.PC = _MemoryManager.getStartingMemory(pid);
+            //go
+            this.isExecuting = true;
+        }
+
         public cycle(): void {
             _Kernel.krnTrace('CPU cycle');
             // TODO: Accumulate CPU usage and profiling statistics here.
@@ -64,6 +71,7 @@ module TSOS {
 
             //00 HLT: end of program
             else if (this.instructionRegister == 0x8D) {
+                _StdOut.putText("Program done.");
                 this.isExecuting = false;
             }
 
