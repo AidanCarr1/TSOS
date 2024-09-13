@@ -21,17 +21,28 @@ module TSOS {
 
         //given a program, remember the starting location, return pid
         public newProcess(decList: number[]): number {
-            this.pidCounter ++;
+            //start at pid 0
             this.startingLocations[this.pidCounter] = 0x0000; //put at $0000
-            
+            this.pidCounter ++;
+
             //I assume we will be moving processes in memory eventually
             // do that here
             
-            return this.pidCounter;
+            //give pid value before it was incremented 
+            return (this.pidCounter - 0x01);
         }
 
         public getStartingMemory(pid: number): number{
             return this.startingLocations[pid];
+        }
+
+        //if pid cannot be found, return false
+        public isValid(pid: number): boolean{
+            if (pid > this.pidCounter || pid < 0) {
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 }

@@ -396,12 +396,20 @@ var TSOS;
                 //convert arg to number
                 var stringPID = args[0];
                 var numPID = +stringPID;
-                //TODO: add case where pid is invalid
-                //run the given pid
-                _StdOut.putText("Running program...");
-                _StdOut.advanceLine();
-                _CPU.run(numPID);
-                //use pid to find memory location, run it
+                //pid is a number and exists
+                if (!isNaN(numPID) && _MemoryManager.isValid(numPID)) {
+                    //run the given pid
+                    _StdOut.putText("Running program...");
+                    _StdOut.advanceLine();
+                    //use pid to find memory location, run it
+                    _CPU.run(numPID);
+                }
+                //pid does not exist or isnt a number
+                else {
+                    _StdOut.putText("Please supply a valid <pid>.");
+                    _StdOut.advanceLine();
+                    _StdOut.putText(this.promptStr);
+                }
             }
             else {
                 _StdOut.putText("Usage: run <pid>  Please supply a process identification.");

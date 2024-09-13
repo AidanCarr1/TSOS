@@ -21,14 +21,25 @@ var TSOS;
         }
         //given a program, remember the starting location, return pid
         newProcess(decList) {
-            this.pidCounter++;
+            //start at pid 0
             this.startingLocations[this.pidCounter] = 0x0000; //put at $0000
+            this.pidCounter++;
             //I assume we will be moving processes in memory eventually
             // do that here
-            return this.pidCounter;
+            //give pid value before it was incremented 
+            return (this.pidCounter - 0x01);
         }
         getStartingMemory(pid) {
             return this.startingLocations[pid];
+        }
+        //if pid cannot be found, return false
+        isValid(pid) {
+            if (pid > this.pidCounter || pid < 0) {
+                return false;
+            }
+            else {
+                return true;
+            }
         }
     }
     TSOS.MemoryManager = MemoryManager;
