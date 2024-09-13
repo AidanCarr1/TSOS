@@ -64,7 +64,7 @@ module TSOS {
         public static toHex(decimal: number): string{
                                                 // 221   0   26     number
             var hexRaw = decimal.toString(16);  // dd    0   1a     hex
-            hexRaw.toUpperCase();               // DD    0   1A     upper
+            hexRaw = hexRaw.toUpperCase();      // DD    0   1A     upper
             if (hexRaw.length == 1) {
                 hexRaw = "0" + hexRaw;          // DD   00   1A     add 0
             }

@@ -102,7 +102,7 @@ var TSOS;
                 }
             }
             if (found) {
-                this.execute(fn, args); // Note that args is always supplied, though it might be empty.
+                this.execute(fn, args, cmd); // Note that args is always supplied, though it might be empty.
             }
             else {
                 // It's not found, so check for curses and apologies before declaring the command invalid.
@@ -118,7 +118,7 @@ var TSOS;
             }
         }
         // Note: args is an optional parameter, ergo the ? which allows TypeScript to understand that.
-        execute(fn, args) {
+        execute(fn, args, cmd) {
             // We just got a command, so advance the line...
             _StdOut.advanceLine();
             // ... call the command function passing in the args with some über-cool functional programming ...
@@ -127,8 +127,14 @@ var TSOS;
             if (_StdOut.currentXPosition > 0) {
                 _StdOut.advanceLine();
             }
-            // ... and finally write the prompt again.
-            this.putPrompt();
+            //skip prompt if ...
+            if (cmd === "run" || cmd === "shutdown") {
+                //dont write prompt
+            }
+            else {
+                //write the prompt again.
+                this.putPrompt();
+            }
         }
         parseInput(buffer) {
             var retVal = new TSOS.UserCommand();
@@ -201,7 +207,6 @@ var TSOS;
         }
         shellShutdown(args) {
             _StdOut.putText("Shutting down...");
-            //this.promptStr = ""; // "temporary" fix to Professor Labouseur's OCD
             // Call Kernel shutdown routine.
             _Kernel.krnShutdown();
             // TODO: Stop the final prompt from being displayed. If possible. Not a high priority. (Damn OCD!)
@@ -388,12 +393,13 @@ var TSOS;
         //run the given process
         shellRun(args) {
             if (args.length > 0) {
+                //convert arg to number
                 var stringPID = args[0];
-                //convert to number
                 var numPID = +stringPID;
+                //TODO: add case where pid is invalid
+                //run the given pid
                 _StdOut.putText("Running program...");
                 _StdOut.advanceLine();
-                //run the given pid
                 _CPU.run(numPID);
                 //use pid to find memory location, run it
             }

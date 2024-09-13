@@ -41,6 +41,7 @@ var TSOS;
         run(pid) {
             //set starting location
             this.PC = _MemoryManager.getStartingMemory(pid);
+            //TODO: add case where pid is not found
             //go
             this.isExecuting = true;
         }
@@ -69,13 +70,19 @@ var TSOS;
             //00 HLT: end of program
             else if (this.instructionRegister == 0x00) {
                 _StdOut.putText("Program done. ");
+                _StdOut.advanceLine();
+                _StdOut.putText(_OsShell.promptStr);
                 this.isExecuting = false;
                 //test print memory $0010
                 //_StdOut.putText("memory $0010: " + Utils.toHex(_Memory.mainMemory[0x0010]));
                 //damn that worked
             }
+            //Unknown instruction. kill and tell the user
             else {
+                this.isExecuting = false;
                 _StdOut.putText("Unknown instruction: " + TSOS.Utils.toHex(this.instructionRegister));
+                _StdOut.advanceLine();
+                _StdOut.putText(_OsShell.promptStr);
             }
         }
     }
