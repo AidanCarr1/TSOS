@@ -170,7 +170,21 @@ module TSOS {
                     break;
                 }
 
-                
+                //D0 BNE: Branch n bytes if Zflag = 0
+                case 0xD0: {
+                    this.PC ++; //next step
+
+                    //branch
+                    if (this.Zflag == 0x0) {
+
+                        var branchBytes = _Memory.mainMemory[this.PC];
+                        this.PC += branchBytes; // possible off by 1 error
+                        //remove overflow
+                        this.PC = this.PC % _MemorySize; // possible off by 1 error
+                    }
+                    break;
+                    
+                }
                 
                 //Unknown instruction. kill and tell the user
                 default: {
