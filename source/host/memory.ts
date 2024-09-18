@@ -18,7 +18,7 @@ module TSOS {
 
         //(re)set all mainMemory elements to 0x00
         public reset(){
-            for(let i = 0x0000; i <= 0xffff; i++){
+            for(let i = 0x00; i < _MemorySize; i++){
                 this.mainMemory[i] = (0x00);
             }  
         }

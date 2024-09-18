@@ -12,7 +12,7 @@
 // Global CONSTANTS (TypeScript 1.5 introduced const. Very cool.)
 //
 const APP_NAME: string    = "TSauce";   // 'cause Bob and I were at a loss for a better name.
-const APP_VERSION: string = "09.13";   // date of last edit, i will definetly forget to update this number
+const APP_VERSION: string = "09.18";   // date of last edit, i will definetly forget to update this number
 
 const CPU_CLOCK_INTERVAL: number = 100;   // This is in ms (milliseconds) so 1000 = 1 second.
 
@@ -35,6 +35,7 @@ var _MemoryAccessor: TSOS.MemoryAccessor;
 //	Software	(OS)
 var _MemoryManager: any = null;
 
+var _MemorySize: number = 0x100;
 var _OSclock: number = 0;  // Page 23.
 
 var _Mode: number = 0;     // (currently unused)  0 = Kernel Mode, 1 = User Mode.  See page 21.

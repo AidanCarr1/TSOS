@@ -153,6 +153,22 @@ module TSOS {
                     //damn that worked
                     break;
                 }
+
+                //EC CPX: Compare byte in memory to XReg, set ZFlag if equal
+                case 0xEC: {
+                    this.PC ++;
+                    var lowOrderByte = _Memory.mainMemory[this.PC];
+                    this.PC ++;
+                    var highOrderByte = _Memory.mainMemory[this.PC];
+                    this.PC ++; //next step
+
+                    //compare memory to XReg (little endian)
+                    var memoryLocation = (0x0100 * highOrderByte) + lowOrderByte;
+                    if (this.Xreg == _Memory.mainMemory[memoryLocation]) {
+                        this.Zflag = 0x1;
+                    }
+                    break;
+                }
                 
                 //Unknown instruction. kill and tell the user
                 default: {
