@@ -34,7 +34,7 @@ var TSOS;
         }
         //if pid cannot be found, return false
         isValid(pid) {
-            if (pid > this.pidCounter || pid < 0) {
+            if (pid >= this.pidCounter || pid < 0) {
                 return false;
             }
             else {

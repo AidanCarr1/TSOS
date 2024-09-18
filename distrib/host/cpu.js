@@ -50,39 +50,45 @@ var TSOS;
             // TODO: Accumulate CPU usage and profiling statistics here.
             // Do the real work here. Be sure to set this.isExecuting appropriately.
             this.instructionRegister = _Memory.mainMemory[this.PC];
-            // A9 LDA: Load the accumulator with constant
-            if (this.instructionRegister == 0xA9) {
-                this.PC++;
-                this.Acc = _Memory.mainMemory[this.PC];
-                this.PC++; //next step
-            }
-            // 8D STA: Store the accumulator in memory
-            else if (this.instructionRegister == 0x8D) {
-                this.PC++;
-                var lowOrderByte = _Memory.mainMemory[this.PC];
-                this.PC++;
-                var highOrderByte = _Memory.mainMemory[this.PC];
-                this.PC++; //next step
-                //remember little endian
-                var memoryLocation = (0x0100 * highOrderByte) + lowOrderByte;
-                _Memory.mainMemory[memoryLocation] = this.Acc;
-            }
-            //00 HLT: end of program
-            else if (this.instructionRegister == 0x00) {
-                _StdOut.putText("Program done. ");
-                _StdOut.advanceLine();
-                _StdOut.putText(_OsShell.promptStr);
-                this.isExecuting = false;
-                //test print memory $0010
-                //_StdOut.putText("memory $0010: " + Utils.toHex(_Memory.mainMemory[0x0010]));
-                //damn that worked
-            }
-            //Unknown instruction. kill and tell the user
-            else {
-                this.isExecuting = false;
-                _StdOut.putText("Unknown instruction: " + TSOS.Utils.toHex(this.instructionRegister));
-                _StdOut.advanceLine();
-                _StdOut.putText(_OsShell.promptStr);
+            switch (this.instructionRegister) {
+                // A9 LDA: Load the accumulator with constant
+                case 0xA9: {
+                    this.PC++;
+                    this.Acc = _Memory.mainMemory[this.PC];
+                    this.PC++; //next step
+                    break;
+                }
+                // 8D STA: Store the accumulator in memory
+                case 0x8D: {
+                    this.PC++;
+                    var lowOrderByte = _Memory.mainMemory[this.PC];
+                    this.PC++;
+                    var highOrderByte = _Memory.mainMemory[this.PC];
+                    this.PC++; //next step
+                    //remember little endian
+                    var memoryLocation = (0x0100 * highOrderByte) + lowOrderByte;
+                    _Memory.mainMemory[memoryLocation] = this.Acc;
+                    break;
+                }
+                //00 HLT: end of program
+                case 0x00: {
+                    _StdOut.putText("Program done. ");
+                    _StdOut.advanceLine();
+                    _StdOut.putText(_OsShell.promptStr);
+                    this.isExecuting = false;
+                    //test print memory $0010
+                    //_StdOut.putText("memory $0010: " + Utils.toHex(_Memory.mainMemory[0x0010]));
+                    //damn that worked
+                    break;
+                }
+                //Unknown instruction. kill and tell the user
+                default: {
+                    this.isExecuting = false;
+                    _StdOut.putText("Unknown instruction: " + TSOS.Utils.toHex(this.instructionRegister));
+                    _StdOut.advanceLine();
+                    _StdOut.putText(_OsShell.promptStr);
+                    break;
+                }
             }
         }
     }

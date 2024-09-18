@@ -187,15 +187,13 @@ module TSOS {
             _StdOut.advanceLine();
             // ... call the command function passing in the args with some über-cool functional programming ...
             fn(args);
-            // Check to see if we need to advance the line again
+            
+            //check for a new line ...
             if (_StdOut.currentXPosition > 0) {
                 _StdOut.advanceLine();
             }
-            //skip prompt if ...
-            if (cmd === "run" || cmd === "shutdown") {
-                //dont write prompt
-            } else {
-                //write the prompt again.
+            //temporary fix, should change because isExecuting may last a while and mess with CLI typing'
+            if (_CPU.isExecuting == false) {
                 this.putPrompt();
             }
         }
@@ -500,8 +498,8 @@ module TSOS {
                 //pid does not exist or isnt a number
                 else {
                     _StdOut.putText("Please supply a valid <pid>.");
-                    _StdOut.advanceLine();
-                    _StdOut.putText(this.promptStr);
+                    //_StdOut.advanceLine();
+                    //this.putPrompt();
                 }
             } 
             else {
