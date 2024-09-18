@@ -35,7 +35,10 @@ var _MemoryAccessor: TSOS.MemoryAccessor;
 //	Software	(OS)
 var _MemoryManager: any = null;
 
+//Memory variables
 var _MemorySize: number = 0x100;
+var _HighOrderMultiplier: number = 0x0100;
+
 var _OSclock: number = 0;  // Page 23.
 
 var _Mode: number = 0;     // (currently unused)  0 = Kernel Mode, 1 = User Mode.  See page 21.

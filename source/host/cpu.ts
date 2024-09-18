@@ -70,7 +70,7 @@ module TSOS {
                     this.PC ++; //next step
 
                     //update accumulator (little endian)
-                    var memoryLocation = (0x0100 * highOrderByte) + lowOrderByte;
+                    var memoryLocation = (_HighOrderMultiplier * highOrderByte) + lowOrderByte;
                     this.Acc = _Memory.mainMemory[memoryLocation];
                     break;
                 }
@@ -84,7 +84,7 @@ module TSOS {
                     this.PC ++; //next step
     
                     //stor acc in memory location (little endian)
-                    var memoryLocation = (0x0100 * highOrderByte) + lowOrderByte;
+                    var memoryLocation = (_HighOrderMultiplier * highOrderByte) + lowOrderByte;
                     _Memory.mainMemory[memoryLocation] = this.Acc;
                     break;
                 }
@@ -108,7 +108,7 @@ module TSOS {
                     this.PC ++; //next step
 
                     //update XReg (little endian)
-                    var memoryLocation = (0x0100 * highOrderByte) + lowOrderByte;
+                    var memoryLocation = (_HighOrderMultiplier * highOrderByte) + lowOrderByte;
                     this.Xreg = _Memory.mainMemory[memoryLocation];
                     break;
                 }
@@ -130,7 +130,7 @@ module TSOS {
                     this.PC ++; //next step
 
                     //update YReg (little endian)
-                    var memoryLocation = (0x0100 * highOrderByte) + lowOrderByte;
+                    var memoryLocation = (_HighOrderMultiplier * highOrderByte) + lowOrderByte;
                     this.Yreg = _Memory.mainMemory[memoryLocation];
                     break;
                 }
@@ -148,9 +148,9 @@ module TSOS {
                     _StdOut.putText(_OsShell.promptStr);
 
                     this.isExecuting = false;
-                    //test print memory $0010
-                    //_StdOut.putText("memory $0010: " + Utils.toHex(_Memory.mainMemory[0x0010]));
-                    //damn that worked
+
+                    //test print memory $0040
+                    //_StdOut.putText("memory $0040: " + Utils.toHex(_Memory.mainMemory[0x0040]));
                     break;
                 }
 
@@ -163,12 +163,14 @@ module TSOS {
                     this.PC ++; //next step
 
                     //compare memory to XReg (little endian)
-                    var memoryLocation = (0x0100 * highOrderByte) + lowOrderByte;
+                    var memoryLocation = (_HighOrderMultiplier * highOrderByte) + lowOrderByte;
                     if (this.Xreg == _Memory.mainMemory[memoryLocation]) {
                         this.Zflag = 0x1;
                     }
                     break;
                 }
+
+                
                 
                 //Unknown instruction. kill and tell the user
                 default: {
