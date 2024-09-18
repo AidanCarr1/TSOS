@@ -163,6 +163,20 @@ var TSOS;
                     }
                     break;
                 }
+                //EE INC: Increment the value of a byte
+                case 0xEE: {
+                    this.PC++;
+                    var lowOrderByte = _Memory.mainMemory[this.PC];
+                    this.PC++;
+                    var highOrderByte = _Memory.mainMemory[this.PC];
+                    this.PC++; //next step
+                    //put byte in acc, increment, return byte to memory 
+                    var memoryLocation = (_HighOrderMultiplier * highOrderByte) + lowOrderByte;
+                    this.Acc = _Memory.mainMemory[memoryLocation];
+                    this.Acc++; // = (this.Acc + 0x1) % _MemorySize; //add with carry?
+                    _Memory.mainMemory[memoryLocation] = this.Acc;
+                    break;
+                }
                 //Unknown instruction. kill and tell the user
                 default: {
                     this.isExecuting = false;
