@@ -74,7 +74,7 @@ module TSOS {
                     this.Acc = _Memory.mainMemory[memoryLocation];
                     break;
                 }
-                
+
                 // 8D STA: Store the accumulator in memory
                 case 0x8D: {
                     this.PC ++;
@@ -86,6 +86,30 @@ module TSOS {
                     //stor acc in memory location (little endian)
                     var memoryLocation = (0x0100 * highOrderByte) + lowOrderByte;
                     _Memory.mainMemory[memoryLocation] = this.Acc;
+                    break;
+                }
+
+                //6D ADC:  Adds contents of an address to the contents of the accumulator and keeps the result in the accumulator
+
+                //A2 LDX: Load X register with a constant
+                case 0xA2: {
+                    this.PC ++;
+                    this.Xreg = _Memory.mainMemory[this.PC];
+                    this.PC ++; //next step
+                    break;
+                }
+
+                //AE LDX: Load X register from memory
+                case 0xAE: {
+                    this.PC ++;
+                    var lowOrderByte = _Memory.mainMemory[this.PC];
+                    this.PC ++;
+                    var highOrderByte = _Memory.mainMemory[this.PC];
+                    this.PC ++; //next step
+
+                    //update XReg (little endian)
+                    var memoryLocation = (0x0100 * highOrderByte) + lowOrderByte;
+                    this.Xreg = _Memory.mainMemory[memoryLocation];
                     break;
                 }
 
