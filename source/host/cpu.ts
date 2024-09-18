@@ -200,6 +200,23 @@ module TSOS {
                     _Memory.mainMemory[memoryLocation] = this.Acc;
                     break;
                 }
+
+                //FF SYS: System call
+                case 0xFF: {
+                    this.PC ++; //next step
+
+                    //print integer in Yreg
+                    if (this.Xreg = 0x01) {
+                        _StdOut.putText(Utils.toHex(this.Yreg));
+                    }
+
+                    //print 00terminated string in Yreg
+                    if (this.Xreg = 0x02) { //magic number?
+                        var startPosition = this.Yreg;
+                        //BOOKMARK
+
+                    }
+                }
                 
                 //Unknown instruction. kill and tell the user
                 default: {
