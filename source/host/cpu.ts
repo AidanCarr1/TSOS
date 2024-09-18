@@ -113,7 +113,35 @@ module TSOS {
                     break;
                 }
 
-                //00 HLT: end of program
+                //A0 LDY: Load Y register with a constant
+                case 0xA0: {
+                    this.PC ++;
+                    this.Yreg = _Memory.mainMemory[this.PC];
+                    this.PC ++; //next step
+                    break;
+                }
+
+                //AC LDY: Load Y register from memory
+                case 0xAC: {
+                    this.PC ++;
+                    var lowOrderByte = _Memory.mainMemory[this.PC];
+                    this.PC ++;
+                    var highOrderByte = _Memory.mainMemory[this.PC];
+                    this.PC ++; //next step
+
+                    //update YReg (little endian)
+                    var memoryLocation = (0x0100 * highOrderByte) + lowOrderByte;
+                    this.Yreg = _Memory.mainMemory[memoryLocation];
+                    break;
+                }
+
+                //EA NOP: No operation
+                case 0xEA: {
+                    this.PC ++;
+                    break;
+                }
+
+                //00 BRK: end of program
                 case 0x00: {
                     _StdOut.putText("Program done. ");
                     _StdOut.advanceLine();
