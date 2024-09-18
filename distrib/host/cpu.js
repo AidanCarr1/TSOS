@@ -49,6 +49,7 @@ var TSOS;
             _Kernel.krnTrace('CPU cycle');
             // TODO: Accumulate CPU usage and profiling statistics here.
             // Do the real work here. Be sure to set this.isExecuting appropriately.
+            //fetch
             this.instructionRegister = _Memory.mainMemory[this.PC];
             switch (this.instructionRegister) {
                 // A9 LDA: Load the accumulator with constant
@@ -58,6 +59,18 @@ var TSOS;
                     this.PC++; //next step
                     break;
                 }
+                // AD LDA: Load the accumulator from memory
+                case 0xAD: {
+                    this.PC++;
+                    var lowOrderByte = _Memory.mainMemory[this.PC];
+                    this.PC++;
+                    var highOrderByte = _Memory.mainMemory[this.PC];
+                    this.PC++; //next step
+                    //update accumulator (little endian)
+                    var memoryLocation = (0x0100 * highOrderByte) + lowOrderByte;
+                    this.Acc = _Memory.mainMemory[memoryLocation];
+                    break;
+                }
                 // 8D STA: Store the accumulator in memory
                 case 0x8D: {
                     this.PC++;
@@ -65,7 +78,7 @@ var TSOS;
                     this.PC++;
                     var highOrderByte = _Memory.mainMemory[this.PC];
                     this.PC++; //next step
-                    //remember little endian
+                    //stor acc in memory location (little endian)
                     var memoryLocation = (0x0100 * highOrderByte) + lowOrderByte;
                     _Memory.mainMemory[memoryLocation] = this.Acc;
                     break;
