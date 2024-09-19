@@ -84,6 +84,17 @@ var TSOS;
                     break;
                 }
                 //6D ADC:  Adds contents of an address to the contents of the accumulator and keeps the result in the accumulator
+                case 0x6D: {
+                    this.PC++;
+                    var lowOrderByte = _Memory.mainMemory[this.PC];
+                    this.PC++;
+                    var highOrderByte = _Memory.mainMemory[this.PC];
+                    this.PC++; //next step
+                    //add
+                    var memoryLocation = (_HighOrderMultiplier * highOrderByte) + lowOrderByte;
+                    this.Acc = (this.Acc + _Memory.mainMemory[memoryLocation]) % _MemorySize;
+                    break;
+                }
                 //A2 LDX: Load X register with a constant
                 case 0xA2: {
                     this.PC++;
@@ -187,8 +198,10 @@ var TSOS;
                     //print 00terminated string in Yreg
                     if (this.Xreg = 0x02) { //magic number?
                         var startPosition = this.Yreg;
-                        //BOOKMARK
+                        //need to complete!
+                        //check that we actually make a system call
                     }
+                    break;
                 }
                 //Unknown instruction. kill and tell the user
                 default: {
