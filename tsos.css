@@ -55,3 +55,9 @@ h3 {
   background-color: aliceblue;
   padding-left: 15px;
 }
+
+table{
+  background-color: whitesmoke;
+  border:1px solid black;
+  max-height: 300px;
+}

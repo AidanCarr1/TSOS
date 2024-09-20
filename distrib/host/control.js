@@ -121,6 +121,10 @@ var TSOS;
             // The easiest and most thorough way to do this is to reload (not refresh) the document.
             location.reload();
         }
+        static updateCPUDisplay() {
+        }
+        static updateMemoryDisplay() {
+        }
     }
     TSOS.Control = Control;
 })(TSOS || (TSOS = {}));

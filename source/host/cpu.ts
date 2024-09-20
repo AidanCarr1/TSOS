@@ -192,14 +192,14 @@ module TSOS {
                     if (this.Zflag == 0x0) {
 
                         var branchBytes = _Memory.mainMemory[this.PC];
-                        this.PC += branchBytes; // possible off by 1 error
+                        this.PC += branchBytes; // branch operand amount
                         //remove overflow
-                        this.PC = this.PC % MEMORY_SIZE + 1; // possible off by 1 error
-                        _StdOut.putText("branch to " + this.PC);
+                        this.PC = this.PC % MEMORY_SIZE + 1; // add with carry
+                        //_StdOut.putText("branch to " + this.PC);
                     }
                     //skip branch
                     else {
-                        _StdOut.putText("no branch ");
+                        //_StdOut.putText("no branch ");
                         this.PC ++; //next step
                     }
                     break; 
@@ -236,7 +236,7 @@ module TSOS {
                         
                         //need to complete!
                         //check that we actually make a system call
-                        _StdOut.putText("'" + Utils.toHex(this.Yreg) + "' "); //temporary
+                        _StdOut.putText("~" + Utils.toHex(this.Yreg) + "~ "); //temporary print memory location
                     }
                     break;
                 }
@@ -249,7 +249,7 @@ module TSOS {
                     _StdOut.putText(_OsShell.promptStr);
                     break;
                 }
-            }            
+            } 
         }
     }
 }

@@ -150,5 +150,13 @@ module TSOS {
             // The easiest and most thorough way to do this is to reload (not refresh) the document.
             location.reload();
         }
+
+        public static updateCPUDisplay(): void {
+
+        }
+
+        public static updateMemoryDisplay(): void {
+
+        }
     }
 }
