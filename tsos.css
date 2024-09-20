@@ -51,8 +51,7 @@ h3 {
   text-align: center;
 }
 
-.divTaskbar {
-  background-color: aliceblue;
+#divTaskbar {
   padding-left: 15px;
 }
 
@@ -62,4 +61,17 @@ table{
   overflow-y: scroll;
   height: 300px;
   display: block;  
+}
+
+#memoryTable{
+  text-align: center;
+}
+.memoryRowLabel{
+  background-color: pink;
+  width: 75px;
+  border: 1px solid black;
+}
+.memoryBox{
+  background-color: lightskyblue;
+  width: 50px;
 }

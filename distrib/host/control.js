@@ -122,15 +122,14 @@ var TSOS;
             location.reload();
         }
         static createMemoryDisplay() {
-            //var memDisplay = <HTMLInputElement> document.getElementById("memoryTable");
             //start table
             var tableHTML = "";
             var memoryCount = 0; //for id purposes - so we know which location we're at
             for (var row = 0; row < MEMORY_SIZE / MEMORY_COLUMNS; row++) {
                 //row label
-                tableHTML += "<tr><td> 0x" + TSOS.Utils.toHex(memoryCount) + "</td>";
+                tableHTML += "<tr><td class='memoryRowLabel'> 0x" + TSOS.Utils.toHex(memoryCount) + "</td>";
                 for (var col = 1; col <= MEMORY_COLUMNS; col++) {
-                    tableHTML += "<td id='mem" + memoryCount + "'> 0 </td>";
+                    tableHTML += "<td class='memoryBox' id='mem" + memoryCount + "'> 0 </td>";
                     memoryCount++;
                 }
                 //end row
