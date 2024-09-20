@@ -468,6 +468,9 @@ module TSOS {
                 //assign PID
                 var pid = _MemoryManager.newProcess(decimalList);
                 _StdOut.putText(". Process ID: " + pid);
+                
+                //update memory display accordingly
+                Control.updateMemoryDisplay();
             }
 
             else {

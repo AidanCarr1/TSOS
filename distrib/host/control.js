@@ -138,6 +138,11 @@ var TSOS;
             document.getElementById("memoryTable").innerHTML = tableHTML;
         }
         static updateMemoryDisplay() {
+            for (var i = 0; i < MEMORY_SIZE; i++) {
+                var memoryId = "mem" + i;
+                var memoryBox = document.getElementById(memoryId);
+                memoryBox.innerHTML = "" + TSOS.Utils.toHex(_Memory.mainMemory[i]);
+            }
         }
         static updateCPUDisplay() {
         }

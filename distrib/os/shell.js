@@ -375,6 +375,8 @@ var TSOS;
                 //assign PID
                 var pid = _MemoryManager.newProcess(decimalList);
                 _StdOut.putText(". Process ID: " + pid);
+                //update memory display accordingly
+                TSOS.Control.updateMemoryDisplay();
             }
             else {
                 _StdOut.putText("Invalid Hex");

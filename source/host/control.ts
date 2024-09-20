@@ -169,13 +169,18 @@ module TSOS {
                 //end row
                 tableHTML += "</tr>";
             }
-
             (<HTMLInputElement> document.getElementById("memoryTable")).innerHTML = tableHTML;
 
         }
 
         public static updateMemoryDisplay(): void {
 
+            for (var i = 0; i < MEMORY_SIZE; i ++) {
+                var memoryId = "mem" + i;
+                var memoryBox = <HTMLInputElement> document.getElementById(memoryId);
+
+                memoryBox.innerHTML = "" + Utils.toHex(_Memory.mainMemory[i]);
+            }
         }
 
         public static updateCPUDisplay(): void {
