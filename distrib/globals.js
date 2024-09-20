@@ -30,6 +30,7 @@ var _MemoryManager = null;
 //Memory CONSTANTS
 const MEMORY_SIZE = 0x100;
 const HIGH_ORDER_MULTIPLIER = 0x0100;
+const MEMORY_COLUMNS = 0x08; //how many memory spots to show per row
 var _OSclock = 0; // Page 23.
 var _Mode = 0; // (currently unused)  0 = Kernel Mode, 1 = User Mode.  See page 21.
 var _Canvas; // Initialized in Control.hostInit().

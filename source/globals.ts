@@ -38,6 +38,7 @@ var _MemoryManager: any = null;
 //Memory CONSTANTS
 const MEMORY_SIZE: number = 0x100;
 const HIGH_ORDER_MULTIPLIER: number = 0x0100;
+const MEMORY_COLUMNS: number = 0x08; //how many memory spots to show per row
 
 var _OSclock: number = 0;  // Page 23.
 

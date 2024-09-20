@@ -151,12 +151,27 @@ module TSOS {
             location.reload();
         }
 
-        public static updateCPUDisplay(): void {
+        public static createMemoryDisplay(): void {
+            var memDisplay = <HTMLInputElement> document.getElementById("memoryTable");
 
+            for (var row = 0; row < MEMORY_SIZE / MEMORY_COLUMNS; row ++) {
+
+                //row label
+
+                for (var col = 1; col <= MEMORY_COLUMNS; col ++) {
+
+                }
+            }
         }
 
         public static updateMemoryDisplay(): void {
 
         }
+
+        public static updateCPUDisplay(): void {
+
+        }
+
+        
     }
 }

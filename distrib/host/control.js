@@ -121,9 +121,17 @@ var TSOS;
             // The easiest and most thorough way to do this is to reload (not refresh) the document.
             location.reload();
         }
-        static updateCPUDisplay() {
+        static createMemoryDisplay() {
+            var memDisplay = document.getElementById("memoryTable");
+            for (var row = 0; row < MEMORY_SIZE / MEMORY_COLUMNS; row++) {
+                //row label
+                for (var col = 1; col <= MEMORY_COLUMNS; col++) {
+                }
+            }
         }
         static updateMemoryDisplay() {
+        }
+        static updateCPUDisplay() {
         }
     }
     TSOS.Control = Control;
