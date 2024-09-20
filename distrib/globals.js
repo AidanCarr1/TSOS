@@ -27,9 +27,9 @@ var _Memory;
 var _MemoryAccessor;
 //	Software	(OS)
 var _MemoryManager = null;
-//Memory variables
-var _MemorySize = 0x100;
-var _HighOrderMultiplier = 0x0100;
+//Memory CONSTANTS
+const MEMORY_SIZE = 0x100;
+const HIGH_ORDER_MULTIPLIER = 0x0100;
 var _OSclock = 0; // Page 23.
 var _Mode = 0; // (currently unused)  0 = Kernel Mode, 1 = User Mode.  See page 21.
 var _Canvas; // Initialized in Control.hostInit().

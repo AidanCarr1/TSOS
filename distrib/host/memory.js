@@ -16,7 +16,7 @@ var TSOS;
         }
         //(re)set all mainMemory elements to 0x00
         reset() {
-            for (let i = 0x00; i < _MemorySize; i++) {
+            for (let i = 0x00; i < MEMORY_SIZE; i++) {
                 this.mainMemory[i] = (0x00);
             }
         }

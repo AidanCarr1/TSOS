@@ -51,6 +51,7 @@ module TSOS {
             //fetch
             this.instructionRegister = _Memory.mainMemory[this.PC];
 
+            //decode and execute
             switch (this.instructionRegister) {
 
                 // A9 LDA: Load the accumulator with constant
@@ -70,7 +71,7 @@ module TSOS {
                     this.PC ++; //next step
 
                     //update accumulator (little endian)
-                    var memoryLocation = (_HighOrderMultiplier * highOrderByte) + lowOrderByte;
+                    var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
                     this.Acc = _Memory.mainMemory[memoryLocation];
                     break;
                 }
@@ -84,7 +85,7 @@ module TSOS {
                     this.PC ++; //next step
     
                     //stor acc in memory location (little endian)
-                    var memoryLocation = (_HighOrderMultiplier * highOrderByte) + lowOrderByte;
+                    var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
                     _Memory.mainMemory[memoryLocation] = this.Acc;
                     break;
                 }
@@ -98,8 +99,8 @@ module TSOS {
                     this.PC ++; //next step
 
                     //add
-                    var memoryLocation = (_HighOrderMultiplier * highOrderByte) + lowOrderByte;
-                    this.Acc = (this.Acc + _Memory.mainMemory[memoryLocation]) % _MemorySize;
+                    var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
+                    this.Acc = (this.Acc + _Memory.mainMemory[memoryLocation]) % MEMORY_SIZE;
                     break;
                 }
 
@@ -120,7 +121,7 @@ module TSOS {
                     this.PC ++; //next step
 
                     //update XReg (little endian)
-                    var memoryLocation = (_HighOrderMultiplier * highOrderByte) + lowOrderByte;
+                    var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
                     this.Xreg = _Memory.mainMemory[memoryLocation];
                     break;
                 }
@@ -142,7 +143,7 @@ module TSOS {
                     this.PC ++; //next step
 
                     //update YReg (little endian)
-                    var memoryLocation = (_HighOrderMultiplier * highOrderByte) + lowOrderByte;
+                    var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
                     this.Yreg = _Memory.mainMemory[memoryLocation];
                     break;
                 }
@@ -155,6 +156,7 @@ module TSOS {
 
                 //00 BRK: end of program
                 case 0x00: {
+                    //this should maybe be a function call, not cpu functionality
                     //_StdOut.putText("Program done. ");
                     _StdOut.advanceLine();
                     _StdOut.putText(_OsShell.promptStr);
@@ -175,7 +177,7 @@ module TSOS {
                     this.PC ++; //next step
 
                     //compare memory to XReg (little endian)
-                    var memoryLocation = (_HighOrderMultiplier * highOrderByte) + lowOrderByte;
+                    var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
                     if (this.Xreg == _Memory.mainMemory[memoryLocation]) {
                         this.Zflag = 0x1;
                     }
@@ -184,7 +186,7 @@ module TSOS {
 
                 //D0 BNE: Branch n bytes if Zflag = 0
                 case 0xD0: {
-                    this.PC ++; //next step
+                    this.PC ++; //read branch
 
                     //branch
                     if (this.Zflag == 0x0) {
@@ -192,7 +194,13 @@ module TSOS {
                         var branchBytes = _Memory.mainMemory[this.PC];
                         this.PC += branchBytes; // possible off by 1 error
                         //remove overflow
-                        this.PC = this.PC % _MemorySize; // possible off by 1 error
+                        this.PC = this.PC % MEMORY_SIZE + 1; // possible off by 1 error
+                        _StdOut.putText("branch to " + this.PC);
+                    }
+                    //skip branch
+                    else {
+                        _StdOut.putText("no branch ");
+                        this.PC ++; //next step
                     }
                     break; 
                 }
@@ -206,7 +214,7 @@ module TSOS {
                     this.PC ++; //next step
 
                     //put byte in acc, increment, return byte to memory 
-                    var memoryLocation = (_HighOrderMultiplier * highOrderByte) + lowOrderByte;
+                    var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
                     this.Acc = _Memory.mainMemory[memoryLocation];
                     this.Acc ++; // = (this.Acc + 0x1) % _MemorySize; //add with carry?
                     _Memory.mainMemory[memoryLocation] = this.Acc;
@@ -223,12 +231,12 @@ module TSOS {
                     }
 
                     //print 00terminated string in Yreg
-                    if (this.Xreg = 0x02) { //magic number?
+                    else if (this.Xreg = 0x02) { //magic number?
                         var startPosition = this.Yreg;
                         
                         //need to complete!
                         //check that we actually make a system call
-
+                        _StdOut.putText("'" + Utils.toHex(this.Yreg) + "' "); //temporary
                     }
                     break;
                 }

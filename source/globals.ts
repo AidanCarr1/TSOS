@@ -35,9 +35,9 @@ var _MemoryAccessor: TSOS.MemoryAccessor;
 //	Software	(OS)
 var _MemoryManager: any = null;
 
-//Memory variables
-var _MemorySize: number = 0x100;
-var _HighOrderMultiplier: number = 0x0100;
+//Memory CONSTANTS
+const MEMORY_SIZE: number = 0x100;
+const HIGH_ORDER_MULTIPLIER: number = 0x0100;
 
 var _OSclock: number = 0;  // Page 23.
 
