@@ -348,22 +348,17 @@ var TSOS;
             userProgramStr = userProgramStr.toUpperCase();
             var programStr = userProgramStr.replaceAll(" ", "");
             programStr = programStr.replaceAll("\n", "");
-            //var userProgramList = userProgramStr.split(" ");
             var decimalList = [];
             var validDigits = "0123456789ABCDEF";
             var isValid = true;
-            //odd amount amount of chars
+            //each hex must be 2 digits long
             if (programStr.length % 2 != 0) {
                 isValid = false;
             }
             //check each hex
             for (var i = 0; i < programStr.length - 1; i += 2) {
                 var hex = programStr.substring(i, i + 2);
-                //hex must be two digits
-                //else if (hex.length != 2) {
-                //    isValid = false;
-                //}
-                //even if one digit is invalid
+                //both digits must be valid hex digits
                 if (!validDigits.includes(hex[0]) || !validDigits.includes(hex[1])) {
                     isValid = false;
                 }
@@ -403,8 +398,6 @@ var TSOS;
                 //pid does not exist or isnt a number
                 else {
                     _StdOut.putText("Please supply a valid <pid>.");
-                    //_StdOut.advanceLine();
-                    //this.putPrompt();
                 }
             }
             else {
