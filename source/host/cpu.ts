@@ -155,7 +155,7 @@ module TSOS {
 
                 //00 BRK: end of program
                 case 0x00: {
-                    _StdOut.putText("Program done. ");
+                    //_StdOut.putText("Program done. ");
                     _StdOut.advanceLine();
                     _StdOut.putText(_OsShell.promptStr);
 

@@ -192,10 +192,10 @@ module TSOS {
             if (_StdOut.currentXPosition > 0) {
                 _StdOut.advanceLine();
             }
-            //temporary fix, should change because isExecuting may last a while and mess with CLI typing'
-            if (_CPU.isExecuting == false) {
+            //temporary fix, should change because isExecuting may last a while and mess with CLI typing
+            //if (_CPU.isExecuting == false) {
                 this.putPrompt();
-            }
+            //}
         }
 
         public parseInput(buffer: string): UserCommand {
@@ -430,30 +430,33 @@ module TSOS {
         public shellLoad() {
             var userProgramStr = (<HTMLInputElement> document.getElementById("taProgramInput")).value;
 
-            //turn input into a list
+            //turn input into string with no space or /n
             userProgramStr = userProgramStr.toUpperCase();
-            Utils.trim(userProgramStr);
-            var userProgramList = userProgramStr.split(" ");
+            var programStr = userProgramStr.replaceAll(" ", "");
+            programStr = programStr.replaceAll("\n", "");
+
+            //var userProgramList = userProgramStr.split(" ");
             var decimalList: number[] = [];
 
             var validDigits = "0123456789ABCDEF";
             var isValid = true;
 
-            //check each hex
-            for (var i = 0; i < userProgramList.length; i++) {
-                var hex = userProgramList[i];
+            //odd amount amount of chars
+            if (programStr.length % 2 != 0) {
+                isValid = false;
+            }
 
-                //skip empty strings
-                if (hex == ""){
-                    userProgramList.splice(i,1);
-                    i--;
-                }
+            //check each hex
+            for (var i = 0; i < programStr.length - 1; i += 2) {
+                var hex = programStr.substring(i, i+2);
+
+                
                 //hex must be two digits
-                else if (hex.length != 2) {
-                    isValid = false;
-                }
+                //else if (hex.length != 2) {
+                //    isValid = false;
+                //}
                 //even if one digit is invalid
-                else if (!validDigits.includes(hex[0]) || !validDigits.includes(hex[1])) {
+                if (!validDigits.includes(hex[0]) || !validDigits.includes(hex[1])) {
                     isValid = false;
                 }
                 else {
@@ -463,7 +466,7 @@ module TSOS {
             }
 
             //if its valid, load it
-            if (isValid && userProgramList.length > 0) {
+            if (isValid && programStr.length > 1) {
 
                 //load into memory
                 _Memory.setMemoryDec(decimalList, 0x0000);
