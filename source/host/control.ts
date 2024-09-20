@@ -152,7 +152,7 @@ module TSOS {
         }
 
         public static createMemoryDisplay(): void {
-            var memDisplay = <HTMLInputElement> document.getElementById("memoryTable");
+            //var memDisplay = <HTMLInputElement> document.getElementById("memoryTable");
 
             //start table
             var tableHTML = "";
@@ -161,7 +161,7 @@ module TSOS {
             for (var row = 0; row < MEMORY_SIZE / MEMORY_COLUMNS; row ++) {
 
                 //row label
-                tableHTML += "<tr><td> 0x" + Utils.toHex(row) + "</td>";
+                tableHTML += "<tr><td> 0x" + Utils.toHex(memoryCount) + "</td>";
 
                 for (var col = 1; col <= MEMORY_COLUMNS; col ++) {
                     tableHTML += "<td id='mem" + memoryCount + "'> 0 </td>";
@@ -171,6 +171,9 @@ module TSOS {
                 //end row
                 tableHTML += "</tr>";
             }
+
+            (<HTMLInputElement> document.getElementById("memoryTable")).innerHTML = tableHTML;
+
         }
 
         public static updateMemoryDisplay(): void {

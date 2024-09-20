@@ -58,6 +58,8 @@ h3 {
 
 table{
   background-color: whitesmoke;
-  border:1px solid black;
-  max-height: 300px;
+  border: 1px solid black;
+  overflow-y: scroll;
+  height: 300px;
+  display: block;  
 }
