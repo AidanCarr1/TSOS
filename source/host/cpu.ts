@@ -57,7 +57,8 @@ module TSOS {
                 // A9 LDA: Load the accumulator with constant
                 case 0xA9: {
                     this.PC ++;
-                    this.Acc = _Memory.mainMemory[this.PC];
+                    this.Acc = _Memory.mainMemory[this.PC]; //every time you see this line, it should probably be memory accessor function. 
+                    //BOOKMARK
                     this.PC ++; //next step
                     break;
                 }
@@ -225,6 +226,9 @@ module TSOS {
                 case 0xFF: {
                     this.PC ++; //next step
 
+                    //ALLLLL of this should be a system call:
+                    //enqueue system call software interupt
+                    
                     //print integer in Yreg
                     if (this.Xreg = 0x01) {
                         _StdOut.putText(Utils.toHex(this.Yreg));

@@ -11,7 +11,7 @@
 // Global CONSTANTS (TypeScript 1.5 introduced const. Very cool.)
 //
 const APP_NAME = "TSauce"; // 'cause Bob and I were at a loss for a better name.
-const APP_VERSION = "09.20"; // date of last edit, i will definetly forget to update this number
+const APP_VERSION = "09.23"; // date of last edit, i will definetly forget to update this number
 const CPU_CLOCK_INTERVAL = 100; // This is in ms (milliseconds) so 1000 = 1 second.
 const TIMER_IRQ = 0; // Pages 23 (timer), 9 (interrupts), and 561 (interrupt priority).
 // NOTE: The timer is different from hardware/host clock pulses. Don't confuse these.
@@ -28,7 +28,7 @@ var _MemoryAccessor;
 //	Software	(OS)
 var _MemoryManager = null;
 //Memory CONSTANTS
-const MEMORY_SIZE = 0x100;
+const MEMORY_SIZE = 0x100; //change to 300 for proj3
 const HIGH_ORDER_MULTIPLIER = 0x0100;
 const MEMORY_COLUMNS = 0x08; //how many memory spots to show per row
 var _OSclock = 0; // Page 23.
