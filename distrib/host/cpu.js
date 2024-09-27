@@ -164,6 +164,9 @@ var TSOS;
                     if (this.Xreg == _MemoryAccessor.read(memoryLocation)) {
                         this.Zflag = 0x1;
                     }
+                    else {
+                        this.Zflag = 0x0;
+                    }
                     break;
                 }
                 //D0 BNE: Branch n bytes if Zflag = 0
