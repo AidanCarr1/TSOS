@@ -187,7 +187,14 @@ module TSOS {
         }
 
         public static updateCPUDisplay(): void {
+            //(<HTMLInputElement> document.getElementById("PID")).innerText = Utils.toHex(_MemoryManager.pidCounter);
+            (<HTMLInputElement> document.getElementById("PC")).innerText = Utils.toHex(_CPU.PC);
+            (<HTMLInputElement> document.getElementById("IR")).innerText = Utils.toHex(_CPU.instructionRegister);
 
+            (<HTMLInputElement> document.getElementById("ACC")).innerText = Utils.toHex(_CPU.Acc);
+            (<HTMLInputElement> document.getElementById("X")).innerText = Utils.toHex(_CPU.Xreg);
+            (<HTMLInputElement> document.getElementById("Y")).innerText = Utils.toHex(_CPU.Yreg);
+            (<HTMLInputElement> document.getElementById("Z")).innerText = Utils.toHex(_CPU.Zflag);
         }
 
         

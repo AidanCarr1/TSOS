@@ -147,6 +147,13 @@ var TSOS;
         static createCPUDisplay() {
         }
         static updateCPUDisplay() {
+            //(<HTMLInputElement> document.getElementById("PID")).innerText = Utils.toHex(_MemoryManager.pidCounter);
+            document.getElementById("PC").innerText = TSOS.Utils.toHex(_CPU.PC);
+            document.getElementById("IR").innerText = TSOS.Utils.toHex(_CPU.instructionRegister);
+            document.getElementById("ACC").innerText = TSOS.Utils.toHex(_CPU.Acc);
+            document.getElementById("X").innerText = TSOS.Utils.toHex(_CPU.Xreg);
+            document.getElementById("Y").innerText = TSOS.Utils.toHex(_CPU.Yreg);
+            document.getElementById("Z").innerText = TSOS.Utils.toHex(_CPU.Zflag);
         }
     }
     TSOS.Control = Control;
