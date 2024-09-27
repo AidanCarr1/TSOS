@@ -36,12 +36,18 @@ module TSOS {
             while (_KernelInputQueue.getSize() > 0) {
                 // Get the next character from the kernel input queue.
                 var chr = _KernelInputQueue.dequeue();
+
                 // Check to see if it's "special" (enter or ctrl-c) or "normal" (anything else that the keyboard device driver gave us).
                 if (chr === String.fromCharCode(13)) { // the Enter key
                     // The enter key marks the end of a console command, so ...
                     // ... tell the shell ...
                     _OsShell.handleInput(this.buffer);
                     
+                    //dont store a blank line
+                    if (this.buffer === "") {
+                        return;
+                    }
+
                     // store in buffer history (for up/down arrow purposes)
                     this.bufferHistory.push(this.buffer);
                     this.historyPointer = this.bufferHistory.length; //resets arrow pressing for next line
@@ -49,6 +55,16 @@ module TSOS {
                     // ... and reset our buffer.
                     this.buffer = "";
                 } 
+
+                // Ctrl-C: allow the user to break the current program.
+                else if (chr === "ctrlc") {
+                    _CPU.isExecuting = false;
+                    _StdOut.advanceLine();
+                    _StdOut.putText(_OsShell.promptStr);
+                    // ... and reset our buffer.
+                    this.buffer = "";
+                }    
+
                 //normal characters 
                 else {
                     // This is a "normal" character, so ...
@@ -57,7 +73,6 @@ module TSOS {
                     // ... and add it to our buffer.
                     this.buffer += chr;
                 }
-                // TODO: Add a case for Ctrl-C that would allow the user to break the current program.
             }
         }
 

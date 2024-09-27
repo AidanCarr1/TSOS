@@ -175,6 +175,9 @@ module TSOS {
                     this.execute(this.shellCurse);
                 } else if (this.apologies.indexOf("[" + cmd + "]") >= 0) {        // Check for apologies.
                     this.execute(this.shellApology);
+                } else if (cmd === ""){
+                    _StdOut.advanceLine();
+                    this.putPrompt();
                 } else { // It's just a bad command. {
                     this.execute(this.shellInvalidCommand);
                 }
@@ -242,9 +245,9 @@ module TSOS {
         public shellInvalidCommand() {
             _StdOut.putText("Invalid Command. ");
             if (_SarcasticMode) {
-                _StdOut.putText("Unbelievable. You, [subject name here],");
+                _StdOut.putText("Unbelievable. You, doofus,");
                 _StdOut.advanceLine();
-                _StdOut.putText("must be the pride of [subject hometown here].");
+                _StdOut.putText("must be the pride of Camden, NJ.");
             } else {
                 _StdOut.putText("Type 'help' for, well... help.");
             }

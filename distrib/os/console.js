@@ -43,9 +43,21 @@ var TSOS;
                     // The enter key marks the end of a console command, so ...
                     // ... tell the shell ...
                     _OsShell.handleInput(this.buffer);
+                    //dont store a blank line
+                    if (this.buffer === "") {
+                        return;
+                    }
                     // store in buffer history (for up/down arrow purposes)
                     this.bufferHistory.push(this.buffer);
                     this.historyPointer = this.bufferHistory.length; //resets arrow pressing for next line
+                    // ... and reset our buffer.
+                    this.buffer = "";
+                }
+                // Ctrl-C: allow the user to break the current program.
+                else if (chr === "ctrlc") {
+                    _CPU.isExecuting = false;
+                    _StdOut.advanceLine();
+                    _StdOut.putText(_OsShell.promptStr);
                     // ... and reset our buffer.
                     this.buffer = "";
                 }
@@ -57,7 +69,6 @@ var TSOS;
                     // ... and add it to our buffer.
                     this.buffer += chr;
                 }
-                // TODO: Add a case for Ctrl-C that would allow the user to break the current program.
             }
         }
         putText(text) {

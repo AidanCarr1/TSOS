@@ -168,6 +168,10 @@ var TSOS;
                 _Console.buffer = copiedLine;
                 _StdOut.putText(copiedLine);
             }
+            //test Ctrl+C with end key
+            else if (keyCode == 35) {
+                chr = "ctrlc";
+            }
             //If unknown character, leave before queuing anything
             else {
                 return;
