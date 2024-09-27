@@ -7,6 +7,18 @@
 
 module TSOS {
 
+    export class ProcessControlBlock {
+        constructor(public pid: number,              
+                    public state: string,
+                    public processPC: number,
+                    public processAcc: number = 0,
+                    public processXreg: number = 0,
+                    public processYreg: number = 0,
+                    public processZflag: number = 0,
+                    public processIR: number ) { 
+        }
+    }
+
     export class MemoryManager {
     
         constructor(public pidCounter: number = 0,              //number of PIDs stored

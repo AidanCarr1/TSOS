@@ -6,6 +6,27 @@
      ------------ */
 var TSOS;
 (function (TSOS) {
+    class ProcessControlBlock {
+        pid;
+        state;
+        processPC;
+        processAcc;
+        processXreg;
+        processYreg;
+        processZflag;
+        processIR;
+        constructor(pid, state, processPC, processAcc = 0, processXreg = 0, processYreg = 0, processZflag = 0, processIR) {
+            this.pid = pid;
+            this.state = state;
+            this.processPC = processPC;
+            this.processAcc = processAcc;
+            this.processXreg = processXreg;
+            this.processYreg = processYreg;
+            this.processZflag = processZflag;
+            this.processIR = processIR;
+        }
+    }
+    TSOS.ProcessControlBlock = ProcessControlBlock;
     class MemoryManager {
         pidCounter;
         startingLocations;
