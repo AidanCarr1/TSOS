@@ -111,6 +111,9 @@ var TSOS;
                     _krnKeyboardDriver.isr(params); // Kernel mode device driver
                     _StdIn.handleInput();
                     break;
+                case SOFTWARE_IRQ:
+                    this.outputCPU();
+                    break;
                 default:
                     this.krnTrapError("Invalid Interrupt Request. irq=" + irq + " params=[" + params + "]");
             }
@@ -119,6 +122,19 @@ var TSOS;
             // The built-in TIMER (not clock) Interrupt Service Routine (as opposed to an ISR coming from a device driver). {
             // Check multiprogramming parameters and enforce quanta here. Call the scheduler / context switch here if necessary.
             // Or do it elsewhere in the Kernel. We don't really need this.
+        }
+        outputCPU() {
+            //print integer in Yreg
+            if (_CPU.Xreg = 0x01) {
+                _StdOut.putText(TSOS.Utils.toHex(_CPU.Yreg));
+            }
+            //print 00terminated string in Yreg
+            else if (_CPU.Xreg = 0x02) { //magic number?
+                var startPosition = _CPU.Yreg;
+                //need to complete!
+                //check that we actually make a system call
+                _StdOut.putText("~" + TSOS.Utils.toHex(_CPU.Yreg) + "~ "); //temporary print memory location
+            }
         }
         //
         // System Calls... that generate software interrupts via tha Application Programming Interface library routines.

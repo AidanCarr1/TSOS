@@ -198,23 +198,11 @@ var TSOS;
                     _MemoryAccessor.write(memoryLocation, this.Acc);
                     break;
                 }
-                //bookmark - lets make a real system call here soon
                 //FF SYS: System call
                 case 0xFF: {
                     this.PC++; //next step
-                    //ALLLLL of this should be a system call:
-                    //enqueue system call software interupt
-                    //print integer in Yreg
-                    if (this.Xreg = 0x01) {
-                        _StdOut.putText(TSOS.Utils.toHex(this.Yreg));
-                    }
-                    //print 00terminated string in Yreg
-                    else if (this.Xreg = 0x02) { //magic number?
-                        var startPosition = this.Yreg;
-                        //need to complete!
-                        //check that we actually make a system call
-                        _StdOut.putText("~" + TSOS.Utils.toHex(this.Yreg) + "~ "); //temporary print memory location
-                    }
+                    //the system call 
+                    _KernelInterruptQueue.enqueue(SOFTWARE_IRQ);
                     break;
                 }
                 //Unknown instruction. kill and tell the user
