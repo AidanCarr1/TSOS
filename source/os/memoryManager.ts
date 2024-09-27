@@ -21,20 +21,20 @@ module TSOS {
 
     export class MemoryManager {
     
-        constructor(public pidCounter: number = 0,              //number of PIDs stored
-                    public startingLocations: number[] = [] ) { //for each pid, store the starting location
+        constructor(public pidCounter: number = 0,      //number of PIDs stored
+                    public readyQueue: Queue ) {        //store all processes in order of excution
         }
 
-        //set counter and locations to 0 and empty
+        //set counter to 0 
         public init(): void {
             this.pidCounter = 0;
-            this.startingLocations = []
+            this.readyQueue = new Queue();
         }
 
         //given a program, remember the starting location, return pid
         public newProcess(decList: number[]): number {
             //start at pid 0
-            this.startingLocations[this.pidCounter] = 0x0000; //put at $0000
+            //this.startingLocations[this.pidCounter] = 0x0000; //put at $0000
             this.pidCounter ++;
 
             //I assume we will be moving processes in memory eventually

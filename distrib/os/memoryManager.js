@@ -29,21 +29,21 @@ var TSOS;
     TSOS.ProcessControlBlock = ProcessControlBlock;
     class MemoryManager {
         pidCounter;
-        startingLocations;
+        readyQueue;
         constructor(pidCounter = 0, //number of PIDs stored
-        startingLocations = []) {
+        readyQueue) {
             this.pidCounter = pidCounter;
-            this.startingLocations = startingLocations;
+            this.readyQueue = readyQueue;
         }
-        //set counter and locations to 0 and empty
+        //set counter to 0 
         init() {
             this.pidCounter = 0;
-            this.startingLocations = [];
+            this.readyQueue = new TSOS.Queue();
         }
         //given a program, remember the starting location, return pid
         newProcess(decList) {
             //start at pid 0
-            this.startingLocations[this.pidCounter] = 0x0000; //put at $0000
+            //this.startingLocations[this.pidCounter] = 0x0000; //put at $0000
             this.pidCounter++;
             //I assume we will be moving processes in memory eventually
             // do that here
