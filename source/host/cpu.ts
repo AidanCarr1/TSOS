@@ -113,7 +113,6 @@ module TSOS {
                 case 0xA2: {
                     this.PC ++;
                     this.Xreg = _MemoryAccessor.read(this.PC);
-                    //_StdOut.putText(" ~new xReg:" + this.Xreg); //test line
                     this.PC ++; //next step
                     break;
                 }

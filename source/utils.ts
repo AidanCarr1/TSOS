@@ -71,5 +71,9 @@ module TSOS {
             return hexRaw;
             //return "0x" + hexRaw;               //0xDD 0x00 0x1A    add 0x
         }
+
+        public static sysCallString(decimal: number): string {
+            return String.fromCharCode(decimal);
+        }
     }
 }

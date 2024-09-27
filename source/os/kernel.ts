@@ -146,20 +146,21 @@ module TSOS {
             //print integer in Yreg
             //_StdOut.putText("~before print~");
             if (_CPU.Xreg == 0x01) {
-                _StdOut.putText(" int~"); //test line
+                //_StdOut.putText(" int~"); //test line
                 _StdOut.putText(Utils.toHex(_CPU.Yreg));
             }
 
             //print 00terminated string in Yreg
             else if (_CPU.Xreg == 0x02) { //magic number?
-                _StdOut.putText("~string~"); //test line
+                //_StdOut.putText("~string~"); //test line
                 var currentPosition = _CPU.Yreg;
                 var currentIntValue = _MemoryAccessor.read(currentPosition);
 
                 while (currentIntValue != 0x00) {
-                    _StdOut.putText("~int value:"); //test line
-                    //var currentStrValue = Utils.sysCallString(currentIntValue)
-                    _StdOut.putText("" + Utils.toHex(currentIntValue) + "~ "); //temporary print int
+                    //_StdOut.putText("~int value:"); //test line
+                    var currentStrValue = Utils.sysCallString(currentIntValue)
+                    //_StdOut.putText("" + Utils.toHex(currentIntValue) + "~ "); //temporary print int
+                    _StdOut.putText(currentStrValue); //print str
                     
                     //next character
                     currentPosition ++;

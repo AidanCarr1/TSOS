@@ -66,6 +66,9 @@ var TSOS;
             return hexRaw;
             //return "0x" + hexRaw;               //0xDD 0x00 0x1A    add 0x
         }
+        static sysCallString(decimal) {
+            return String.fromCharCode(decimal);
+        }
     }
     TSOS.Utils = Utils;
 })(TSOS || (TSOS = {}));
