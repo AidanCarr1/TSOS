@@ -20,7 +20,10 @@ var TSOS;
         constructor(pid, state, base, //first memory location
         size, //length in bytes
         //saved cpu registers:
-        processPC, processAcc, processXreg, processYreg, processZflag, processIR) {
+        processPC, processAcc, processXreg, //ALL THES QUESTION MARKS
+        processYreg, //IDK HOW TO FIX THIS
+        processZflag, //DIDNT NEED FOR OTHER CONSTRUCTORS...
+        processIR) {
             this.pid = pid;
             this.state = state;
             this.base = base;
@@ -32,28 +35,39 @@ var TSOS;
             this.processZflag = processZflag;
             this.processIR = processIR;
         }
-        init(pid, state, base, size, processPC) {
-            this.pid = pid;
-            this.state = state;
-            this.base = base;
-            this.size = size;
-            this.processPC = processPC;
+        initRegisters() {
             //registers set to 0
+            this.processPC = 0x00; //always start at the first location
             this.processAcc = 0;
             this.processXreg = 0;
             this.processYreg = 0;
             this.processZflag = 0;
             //processIR will ~eventually~ be set when running and saving the state
         }
+        //setters
+        setPID(pid) {
+            this.pid = pid;
+        }
+        setState(state) {
+            this.state = state;
+        }
+        setBaseAndSize(base, size) {
+            this.base = base;
+            this.size = size;
+        }
     }
     TSOS.ProcessControlBlock = ProcessControlBlock;
     class MemoryManager {
         pidCounter;
         readyQueue;
+        pcbList;
         constructor(pidCounter, //number of PIDs stored
-        readyQueue) {
+        readyQueue, //store all processes in order of excution
+        //keep track of all the PCBs:
+        pcbList) {
             this.pidCounter = pidCounter;
             this.readyQueue = readyQueue;
+            this.pcbList = pcbList;
         }
         //set counter to 0 
         init() {
@@ -65,6 +79,10 @@ var TSOS;
             //start at pid 0
             //create a PCB object
             var newProcess = new ProcessControlBlock();
+            newProcess.initRegisters();
+            newProcess.setPID(this.pidCounter);
+            newProcess.setState("RESIDENT");
+            newProcess.setBaseAndSize(0x0000, decList.length); //put at $0000
             //this.startingLocations[this.pidCounter] = 0x0000; //put at $0000
             this.pidCounter++;
             //I assume we will be moving processes in memory eventually
@@ -72,8 +90,16 @@ var TSOS;
             //give pid value before it was incremented 
             return (this.pidCounter - 0x01);
         }
+        //is this a necessary function?
+        //i think this will change into cpu switching process function
+        //to switch ALL registers
         getStartingMemory(pid) {
-            return this.startingLocations[pid];
+            return 0; //temporary
+            //return this.startingLocations[pid];
+            //FIX:
+            // take pid, search through array of PCBs
+            // check each pid value until found
+            // reutn that PID's starting memory
         }
         //if pid cannot be found, return false
         isValid(pid) {
