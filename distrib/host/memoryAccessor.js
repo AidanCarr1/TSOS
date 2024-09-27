@@ -6,7 +6,14 @@ var TSOS;
 (function (TSOS) {
     class MemoryAccessor {
         constructor() {
-            //read and write
+        }
+        //return element in memory locaiton
+        read(location) {
+            return _Memory.mainMemory[location];
+        }
+        //write element to memory location
+        write(location, element) {
+            _Memory.mainMemory[location] = element;
         }
     }
     TSOS.MemoryAccessor = MemoryAccessor;

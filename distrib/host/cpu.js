@@ -56,7 +56,8 @@ var TSOS;
                 // A9 LDA: Load the accumulator with constant
                 case 0xA9: {
                     this.PC++;
-                    this.Acc = _Memory.mainMemory[this.PC]; //every time you see this line, it should probably be memory accessor function. 
+                    this.Acc = _MemoryAccessor.read(this.PC);
+                    //this.Acc = _Memory.mainMemory[this.PC]; //every time you see this line, it should probably be memory accessor function. 
                     //BOOKMARK
                     this.PC++; //next step
                     break;
