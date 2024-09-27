@@ -34,6 +34,8 @@ var TSOS;
             this.processYreg = processYreg;
             this.processZflag = processZflag;
             this.processIR = processIR;
+            //tell the kernel
+            _Kernel.krnTrace('PCB created');
         }
         initRegisters() {
             //registers set to 0
@@ -55,6 +57,10 @@ var TSOS;
             this.base = base;
             this.size = size;
         }
+        //getters
+        getPID() {
+            return this.pid;
+        }
     }
     TSOS.ProcessControlBlock = ProcessControlBlock;
     class MemoryManager {
@@ -71,12 +77,12 @@ var TSOS;
         }
         //set counter to 0 
         init() {
+            //start at pid 0
             this.pidCounter = 0;
             this.readyQueue = new TSOS.Queue();
         }
         //given a program, create a process control block, return pid
         newProcess(decList) {
-            //start at pid 0
             //create a PCB object
             var newProcess = new ProcessControlBlock();
             newProcess.initRegisters();
@@ -88,7 +94,7 @@ var TSOS;
             //I assume we will be moving processes in memory eventually
             // do that here
             //give pid value before it was incremented 
-            return (this.pidCounter - 0x01);
+            return (newProcess.getPID());
         }
         //is this a necessary function?
         //i think this will change into cpu switching process function

@@ -20,6 +20,9 @@ module TSOS {
                     public processYreg?: number,    //IDK HOW TO FIX THIS
                     public processZflag?: number,   //DIDNT NEED FOR OTHER CONSTRUCTORS...
                     public processIR?: number ) { 
+                        
+            //tell the kernel
+            _Kernel.krnTrace('PCB created');
         }
 
         public initRegisters(){
@@ -43,6 +46,11 @@ module TSOS {
             this.base = base;
             this.size = size;
         }
+
+        //getters
+        public getPID() {
+            return this.pid;
+        }
     }
 
     export class MemoryManager {
@@ -55,13 +63,13 @@ module TSOS {
 
         //set counter to 0 
         public init(): void {
+            //start at pid 0
             this.pidCounter = 0;
             this.readyQueue = new Queue();
         }
 
         //given a program, create a process control block, return pid
         public newProcess(decList: number[]): number {
-            //start at pid 0
 
             //create a PCB object
             var newProcess = new ProcessControlBlock();
@@ -77,7 +85,7 @@ module TSOS {
             // do that here
             
             //give pid value before it was incremented 
-            return (this.pidCounter - 0x01);
+            return (newProcess.getPID());
         }
 
         //is this a necessary function?
