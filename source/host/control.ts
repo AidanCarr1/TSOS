@@ -183,7 +183,7 @@ module TSOS {
         }
 
         public static createCPUDisplay(): void {
-            //Another bookmark
+        
         }
 
         public static updateCPUDisplay(): void {

@@ -145,7 +145,6 @@ var TSOS;
             }
         }
         static createCPUDisplay() {
-            //Another bookmark
         }
         static updateCPUDisplay() {
         }
