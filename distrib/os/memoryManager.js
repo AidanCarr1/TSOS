@@ -57,10 +57,6 @@ var TSOS;
             this.base = base;
             this.size = size;
         }
-        //getters
-        getPID() {
-            return this.pid;
-        }
     }
     TSOS.ProcessControlBlock = ProcessControlBlock;
     class MemoryManager {
@@ -94,7 +90,7 @@ var TSOS;
             //I assume we will be moving processes in memory eventually
             // do that here
             //give pid value before it was incremented 
-            return (newProcess.getPID());
+            return (newProcess.pid);
         }
         //is this a necessary function?
         //i think this will change into cpu switching process function

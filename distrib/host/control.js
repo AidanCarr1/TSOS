@@ -144,6 +144,9 @@ var TSOS;
                 memoryBox.innerHTML = "" + TSOS.Utils.toHex(_Memory.mainMemory[i]);
             }
         }
+        static createCPUDisplay() {
+            //Another bookmark
+        }
         static updateCPUDisplay() {
         }
     }

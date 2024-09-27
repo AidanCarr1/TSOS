@@ -170,7 +170,6 @@ module TSOS {
                 tableHTML += "</tr>";
             }
             (<HTMLInputElement> document.getElementById("memoryTable")).innerHTML = tableHTML;
-
         }
 
         public static updateMemoryDisplay(): void {
@@ -181,6 +180,10 @@ module TSOS {
 
                 memoryBox.innerHTML = "" + Utils.toHex(_Memory.mainMemory[i]);
             }
+        }
+
+        public static createCPUDisplay(): void {
+            //Another bookmark
         }
 
         public static updateCPUDisplay(): void {

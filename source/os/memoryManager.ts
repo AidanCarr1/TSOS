@@ -46,11 +46,6 @@ module TSOS {
             this.base = base;
             this.size = size;
         }
-
-        //getters
-        public getPID() {
-            return this.pid;
-        }
     }
 
     export class MemoryManager {
@@ -85,7 +80,7 @@ module TSOS {
             // do that here
             
             //give pid value before it was incremented 
-            return (newProcess.getPID());
+            return (newProcess.pid);
         }
 
         //is this a necessary function?

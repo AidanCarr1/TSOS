@@ -38,6 +38,11 @@ module TSOS {
         public run(pid: number) {
             //set starting location
             this.PC = _MemoryManager.getStartingMemory(pid);
+            //SET ALL REGISTERS
+            //BOOKMARK
+
+
+
             //TODO: add case where pid is not found
             //go
             this.isExecuting = true;
@@ -221,6 +226,7 @@ module TSOS {
                     break;
                 }
 
+                //bookmark - lets make a real system call here soon
                 //FF SYS: System call
                 case 0xFF: {
                     this.PC ++; //next step
