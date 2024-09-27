@@ -58,13 +58,14 @@ h3 {
 table{
   background-color: whitesmoke;
   border: 1px solid black;
-  overflow-y: scroll;
-  height: 300px;
   display: block;  
+  text-align: center;
+
 }
 
 #memoryTable{
-  text-align: center;
+  height: 300px;
+  overflow-y: scroll;
 }
 .memoryRowLabel{
   background-color: pink;
@@ -74,4 +75,14 @@ table{
 .memoryBox{
   background-color: lightskyblue;
   width: 50px;
+}
+
+.cpuColLabel{
+  background-color: pink;
+  width: 60px;
+  border: 1px solid black;
+}
+.cpuBox{
+  background-color: lightskyblue;
+  width: 60px;
 }
