@@ -12,8 +12,8 @@ var TSOS;
             return _Memory.mainMemory[location];
         }
         //write element to memory location
-        write(location, element) {
-            _Memory.mainMemory[location] = element;
+        write(location, data) {
+            _Memory.mainMemory[location] = data;
         }
     }
     TSOS.MemoryAccessor = MemoryAccessor;

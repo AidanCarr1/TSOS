@@ -81,7 +81,7 @@ var TSOS;
                     this.PC++; //next step
                     //stor acc in memory location (little endian)
                     var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
-                    _Memory.mainMemory[memoryLocation] = this.Acc;
+                    _MemoryAccessor.write(memoryLocation, this.Acc);
                     break;
                 }
                 //6D ADC:  Adds contents of an address to the contents of the accumulator and keeps the result in the accumulator
@@ -193,7 +193,7 @@ var TSOS;
                     var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
                     this.Acc = _MemoryAccessor.read(memoryLocation);
                     this.Acc++; // = (this.Acc + 0x1) % _MemorySize; //add with carry?
-                    _Memory.mainMemory[memoryLocation] = this.Acc;
+                    _MemoryAccessor.write(memoryLocation, this.Acc);
                     break;
                 }
                 //FF SYS: System call

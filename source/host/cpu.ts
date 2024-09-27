@@ -86,7 +86,7 @@ module TSOS {
     
                     //stor acc in memory location (little endian)
                     var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
-                    _Memory.mainMemory[memoryLocation] = this.Acc;
+                    _MemoryAccessor.write(memoryLocation, this.Acc);
                     break;
                 }
 
@@ -217,7 +217,7 @@ module TSOS {
                     var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
                     this.Acc = _MemoryAccessor.read(memoryLocation);
                     this.Acc ++; // = (this.Acc + 0x1) % _MemorySize; //add with carry?
-                    _Memory.mainMemory[memoryLocation] = this.Acc;
+                    _MemoryAccessor.write(memoryLocation, this.Acc);
                     break;
                 }
 

@@ -17,8 +17,8 @@
             }
 
             //write element to memory location
-            public write(location: number, element: number): void{
-                _Memory.mainMemory[location] = element;
+            public write(location: number, data: number): void{
+                _Memory.mainMemory[location] = data;
             }
         }
     }
