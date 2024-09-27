@@ -26,7 +26,7 @@ var _CPU; // Utilize TypeScript's type annotation system to ensure that _CPU is 
 var _Memory;
 var _MemoryAccessor;
 //	Software	(OS)
-var _MemoryManager = null;
+var _MemoryManager;
 //Memory CONSTANTS
 const MEMORY_SIZE = 0x100; //change to 300 for proj3
 const HIGH_ORDER_MULTIPLIER = 0x0100;

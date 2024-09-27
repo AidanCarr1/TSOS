@@ -33,7 +33,7 @@ var _CPU: TSOS.Cpu; // Utilize TypeScript's type annotation system to ensure tha
 var _Memory: TSOS.Memory;
 var _MemoryAccessor: TSOS.MemoryAccessor;
 //	Software	(OS)
-var _MemoryManager: any = null;
+var _MemoryManager: TSOS.MemoryManager;
 
 //Memory CONSTANTS
 const MEMORY_SIZE: number = 0x100; //change to 300 for proj3

@@ -20,7 +20,7 @@ var TSOS;
         constructor(pid, state, base, //first memory location
         size, //length in bytes
         //saved cpu registers:
-        processPC, processAcc = 0, processXreg = 0, processYreg = 0, processZflag = 0, processIR) {
+        processPC, processAcc, processXreg, processYreg, processZflag, processIR) {
             this.pid = pid;
             this.state = state;
             this.base = base;
@@ -38,13 +38,19 @@ var TSOS;
             this.base = base;
             this.size = size;
             this.processPC = processPC;
+            //registers set to 0
+            this.processAcc = 0;
+            this.processXreg = 0;
+            this.processYreg = 0;
+            this.processZflag = 0;
+            //processIR will ~eventually~ be set when running and saving the state
         }
     }
     TSOS.ProcessControlBlock = ProcessControlBlock;
     class MemoryManager {
         pidCounter;
         readyQueue;
-        constructor(pidCounter = 0, //number of PIDs stored
+        constructor(pidCounter, //number of PIDs stored
         readyQueue) {
             this.pidCounter = pidCounter;
             this.readyQueue = readyQueue;
@@ -58,6 +64,7 @@ var TSOS;
         newProcess(decList) {
             //start at pid 0
             //create a PCB object
+            var newProcess = new ProcessControlBlock();
             //this.startingLocations[this.pidCounter] = 0x0000; //put at $0000
             this.pidCounter++;
             //I assume we will be moving processes in memory eventually
