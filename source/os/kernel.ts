@@ -122,15 +122,14 @@ module TSOS {
             //       Maybe the hardware simulation will grow to support/require that in the future.
             switch (irq) {
                 case TIMER_IRQ:
-                    this.krnTimerISR();               // Kernel built-in routine for timers (not the clock).
+                    this.krnTimerISR();             // Kernel built-in routine for timers (not the clock).
                     break;
                 case KEYBOARD_IRQ:
-                    _krnKeyboardDriver.isr(params);   // Kernel mode device driver
+                    _krnKeyboardDriver.isr(params); // Kernel mode device driver
                     _StdIn.handleInput();
                     break;
                 case SOFTWARE_IRQ:
-                    _StdOut.putText("~handling software interupt~");
-                    this.outputCPU();
+                    this.outputCPU();               // System call from CPU (output int or string)    
                     break;
                 default:
                     this.krnTrapError("Invalid Interrupt Request. irq=" + irq + " params=[" + params + "]");
@@ -145,18 +144,27 @@ module TSOS {
 
         public outputCPU() {
             //print integer in Yreg
-            _StdOut.putText("~before print~");
-            if (_CPU.Xreg = 0x01) {
+            //_StdOut.putText("~before print~");
+            if (_CPU.Xreg == 0x01) {
+                _StdOut.putText(" int~"); //test line
                 _StdOut.putText(Utils.toHex(_CPU.Yreg));
             }
 
             //print 00terminated string in Yreg
-            else if (_CPU.Xreg = 0x02) { //magic number?
-                var startPosition = _CPU.Yreg;
-                
-                //need to complete!
-                //check that we actually make a system call
-                _StdOut.putText("~" + Utils.toHex(_CPU.Yreg) + "~ "); //temporary print memory location
+            else if (_CPU.Xreg == 0x02) { //magic number?
+                _StdOut.putText("~string~"); //test line
+                var currentPosition = _CPU.Yreg;
+                var currentIntValue = _MemoryAccessor.read(currentPosition);
+
+                while (currentIntValue != 0x00) {
+                    _StdOut.putText("~int value:"); //test line
+                    //var currentStrValue = Utils.sysCallString(currentIntValue)
+                    _StdOut.putText("" + Utils.toHex(currentIntValue) + "~ "); //temporary print int
+                    
+                    //next character
+                    currentPosition ++;
+                    currentIntValue = _MemoryAccessor.read(currentPosition);
+                }
             }
         }
 

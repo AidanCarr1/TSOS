@@ -102,6 +102,7 @@ var TSOS;
                 case 0xA2: {
                     this.PC++;
                     this.Xreg = _MemoryAccessor.read(this.PC);
+                    //_StdOut.putText(" ~new xReg:" + this.Xreg); //test line
                     this.PC++; //next step
                     break;
                 }
@@ -201,12 +202,9 @@ var TSOS;
                 //FF SYS: System call
                 case 0xFF: {
                     this.PC++; //next step
-                    //the system call 
-                    //create interupt:
+                    //create an interupt and enqueue it
                     var systemCall = new TSOS.Interrupt(SOFTWARE_IRQ, []);
-                    //queue the interupt
                     _KernelInterruptQueue.enqueue(systemCall);
-                    _StdOut.putText("~enqueued~");
                     break;
                 }
                 //Unknown instruction. kill and tell the user
