@@ -231,7 +231,11 @@ module TSOS {
                     this.PC ++; //next step
                     
                     //the system call 
-                    _KernelInterruptQueue.enqueue(SOFTWARE_IRQ);
+                    //create interupt:
+                    var systemCall = new Interrupt(SOFTWARE_IRQ, []);
+                    //queue the interupt
+                    _KernelInterruptQueue.enqueue(systemCall);
+                    _StdOut.putText("~enqueued~");
                     break;
                 }
                 

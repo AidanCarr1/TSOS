@@ -123,6 +123,10 @@ var TSOS;
             _StdOut.advanceLine();
             // ... call the command function passing in the args with some über-cool functional programming ...
             fn(args);
+            // if (cmd === "shutdown" || cmd === "bsod") {
+            //     return;
+            //     this.promptStr = "";
+            // }
             //check for a new line ...
             if (_StdOut.currentXPosition > 0) {
                 _StdOut.advanceLine();

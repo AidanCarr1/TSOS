@@ -129,6 +129,7 @@ module TSOS {
                     _StdIn.handleInput();
                     break;
                 case SOFTWARE_IRQ:
+                    _StdOut.putText("~handling software interupt~");
                     this.outputCPU();
                     break;
                 default:
@@ -144,6 +145,7 @@ module TSOS {
 
         public outputCPU() {
             //print integer in Yreg
+            _StdOut.putText("~before print~");
             if (_CPU.Xreg = 0x01) {
                 _StdOut.putText(Utils.toHex(_CPU.Yreg));
             }

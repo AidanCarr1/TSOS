@@ -188,6 +188,11 @@ module TSOS {
             // ... call the command function passing in the args with some über-cool functional programming ...
             fn(args);
             
+            // if (cmd === "shutdown" || cmd === "bsod") {
+            //     return;
+            //     this.promptStr = "";
+            // }
+
             //check for a new line ...
             if (_StdOut.currentXPosition > 0) {
                 _StdOut.advanceLine();
@@ -282,6 +287,7 @@ module TSOS {
             _StdOut.putText("Shutting down...");
             // Call Kernel shutdown routine.
             _Kernel.krnShutdown();
+
             // TODO: Stop the final prompt from being displayed. If possible. Not a high priority. (Damn OCD!)
         }
 
