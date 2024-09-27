@@ -10,12 +10,26 @@ module TSOS {
     export class ProcessControlBlock {
         constructor(public pid: number,              
                     public state: string,
-                    public processPC: number,
+                    public base: number,    //first memory location
+                    public size: number,    //length in bytes
+
+                    //saved cpu registers:
+                    public processPC: number,       
                     public processAcc: number = 0,
                     public processXreg: number = 0,
                     public processYreg: number = 0,
                     public processZflag: number = 0,
                     public processIR: number ) { 
+        }
+
+        public init(pid: number, state: string, 
+                    base: number, size: number,
+                    processPC: number) {
+            this.pid = pid;
+            this.state = state;
+            this.base = base;
+            this.size = size;
+            this.processPC = processPC;
         }
     }
 
@@ -31,9 +45,13 @@ module TSOS {
             this.readyQueue = new Queue();
         }
 
-        //given a program, remember the starting location, return pid
+        //given a program, create a process control block, return pid
         public newProcess(decList: number[]): number {
             //start at pid 0
+
+            //create a PCB object
+
+
             //this.startingLocations[this.pidCounter] = 0x0000; //put at $0000
             this.pidCounter ++;
 
