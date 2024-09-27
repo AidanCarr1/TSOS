@@ -7,6 +7,7 @@ body {
   font-size: 12pt;
   font-weight: normal;
   font-style: normal;
+  min-width: 1400px;
 }
 
 h1 {
@@ -29,6 +30,16 @@ h3 {
   font-size: 16pt;
   font-weight: normal;
   font-style: normal;
+}
+
+label {
+  background-color:rgb(188, 215, 237);
+  padding-top: 5px;
+  margin-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 25px;
+  padding-left: 25px;
+  text-align: center;
 }
 
 #display {

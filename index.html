@@ -82,55 +82,61 @@
       </div>
    </div>
    
-   <br style= "clear:left;">
+   <!-- <br style= "clear:left;"> -->
 
-   <div id="divConsole" style="margin:4px; width:500px; height:500px; float:left;">
-      <canvas id="display"
-              width="500px"
-              height="500px"
-              tabindex="3">
-      </canvas>
+   <div id="col1" style="margin-left:0px; margin-top:10px; width:550px; height:500px; float:left;">
+      <div id="divConsole" style="width:500px; height:500px; float:left;">
+         <canvas id="display"
+               width="550px"
+               height="563px"
+               tabindex="3">
+         </canvas>
+      </div>
    </div>
 
-   <div id="divLog" style="width:400px; margin-left:520px;">
-      <label>
-         Host Log
+   <!-- <br style= "clear:left;"> -->
+
+   <div id="col2" style="margin-left:10px; margin-top:10px; width:370px; float:left;">
+      <div id="divLog" style="width:100%">
+         <label>Host Log</label>
          <br>
          <textarea name="taHostLog"
-                   id  ="taHostLog"
-                   rows="26"
-                   cols="48"
+                  id  ="taHostLog"
+                  rows="26"
+                  cols="48"
          ></textarea>
-      </label>
-   </div>
+      </div>
+   
 
-   <div id="divUserProgramInput" style="width:400px; margin-left:520px;">
-      <label>
-         User Program Input
+      <div id="divUserProgramInput" style="width:100%;">
+         <label>User Program Input</label>
          <br>
          <textarea name="taProgramInput"
-                   id  ="taProgramInput"
-                   rows="8"
-                   cols="48"
-         ></textarea>
-      </label>
+                  id  ="taProgramInput"
+                  rows="8"
+                  cols="103">
+         </textarea>
+      </div>
+
    </div>
 
-   <div id="memoryDisplay" style="margin-left:1220px; width: 200px; float: left;"></div>
-      <label>
-         Memory
+   <!-- <br style= "clear:left;"> -->
+
+   <div id="col3" style="margin-left:10px; margin-top:10px; width:400px; float:left;">
+
+      <div id="memoryDisplay" style="width: 100%;">
+         <label>Memory</label>
          <br>
-         <table id="memoryTable" style="width:400px">
+         <table id="memoryTable" >
             
          </table>
-      </label>
-   </div>
+      </div>
 
-   <div id="cpuDisplay" style="margin-left:1220px; width: 200px; float: left;"></div>
-      <label>
-         CPU
+
+      <div id="cpuDisplay"  style="width: 100%; margin-top:20px;">
+         <label>CPU</label>
          <br>
-         <table id="cpuTable" style="width:400px">
+         <table id="cpuTable">
             <tr>
                <td class="cpuColLabel">PID</td>
                <td class="cpuColLabel">PC</td>
@@ -158,9 +164,13 @@
                <td id="Location">0</td> -->
             </tr>
          </table>
-      </label>
+         
+      </div>
    </div>
+
 </div>
+
+<br style= "clear:left;">
 
 <p class="footerText" style="clear:both; background-color: brown;">
    <br>
