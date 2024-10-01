@@ -34,8 +34,8 @@
                     this.write(currentMemoryIndex, currentDec);
                     
                     //test print
-                    _StdOut.putText("Memory $" + Utils.toHex(currentMemoryIndex) + " - " + Utils.toHex(currentDec));
-                    _StdOut.advanceLine();
+                    //_StdOut.putText("Memory $" + Utils.toHex(currentMemoryIndex) + " - " + Utils.toHex(currentDec));
+                    //_StdOut.advanceLine();
                 }
             }
         }

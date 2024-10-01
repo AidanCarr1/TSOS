@@ -24,8 +24,8 @@ var TSOS;
                 //put number into memory
                 this.write(currentMemoryIndex, currentDec);
                 //test print
-                _StdOut.putText("Memory $" + TSOS.Utils.toHex(currentMemoryIndex) + " - " + TSOS.Utils.toHex(currentDec));
-                _StdOut.advanceLine();
+                //_StdOut.putText("Memory $" + Utils.toHex(currentMemoryIndex) + " - " + Utils.toHex(currentDec));
+                //_StdOut.advanceLine();
             }
         }
     }

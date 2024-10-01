@@ -76,6 +76,7 @@ var TSOS;
             //start at pid 0
             this.pidCounter = 0;
             this.readyQueue = new TSOS.Queue();
+            this.pcbList = new Array();
         }
         //given a program, create a process control block, return pid
         newProcess(decList) {
@@ -84,11 +85,12 @@ var TSOS;
             newProcess.initRegisters();
             newProcess.setPID(this.pidCounter);
             newProcess.setState("RESIDENT");
-            newProcess.setBaseAndSize(0x0000, decList.length); //put at $0000
-            //this.startingLocations[this.pidCounter] = 0x0000; //put at $0000
+            newProcess.setBaseAndSize(0x0000, decList.length); //put at $0000 for proj2
+            //let memory manager know about the PCB
+            this.readyQueue.enqueue(newProcess);
+            this.pcbList.push(newProcess);
+            //thats one more PCB!
             this.pidCounter++;
-            //I assume we will be moving processes in memory eventually
-            // do that here
             //give pid value before it was incremented 
             return (newProcess.pid);
         }

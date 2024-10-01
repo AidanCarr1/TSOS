@@ -44,7 +44,7 @@ label {
 
 #display {
   background-color:#DFDBC3;
-  border: 2px solid red;
+  border: 2px solid white;
   cursor: default;
 }
 
@@ -55,15 +55,27 @@ label {
   margin-top: 6px;
 }
 
-.footerText {
-  color: black;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 8pt;
-  text-align: center;
+#divHead {
+  background-color:rgb(142, 185, 218);
 }
-
 #divTaskbar {
   padding-left: 15px;
+}
+
+#col1{
+  margin-left:0px; 
+  margin-top:15px; 
+  float:left;
+}
+#col2 {
+  margin-left:25px;
+  margin-top:10px; 
+  float:left;
+}
+#col3 {
+  margin-left:25px; 
+  margin-top:10px; 
+  float:left;
 }
 
 table{
@@ -77,11 +89,12 @@ table{
 #memoryTable{
   height: 300px;
   overflow-y: scroll;
+  background-color: none;
 }
 .memoryRowLabel{
-  background-color: pink;
+  background-color:darkcyan;
   width: 75px;
-  border: 1px solid black;
+  -border: 1px solid black;
 }
 .memoryBox{
   background-color: lightskyblue;
@@ -89,11 +102,20 @@ table{
 }
 
 .cpuColLabel{
-  background-color: pink;
+  background-color: darkcyan;
   width: 60px;
-  border: 1px solid black;
+  -border: 1px solid black;
 }
 .cpuBox{
   background-color: lightskyblue;
   width: 60px;
+}
+
+
+.footerText {
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 8pt;
+  text-align: center;
+  background-color: cadetblue;
 }
