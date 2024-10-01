@@ -20,6 +20,24 @@
             public write(location: number, data: number): void{
                 _Memory.mainMemory[location] = data;
             }
+
+            //given a starting position and list of decimals, set memory elements to a given decimal
+            public writeBlock(decList: number[], startIndex: number){
+
+                //loop through list of hex strings
+                for (var i = 0; i < decList.length; i++) {
+
+                    var currentMemoryIndex = i + startIndex;
+                    var currentDec = decList[i];
+
+                    //put number into memory
+                    this.write(currentMemoryIndex, currentDec);
+                    
+                    //test print
+                    _StdOut.putText("Memory $" + Utils.toHex(currentMemoryIndex) + " - " + Utils.toHex(currentDec));
+                    _StdOut.advanceLine();
+                }
+            }
         }
     }
     

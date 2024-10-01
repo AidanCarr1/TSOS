@@ -12,7 +12,7 @@
 // Global CONSTANTS (TypeScript 1.5 introduced const. Very cool.)
 //
 const APP_NAME: string    = "TSauce";   // 'cause Bob and I were at a loss for a better name.
-const APP_VERSION: string = "09.27";   // date of last edit, i will definetly forget to update this number
+const APP_VERSION: string = "09.30";   // date of last edit, i will definetly forget to update this number
 
 const CPU_CLOCK_INTERVAL: number = 100;   // This is in ms (milliseconds) so 1000 = 1 second.
 
@@ -38,7 +38,7 @@ var _MemoryAccessor: TSOS.MemoryAccessor;
 var _MemoryManager: TSOS.MemoryManager;
 
 //Memory CONSTANTS
-const MEMORY_SIZE: number = 0x100; //change to 300 for proj3
+const MEMORY_SIZE: number = 0x100; //change to x300 for proj3
 const HIGH_ORDER_MULTIPLIER: number = 0x0100;
 const MEMORY_COLUMNS: number = 0x08; //how many memory spots to show per row
 

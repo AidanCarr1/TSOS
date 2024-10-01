@@ -33,12 +33,12 @@ h3 {
 }
 
 label {
-  background-color:rgb(188, 215, 237);
+  -background-color:rgb(188, 215, 237);
   padding-top: 5px;
   margin-top: 5px;
   padding-bottom: 5px;
   padding-right: 25px;
-  padding-left: 25px;
+  -padding-left: 25px;
   text-align: center;
 }
 

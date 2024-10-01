@@ -471,8 +471,12 @@ module TSOS {
             //if its valid, load it
             if (isValid && programStr.length > 1) {
 
+
+                //BOOKMARK fix this
+                //pid first
+                //then find segmetn and put into memory (more for project 3)
                 //load into memory
-                _Memory.setMemoryDec(decimalList, 0x0000);
+                _MemoryAccessor.writeBlock(decimalList, 0x0000);
                 _StdOut.putText("Loaded into main memory");
                 //assign PID
                 var pid = _MemoryManager.newProcess(decimalList);
