@@ -17,9 +17,9 @@ module TSOS {
                     //saved cpu registers:
                     public processPC?: number,       
                     public processAcc?: number,
-                    public processXreg?: number,    //ALL THESE QUESTION MARKS
-                    public processYreg?: number,    //IDK HOW TO FIX THIS
-                    public processZflag?: number,   //DIDNT NEED FOR OTHER CONSTRUCTORS...
+                    public processXreg?: number,    
+                    public processYreg?: number,    
+                    public processZflag?: number,
                     public processIR?: number ) { 
                         
             //tell the kernel
@@ -34,6 +34,8 @@ module TSOS {
             this.processYreg = 0;
             this.processZflag = 0;
             //processIR will ~eventually~ be set when running and saving the state
+            //but just in case:
+            this.processIR = 0x00; 
         }
 
         //setters

@@ -20,10 +20,7 @@ var TSOS;
         constructor(pid, state, base, //first memory location
         size, //length in bytes
         //saved cpu registers:
-        processPC, processAcc, processXreg, //ALL THESE QUESTION MARKS
-        processYreg, //IDK HOW TO FIX THIS
-        processZflag, //DIDNT NEED FOR OTHER CONSTRUCTORS...
-        processIR) {
+        processPC, processAcc, processXreg, processYreg, processZflag, processIR) {
             this.pid = pid;
             this.state = state;
             this.base = base;
@@ -45,6 +42,8 @@ var TSOS;
             this.processYreg = 0;
             this.processZflag = 0;
             //processIR will ~eventually~ be set when running and saving the state
+            //but just in case:
+            this.processIR = 0x00;
         }
         //setters
         setPID(pid) {

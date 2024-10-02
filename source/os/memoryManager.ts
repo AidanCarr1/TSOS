@@ -48,20 +48,7 @@ module TSOS {
         public getProcessByPID(pid: number): ProcessControlBlock {
             return this.pcbList[pid];
         }
-
-        //is this a necessary function?
-        //i think this will change into cpu switching process function
-        //to switch ALL registers
-        public getStartingMemory(pid: number): number{
-            return 0; //temporary
-            //return this.startingLocations[pid];
-
-            //FIX:
-            // take pid, search through array of PCBs
-            // check each pid value until found
-            // reutn that PID's starting memory
-        }
-
+        
         //if pid cannot be found, return false
         public isValid(pid: number): boolean{
             //pid out of range
