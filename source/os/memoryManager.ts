@@ -25,23 +25,28 @@ module TSOS {
 
         //given a program, create a process control block, return pid
         public newProcess(decList: number[]): number {
-
+           
+            _StdOut.putText(" gonna be made~"); //test
             //create a PCB object
-            var newProcess = new ProcessControlBlock();
+            var //newProcess: ProcessControlBlock = null;
+            newProcess = new ProcessControlBlock();
+            _StdOut.putText(" obj made~"); //test
             newProcess.initRegisters();
             newProcess.setPID(this.pidCounter);
             newProcess.setState("RESIDENT");
             newProcess.setBaseAndSize(0x000, decList.length); //put at $000 for proj2
 
+            _StdOut.putText(" regs set~"); //test
             //let memory manager know about the PCB
             this.readyQueue.enqueue(newProcess);
             this.pcbList.push(newProcess);
 
+            _StdOut.putText(" add to arrays~"); //test
             //thats one more PCB!
             this.pidCounter ++;
             
-            //give pid value before it was incremented 
-            return (newProcess.pid);
+            //give pid value 
+            return newProcess.pid;
         }
 
         //return the pcb object given the pcb's pid

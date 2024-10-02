@@ -377,8 +377,10 @@ var TSOS;
             }
             //if its valid, load it
             if (isValid && programStr.length > 1) {
+                _StdOut.putText(" before pcb~"); //test
                 //create PCB
                 var pid = _MemoryManager.newProcess(decimalList);
+                _StdOut.putText(" after pcb~"); //test
                 //load into main memory
                 _MemoryAccessor.writeBlock(decimalList, 0x0000); //$0000 for proj 2
                 _StdOut.putText("Loaded into main memory");
@@ -403,11 +405,7 @@ var TSOS;
                     //run the given pid
                     _StdOut.putText("Running program...");
                     _StdOut.advanceLine();
-                    //BOOKMARK
-                    //this should put PCB in the front of queue 
-                    //set all cpu registers to PCB stuff
-                    //and set resident to running
-                    //then run should just turn on isExecuting
+                    //run the process in cpu
                     _CPU.prepare(numPID);
                     _CPU.run();
                 }

@@ -21,7 +21,8 @@ module TSOS {
                     public Yreg: number = 0,
                     public Zflag: number = 0,
                     public instructionRegister: number = 0x00,
-                    public isExecuting: boolean = false) {
+                    public isExecuting: boolean = false,
+                    public currentPID:number = 0) {
 
         }
 
@@ -32,27 +33,35 @@ module TSOS {
             this.Xreg = 0;
             this.Yreg = 0;
             this.Zflag = 0;
-            this.isExecuting = false;
             this.instructionRegister = 0x00; 
+            this.isExecuting = false;
+            this.currentPID = 0;
         }
 
         // GET SET...
         public prepare(pid: number) {
+            
             //find PCB from mem manager
             if (pid >= 0 && pid < _MemoryManager.pidCounter) {
                 var pcb = _MemoryManager.getProcessByPID(pid);
             }
-
             //if not found return error (this should not occur)
             else {
                 _StdOut.putText("Unknown pid");
                 return;
             }
 
-            //BOOKMARK
-            //SET ALL REGISTERS
-            this.PC = _MemoryManager.getStartingMemory(pid);
-            
+            //set all CPU registers to PCB's registers
+            this.PC = pcb.processPC;
+            this.Acc = pcb.processAcc;
+            this.Xreg = pcb.processXreg;
+            this.Yreg = pcb.processYreg;
+            this.Zflag = pcb.processZflag;
+            this.instructionRegister = 0x00; 
+
+            //new current pid
+            this.currentPID = pid;
+            pcb.setState("RUNNING");            
         }
 
         // GO!

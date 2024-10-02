@@ -20,7 +20,8 @@ var TSOS;
         Zflag;
         instructionRegister;
         isExecuting;
-        constructor(PC = 0, Acc = 0, Xreg = 0, Yreg = 0, Zflag = 0, instructionRegister = 0x00, isExecuting = false) {
+        currentPID;
+        constructor(PC = 0, Acc = 0, Xreg = 0, Yreg = 0, Zflag = 0, instructionRegister = 0x00, isExecuting = false, currentPID = 0) {
             this.PC = PC;
             this.Acc = Acc;
             this.Xreg = Xreg;
@@ -28,6 +29,7 @@ var TSOS;
             this.Zflag = Zflag;
             this.instructionRegister = instructionRegister;
             this.isExecuting = isExecuting;
+            this.currentPID = currentPID;
         }
         // ON YOUR MARKS...
         init() {
@@ -36,8 +38,9 @@ var TSOS;
             this.Xreg = 0;
             this.Yreg = 0;
             this.Zflag = 0;
-            this.isExecuting = false;
             this.instructionRegister = 0x00;
+            this.isExecuting = false;
+            this.currentPID = 0;
         }
         // GET SET...
         prepare(pid) {
@@ -50,9 +53,16 @@ var TSOS;
                 _StdOut.putText("Unknown pid");
                 return;
             }
-            //BOOKMARK
-            //SET ALL REGISTERS
-            this.PC = _MemoryManager.getStartingMemory(pid);
+            //set all CPU registers to PCB's registers
+            this.PC = pcb.processPC;
+            this.Acc = pcb.processAcc;
+            this.Xreg = pcb.processXreg;
+            this.Yreg = pcb.processYreg;
+            this.Zflag = pcb.processZflag;
+            this.instructionRegister = 0x00;
+            //new current pid
+            this.currentPID = pid;
+            pcb.setState("RUNNING");
         }
         // GO!
         run() {
