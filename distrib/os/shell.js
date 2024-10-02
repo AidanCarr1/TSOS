@@ -377,15 +377,13 @@ var TSOS;
             }
             //if its valid, load it
             if (isValid && programStr.length > 1) {
-                _StdOut.putText(" before pcb~"); //test
                 //create PCB
                 var pid = _MemoryManager.newProcess(decimalList);
-                _StdOut.putText(" after pcb~"); //test
                 //load into main memory
                 _MemoryAccessor.writeBlock(decimalList, 0x0000); //$0000 for proj 2
-                _StdOut.putText("Loaded into main memory");
+                _StdOut.putText("Loaded into main memory. ");
                 //return PID
-                _StdOut.putText(". Process ID: " + pid);
+                _StdOut.putText("Process ID: " + pid);
                 //update memory display accordingly
                 TSOS.Control.updateMemoryDisplay();
             }

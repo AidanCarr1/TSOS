@@ -147,7 +147,7 @@ var TSOS;
         static createCPUDisplay() {
         }
         static updateCPUDisplay() {
-            document.getElementById("PID").innerText = TSOS.Utils.toHex(_CPU.currentPID);
+            document.getElementById("PID").innerText = TSOS.Utils.toHex(_CPU.currentPCB.pid);
             document.getElementById("PC").innerText = TSOS.Utils.toHex(_CPU.PC);
             document.getElementById("IR").innerText = TSOS.Utils.toHex(_CPU.instructionRegister);
             document.getElementById("ACC").innerText = TSOS.Utils.toHex(_CPU.Acc);

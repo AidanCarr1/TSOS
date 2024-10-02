@@ -27,20 +27,15 @@ var TSOS;
         }
         //given a program, create a process control block, return pid
         newProcess(decList) {
-            _StdOut.putText(" gonna be made~"); //test
             //create a PCB object
-            var //newProcess: ProcessControlBlock = null;
-            newProcess = new TSOS.ProcessControlBlock();
-            _StdOut.putText(" obj made~"); //test
+            var newProcess = new TSOS.ProcessControlBlock();
             newProcess.initRegisters();
             newProcess.setPID(this.pidCounter);
             newProcess.setState("RESIDENT");
             newProcess.setBaseAndSize(0x000, decList.length); //put at $000 for proj2
-            _StdOut.putText(" regs set~"); //test
             //let memory manager know about the PCB
             this.readyQueue.enqueue(newProcess);
             this.pcbList.push(newProcess);
-            _StdOut.putText(" add to arrays~"); //test
             //thats one more PCB!
             this.pidCounter++;
             //give pid value 

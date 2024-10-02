@@ -20,8 +20,8 @@ var TSOS;
         Zflag;
         instructionRegister;
         isExecuting;
-        currentPID;
-        constructor(PC = 0, Acc = 0, Xreg = 0, Yreg = 0, Zflag = 0, instructionRegister = 0x00, isExecuting = false, currentPID = 0) {
+        currentPCB;
+        constructor(PC, Acc, Xreg, Yreg, Zflag, instructionRegister, isExecuting, currentPCB) {
             this.PC = PC;
             this.Acc = Acc;
             this.Xreg = Xreg;
@@ -29,7 +29,7 @@ var TSOS;
             this.Zflag = Zflag;
             this.instructionRegister = instructionRegister;
             this.isExecuting = isExecuting;
-            this.currentPID = currentPID;
+            this.currentPCB = currentPCB;
         }
         // ON YOUR MARKS...
         init() {
@@ -40,7 +40,7 @@ var TSOS;
             this.Zflag = 0;
             this.instructionRegister = 0x00;
             this.isExecuting = false;
-            this.currentPID = 0;
+            this.currentPCB = null;
         }
         // GET SET...
         prepare(pid) {
@@ -61,12 +61,13 @@ var TSOS;
             this.Zflag = pcb.processZflag;
             this.instructionRegister = 0x00;
             //new current pid
-            this.currentPID = pid;
-            pcb.setState("RUNNING");
+            this.currentPCB = pcb;
+            pcb.setState("READY");
         }
         // GO!
         run() {
             this.isExecuting = true;
+            this.currentPCB.setState("RUNNING");
         }
         cycle() {
             _Kernel.krnTrace('CPU cycle');

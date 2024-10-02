@@ -15,14 +15,14 @@ module TSOS {
 
     export class Cpu {
 
-        constructor(public PC: number = 0,
-                    public Acc: number = 0,
-                    public Xreg: number = 0,
-                    public Yreg: number = 0,
-                    public Zflag: number = 0,
-                    public instructionRegister: number = 0x00,
-                    public isExecuting: boolean = false,
-                    public currentPID:number = 0) {
+        constructor(public PC?: number,
+                    public Acc?: number,
+                    public Xreg?: number,
+                    public Yreg?: number,
+                    public Zflag?: number,
+                    public instructionRegister?: number,
+                    public isExecuting?: boolean,
+                    public currentPCB?: ProcessControlBlock) {
 
         }
 
@@ -35,7 +35,7 @@ module TSOS {
             this.Zflag = 0;
             this.instructionRegister = 0x00; 
             this.isExecuting = false;
-            this.currentPID = 0;
+            this.currentPCB = null;
         }
 
         // GET SET...
@@ -60,13 +60,14 @@ module TSOS {
             this.instructionRegister = 0x00; 
 
             //new current pid
-            this.currentPID = pid;
-            pcb.setState("RUNNING");            
+            this.currentPCB = pcb;
+            pcb.setState("READY");            
         }
 
         // GO!
         public run() {
             this.isExecuting = true;
+            this.currentPCB.setState("RUNNING");
         }
 
         public cycle(): void {
