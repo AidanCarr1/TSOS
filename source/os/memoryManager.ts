@@ -64,9 +64,18 @@ module TSOS {
 
         //if pid cannot be found, return false
         public isValid(pid: number): boolean{
+            //pid out of range
             if (pid >= this.pidCounter || pid < 0) {
                 return false;
-            } else {
+            } 
+            //pcb terminated
+            else if (this.getProcessByPID(pid).state === "TERMINATED") {
+                _StdOut.putText("Process " + pid + " terminated.");
+                _StdOut.advanceLine();
+                return false;
+            }  
+            //pcb good  
+            else {
                 return true;
             }
         }

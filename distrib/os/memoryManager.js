@@ -58,9 +58,17 @@ var TSOS;
         }
         //if pid cannot be found, return false
         isValid(pid) {
+            //pid out of range
             if (pid >= this.pidCounter || pid < 0) {
                 return false;
             }
+            //pcb terminated
+            else if (this.getProcessByPID(pid).state === "TERMINATED") {
+                _StdOut.putText("Process " + pid + " terminated.");
+                _StdOut.advanceLine();
+                return false;
+            }
+            //pcb good  
             else {
                 return true;
             }
