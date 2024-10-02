@@ -7,47 +7,6 @@
 
 module TSOS {
 
-    export class ProcessControlBlock {
-        constructor(public pid?: number,              
-                    public state?: string,
-                    public base?: number,    //first memory location
-                    public size?: number,    //length in bytes
-
-                    //saved cpu registers:
-                    public processPC?: number,       
-                    public processAcc?: number,
-                    public processXreg?: number,    //ALL THES QUESTION MARKS
-                    public processYreg?: number,    //IDK HOW TO FIX THIS
-                    public processZflag?: number,   //DIDNT NEED FOR OTHER CONSTRUCTORS...
-                    public processIR?: number ) { 
-                        
-            //tell the kernel
-            _Kernel.krnTrace('PCB created');
-        }
-
-        public initRegisters(){
-            //registers set to 0
-            this.processPC = 0x00; //always start at the first location
-            this.processAcc = 0;
-            this.processXreg = 0;
-            this.processYreg = 0;
-            this.processZflag = 0;
-            //processIR will ~eventually~ be set when running and saving the state
-        }
-
-        //setters
-        public setPID(pid: number) {
-            this.pid = pid;
-        }
-        public setState(state: string) {
-            this.state = state;
-        }
-        public setBaseAndSize(base: number, size: number){
-            this.base = base;
-            this.size = size;
-        }
-    }
-
     export class MemoryManager {
     
         constructor(public pidCounter?: number,      //number of PIDs stored
@@ -72,7 +31,7 @@ module TSOS {
             newProcess.initRegisters();
             newProcess.setPID(this.pidCounter);
             newProcess.setState("RESIDENT");
-            newProcess.setBaseAndSize(0x0000, decList.length); //put at $0000 for proj2
+            newProcess.setBaseAndSize(0x000, decList.length); //put at $000 for proj2
 
             //let memory manager know about the PCB
             this.readyQueue.enqueue(newProcess);
