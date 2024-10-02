@@ -166,12 +166,10 @@ var TSOS;
                 //00 BRK: end of program
                 case 0x00: {
                     //this should maybe be a function call, not cpu functionality
-                    //_StdOut.putText("Program done. ");
                     _StdOut.advanceLine();
                     _StdOut.putText(_OsShell.promptStr);
                     this.isExecuting = false;
-                    //test print memory $0040
-                    //_StdOut.putText("memory $0040: " + Utils.toHex(_Memory.mainMemory[0x0040]));
+                    this.currentPCB.setState("TERMINATED");
                     break;
                 }
                 //EC CPX: Compare byte in memory to XReg, set ZFlag if equal

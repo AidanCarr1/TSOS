@@ -59,6 +59,8 @@ module TSOS {
                 // Ctrl-C: allow the user to break the current program.
                 else if (chr === "ctrlc") {
                     _CPU.isExecuting = false;
+                    _CPU.currentPCB.setState("TERMINATED");
+                    
                     _StdOut.advanceLine();
                     _StdOut.putText(_OsShell.promptStr);
                     // ... and reset our buffer.

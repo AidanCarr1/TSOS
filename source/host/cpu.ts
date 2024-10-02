@@ -184,14 +184,12 @@ module TSOS {
                 //00 BRK: end of program
                 case 0x00: {
                     //this should maybe be a function call, not cpu functionality
-                    //_StdOut.putText("Program done. ");
                     _StdOut.advanceLine();
                     _StdOut.putText(_OsShell.promptStr);
 
                     this.isExecuting = false;
+                    this.currentPCB.setState("TERMINATED");
 
-                    //test print memory $0040
-                    //_StdOut.putText("memory $0040: " + Utils.toHex(_Memory.mainMemory[0x0040]));
                     break;
                 }
 
