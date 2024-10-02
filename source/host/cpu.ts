@@ -25,7 +25,7 @@ module TSOS {
 
         }
 
-        //on your marks
+        // ON YOUR MARKS...
         public init(): void {
             this.PC = 0;
             this.Acc = 0;
@@ -36,18 +36,27 @@ module TSOS {
             this.instructionRegister = 0x00; 
         }
 
-        //get set
+        // GET SET...
         public prepare(pid: number) {
             //find PCB from mem manager
+            if (pid >= 0 && pid < _MemoryManager.pidCounter) {
+                var pcb = _MemoryManager.getProcessByPID(pid);
+            }
 
-            //if not found return error
+            //if not found return error (this should not occur)
+            else {
+                _StdOut.putText("Unknown pid");
+                return;
+            }
 
+            //BOOKMARK
             //SET ALL REGISTERS
             this.PC = _MemoryManager.getStartingMemory(pid);
             
         }
+
+        // GO!
         public run() {
-            //go!
             this.isExecuting = true;
         }
 

@@ -29,7 +29,7 @@ var TSOS;
             this.instructionRegister = instructionRegister;
             this.isExecuting = isExecuting;
         }
-        //on your marks
+        // ON YOUR MARKS...
         init() {
             this.PC = 0;
             this.Acc = 0;
@@ -39,15 +39,23 @@ var TSOS;
             this.isExecuting = false;
             this.instructionRegister = 0x00;
         }
-        //get set
+        // GET SET...
         prepare(pid) {
             //find PCB from mem manager
-            //if not found return error
+            if (pid >= 0 && pid < _MemoryManager.pidCounter) {
+                var pcb = _MemoryManager.getProcessByPID(pid);
+            }
+            //if not found return error (this should not occur)
+            else {
+                _StdOut.putText("Unknown pid");
+                return;
+            }
+            //BOOKMARK
             //SET ALL REGISTERS
             this.PC = _MemoryManager.getStartingMemory(pid);
         }
+        // GO!
         run() {
-            //go!
             this.isExecuting = true;
         }
         cycle() {

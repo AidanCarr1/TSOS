@@ -510,10 +510,9 @@ module TSOS {
                     //set all cpu registers to PCB stuff
                     //and set resident to running
                     //then run should just turn on isExecuting
-                    _CPU.run(numPID);
 
-                    //_CPU.prepare(numPID);
-                    //_CPU.run();
+                    _CPU.prepare(numPID);
+                    _CPU.run();
                 }
                 
                 //pid does not exist or isnt a number

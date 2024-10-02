@@ -41,6 +41,10 @@ var TSOS;
             //give pid value before it was incremented 
             return (newProcess.pid);
         }
+        //return the pcb object given the pcb's pid
+        getProcessByPID(pid) {
+            return this.pcbList[pid];
+        }
         //is this a necessary function?
         //i think this will change into cpu switching process function
         //to switch ALL registers
