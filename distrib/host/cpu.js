@@ -29,6 +29,7 @@ var TSOS;
             this.instructionRegister = instructionRegister;
             this.isExecuting = isExecuting;
         }
+        //on your marks
         init() {
             this.PC = 0;
             this.Acc = 0;
@@ -38,13 +39,15 @@ var TSOS;
             this.isExecuting = false;
             this.instructionRegister = 0x00;
         }
-        run(pid) {
-            //set starting location
-            this.PC = _MemoryManager.getStartingMemory(pid);
+        //get set
+        prepare(pid) {
+            //find PCB from mem manager
+            //if not found return error
             //SET ALL REGISTERS
-            //BOOKMARK
-            //TODO: add case where pid is not found
-            //go
+            this.PC = _MemoryManager.getStartingMemory(pid);
+        }
+        run() {
+            //go!
             this.isExecuting = true;
         }
         cycle() {

@@ -17,7 +17,7 @@ module TSOS {
                     //saved cpu registers:
                     public processPC?: number,       
                     public processAcc?: number,
-                    public processXreg?: number,    //ALL THES QUESTION MARKS
+                    public processXreg?: number,    //ALL THESE QUESTION MARKS
                     public processYreg?: number,    //IDK HOW TO FIX THIS
                     public processZflag?: number,   //DIDNT NEED FOR OTHER CONSTRUCTORS...
                     public processIR?: number ) { 

@@ -20,7 +20,7 @@ var TSOS;
         constructor(pid, state, base, //first memory location
         size, //length in bytes
         //saved cpu registers:
-        processPC, processAcc, processXreg, //ALL THES QUESTION MARKS
+        processPC, processAcc, processXreg, //ALL THESE QUESTION MARKS
         processYreg, //IDK HOW TO FIX THIS
         processZflag, //DIDNT NEED FOR OTHER CONSTRUCTORS...
         processIR) {

@@ -409,6 +409,8 @@ var TSOS;
                     //and set resident to running
                     //then run should just turn on isExecuting
                     _CPU.run(numPID);
+                    //_CPU.prepare(numPID);
+                    //_CPU.run();
                 }
                 //pid does not exist or isnt a number
                 else {

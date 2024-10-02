@@ -1,8 +1,8 @@
 /* ------------
      memoryManager.ts
 
-     this class should store pid and its starting position
-     also maybe something with pcb?
+     this class stores the pcbs and the ready queue
+     it will also maybe move and keep track of 256 byte segments
      ------------ */
 var TSOS;
 (function (TSOS) {
