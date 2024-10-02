@@ -351,6 +351,9 @@ var TSOS;
             //shutdown is not always reliable here
         }
         shellLoad() {
+            //TO DO:
+            //check if there is memory and we arent over writing program
+            //(aka) do not allow load load for proj2
             var userProgramStr = document.getElementById("taProgramInput").value;
             //turn input into string with no space or /n
             userProgramStr = userProgramStr.toUpperCase();
