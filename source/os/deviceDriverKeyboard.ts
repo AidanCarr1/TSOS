@@ -32,12 +32,18 @@ module TSOS {
             // TODO: Check for caps-lock and handle as shifted if so.
             var keyCode = params[0];
             var isShifted = params[1];
-            _Kernel.krnTrace("Key code:" + keyCode + " shifted:" + isShifted);
+            var isCtrled = params[2];
+            _Kernel.krnTrace("Key code:" + keyCode + " shifted:" + isShifted + " ctrl:" + isCtrled);
             var chr = "";
             // Check to see if we even want to deal with the key that was pressed.
             
+            //test Ctrl+C with end key
+            if (isCtrled && keyCode == 67) {
+                chr = "ctrlc";
+            }
+            
             //Letters
-            if ((keyCode >= 65) && (keyCode <= 90)) {
+            else if ((keyCode >= 65) && (keyCode <= 90)) {
                 if (isShifted === true) {
                     // Uppercase A-Z 
                     chr = String.fromCharCode(keyCode); 
@@ -180,11 +186,6 @@ module TSOS {
                 var copiedLine = _Console.bufferHistory[_Console.historyPointer];
                 _Console.buffer = copiedLine;
                 _StdOut.putText(copiedLine);
-            }
-
-            //test Ctrl+C with end key
-            else if (keyCode == 35) {
-                chr = "ctrlc";
             }
 
             //If unknown character, leave before queuing anything
