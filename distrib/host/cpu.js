@@ -165,7 +165,7 @@ var TSOS;
                 }
                 //00 BRK: end of program
                 case 0x00: {
-                    //this should maybe be a function call, not cpu functionality
+                    //this should be a function call (but it doesnt have to be, so im keeping it here)
                     _StdOut.advanceLine();
                     _StdOut.putText(_OsShell.promptStr);
                     this.isExecuting = false;
@@ -198,11 +198,9 @@ var TSOS;
                         this.PC += branchBytes; // branch operand amount
                         //remove overflow
                         this.PC = this.PC % MEMORY_SIZE + 1; // add with carry
-                        //_StdOut.putText("branch to " + this.PC);
                     }
                     //skip branch
                     else {
-                        //_StdOut.putText("no branch ");
                         this.PC++; //next step
                     }
                     break;
@@ -217,7 +215,7 @@ var TSOS;
                     //put byte in acc, increment, return byte to memory 
                     var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
                     this.Acc = _MemoryAccessor.read(memoryLocation);
-                    this.Acc++; // = (this.Acc + 0x1) % _MemorySize; //add with carry?
+                    this.Acc++; // inc
                     _MemoryAccessor.write(memoryLocation, this.Acc);
                     break;
                 }

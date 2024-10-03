@@ -28,7 +28,8 @@ var TSOS;
                 //_StdOut.advanceLine();
             }
         }
-        //given a starting segment, set all memory elements to 0x00
+        //given a segment, set all memory elements to 0x00
+        //proj2 just clears everything
         clearBlock(segment) {
             //loop through memory segment
             for (var i = 0; i < MEMORY_SIZE; i++) {

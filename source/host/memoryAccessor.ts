@@ -39,7 +39,8 @@
                 }
             }
 
-            //given a starting segment, set all memory elements to 0x00
+            //given a segment, set all memory elements to 0x00
+            //proj2 just clears everything
             public clearBlock(segment: number){
 
                 //loop through memory segment

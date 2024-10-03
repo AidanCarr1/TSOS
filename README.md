@@ -1,3 +1,16 @@
+PROJECT 2 GRADING INSTRUCTIONS
+====================================
+Please grade my [Project 2 Branch](https://github.com/AidanCarr1/TSOS/tree/Project-2)
+
+- Ctrl+C has been added
+- PCB, MemoryManager, MemoryAccessor, CPU added
+- Memory and CPU displays
+- some CSS changes
+- multi enter isnt as ugly
+- many load/run sequences will work
+- load load will not work
+
+
 2024 Browser-based Operating System in TypeScript
 =================================================
 

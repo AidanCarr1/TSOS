@@ -182,10 +182,6 @@ module TSOS {
             }
         }
 
-        public static createCPUDisplay(): void {
-        
-        }
-
         public static updateCPUDisplay(): void {
             (<HTMLInputElement> document.getElementById("PID")).innerText = Utils.toHex(_CPU.currentPCB.pid);
             (<HTMLInputElement> document.getElementById("PC")).innerText = Utils.toHex(_CPU.PC);

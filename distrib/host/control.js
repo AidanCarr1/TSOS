@@ -144,8 +144,6 @@ var TSOS;
                 memoryBox.innerHTML = "" + TSOS.Utils.toHex(_Memory.mainMemory[i]);
             }
         }
-        static createCPUDisplay() {
-        }
         static updateCPUDisplay() {
             document.getElementById("PID").innerText = TSOS.Utils.toHex(_CPU.currentPCB.pid);
             document.getElementById("PC").innerText = TSOS.Utils.toHex(_CPU.PC);

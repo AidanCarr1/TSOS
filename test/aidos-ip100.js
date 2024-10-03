@@ -14,7 +14,7 @@ function Glados() {
  
     this.afterStartup = function() {
  
-       // Force scrolling with a few 'help' commands.
+       // Test 'help' command.
        _KernelInputQueue.enqueue('h');
        _KernelInputQueue.enqueue('e');
        _KernelInputQueue.enqueue('l');
@@ -58,7 +58,7 @@ function Glados() {
        TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
        TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
  
-       // Test the 'whereami' command.
+       // Test the 'whereami' command many times.
        _KernelInputQueue.enqueue('w');
        _KernelInputQueue.enqueue('h');
        _KernelInputQueue.enqueue('e');
@@ -68,7 +68,7 @@ function Glados() {
        _KernelInputQueue.enqueue('m');
        _KernelInputQueue.enqueue('i');
        TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
-       // Test the 'whereami' command.
+       // Test the 'whereami' command again.
        _KernelInputQueue.enqueue('w');
        _KernelInputQueue.enqueue('h');
        _KernelInputQueue.enqueue('e');
@@ -78,7 +78,7 @@ function Glados() {
        _KernelInputQueue.enqueue('m');
        _KernelInputQueue.enqueue('i');
        TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
-       // Test the 'whereami' command.
+       // Test the 'whereami' command one more time.
        _KernelInputQueue.enqueue('w');
        _KernelInputQueue.enqueue('h');
        _KernelInputQueue.enqueue('e');
@@ -95,6 +95,8 @@ function Glados() {
          for (var i = 0; i < str.length; i++) {
              _KernelInputQueue.enqueue(str[i]);
          }
+
+       //woah many enters looks nicer
        TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);  
        TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
        TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
@@ -102,7 +104,7 @@ function Glados() {
        // Load a valid user program code and run it.
        var code = "A9 10 8D 41 00 A9 01 8D 40 00 AC 40 00 A2 01 ff EE 40 00 AE 40 00 EC 41 00 D0 " +
                   "EF A9 55 8D 42 00 A9 43 8D 43 00 A9 4B 8D 44 00 A9 00 8D 46 00 " +
-                  "A2 02 A0 42 ff 00";	   
+                  "A2 02 A0 42 EaeaeaeaeaeA ff 00";	   
        document.getElementById("taProgramInput").value = code;
     };
  }
