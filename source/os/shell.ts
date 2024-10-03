@@ -439,8 +439,13 @@ module TSOS {
         public shellLoad() {
             //TO DO:
             //check if there is memory and we arent over writing program
+            var segment = _MemoryManager.whereIsSpace();
+            if (segment = ERROR_CODE) {
+                _StdOut.putText("There is an unran program in memory.");
+                return;
+            }
             //(aka) do not allow load load for proj2
-            
+
             var userProgramStr = (<HTMLInputElement> document.getElementById("taProgramInput")).value;
 
             //turn input into string with no space or /n

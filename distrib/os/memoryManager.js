@@ -62,6 +62,28 @@ var TSOS;
                 return true;
             }
         }
+        //function returns where there is space
+        //for proj2: 
+        //returns segment 0 if its open
+        //returns ERROR CODE if its not open
+        //for proj3:
+        //idk ill get to it when i get there something like 3 segments and stuff   
+        whereIsSpace() {
+            //check every pcb for any residents/readys
+            for (var i = 0; i < this.pidCounter; i++) {
+                if (this.pcbList[i].state === "RESIDENT") {
+                    return ERROR_CODE;
+                }
+                else if (this.pcbList[i].state === "READY") {
+                    return ERROR_CODE;
+                }
+                else if (this.pcbList[i].state === "RUNNING") {
+                    return ERROR_CODE;
+                }
+            }
+            //there is space, return the segment
+            return 0;
+        }
     }
     TSOS.MemoryManager = MemoryManager;
 })(TSOS || (TSOS = {}));
