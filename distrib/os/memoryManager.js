@@ -26,13 +26,14 @@ var TSOS;
             this.pcbList = new Array();
         }
         //given a program, create a process control block, return pid
-        newProcess(decList) {
+        newProcess(decList, segment) {
             //create a PCB object
             var newProcess = new TSOS.ProcessControlBlock();
             newProcess.initRegisters();
             newProcess.setPID(this.pidCounter);
             newProcess.setState("RESIDENT");
-            newProcess.setBaseAndSize(0x000, decList.length); //put at $000 for proj2
+            //put at $000 for proj2, use segment for proj3
+            newProcess.setBaseAndSize(0x000, decList.length);
             //let memory manager know about the PCB
             this.readyQueue.enqueue(newProcess);
             this.pcbList.push(newProcess);

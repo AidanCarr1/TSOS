@@ -351,16 +351,15 @@ var TSOS;
             //shutdown is not always reliable here
         }
         shellLoad() {
-            //TO DO:
-            //check if there is memory and we arent over writing program
+            //check for availible segment or if there is memory and we arent over writing program
             var segment = _MemoryManager.whereIsSpace();
-            if (segment = ERROR_CODE) {
-                _StdOut.putText("There is an unran program in memory.");
+            if (segment == ERROR_CODE) {
+                //_StdOut.putText("There is an unran program in memory.");
+                _StdOut.putText("No space in memory.");
                 return;
             }
-            //(aka) do not allow load load for proj2
             var userProgramStr = document.getElementById("taProgramInput").value;
-            //turn input into string with no space or /n
+            //turn input into string with no spaces or /n
             userProgramStr = userProgramStr.toUpperCase();
             var programStr = userProgramStr.replaceAll(" ", "");
             programStr = programStr.replaceAll("\n", "");
@@ -385,10 +384,11 @@ var TSOS;
             }
             //if its valid, load it
             if (isValid && programStr.length > 1) {
-                //create PCB
-                var pid = _MemoryManager.newProcess(decimalList);
+                //create PCB at the segment
+                var pid = _MemoryManager.newProcess(decimalList, segment);
                 //load into main memory
-                _MemoryAccessor.writeBlock(decimalList, 0x0000); //$0000 for proj 2
+                _MemoryAccessor.clearBlock(segment); // update for real functionality in proj3
+                _MemoryAccessor.writeBlock(decimalList, 0x0000); //$0000 for proj 2, use segment for proj3
                 _StdOut.putText("Loaded into main memory. ");
                 //return PID
                 _StdOut.putText("Process ID: " + pid);

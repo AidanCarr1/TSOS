@@ -28,6 +28,17 @@ var TSOS;
                 //_StdOut.advanceLine();
             }
         }
+        //given a starting segment, set all memory elements to 0x00
+        clearBlock(segment) {
+            //loop through memory segment
+            for (var i = 0; i < MEMORY_SIZE; i++) {
+                //good for proj2, will change for proj3:
+                //var currentMemoryIndex = i + startIndex;
+                //put number into memory
+                //this.write(currentMemoryIndex, 0x00);
+                this.write(i, 0x00);
+            }
+        }
     }
     TSOS.MemoryAccessor = MemoryAccessor;
 })(TSOS || (TSOS = {}));
