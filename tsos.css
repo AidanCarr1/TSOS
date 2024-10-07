@@ -48,8 +48,14 @@ label {
   cursor: default;
 }
 
+#divButtonBar {
+  margin:4px; 
+  width:550px; 
+  float:left;
+}
+
 .normal_button {
-  width: 150px;
+  width: 92px;
   height: 50px;
   margin-left: 10px;
   margin-top: 6px;
