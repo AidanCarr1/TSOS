@@ -168,7 +168,12 @@ module TSOS {
         }
 
         public static hostBtnTakeStep_click(btn): void {
-
+            if (_CPU.isExecuting) {
+                _CPU.cycle();
+                //after each cycle, update displays
+                Control.updateCPUDisplay();
+                Control.updateMemoryDisplay();
+            }
         }
 
         public static createMemoryDisplay(): void {

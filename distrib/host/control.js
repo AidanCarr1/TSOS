@@ -135,6 +135,12 @@ var TSOS;
             }
         }
         static hostBtnTakeStep_click(btn) {
+            if (_CPU.isExecuting) {
+                _CPU.cycle();
+                //after each cycle, update displays
+                Control.updateCPUDisplay();
+                Control.updateMemoryDisplay();
+            }
         }
         static createMemoryDisplay() {
             //start table
