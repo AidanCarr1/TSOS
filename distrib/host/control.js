@@ -172,7 +172,7 @@ var TSOS;
             }
         }
         static updateCPUDisplay() {
-            document.getElementById("PID").innerText = TSOS.Utils.toHex(_CPU.currentPCB.pid);
+            document.getElementById("PID").innerText = "" + _CPU.currentPCB.pid; //PIDs are in base 10
             document.getElementById("PC").innerText = TSOS.Utils.toHex(_CPU.PC);
             document.getElementById("IR").innerText = TSOS.Utils.toHex(_CPU.instructionRegister);
             document.getElementById("Acc").innerText = TSOS.Utils.toHex(_CPU.Acc);

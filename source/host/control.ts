@@ -214,7 +214,7 @@ module TSOS {
         }
 
         public static updateCPUDisplay(): void {
-            (<HTMLInputElement> document.getElementById("PID")).innerText = Utils.toHex(_CPU.currentPCB.pid);
+            (<HTMLInputElement> document.getElementById("PID")).innerText = "" + _CPU.currentPCB.pid; //PIDs are in base 10
             (<HTMLInputElement> document.getElementById("PC")).innerText = Utils.toHex(_CPU.PC);
             (<HTMLInputElement> document.getElementById("IR")).innerText = Utils.toHex(_CPU.instructionRegister);
 

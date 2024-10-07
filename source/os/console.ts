@@ -62,6 +62,8 @@ module TSOS {
                     _CPU.currentPCB.setState("TERMINATED");
                     
                     _StdOut.advanceLine();
+                    _StdOut.putText("Process TERMINATED with ctrl c");
+                    _StdOut.advanceLine();
                     _StdOut.putText(_OsShell.promptStr);
                     // ... and reset our buffer.
                     this.buffer = "";
