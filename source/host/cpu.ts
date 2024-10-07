@@ -22,7 +22,8 @@ module TSOS {
                     public Zflag?: number,
                     public instructionRegister?: number,
                     public isExecuting?: boolean,
-                    public currentPCB?: ProcessControlBlock) {
+                    public currentPCB?: ProcessControlBlock,
+                    public isSingleStepping?: boolean) {
 
         }
 
@@ -36,6 +37,7 @@ module TSOS {
             this.instructionRegister = 0x00; 
             this.isExecuting = false;
             this.currentPCB = null;
+            this.isSingleStepping = false;
         }
 
         // GET SET...

@@ -90,9 +90,10 @@ var TSOS;
         static hostBtnStartOS_click(btn) {
             // Disable the (passed-in) start button...
             btn.disabled = true;
-            // .. enable the Halt and Reset buttons ...
+            // .. enable the Halt and Reset buttons ... and single step button!
             document.getElementById("btnHaltOS").disabled = false;
             document.getElementById("btnReset").disabled = false;
+            document.getElementById("btnSingleStep").disabled = false;
             // .. set focus on the OS console display ...
             document.getElementById("display").focus();
             // ... Create and initialize the CPU (because it's part of the hardware)  ...
@@ -120,6 +121,20 @@ var TSOS;
         static hostBtnReset_click(btn) {
             // The easiest and most thorough way to do this is to reload (not refresh) the document.
             location.reload();
+        }
+        static hostBtnSingleStepToggle_click(btn) {
+            //turn single step on
+            if (_CPU.isSingleStepping == false) {
+                _CPU.isSingleStepping = true;
+                document.getElementById("btnTakeStep").disabled = false;
+            }
+            //turn single step off
+            else {
+                _CPU.isSingleStepping = false;
+                document.getElementById("btnTakeStep").disabled = true;
+            }
+        }
+        static hostBtnTakeStep_click(btn) {
         }
         static createMemoryDisplay() {
             //start table

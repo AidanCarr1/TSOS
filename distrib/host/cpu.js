@@ -21,7 +21,8 @@ var TSOS;
         instructionRegister;
         isExecuting;
         currentPCB;
-        constructor(PC, Acc, Xreg, Yreg, Zflag, instructionRegister, isExecuting, currentPCB) {
+        isSingleStepping;
+        constructor(PC, Acc, Xreg, Yreg, Zflag, instructionRegister, isExecuting, currentPCB, isSingleStepping) {
             this.PC = PC;
             this.Acc = Acc;
             this.Xreg = Xreg;
@@ -30,6 +31,7 @@ var TSOS;
             this.instructionRegister = instructionRegister;
             this.isExecuting = isExecuting;
             this.currentPCB = currentPCB;
+            this.isSingleStepping = isSingleStepping;
         }
         // ON YOUR MARKS...
         init() {
@@ -41,6 +43,7 @@ var TSOS;
             this.instructionRegister = 0x00;
             this.isExecuting = false;
             this.currentPCB = null;
+            this.isSingleStepping = false;
         }
         // GET SET...
         prepare(pid) {

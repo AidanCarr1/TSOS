@@ -113,9 +113,10 @@ module TSOS {
             // Disable the (passed-in) start button...
             btn.disabled = true;
 
-            // .. enable the Halt and Reset buttons ...
+            // .. enable the Halt and Reset buttons ... and single step button!
             (<HTMLButtonElement>document.getElementById("btnHaltOS")).disabled = false;
             (<HTMLButtonElement>document.getElementById("btnReset")).disabled = false;
+            (<HTMLButtonElement>document.getElementById("btnSingleStep")).disabled = false;
 
             // .. set focus on the OS console display ...
             document.getElementById("display").focus();
@@ -149,6 +150,25 @@ module TSOS {
         public static hostBtnReset_click(btn): void {
             // The easiest and most thorough way to do this is to reload (not refresh) the document.
             location.reload();
+        }
+
+        public static hostBtnSingleStepToggle_click(btn): void {
+
+            //turn single step on
+            if (_CPU.isSingleStepping == false){
+                _CPU.isSingleStepping = true;
+                (<HTMLButtonElement>document.getElementById("btnTakeStep")).disabled = false;
+            }
+
+            //turn single step off
+            else {
+                _CPU.isSingleStepping = false;
+                (<HTMLButtonElement>document.getElementById("btnTakeStep")).disabled = true;
+            }
+        }
+
+        public static hostBtnTakeStep_click(btn): void {
+
         }
 
         public static createMemoryDisplay(): void {
