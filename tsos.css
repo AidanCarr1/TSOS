@@ -103,8 +103,11 @@ table{
   -border: 1px solid black;
 }
 .memoryBox{
-  background-color: lightskyblue;
+  background-color: lightsteelblue;
   width: 50px;
+}
+.highlightPC{
+  background-color: lightskyblue;
 }
 
 .cpuColLabel{
