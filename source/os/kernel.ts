@@ -128,8 +128,11 @@ module TSOS {
                     _krnKeyboardDriver.isr(params); // Kernel mode device driver
                     _StdIn.handleInput();
                     break;
-                case SOFTWARE_IRQ:
+                case OUTPUT_CPU_IRQ:
                     this.outputCPU();               // System call from CPU (output int or string)    
+                    break;
+                case KILL_PROCESS_IRQ:
+                    this.killProcess();
                     break;
                 default:
                     this.krnTrapError("Invalid Interrupt Request. irq=" + irq + " params=[" + params + "]");
@@ -167,6 +170,11 @@ module TSOS {
                     currentIntValue = _MemoryAccessor.read(currentPosition);
                 }
             }
+        }
+
+        public killProcess() {
+            _CPU.isExecuting = false;
+            _CPU.currentPCB.setState("TERMINATED");
         }
 
         //

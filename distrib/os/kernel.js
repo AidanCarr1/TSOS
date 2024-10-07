@@ -111,8 +111,11 @@ var TSOS;
                     _krnKeyboardDriver.isr(params); // Kernel mode device driver
                     _StdIn.handleInput();
                     break;
-                case SOFTWARE_IRQ:
+                case OUTPUT_CPU_IRQ:
                     this.outputCPU(); // System call from CPU (output int or string)    
+                    break;
+                case KILL_PROCESS_IRQ:
+                    this.killProcess();
                     break;
                 default:
                     this.krnTrapError("Invalid Interrupt Request. irq=" + irq + " params=[" + params + "]");
@@ -145,6 +148,10 @@ var TSOS;
                     currentIntValue = _MemoryAccessor.read(currentPosition);
                 }
             }
+        }
+        killProcess() {
+            _CPU.isExecuting = false;
+            _CPU.currentPCB.setState("TERMINATED");
         }
         //
         // System Calls... that generate software interrupts via tha Application Programming Interface library routines.

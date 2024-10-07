@@ -226,7 +226,7 @@ var TSOS;
                 case 0xFF: {
                     this.PC++; //next step
                     //create an interupt and enqueue it
-                    var systemCall = new TSOS.Interrupt(SOFTWARE_IRQ, []);
+                    var systemCall = new TSOS.Interrupt(OUTPUT_CPU_IRQ, []);
                     _KernelInterruptQueue.enqueue(systemCall);
                     break;
                 }
