@@ -55,8 +55,10 @@ var TSOS;
                 }
                 // Ctrl-C: allow the user to break the current program.
                 else if (chr === "ctrlc") {
-                    _CPU.isExecuting = false;
-                    _CPU.currentPCB.setState("TERMINATED");
+                    //create an interupt and enqueue it
+                    var systemCall = new TSOS.Interrupt(KILL_PROCESS_IRQ, []);
+                    _KernelInterruptQueue.enqueue(systemCall);
+                    //tell the shell
                     _StdOut.advanceLine();
                     _StdOut.putText("Process TERMINATED with ctrl c");
                     _StdOut.advanceLine();
