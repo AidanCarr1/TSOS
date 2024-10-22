@@ -261,6 +261,7 @@ module TSOS {
                 }
                 
                 //Unknown instruction. kill and tell the user
+                //can make this a system call
                 default: {
                     this.isExecuting = false;
                     _StdOut.putText("Unknown instruction: " + Utils.toHex(this.instructionRegister));

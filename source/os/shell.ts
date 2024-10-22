@@ -16,6 +16,8 @@ module TSOS {
         public commandList = [];
         public curses = "[fuvg],[cvff],[shpx],[phag],[pbpxfhpxre],[zbgureshpxre],[gvgf]";
         public apologies = "[sorry]";
+        //public locations: string[] = ["Hancock 3007", "Arby's mobile order spot #6", "The short urinal", "308 Negra Arroyo Lane", "The dungeon", "I have no clue", "Hopefully the library", "Dublin, Ireland", "The neighborhood electrical box", "The back of an Uber", "Eddie Munson's trailer", "An elevator with way too many people in it", "The Chuck E Cheese ticket blaster", "Wing Kingdom", "Monk's Cafe", "i3n7a1s9i4m7u0l8a1t6i2o5n"];
+        public locations = [];
 
         constructor() {
         }
@@ -94,6 +96,7 @@ module TSOS {
                                   "- Displays the current location... kinda.",
                                   "Whereami displays your totally accurate location.");
             this.commandList[this.commandList.length] = sc;
+            this.locations = ["Hancock 3007", "Arby's mobile order spot #6", "The short urinal", "308 Negra Arroyo Lane", "The dungeon", "I have no clue", "Hopefully the library", "Dublin, Ireland", "The neighborhood electrical box", "The back of an Uber", "Eddie Munson's trailer", "An elevator with way too many people in it", "The Chuck E Cheese ticket blaster", "Wing Kingdom", "Monk's Cafe", "i3n7a1s9i4m7u0l8a1t6i2o5n", "The pumpkin patch", "The bottom of a wet pile of leaves"];
 
             // palindrome <string>
             sc = new ShellCommand(this.shellPalindrome,
@@ -380,9 +383,8 @@ module TSOS {
 
         public shellWhereami(args: string[]) {
             //choose from a random list of locations
-            var locations: string[] = ["Hancock 3007", "Arby's mobile order spot #6", "The short urinal", "308 Negra Arroyo Lane", "The dungeon", "I have no clue", "Hopefully the library", "Dublin, Ireland", "The neighborhood electrical box", "The back of an Uber", "Eddie Munson's trailer", "An elevator with way too many people in it", "The Chuck E Cheese ticket blaster", "Wing Kingdom", "Monk's Cafe", "i3n7a1s9i4m7u0l8a1t6i2o5n"];
-            var randomNum: number = Math.floor(Math.random() * locations.length);
-            _StdOut.putText("" + locations[randomNum]);
+            var randomNum: number = Math.floor(Math.random() * _OsShell.locations.length);
+            _StdOut.putText("" + _OsShell.locations[randomNum]);
         }
 
         public shellPalindrome(args: string[]) {

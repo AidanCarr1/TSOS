@@ -7,7 +7,11 @@ body {
   font-size: 12pt;
   font-weight: normal;
   font-style: normal;
-  min-width: 1400px;
+  min-width: 1500px;
+  max-width: 1500px;
+  
+  margin-left: auto;
+  margin-right: auto;
 }
 
 h1 {

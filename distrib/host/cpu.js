@@ -231,6 +231,7 @@ var TSOS;
                     break;
                 }
                 //Unknown instruction. kill and tell the user
+                //can make this a system call
                 default: {
                     this.isExecuting = false;
                     _StdOut.putText("Unknown instruction: " + TSOS.Utils.toHex(this.instructionRegister));
