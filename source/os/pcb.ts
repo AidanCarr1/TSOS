@@ -11,8 +11,11 @@ module TSOS {
     
         constructor(public pid?: number,              
                     public state?: string,
+
+                    //memory location
                     public base?: number,    //first memory location
-                    public size?: number,    //length in bytes
+                    public limit?: number,   //last memory location
+                    public segment?: number, //will be changing 
 
                     //saved cpu registers:
                     public processPC?: number,       
@@ -45,9 +48,11 @@ module TSOS {
         public setState(state: string) {
             this.state = state;
         }
-        public setBaseAndSize(base: number, size: number){
-            this.base = base;
-            this.size = size;
+        public setSegment(segment: number) {
+            this.segment = segment;
+            //also sets the base and limit
+            this.base = SEGMENT_SIZE * segment;           //0->0x000 1->0x100 2->0x200
+            this.limit = this.base + SEGMENT_SIZE - 0x01; //0->0x0FF 1->0x1FF 2->0x2FF
         }
     }
 }

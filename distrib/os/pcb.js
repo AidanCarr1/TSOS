@@ -10,21 +10,26 @@ var TSOS;
         pid;
         state;
         base;
-        size;
+        limit;
+        segment;
         processPC;
         processAcc;
         processXreg;
         processYreg;
         processZflag;
         processIR;
-        constructor(pid, state, base, //first memory location
-        size, //length in bytes
+        constructor(pid, state, 
+        //memory location
+        base, //first memory location
+        limit, //last memory location
+        segment, //will be changing 
         //saved cpu registers:
         processPC, processAcc, processXreg, processYreg, processZflag, processIR) {
             this.pid = pid;
             this.state = state;
             this.base = base;
-            this.size = size;
+            this.limit = limit;
+            this.segment = segment;
             this.processPC = processPC;
             this.processAcc = processAcc;
             this.processXreg = processXreg;
@@ -52,9 +57,11 @@ var TSOS;
         setState(state) {
             this.state = state;
         }
-        setBaseAndSize(base, size) {
-            this.base = base;
-            this.size = size;
+        setSegment(segment) {
+            this.segment = segment;
+            //also sets the base and limit
+            this.base = SEGMENT_SIZE * segment; //0->0x000 1->0x100 2->0x200
+            this.limit = this.base + SEGMENT_SIZE - 0x01; //0->0x0FF 1->0x1FF 2->0x2FF
         }
     }
     TSOS.ProcessControlBlock = ProcessControlBlock;

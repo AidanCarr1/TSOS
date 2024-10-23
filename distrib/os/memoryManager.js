@@ -33,7 +33,8 @@ var TSOS;
             newProcess.setPID(this.pidCounter);
             newProcess.setState("RESIDENT");
             //put at $000 for proj2, use segment for proj3
-            newProcess.setBaseAndSize(0x000, decList.length);
+            //newProcess.setBaseAndSize(0x000, decList.length); 
+            newProcess.setSegment(0x00);
             //let memory manager know about the PCB
             this.readyQueue.enqueue(newProcess);
             this.pcbList.push(newProcess);

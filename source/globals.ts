@@ -19,7 +19,6 @@ const CPU_CLOCK_INTERVAL: number = 50;   // This is in ms (milliseconds) so 1000
 const TIMER_IRQ: number = 0;  // Pages 23 (timer), 9 (interrupts), and 561 (interrupt priority).
                               // NOTE: The timer is different from hardware/host clock pulses. Don't confuse these.
 const KEYBOARD_IRQ: number = 1;
-
 const OUTPUT_CPU_IRQ: number = 2; //on system call, print stuff
 const KILL_PROCESS_IRQ: number = 3; // ctrl c or kill
 
@@ -39,9 +38,13 @@ var _MemoryAccessor: TSOS.MemoryAccessor;
 var _MemoryManager: TSOS.MemoryManager;
 
 //Memory CONSTANTS
-const MEMORY_SIZE: number = 0x100; //change to x300 for proj3
-const HIGH_ORDER_MULTIPLIER: number = 0x0100;
-const MEMORY_COLUMNS: number = 0x08; //how many memory spots to show per row
+const MEMORY_SIZE: number = 0x300;     // 3 segments of 0x100
+const NUM_OF_SEGEMENTS: number = 0x03;
+const SEGMENT_SIZE: number = 0x100;    // 0x000 to 0x0FF, 0x100 to 0x1FF, 0x200 to 0x2FF
+
+const HIGH_ORDER_MULTIPLIER: number = 0x0100; //help with little endian
+const MEMORY_COLUMNS: number = 0x08; //how many memory spots to display per row
+
 
 var _OSclock: number = 0;  // Page 23.
 

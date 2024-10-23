@@ -130,7 +130,7 @@ module TSOS {
 
                     //add
                     var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
-                    this.Acc = (this.Acc + _MemoryAccessor.read(memoryLocation)) % MEMORY_SIZE;
+                    this.Acc = (this.Acc + _MemoryAccessor.read(memoryLocation)) % SEGMENT_SIZE;
                     break;
                 }
 
@@ -225,7 +225,7 @@ module TSOS {
                         var branchBytes = _MemoryAccessor.read(this.PC);
                         this.PC += branchBytes; // branch operand amount
                         //remove overflow
-                        this.PC = this.PC % MEMORY_SIZE + 1; // add with carry
+                        this.PC = this.PC % SEGMENT_SIZE + 1; // add with carry
                     }
                     //skip branch
                     else {
