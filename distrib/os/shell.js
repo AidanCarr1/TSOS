@@ -53,7 +53,11 @@ var TSOS;
             // whereami
             sc = new TSOS.ShellCommand(this.shellWhereami, "whereami", "- Displays the current location... kinda.", "Whereami displays your totally accurate location.");
             this.commandList[this.commandList.length] = sc;
-            this.locations = ["Hancock 3007", "Arby's mobile order spot #6", "The short urinal", "308 Negra Arroyo Lane", "The dungeon", "I have no clue", "Hopefully the library", "Dublin, Ireland", "The neighborhood electrical box", "The back of an Uber", "Eddie Munson's trailer", "An elevator with way too many people in it", "The Chuck E Cheese ticket blaster", "Wing Kingdom", "Monk's Cafe", "i3n7a1s9i4m7u0l8a1t6i2o5n", "The pumpkin patch", "The bottom of a wet pile of leaves"];
+            this.locations = ["Hancock 3007", "Arby's mobile order spot #6", "The short urinal", "308 Negra Arroyo Lane",
+                "The dungeon", "I have no clue", "Hopefully the library", "Dublin, Ireland", "The neighborhood electrical box",
+                "The back of an Uber", "Eddie Munson's trailer", "An elevator with way too many people in it",
+                "The Chuck E Cheese ticket blaster", "Wing Kingdom", "Monk's Cafe", "i3n7a1s9i4m7u0l8a1t6i2o5n",
+                "The pumpkin patch", "The bottom of a wet pile of leaves", "The dairy isle"];
             // palindrome <string>
             sc = new TSOS.ShellCommand(this.shellPalindrome, "palindrome", "<string> - Decides if <string> is a palindrome.", "Palindrome determines if the given string is a palindrome or not.");
             this.commandList[this.commandList.length] = sc;
@@ -69,8 +73,9 @@ var TSOS;
             //load
             sc = new TSOS.ShellCommand(this.shellRun, "run", "<pid> - run a process given the process identification.", "Run executes a process given the process identification.");
             this.commandList[this.commandList.length] = sc;
-            // ps  - list the running processes and their IDs
-            // kill <id> - kills the specified process id.
+            //clear mem
+            sc = new TSOS.ShellCommand(this.shellClearmem, "clearmem", "- clear all memory segments.", "Clearmem clears every memory segment.");
+            this.commandList[this.commandList.length] = sc;
             // Display the initial prompt.
             this.putPrompt();
         }
@@ -425,6 +430,13 @@ var TSOS;
             else {
                 _StdOut.putText("Usage: run <pid>  Please supply a process identification.");
             }
+        }
+        shellClearmem() {
+            // update for real functionality in proj3
+            //use constants! (for loop for Num of segments)
+            _MemoryAccessor.clearBlock(0);
+            _MemoryAccessor.clearBlock(1);
+            _MemoryAccessor.clearBlock(2);
         }
     }
     TSOS.Shell = Shell;
