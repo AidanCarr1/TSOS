@@ -1,7 +1,7 @@
 /* ------------
-     memoryAccessor.ts
+    memoryAccessor.ts
 
-     ------------ */
+    ------------ */
 var TSOS;
 (function (TSOS) {
     class MemoryAccessor {
@@ -12,31 +12,26 @@ var TSOS;
             return _Memory.mainMemory[location];
         }
         //write element to memory location
+        //add segment for proj 3
         write(location, data) {
             _Memory.mainMemory[location] = data;
         }
         //given a starting position and list of decimals, set memory elements to a given decimal
-        writeBlock(decList, startIndex) {
+        writeSegment(decList, segmentNum) {
+            var base = segmentNum * SEGMENT_SIZE;
             //loop through list of hex strings
-            for (var i = 0; i < decList.length; i++) {
-                var currentMemoryIndex = i + startIndex;
+            for (var i = base; i < base + SEGMENT_SIZE; i++) {
+                //put hex into memory
                 var currentDec = decList[i];
-                //put number into memory
-                this.write(currentMemoryIndex, currentDec);
-                //test print
-                //_StdOut.putText("Memory $" + Utils.toHex(currentMemoryIndex) + " - " + Utils.toHex(currentDec));
-                //_StdOut.advanceLine();
+                this.write(i, currentDec);
             }
         }
         //given a segment, set all memory elements to 0x00
-        //proj2 just clears everything
-        clearBlock(segment) {
+        clearSegment(segmentNum) {
+            var base = segmentNum * SEGMENT_SIZE;
             //loop through memory segment
-            for (var i = 0; i < MEMORY_SIZE; i++) {
-                //good for proj2, will change for proj3:
-                //var currentMemoryIndex = i + startIndex;
-                //put number into memory
-                //this.write(currentMemoryIndex, 0x00);
+            for (var i = base; i < base + SEGMENT_SIZE; i++) {
+                //write 0x00 in memory                
                 this.write(i, 0x00);
             }
         }

@@ -394,13 +394,15 @@ var TSOS;
                 //create PCB at the segment
                 var pid = _MemoryManager.newProcess(decimalList, segment);
                 //load into main memory
-                _MemoryAccessor.clearBlock(segment); // update for real functionality in proj3
-                _MemoryAccessor.writeBlock(decimalList, 0x0000); //$0000 for proj 2, use segment for proj3
+                _MemoryAccessor.clearSegment(segment); // update for real functionality in proj3
+                alert("done clear, start write");
+                _MemoryAccessor.writeSegment(decimalList, 0x00); // segment 0 right now, update for proj3
                 _StdOut.putText("Loaded into main memory. ");
                 //return PID
                 _StdOut.putText("Process ID: " + pid);
                 //update memory display accordingly
                 TSOS.Control.updateMemoryDisplay();
+                alert("done clearing and writing"); //test line
             }
             else {
                 _StdOut.putText("Invalid Hex");
@@ -434,9 +436,9 @@ var TSOS;
         shellClearmem() {
             // update for real functionality in proj3
             //use constants! (for loop for Num of segments)
-            _MemoryAccessor.clearBlock(0);
-            _MemoryAccessor.clearBlock(1);
-            _MemoryAccessor.clearBlock(2);
+            _MemoryAccessor.clearSegment(0);
+            _MemoryAccessor.clearSegment(1);
+            _MemoryAccessor.clearSegment(2);
         }
     }
     TSOS.Shell = Shell;
