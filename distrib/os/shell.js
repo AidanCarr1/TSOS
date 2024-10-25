@@ -406,7 +406,6 @@ var TSOS;
                 _StdOut.putText("Process ID: " + pid);
                 //update memory display accordingly
                 TSOS.Control.updateMemoryDisplay();
-                //alert("done clearing and writing"); //test line
             }
             else {
                 _StdOut.putText("Invalid Hex");
@@ -437,12 +436,13 @@ var TSOS;
                 _StdOut.putText("Usage: run <pid>  Please supply a process identification.");
             }
         }
+        //loop thru each segment, clearing all memory
         shellClearmem() {
-            // update for real functionality in proj3
-            //use constants! (for loop for Num of segments)
-            _MemoryAccessor.clearSegment(0);
-            _MemoryAccessor.clearSegment(1);
-            _MemoryAccessor.clearSegment(2);
+            for (var i = 0x0; i < NUM_OF_SEGEMENTS; i++) {
+                _MemoryAccessor.clearSegment(i);
+            }
+            //update memory display accordingly
+            TSOS.Control.updateMemoryDisplay();
         }
     }
     TSOS.Shell = Shell;

@@ -509,7 +509,6 @@ module TSOS {
 
                 //update memory display accordingly
                 Control.updateMemoryDisplay();
-                //alert("done clearing and writing"); //test line
             }
 
             else {
@@ -547,12 +546,14 @@ module TSOS {
             }
         }
 
-        public shellClearmem() {
-            // update for real functionality in proj3
-            //use constants! (for loop for Num of segments)
-            _MemoryAccessor.clearSegment(0); 
-            _MemoryAccessor.clearSegment(1); 
-            _MemoryAccessor.clearSegment(2); 
+        //loop thru each segment, clearing all memory
+        public shellClearmem() {            
+            for (var i = 0x0; i < NUM_OF_SEGEMENTS; i++) {
+                _MemoryAccessor.clearSegment(i); 
+            }
+
+            //update memory display accordingly
+            Control.updateMemoryDisplay();
         }
     }
 }
