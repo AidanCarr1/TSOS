@@ -45,7 +45,7 @@ module TSOS {
                 
                 //put hex into memory
                 var currentDec = decList[i];
-                this.write(i + base, currentDec, base);
+                this.write(i, currentDec, base);
             }
         }
 
@@ -54,7 +54,7 @@ module TSOS {
             var base = segment * SEGMENT_SIZE;
 
             //loop through memory segment
-            for (var i = base; i < base + SEGMENT_SIZE; i++) {
+            for (var i = 0; i < SEGMENT_SIZE; i++) {
                 
                 //write 0x00 in memory                
                 this.write(i, 0x00, base);
