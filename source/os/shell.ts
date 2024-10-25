@@ -507,6 +507,11 @@ module TSOS {
                 //return PID
                 _StdOut.putText("Process ID: " + pid);
 
+                //test add some memory in segments
+                _MemoryAccessor.writeSegment(decimalList, 0x01); 
+                _MemoryAccessor.writeSegment(decimalList, 0x02);
+                _StdOut.putText("~mem1+2 too~"); 
+
                 //update memory display accordingly
                 Control.updateMemoryDisplay();
             }

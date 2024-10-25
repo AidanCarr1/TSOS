@@ -10,40 +10,54 @@ module TSOS {
         constructor() {
 
         }
+        
+
+        //TODO: add base as a parameter
+        //this helps because when cpu is running its the curretnPCB
+        //but when creating a process and writing to mem, there is no current PCB
 
         //return element in memory locaiton
-        public read(location: number): number{
-            return _Memory.mainMemory[location];
+        public read(logicalAddress: number, base: number): number{
+
+            //get physical address
+            //var base = _CPU.currentPCB.getBase();
+            var physicalAddress = logicalAddress + base;
+
+            return _Memory.mainMemory[physicalAddress];
         }
 
         //write element to memory location
-        //add segment for proj 3
-        public write(location: number, data: number): void{
-            _Memory.mainMemory[location] = data;
+        public write(logicalAddress: number, data: number, base: number): void{
+
+            //get physical address
+            //var base = _CPU.currentPCB.getBase();
+            var physicalAddress = logicalAddress + base;
+
+            _Memory.mainMemory[physicalAddress] = data;
         }
 
         //given a starting position and list of decimals, set memory elements to a given decimal
-        public writeSegment(decList: number[], segmentNum: number){
-            var base = segmentNum * SEGMENT_SIZE;
+        public writeSegment(decList: number[], segment: number){
+            var base = segment * SEGMENT_SIZE;
 
             //loop through list of hex strings
-            for (var i = base; i < decList.length; i++) {
+            for (var i = 0; i < decList.length; i++) {
                 
                 //put hex into memory
                 var currentDec = decList[i];
-                this.write(i, currentDec);
+                this.write(i + base, currentDec, base);
             }
         }
 
         //given a segment, set all memory elements to 0x00
-        public clearSegment(segmentNum: number){
-            var base = segmentNum * SEGMENT_SIZE;
+        public clearSegment(segment: number){
+            var base = segment * SEGMENT_SIZE;
 
             //loop through memory segment
             for (var i = base; i < base + SEGMENT_SIZE; i++) {
                 
                 //write 0x00 in memory                
-                this.write(i, 0x00);
+                this.write(i, 0x00, base);
             }
         }
     }
