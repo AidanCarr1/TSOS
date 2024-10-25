@@ -389,20 +389,24 @@ var TSOS;
                     decimalList[decimalList.length] = currentDecimal;
                 }
             }
+            //input is too long
+            if (decimalList.length > SEGMENT_SIZE) {
+                _StdOut.putText("Input is too large for memory segments"); //test line
+                return;
+            }
             //if its valid, load it
-            if (isValid && programStr.length > 1) {
+            else if (isValid && programStr.length > 1) {
                 //create PCB at the segment
                 var pid = _MemoryManager.newProcess(decimalList, segment);
                 //load into main memory
                 _MemoryAccessor.clearSegment(segment); // update for real functionality in proj3
-                alert("done clear, start write");
                 _MemoryAccessor.writeSegment(decimalList, 0x00); // segment 0 right now, update for proj3
                 _StdOut.putText("Loaded into main memory. ");
                 //return PID
                 _StdOut.putText("Process ID: " + pid);
                 //update memory display accordingly
                 TSOS.Control.updateMemoryDisplay();
-                alert("done clearing and writing"); //test line
+                //alert("done clearing and writing"); //test line
             }
             else {
                 _StdOut.putText("Invalid Hex");

@@ -20,7 +20,7 @@ var TSOS;
         writeSegment(decList, segmentNum) {
             var base = segmentNum * SEGMENT_SIZE;
             //loop through list of hex strings
-            for (var i = base; i < base + SEGMENT_SIZE; i++) {
+            for (var i = base; i < decList.length; i++) {
                 //put hex into memory
                 var currentDec = decList[i];
                 this.write(i, currentDec);
