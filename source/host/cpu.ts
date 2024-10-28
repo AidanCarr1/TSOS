@@ -65,7 +65,8 @@ module TSOS {
 
             //new current pid
             this.currentPCB = pcb;
-            pcb.setState("READY");            
+            pcb.setState("READY");
+            
         }
 
         // GO!
@@ -85,7 +86,7 @@ module TSOS {
 
             this.currentBase = _CPU.currentPCB.getBase(); //new line
 
-            //decode and execute
+            //decode and execute 
             switch (this.instructionRegister) {
 
                 // A9 LDA: Load the accumulator with constant

@@ -47,6 +47,7 @@ module TSOS {
         }
         public setState(state: string) {
             this.state = state;
+            //_Kernel.krnTrace('PCB ' + this.pid + ' set to READY');
         }
         public setSegment(segment: number) {
             this.segment = segment;

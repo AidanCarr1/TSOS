@@ -56,6 +56,7 @@ var TSOS;
         }
         setState(state) {
             this.state = state;
+            //_Kernel.krnTrace('PCB ' + this.pid + ' set to READY');
         }
         setSegment(segment) {
             this.segment = segment;

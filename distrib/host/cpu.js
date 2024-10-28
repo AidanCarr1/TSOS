@@ -83,7 +83,8 @@ var TSOS;
             //fetch
             this.instructionRegister = _MemoryAccessor.read(this.PC, this.currentBase); //new line
             this.currentBase = _CPU.currentPCB.getBase(); //new line
-            //decode and execute
+            _Kernel.krnTrace('go to switch case'); //test line
+            //decode and execute 
             switch (this.instructionRegister) {
                 // A9 LDA: Load the accumulator with constant
                 case 0xA9: {
