@@ -137,7 +137,7 @@ var TSOS;
             else if (_CPU.Xreg == 0x02) { //magic number?
                 //_StdOut.putText("~string~"); //test line
                 var currentPosition = _CPU.Yreg;
-                var currentIntValue = _MemoryAccessor.read(currentPosition);
+                var currentIntValue = _MemoryAccessor.read(currentPosition, _CPU.currentBase); //new line
                 while (currentIntValue != 0x00) {
                     //_StdOut.putText("~int value:"); //test line
                     var currentStrValue = TSOS.Utils.sysCallString(currentIntValue);
@@ -145,7 +145,7 @@ var TSOS;
                     _StdOut.putText(currentStrValue); //print str
                     //next character
                     currentPosition++;
-                    currentIntValue = _MemoryAccessor.read(currentPosition);
+                    currentIntValue = _MemoryAccessor.read(currentPosition, _CPU.currentBase); //new line
                 }
             }
         }

@@ -401,7 +401,7 @@ var TSOS;
                 //load into main memory
                 _MemoryAccessor.clearSegment(segment); // update for real functionality in proj3
                 _MemoryAccessor.writeSegment(decimalList, 0x00); // segment 0 right now, update for proj3
-                _StdOut.putText("Loaded into main memory. ");
+                //_StdOut.putText("Loaded into main memory. ");
                 //return PID
                 _StdOut.putText("Process ID: " + pid);
                 //test add some memory in segments
