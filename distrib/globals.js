@@ -13,12 +13,13 @@
 const APP_NAME = "TSauce"; // 'cause Bob and I were at a loss for a better name.
 const APP_VERSION = "10.29"; // date of last edit, i will definetly forget to update this number
 const CPU_CLOCK_INTERVAL = 50; // This is in ms (milliseconds) so 1000 = 1 second.
+const ERROR_CODE = -1;
 const TIMER_IRQ = 0; // Pages 23 (timer), 9 (interrupts), and 561 (interrupt priority).
 // NOTE: The timer is different from hardware/host clock pulses. Don't confuse these.
 const KEYBOARD_IRQ = 1;
 const OUTPUT_CPU_IRQ = 2; //on system call, print stuff
 const KILL_PROCESS_IRQ = 3; // ctrl c or kill
-const ERROR_CODE = -1;
+const OUT_OF_BOUNDS_IRQ = 4;
 //
 // Global Variables
 // TODO: Make a global object and use that instead of the "_" naming convention in the global namespace.

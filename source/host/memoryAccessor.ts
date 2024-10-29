@@ -18,32 +18,51 @@ module TSOS {
 
         //return element in memory locaiton
         public read(logicalAddress: number, base: number): number{
-
-            //get physical address
-            //var base = _CPU.currentPCB.getBase();
+            
+            //get physical address and limit
             var physicalAddress = logicalAddress + base;
+            var limit = base + SEGMENT_SIZE - 0x01;
 
-            return _Memory.mainMemory[physicalAddress];
+            //make sure we are inside memory bounds
+            if (logicalAddress > limit) {
+
+                //create an interupt and enqueue it
+                var systemCall = new Interrupt(OUT_OF_BOUNDS_IRQ, [physicalAddress]);
+                _KernelInterruptQueue.enqueue(systemCall);                
+                return ERROR_CODE;
+            }
+            else {
+                return _Memory.mainMemory[physicalAddress];
+            }
         }
 
         //write element to memory location
         public write(logicalAddress: number, data: number, base: number): void{
-
-            //get physical address
-            //var base = _CPU.currentPCB.getBase();
+            
+            //get physical address and limit
             var physicalAddress = logicalAddress + base;
+            var limit = base + SEGMENT_SIZE - 0x01;
 
-            _Memory.mainMemory[physicalAddress] = data;
+            //make sure we are inside memory bounds
+            if (logicalAddress > limit) {
+                
+                //create an interupt and enqueue it
+                var systemCall = new Interrupt(OUT_OF_BOUNDS_IRQ, [physicalAddress]);
+                _KernelInterruptQueue.enqueue(systemCall);                
+            }
+            else {
+                _Memory.mainMemory[physicalAddress] = data;
+            }
         }
 
-        //given a starting position and list of decimals, set memory elements to a given decimal
+        //given a segment user program, set memory elements to the given decimals
         public writeSegment(decList: number[], segment: number){
             var base = segment * SEGMENT_SIZE;
 
-            //loop through list of hex strings
+            //loop through list of decimal values
             for (var i = 0; i < decList.length; i++) {
                 
-                //put hex into memory
+                //put user program into memory
                 var currentDec = decList[i];
                 this.write(i, currentDec, base);
             }

@@ -117,6 +117,9 @@ var TSOS;
                 case KILL_PROCESS_IRQ:
                     this.killProcess();
                     break;
+                case OUT_OF_BOUNDS_IRQ:
+                    this.outOfBounds(params);
+                    break;
                 default:
                     this.krnTrapError("Invalid Interrupt Request. irq=" + irq + " params=[" + params + "]");
             }
@@ -128,21 +131,16 @@ var TSOS;
         }
         outputCPU() {
             //print integer in Yreg
-            //_StdOut.putText("~before print~");
             if (_CPU.Xreg == 0x01) {
-                //_StdOut.putText(" int~"); //test line
                 _StdOut.putText(TSOS.Utils.toHex(_CPU.Yreg));
             }
             //print 00terminated string in Yreg
             else if (_CPU.Xreg == 0x02) { //magic number?
-                //_StdOut.putText("~string~"); //test line
                 var currentPosition = _CPU.Yreg;
                 var currentIntValue = _MemoryAccessor.read(currentPosition, _CPU.currentBase); //new line
                 while (currentIntValue != 0x00) {
-                    //_StdOut.putText("~int value:"); //test line
                     var currentStrValue = TSOS.Utils.sysCallString(currentIntValue);
-                    //_StdOut.putText("" + Utils.toHex(currentIntValue) + "~ "); //temporary print int
-                    _StdOut.putText(currentStrValue); //print str
+                    _StdOut.putText(currentStrValue); //print char
                     //next character
                     currentPosition++;
                     currentIntValue = _MemoryAccessor.read(currentPosition, _CPU.currentBase); //new line
@@ -153,6 +151,16 @@ var TSOS;
             //proj 3: check if ctrl c should just kill running process or ALL
             _CPU.isExecuting = false;
             _CPU.currentPCB.setState("TERMINATED");
+        }
+        outOfBounds(params) {
+            //tell the shell
+            _StdOut.advanceLine();
+            _StdOut.putText("Out of bounds error. ");
+            _StdOut.putText("Cannot access memory " + TSOS.Utils.toHex(params[0]));
+            _StdOut.advanceLine();
+            _StdOut.putText(_OsShell.promptStr);
+            //kill it
+            this.killProcess();
         }
         //
         // System Calls... that generate software interrupts via tha Application Programming Interface library routines.
