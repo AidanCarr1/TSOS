@@ -489,7 +489,7 @@ module TSOS {
             }
 
             //input is too long
-            if (decimalList.length >= SEGMENT_SIZE){
+            if (decimalList.length > SEGMENT_SIZE){
                 _StdOut.putText("Input is too large for memory segments"); //test line
                 return;
             }

@@ -251,7 +251,8 @@ module TSOS {
                     var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
                     this.Acc = _MemoryAccessor.read(memoryLocation, this.currentBase); //new line
                     this.Acc ++; // inc
-                    this.Acc = this.Acc % SEGMENT_SIZE + 1; //add with carry
+                    this.Acc = this.Acc % SEGMENT_SIZE; //add with carry
+                    //_StdOut.putText("~acc="+this.Acc+"~"); //test line
                     _MemoryAccessor.write(memoryLocation, this.Acc, this.currentBase); //new line
                     break;
                 }
