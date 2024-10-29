@@ -132,7 +132,7 @@ module TSOS {
                     this.outputCPU();               // System call from CPU (output int or string)    
                     break;
                 case KILL_PROCESS_IRQ:
-                    this.killProcess();
+                    this.killProcess(params);
                     break;
                 case OUT_OF_BOUNDS_IRQ:
                     this.outOfBounds(params);
@@ -170,22 +170,35 @@ module TSOS {
             }
         }
 
-        public killProcess() {
+        public killProcess(params) {
+            //get params
+            var pcb = params[0];
+
             //proj 3: check if ctrl c should just kill running process or ALL
             _CPU.isExecuting = false;
             _CPU.currentPCB.setState("TERMINATED");
+
+            //tell the shell
+            _StdOut.advanceLine();
+            _StdOut.putText("Process " + pcb.pid + " terminated. ");
+            _StdOut.advanceLine();
+            _StdOut.putText(_OsShell.promptStr);
         }
 
         public outOfBounds(params) {
+            //get params
+            var pcb = params[0];
+            var address = params[1];
+
             //tell the shell
             _StdOut.advanceLine();
             _StdOut.putText("Out of bounds error. ");
-            _StdOut.putText("Cannot access memory " + Utils.toHex(params[0]));
+            _StdOut.putText("Cannot access memory " + Utils.toHex(address));
             _StdOut.advanceLine();
             _StdOut.putText(_OsShell.promptStr);
 
             //kill it
-            this.killProcess();
+            this.killProcess(pcb);
         }
 
         //

@@ -272,8 +272,13 @@ module TSOS {
                 default: {
                     this.isExecuting = false;
                     _StdOut.putText("Unknown instruction: " + Utils.toHex(this.instructionRegister));
-                    _StdOut.advanceLine();
-                    _StdOut.putText(_OsShell.promptStr);
+                    
+                    //create an interupt and enqueue it
+                    var systemCall = new Interrupt(KILL_PROCESS_IRQ, [this.currentPCB]);
+                    _KernelInterruptQueue.enqueue(systemCall);
+
+                    //_StdOut.advanceLine();
+                    //_StdOut.putText(_OsShell.promptStr);
                     break;
                 }
             } 

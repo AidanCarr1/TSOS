@@ -18,7 +18,7 @@ var TSOS;
             //make sure we are inside memory bounds
             if (logicalAddress > limit) {
                 //create an interupt and enqueue it
-                var systemCall = new TSOS.Interrupt(OUT_OF_BOUNDS_IRQ, [physicalAddress]);
+                var systemCall = new TSOS.Interrupt(OUT_OF_BOUNDS_IRQ, [_CPU.currentPCB, physicalAddress]);
                 _KernelInterruptQueue.enqueue(systemCall);
                 return ERROR_CODE;
             }
@@ -34,7 +34,7 @@ var TSOS;
             //make sure we are inside memory bounds
             if (logicalAddress > limit) {
                 //create an interupt and enqueue it
-                var systemCall = new TSOS.Interrupt(OUT_OF_BOUNDS_IRQ, [physicalAddress]);
+                var systemCall = new TSOS.Interrupt(OUT_OF_BOUNDS_IRQ, [_CPU.currentPCB, physicalAddress]);
                 _KernelInterruptQueue.enqueue(systemCall);
             }
             else {
