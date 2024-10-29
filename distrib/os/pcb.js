@@ -61,6 +61,8 @@ var TSOS;
         }
         setSegment(segment) {
             this.segment = segment;
+            //set segment in eyes of memory manager
+            _MemoryManager.segmentList[segment] = this.pid;
             //also sets the base and limit
             this.base = SEGMENT_SIZE * segment; //0->0x000 1->0x100 2->0x200
             this.limit = this.base + SEGMENT_SIZE - 0x01; //0->0x0FF 1->0x1FF 2->0x2FF

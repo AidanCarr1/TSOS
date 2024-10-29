@@ -13,7 +13,8 @@ module TSOS {
         constructor(public pidCounter?: number,      //number of PIDs stored
                     public readyQueue?: Queue,       //store all processes in order of excution
                     //keep track of all the PCBs:
-                    public pcbList?: Array<ProcessControlBlock> ) {  
+                    public pcbList?: Array<ProcessControlBlock>,
+                    public segmentList?: Array<number> ) {  
         }
 
         //set counter to 0 
@@ -22,6 +23,7 @@ module TSOS {
             this.pidCounter = 0;
             this.readyQueue = new Queue();
             this.pcbList = new Array();
+            this.segmentList = new Array(NUM_OF_SEGEMENTS);
         }
 
         //given a program, create a process control block, return pid
@@ -35,7 +37,7 @@ module TSOS {
 
             //put at $000 for proj2, use segment for proj3
             //newProcess.setBaseAndSize(0x000, decList.length); 
-            newProcess.setSegment(0x00); 
+            newProcess.setSegment(segment); 
 
             //let memory manager know about the PCB
             this.readyQueue.enqueue(newProcess);
@@ -72,27 +74,23 @@ module TSOS {
         }
 
         //function returns where there is space
-        //for proj2: 
-            //returns segment 0 if its open
-            //returns ERROR CODE if its not open
-        //for proj3:
-            //idk ill get to it when i get there something like 3 segments and stuff   
         public whereIsSpace(): number {
 
             //check every pcb for any residents/readys
-            for (var i = 0; i < this.pidCounter; i++) {
-                if (this.pcbList[i].state === "RESIDENT") {
-                    return ERROR_CODE;
+            for (var i = 0; i < NUM_OF_SEGEMENTS; i++) {
+
+                //if segment unused, use it!
+                if (this.segmentList[i] === undefined) {
+                    return i;
                 }
-                else if (this.pcbList[i].state === "READY") {
-                    return ERROR_CODE;
-                }
-                else if (this.pcbList[i].state === "RUNNING") {
-                    return ERROR_CODE;
-                }
+                //check for a terminated segment
+                if (this.getProcessByPID(i).state === "TERMINATED") {
+                    return i;
+                } 
             }
-            //there is space, return the segment
-            return 0;
+            
+            //checked all segments, no segments open
+            return ERROR_CODE;
         }
     }
 }
