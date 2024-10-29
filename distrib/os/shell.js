@@ -444,6 +444,7 @@ var TSOS;
         shellClearmem() {
             for (var i = 0x0; i < NUM_OF_SEGEMENTS; i++) {
                 _MemoryAccessor.clearSegment(i);
+                _MemoryManager.killSegment(i);
             }
             //update memory display accordingly
             TSOS.Control.updateMemoryDisplay();

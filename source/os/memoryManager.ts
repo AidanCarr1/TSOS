@@ -92,5 +92,15 @@ module TSOS {
             //checked all segments, no segments open
             return ERROR_CODE;
         }
+
+        // kill the pcb associated with the segment
+        public killSegment(segment: number){
+            var zombiePID = this.segmentList[segment];
+            var zombiePCB = this.getProcessByPID(zombiePID);
+
+            zombiePCB.setState("TERMINATED");
+            zombiePCB.segment = ERROR_CODE;
+            this.segmentList[segment] = undefined;
+        }
     }
 }
