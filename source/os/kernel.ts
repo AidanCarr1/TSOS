@@ -173,6 +173,7 @@ module TSOS {
         }
 
         public killProcess() {
+            //proj 3: check if ctrl c should just kill running process or ALL
             _CPU.isExecuting = false;
             _CPU.currentPCB.setState("TERMINATED");
         }

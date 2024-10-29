@@ -8,7 +8,7 @@ var TSOS;
         constructor() {
         }
         //TODO: add base as a parameter
-        //this helps because when cpu is running its the curretnPCB
+        //this helps because when cpu is running its the currentPCB
         //but when creating a process and writing to mem, there is no current PCB
         //return element in memory locaiton
         read(logicalAddress, base) {

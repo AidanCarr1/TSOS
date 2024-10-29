@@ -47,7 +47,8 @@ module TSOS {
         }
         public setState(state: string) {
             this.state = state;
-            //_Kernel.krnTrace('PCB ' + this.pid + ' set to READY');
+            _Kernel.krnTrace('PID ' + this.pid + ' set to ' + this.state);
+            //update Process display here?
         }
         public setSegment(segment: number) {
             this.segment = segment;

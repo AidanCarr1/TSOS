@@ -3,6 +3,7 @@
 
      this class stores the pcbs and the ready queue
      it will also maybe move and keep track of 256 byte segments
+     allocates segments
      ------------ */
 var TSOS;
 (function (TSOS) {

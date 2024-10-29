@@ -56,7 +56,8 @@ var TSOS;
         }
         setState(state) {
             this.state = state;
-            //_Kernel.krnTrace('PCB ' + this.pid + ' set to READY');
+            _Kernel.krnTrace('PID ' + this.pid + ' set to ' + this.state);
+            //update Process display here?
         }
         setSegment(segment) {
             this.segment = segment;
