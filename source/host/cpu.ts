@@ -80,11 +80,12 @@ module TSOS {
             _Kernel.krnTrace('CPU cycle');
             // TODO: Accumulate CPU usage and profiling statistics here.
             // Do the real work here. Be sure to set this.isExecuting appropriately.
-
+            
+            //get the base based on the PCB
+            this.currentBase = _CPU.currentPCB.getBase(); //new line
+                    
             //fetch
             this.instructionRegister = _MemoryAccessor.read(this.PC, this.currentBase); //new line
-
-            this.currentBase = _CPU.currentPCB.getBase(); //new line
 
             //decode and execute 
             switch (this.instructionRegister) {

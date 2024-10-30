@@ -452,7 +452,6 @@ module TSOS {
             //check for availible segment or if there is memory and we arent over writing program
             var segment = _MemoryManager.whereIsSpace();
             if (segment == ERROR_CODE) {
-                //_StdOut.putText("There is an unran program in memory.");
                 _StdOut.putText("No space in memory.");
                 return;
             }
@@ -502,15 +501,10 @@ module TSOS {
                 //load into main memory
                 _MemoryAccessor.clearSegment(segment); // update for real functionality in proj3
                 _MemoryAccessor.writeSegment(decimalList, segment); 
-                _StdOut.putText("Loaded into segment " + segment + ". ");
+                //_StdOut.putText("Loaded into segment " + segment + ". ");
 
                 //return PID
                 _StdOut.putText("Process ID: " + pid);
-
-                //test add some memory in segments
-                //_MemoryAccessor.writeSegment(decimalList, 0x01); 
-                //_MemoryAccessor.writeSegment(decimalList, 0x02);
-                //_StdOut.putText("~mem1+2 too~"); 
 
                 //update memory display accordingly
                 Control.updateMemoryDisplay();

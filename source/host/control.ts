@@ -204,7 +204,7 @@ module TSOS {
                 var memoryBox = <HTMLInputElement> document.getElementById(memoryId);
 
                 memoryBox.innerHTML = "" + Utils.toHex(_Memory.mainMemory[i]);
-                if (i == _CPU.PC) {
+                if (i == (_CPU.currentBase + _CPU.PC)) {
                     memoryBox.className = "memoryBox highlightPC";
                 }
                 else {

@@ -163,7 +163,7 @@ var TSOS;
                 var memoryId = "mem" + i;
                 var memoryBox = document.getElementById(memoryId);
                 memoryBox.innerHTML = "" + TSOS.Utils.toHex(_Memory.mainMemory[i]);
-                if (i == _CPU.PC) {
+                if (i == (_CPU.currentBase + _CPU.PC)) {
                     memoryBox.className = "memoryBox highlightPC";
                 }
                 else {

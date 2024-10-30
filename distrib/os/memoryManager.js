@@ -75,12 +75,10 @@ var TSOS;
                 var pid = this.segmentList[i];
                 //if segment unused, use it!
                 if (pid === undefined) {
-                    _StdOut.putText("~segment empty~"); //test line
                     return i;
                 }
                 //check for a terminated segment
                 if (this.getProcessByPID(pid).state === "TERMINATED") {
-                    _StdOut.putText("~pid" + pid + " is terminated~"); //test line
                     return i;
                 }
             }
