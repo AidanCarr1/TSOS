@@ -69,5 +69,8 @@ module TSOS {
         public getState() {
             return this.state;
         }
+        public getSegment() {
+            return this.segment;
+        }
     }
 }

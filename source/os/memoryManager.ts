@@ -97,8 +97,13 @@ module TSOS {
         // kill the pcb associated with the segment
         public killSegment(segment: number){
             var zombiePID = this.segmentList[segment];
-            var zombiePCB = this.getProcessByPID(zombiePID);
+            
+            //nothing to kill
+            if (zombiePID === undefined) {
+                return;
+            }
 
+            var zombiePCB = this.getProcessByPID(zombiePID);
             zombiePCB.setState("TERMINATED");
             zombiePCB.segment = ERROR_CODE;
             this.segmentList[segment] = undefined;

@@ -556,7 +556,18 @@ module TSOS {
         public shellClearmem() {            
             for (var i = 0x0; i < NUM_OF_SEGEMENTS; i++) {
                 _MemoryAccessor.clearSegment(i); 
-                _MemoryManager.killSegment(i);
+
+                //kill the program in that segment
+                var zombiePID = _MemoryManager.segmentList[i];
+                if (zombiePID === undefined) {
+                    //there is not process in this segment
+                }
+                else {
+                    var zombiePCB = _MemoryManager.getProcessByPID(zombiePID);
+                    //kill it!
+                    var systemCall = new Interrupt(KILL_PROCESS_IRQ, [zombiePCB]);
+                    _KernelInterruptQueue.enqueue(systemCall);
+                }
             }
 
             //update memory display accordingly

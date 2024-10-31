@@ -75,6 +75,9 @@ var TSOS;
         getState() {
             return this.state;
         }
+        getSegment() {
+            return this.segment;
+        }
     }
     TSOS.ProcessControlBlock = ProcessControlBlock;
 })(TSOS || (TSOS = {}));

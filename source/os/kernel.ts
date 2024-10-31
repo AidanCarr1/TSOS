@@ -176,7 +176,11 @@ module TSOS {
 
             //proj 3: check if ctrl c should just kill running process or ALL
             _CPU.isExecuting = false;
-            _CPU.currentPCB.setState("TERMINATED");
+
+            //terminate and get rid of it in the segment view
+            pcb.setState("TERMINATED");
+            _MemoryManager.segmentList[pcb.getSegment()] = undefined;
+            pcb.segment = ERROR_CODE;
 
             //tell the shell
             _StdOut.advanceLine();
