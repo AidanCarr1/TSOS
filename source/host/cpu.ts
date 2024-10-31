@@ -71,6 +71,12 @@ module TSOS {
 
         // GO!
         public run() {
+            //for proj3 - run should actually just put the PCB on the ready queue
+            //also set the state to running
+            //maybe add a check in the cycle for the ready queue, if found, context switch and set is executing true
+            //if nothing inside, set to false
+            //test case thought! make sure to check that the PCB in this queue is not terminated. if it is throw it out
+            //in the future: change all the "set isExecuting to false" to "kill the process"
             this.isExecuting = true;
             this.currentPCB.setState("RUNNING");
         }
