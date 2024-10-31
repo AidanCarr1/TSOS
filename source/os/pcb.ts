@@ -61,9 +61,13 @@ module TSOS {
             this.limit = this.base + SEGMENT_SIZE - 0x01; //0->0x0FF 1->0x1FF 2->0x2FF
         }
 
+        //getters
         public getBase() {
             this.base = SEGMENT_SIZE * this.segment;
             return this.base;
+        }
+        public getState() {
+            return this.state;
         }
     }
 }

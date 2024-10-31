@@ -130,7 +130,7 @@ module TSOS {
                                   "Load puts the user's program into memory and assigns it a pid.");
                                   this.commandList[this.commandList.length] = sc;
 
-            //load
+            //run
             sc = new ShellCommand(this.shellRun,
                                   "run",
                                   "<pid> - run a process given the process identification.",
@@ -142,6 +142,13 @@ module TSOS {
                                   "clearmem",
                                   "- clear all memory segments.",
                                   "Clearmem clears every memory segment.");
+                                  this.commandList[this.commandList.length] = sc;
+            
+            //ps
+            sc = new ShellCommand(this.shellPs,
+                                  "ps",
+                                  "- display all processes and their states.",
+                                  "Ps shows the PID and state for each process.");
                                   this.commandList[this.commandList.length] = sc;
                                    
 
@@ -554,6 +561,14 @@ module TSOS {
 
             //update memory display accordingly
             Control.updateMemoryDisplay();
+        }
+
+        //shows all pids and their states
+        public shellPs() {
+            for (var i = 0; i < _MemoryManager.pidCounter; i++) {
+                _StdOut.putText("PID " + i + ": " + _MemoryManager.getProcessByPID(i).getState() + ". ");
+                _StdOut.advanceLine();
+            }
         }
     }
 }

@@ -54,15 +54,14 @@ var TSOS;
                     this.buffer = "";
                 }
                 // Ctrl-C: allow the user to break the current program.
-                else if (chr === "ctrlc") {
-                    //create an interupt and enqueue it
-                    var systemCall = new TSOS.Interrupt(KILL_PROCESS_IRQ, []);
-                    _KernelInterruptQueue.enqueue(systemCall);
+                else if (chr === "ctrlc" && _CPU.isExecuting) {
                     //tell the shell
                     _StdOut.advanceLine();
                     _StdOut.putText("Process TERMINATED with ctrl c");
-                    _StdOut.advanceLine();
-                    _StdOut.putText(_OsShell.promptStr);
+                    //create an interupt to kill current process?
+                    //should i kill all running processes?
+                    var systemCall = new TSOS.Interrupt(KILL_PROCESS_IRQ, [_CPU.currentPCB]);
+                    _KernelInterruptQueue.enqueue(systemCall);
                     // ... and reset our buffer.
                     this.buffer = "";
                 }
