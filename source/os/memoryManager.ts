@@ -66,7 +66,13 @@ module TSOS {
                 _StdOut.putText("Process " + pid + " terminated.");
                 _StdOut.advanceLine();
                 return false;
-            }  
+            } 
+            //pcb is running
+            else if (this.getProcessByPID(pid).state === "RUNNING") {
+                _StdOut.putText("Process " + pid + " is currently running.");
+                _StdOut.advanceLine();
+                return false;
+            }   
             //pcb good  
             else {
                 return true;

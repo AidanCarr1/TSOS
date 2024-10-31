@@ -460,7 +460,7 @@ var TSOS;
         //shows all pids and their states
         shellPs() {
             for (var i = 0; i < _MemoryManager.pidCounter; i++) {
-                _StdOut.putText("PID " + i + ": " + _MemoryManager.getProcessByPID(i).getState() + ". ");
+                _StdOut.putText("PID " + i + ": " + _MemoryManager.getProcessByPID(i).getState());
                 _StdOut.advanceLine();
             }
         }
