@@ -79,6 +79,9 @@ var TSOS;
             //ps
             sc = new TSOS.ShellCommand(this.shellPs, "ps", "- display all processes and their states.", "Ps shows the PID and state for each process.");
             this.commandList[this.commandList.length] = sc;
+            //quantum
+            sc = new TSOS.ShellCommand(this.shellQuantum, "quantum", "- sets the round robin quantum to a given integer (default is 6).", "Quantum allows the round robin quantum to be changed.");
+            this.commandList[this.commandList.length] = sc;
             // Display the initial prompt.
             this.putPrompt();
         }
@@ -474,12 +477,12 @@ var TSOS;
                 //convert arg to number
                 var stringQuantum = args[0];
                 var numQuantum = +stringQuantum;
+                var intQuantum = Math.floor(numQuantum);
                 //quantum is a valid number
-                if (!isNaN(numQuantum) && numQuantum > 0) {
+                if (!isNaN(intQuantum) && intQuantum > 0) {
                     //set quantum
-                    _Scheduler.setQuantum(numQuantum);
-                    _StdOut.putText("Quantum set to " + numQuantum);
-                    _StdOut.putText("~" + _Scheduler.quantum + "~"); //test line           
+                    _Scheduler.setQuantum(intQuantum);
+                    _StdOut.putText("Quantum set to " + intQuantum);
                 }
                 //pid does not exist or isnt a number
                 else {
