@@ -187,7 +187,9 @@ var TSOS;
                 //if CPU is a virgin, no need to save current pcb state
             }
             else {
-                _CPU.currentPCB.setState("READY");
+                if (_CPU.currentPCB.getState() === "RUNNING") { //this prevents creating zombies
+                    _CPU.currentPCB.setState("READY");
+                }
                 _CPU.currentPCB.processPC = _CPU.PC;
                 _CPU.currentPCB.processAcc = _CPU.Acc;
                 _CPU.currentPCB.processXreg = _CPU.Xreg;
