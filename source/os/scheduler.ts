@@ -20,7 +20,7 @@
     
             public init(){
                 this.quantum = DEFAULT_QUANTUM;
-                this.quantumCounter = 0; // or 1
+                this.quantumCounter = 0; 
             }
     
             //setters
@@ -32,6 +32,8 @@
             public count() {
                 this.quantumCounter ++;
             }
-            
+            public resetCounter() {
+                this.quantum = 0;
+            }
         }
     }

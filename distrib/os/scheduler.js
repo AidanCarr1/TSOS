@@ -19,7 +19,7 @@ var TSOS;
         }
         init() {
             this.quantum = DEFAULT_QUANTUM;
-            this.quantumCounter = 0; // or 1
+            this.quantumCounter = 0;
         }
         //setters
         setQuantum(newQuantum) {
@@ -28,6 +28,9 @@ var TSOS;
         //keep track of each cycle for quantum purposes
         count() {
             this.quantumCounter++;
+        }
+        resetCounter() {
+            this.quantum = 0;
         }
     }
     TSOS.Scheduler = Scheduler;

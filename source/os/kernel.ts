@@ -89,8 +89,25 @@ module TSOS {
                 // TODO (maybe): Implement a priority queue based on the IRQ number/id to enforce interrupt priority.
                 var interrupt = _KernelInterruptQueue.dequeue();
                 this.krnInterruptHandler(interrupt.irq, interrupt.params);
-            } else if (_CPU.isExecuting && _CPU.isSingleStepping == false) { // If there are no interrupts then run one CPU cycle if there is anything being processed.
+            } 
+            //context switch!
+            //BOOKMARK
+            /*
+            else if (_Scheduler.quantumCounter >= _Scheduler.quantum) {
+                //reset the count
+                _Scheduler.resetCounter();
+                //context switch for our PID, enqueue it
+                //TO DO:
+                //lets fix context switching to read the ready queue!, no more parameters
+                var systemCall = new Interrupt(CONTEXT_SWITCH_IRQ, [numPID]);
+                _KernelInterruptQueue.enqueue(systemCall);
+
+            }
+            */
+            //next cycle!
+            else if (_CPU.isExecuting && _CPU.isSingleStepping == false) { // If there are no interrupts then run one CPU cycle if there is anything being processed.
                 _CPU.cycle();
+                _Scheduler.count();
                 //after each cycle, update displays
                 Control.updateCPUDisplay();
                 Control.updateMemoryDisplay();
