@@ -468,6 +468,28 @@ var TSOS;
                 _StdOut.advanceLine();
             }
         }
+        //let user set the round robin quantum
+        shellQuantum(args) {
+            if (args.length > 0) {
+                //convert arg to number
+                var stringQuantum = args[0];
+                var numQuantum = +stringQuantum;
+                //quantum is a valid number
+                if (!isNaN(numQuantum) && numQuantum > 0) {
+                    //set quantum
+                    _Scheduler.setQuantum(numQuantum);
+                    _StdOut.putText("Quantum set to " + numQuantum);
+                    _StdOut.putText("~" + _Scheduler.quantum + "~"); //test line           
+                }
+                //pid does not exist or isnt a number
+                else {
+                    _StdOut.putText("Please supply a valid <int>.");
+                }
+            }
+            else {
+                _StdOut.putText("Usage: quantum <int>  Please supply an integer.");
+            }
+        }
     }
     TSOS.Shell = Shell;
 })(TSOS || (TSOS = {}));
