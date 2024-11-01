@@ -15,6 +15,7 @@ const APP_NAME: string    = "TSauce";   // 'cause Bob and I were at a loss for a
 const APP_VERSION: string = "11.01";   // date of last edit, i will definetly forget to update this number
 
 const CPU_CLOCK_INTERVAL: number = 50;   // This is in ms (milliseconds) so 1000 = 1 second.
+const DEFAULT_QUANTUM: number = 6; //cycles ofr round robin quantum
 
 const ERROR_CODE: number = -1;
 const TIMER_IRQ: number = 0;  // Pages 23 (timer), 9 (interrupts), and 561 (interrupt priority).
@@ -37,6 +38,7 @@ var _Memory: TSOS.Memory;
 var _MemoryAccessor: TSOS.MemoryAccessor;
 //	Software	(OS)
 var _MemoryManager: TSOS.MemoryManager;
+var _Scheduler: TSOS.Scheduler;
 
 //Memory CONSTANTS
 const MEMORY_SIZE: number = 0x300;     // 3 segments of 0x100

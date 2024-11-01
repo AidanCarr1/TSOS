@@ -29,6 +29,10 @@ module TSOS {
             _MemoryManager = new MemoryManager();
             _MemoryManager.init();
 
+            // Initialize scheduler
+            _Scheduler = new Scheduler();
+            _Scheduler.init();
+
             // Initialize standard input and output to the _Console.
             _StdIn  = _Console;
             _StdOut = _Console;

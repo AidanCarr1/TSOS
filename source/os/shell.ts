@@ -537,12 +537,13 @@ module TSOS {
                     _StdOut.putText("Running program...");
                     _StdOut.advanceLine();
                     
+                    //add pcb to the ready queue
+                    _MemoryManager.readyQueue.enqueue(_MemoryManager.getProcessByPID(numPID));
+
                     //context switch for our PID, enqueue it
                     var systemCall = new Interrupt(CONTEXT_SWITCH_IRQ, [numPID]);
                     _KernelInterruptQueue.enqueue(systemCall);
-
-                    //add pcb to the ready queue
-                    _MemoryManager.readyQueue.enqueue(_MemoryManager.getProcessByPID(numPID));
+                    
                     //_CPU.run(); //comment out later
                     _CPU.isExecuting = true;
                 }
