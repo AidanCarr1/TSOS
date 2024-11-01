@@ -423,8 +423,9 @@ var TSOS;
                 //convert arg to number
                 var stringPID = args[0];
                 var numPID = +stringPID;
-                //pid is a number and exists
-                if (!isNaN(numPID) && _MemoryManager.isValid(numPID)) {
+                var intPID = Math.floor(numPID);
+                //pid is an integer and exists
+                if (!isNaN(numPID) && numPID == intPID && _MemoryManager.isValid(numPID)) {
                     //run the given pid
                     _StdOut.putText("Running program...");
                     _StdOut.advanceLine();

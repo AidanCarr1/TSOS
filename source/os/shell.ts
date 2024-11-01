@@ -536,9 +536,10 @@ module TSOS {
                 //convert arg to number
                 var stringPID = args[0];
                 var numPID = +stringPID;
+                var intPID = Math.floor(numPID);
 
-                //pid is a number and exists
-                if (!isNaN(numPID) && _MemoryManager.isValid(numPID)) {
+                //pid is an integer and exists
+                if (!isNaN(numPID) && numPID == intPID && _MemoryManager.isValid(numPID)) {
                     //run the given pid
                     _StdOut.putText("Running program...");
                     _StdOut.advanceLine();
@@ -601,7 +602,7 @@ module TSOS {
                 //convert arg to number
                 var stringQuantum = args[0];
                 var numQuantum = +stringQuantum;
-                var intQuantum = Math.floor(numQuantum)
+                var intQuantum = Math.floor(numQuantum);
 
                 //quantum is a valid number
                 if (!isNaN(intQuantum) && intQuantum > 0) {
