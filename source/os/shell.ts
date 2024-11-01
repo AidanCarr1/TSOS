@@ -543,7 +543,8 @@ module TSOS {
 
                     //add pcb to the ready queue
                     _MemoryManager.readyQueue.enqueue(_MemoryManager.getProcessByPID(numPID));
-                    _CPU.run(); //comment out later
+                    //_CPU.run(); //comment out later
+                    _CPU.isExecuting = true;
                 }
                 
                 //pid does not exist or isnt a number

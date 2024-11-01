@@ -122,6 +122,7 @@ var TSOS;
                     break;
                 case CONTEXT_SWITCH_IRQ:
                     this.contextSwitch(params);
+                    break;
                 default:
                     this.krnTrapError("Invalid Interrupt Request. irq=" + irq + " params=[" + params + "]");
             }
@@ -186,6 +187,7 @@ var TSOS;
                 //if CPU is a virgin, no need to save current pcb state
             }
             else {
+                _CPU.currentPCB.setState("READY");
                 _CPU.currentPCB.processPC = _CPU.PC;
                 _CPU.currentPCB.processAcc = _CPU.Acc;
                 _CPU.currentPCB.processXreg = _CPU.Xreg;
@@ -200,10 +202,10 @@ var TSOS;
             _CPU.Yreg = nextPCB.processYreg;
             _CPU.Zflag = nextPCB.processZflag;
             _CPU.instructionRegister = nextPCB.processIR;
-            //old current is READY, new one is RUNNING
-            _CPU.currentPCB.setState("READY");
+            //set new current PCB and run it
             _CPU.currentPCB = nextPCB;
             _CPU.currentPCB.setState("RUNNING");
+            _CPU.isExecuting = true;
             //do something with the queues?? 
             //maybe we check the queue to figure out what is nextPID
             //(in the beginning)

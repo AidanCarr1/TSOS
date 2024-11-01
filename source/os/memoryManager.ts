@@ -68,12 +68,13 @@ module TSOS {
                 _StdOut.advanceLine();
                 return false;
             } 
-            //pcb is running might not need this...
-            // else if (this.getProcessByPID(pid).state === "RUNNING") {
-            //     _StdOut.putText("Process " + pid + " is currently running.");
-            //     _StdOut.advanceLine();
-            //     return false;
-            // }   
+            //pcb is running
+            else if (this.getProcessByPID(pid).state === "RUNNING") {
+                _StdOut.putText("Process " + pid + " is currently running.");
+                _StdOut.advanceLine();
+                return false;
+            } 
+            //eventually add is ready once we are using ready/running queues  
             //pcb good  
             else {
                 return true;

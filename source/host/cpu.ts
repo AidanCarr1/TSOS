@@ -87,13 +87,13 @@ module TSOS {
             //if nothing inside, set to false
             //test case thought! make sure to check that the PCB in this queue is not terminated. if it is throw it out
             //in the future: change all the "set isExecuting to false" to "kill the process"
-            this.isExecuting = true;
-            this.currentPCB.setState("RUNNING");
-            this.isVirgin = false; //CPU lost its vcard
+            //this.isExecuting = true;
+            //this.currentPCB.setState("RUNNING");
+            
         }
 
         public cycle(): void {
-
+            this.isVirgin = false; //CPU lost its vcard
             _Kernel.krnTrace('CPU cycle');
             // TODO: Accumulate CPU usage and profiling statistics here.
             // Do the real work here. Be sure to set this.isExecuting appropriately.
