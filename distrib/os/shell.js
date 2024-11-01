@@ -426,7 +426,7 @@ var TSOS;
                     _StdOut.putText("Running program...");
                     _StdOut.advanceLine();
                     //run the process in cpu
-                    _CPU.prepare(numPID); //comment out later
+                    _CPU.contextSwitch(numPID);
                     //add pcb to the ready queue
                     _MemoryManager.readyQueue.enqueue(_MemoryManager.getProcessByPID(numPID));
                     _CPU.run(); //comment out later

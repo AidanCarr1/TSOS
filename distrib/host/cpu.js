@@ -23,8 +23,9 @@ var TSOS;
         currentPCB;
         currentBase;
         isSingleStepping;
+        isVirgin;
         constructor(PC, Acc, Xreg, Yreg, Zflag, instructionRegister, isExecuting, currentPCB, currentBase, //new line
-        isSingleStepping) {
+        isSingleStepping, isVirgin) {
             this.PC = PC;
             this.Acc = Acc;
             this.Xreg = Xreg;
@@ -35,6 +36,7 @@ var TSOS;
             this.currentPCB = currentPCB;
             this.currentBase = currentBase;
             this.isSingleStepping = isSingleStepping;
+            this.isVirgin = isVirgin;
         }
         // ON YOUR MARKS...
         init() {
@@ -48,28 +50,43 @@ var TSOS;
             this.currentPCB = null;
             this.currentBase = 0x00; //new line
             this.isSingleStepping = false;
+            this.isVirgin = true; //virgin = cpu has never ran a process before
         }
         // GET SET...
-        prepare(pid) {
-            //find PCB from mem manager
-            if (pid >= 0 && pid < _MemoryManager.pidCounter) {
-                var pcb = _MemoryManager.getProcessByPID(pid);
+        contextSwitch(nextPID) {
+            //save current state
+            if (_CPU.isVirgin) {
+                //if CPU is a virgin, no need to save current pcb state
             }
-            //if not found return error (this should not occur)
             else {
-                _StdOut.putText("Unknown pid");
-                return;
+                //set all current PCB's registers to CPU's registers
+                this.currentPCB.processPC = this.PC;
+                this.currentPCB.processAcc = this.Acc;
+                this.currentPCB.processXreg = this.Xreg;
+                this.currentPCB.processYreg = this.Yreg;
+                this.currentPCB.processZflag = this.Zflag;
+                this.currentPCB.processIR = this.instructionRegister;
             }
-            //set all CPU registers to PCB's registers
-            this.PC = pcb.processPC;
-            this.Acc = pcb.processAcc;
-            this.Xreg = pcb.processXreg;
-            this.Yreg = pcb.processYreg;
-            this.Zflag = pcb.processZflag;
-            this.instructionRegister = 0x00;
+            // //find PCB from mem manager
+            // if (pid >= 0 && pid < _MemoryManager.pidCounter) {
+            //     var pcb = _MemoryManager.getProcessByPID(pid);
+            // }
+            // //if not found return error (this should not occur)
+            // else {
+            //     _StdOut.putText("Unknown pid");
+            //     return;
+            // }
+            var nextPCB = _MemoryManager.getProcessByPID(nextPID);
+            //set all CPU's registers to next PCB's registers
+            this.PC = nextPCB.processPC;
+            this.Acc = nextPCB.processAcc;
+            this.Xreg = nextPCB.processXreg;
+            this.Yreg = nextPCB.processYreg;
+            this.Zflag = nextPCB.processZflag;
+            this.instructionRegister = nextPCB.processIR;
             //new current pid
-            this.currentPCB = pcb;
-            pcb.setState("READY");
+            this.currentPCB = nextPCB;
+            nextPCB.setState("READY"); //this should eventually get done in the ready queue?
         }
         // GO!
         run() {
@@ -81,6 +98,7 @@ var TSOS;
             //in the future: change all the "set isExecuting to false" to "kill the process"
             this.isExecuting = true;
             this.currentPCB.setState("RUNNING");
+            this.isVirgin = false; //CPU lost its vcard
         }
         cycle() {
             _Kernel.krnTrace('CPU cycle');
