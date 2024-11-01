@@ -506,7 +506,7 @@ module TSOS {
                 var pid = _MemoryManager.newProcess(decimalList, segment);
 
                 //load into main memory
-                _MemoryAccessor.clearSegment(segment); // update for real functionality in proj3
+                _MemoryAccessor.clearSegment(segment);
                 _MemoryAccessor.writeSegment(decimalList, segment); 
                 //_StdOut.putText("Loaded into segment " + segment + ". ");
 
@@ -538,8 +538,10 @@ module TSOS {
                     _StdOut.advanceLine();
                     
                     //run the process in cpu
-                    _CPU.prepare(numPID);
-                    _CPU.run();
+                    _CPU.prepare(numPID); //comment out later
+                    //add pcb to the ready queue
+                    _MemoryManager.readyQueue.enqueue(_MemoryManager.getProcessByPID(numPID));
+                    _CPU.run(); //comment out later
                 }
                 
                 //pid does not exist or isnt a number

@@ -12,6 +12,7 @@ module TSOS {
     
         constructor(public pidCounter?: number,      //number of PIDs stored
                     public readyQueue?: Queue,       //store all processes in order of excution
+                    public residentQueue?: Queue,       //store all processes in order of excution
                     //keep track of all the PCBs:
                     public pcbList?: Array<ProcessControlBlock>,
                     public segmentList?: Array<number> ) {  
@@ -22,6 +23,7 @@ module TSOS {
             //start at pid 0
             this.pidCounter = 0;
             this.readyQueue = new Queue();
+            this.residentQueue = new Queue();
             this.pcbList = new Array();
             this.segmentList = new Array(NUM_OF_SEGEMENTS);
         }
@@ -35,12 +37,11 @@ module TSOS {
             newProcess.setPID(this.pidCounter);
             newProcess.setState("RESIDENT");
 
-            //put at $000 for proj2, use segment for proj3
-            //newProcess.setBaseAndSize(0x000, decList.length); 
+            //give the segment 
             newProcess.setSegment(segment); 
 
             //let memory manager know about the PCB
-            this.readyQueue.enqueue(newProcess);
+            this.residentQueue.enqueue(newProcess); //this.readyQueue.enqueue(newProcess);
             this.pcbList.push(newProcess);
 
             //thats one more PCB!

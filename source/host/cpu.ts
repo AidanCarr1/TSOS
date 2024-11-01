@@ -289,6 +289,15 @@ module TSOS {
                     break;
                 }
             } 
+
+            //check program counter isnt at limit before going to next cycle (which will push over the limit)
+            if (this.PC >= this.currentBase + SEGMENT_SIZE - 1) {
+                _StdOut.putText("PC out of bounds.");
+
+                //create an interupt and enqueue it
+                var systemCall = new Interrupt(KILL_PROCESS_IRQ, [this.currentPCB]);
+                _KernelInterruptQueue.enqueue(systemCall);
+            }
         }
     }
 }
