@@ -120,6 +120,8 @@ var TSOS;
                 case OUT_OF_BOUNDS_IRQ:
                     this.outOfBounds(params);
                     break;
+                case CONTEXT_SWITCH_IRQ:
+                    this.contextSwitch(params);
                 default:
                     this.krnTrapError("Invalid Interrupt Request. irq=" + irq + " params=[" + params + "]");
             }
@@ -174,6 +176,37 @@ var TSOS;
             _StdOut.putText(_OsShell.promptStr);
             //kill it
             this.killProcess(pcb);
+        }
+        contextSwitch(params) {
+            //get params
+            var nextPID = params[0];
+            var nextPCB = _MemoryManager.getProcessByPID(nextPID);
+            //save the state: set all current PCB's registers to CPU's registers
+            if (_CPU.isVirgin) {
+                //if CPU is a virgin, no need to save current pcb state
+            }
+            else {
+                _CPU.currentPCB.processPC = _CPU.PC;
+                _CPU.currentPCB.processAcc = _CPU.Acc;
+                _CPU.currentPCB.processXreg = _CPU.Xreg;
+                _CPU.currentPCB.processYreg = _CPU.Yreg;
+                _CPU.currentPCB.processZflag = _CPU.Zflag;
+                _CPU.currentPCB.processIR = _CPU.instructionRegister;
+            }
+            //next pcb: set all CPU's registers to next PCB's registers
+            _CPU.PC = nextPCB.processPC;
+            _CPU.Acc = nextPCB.processAcc;
+            _CPU.Xreg = nextPCB.processXreg;
+            _CPU.Yreg = nextPCB.processYreg;
+            _CPU.Zflag = nextPCB.processZflag;
+            _CPU.instructionRegister = nextPCB.processIR;
+            //old current is READY, new one is RUNNING
+            _CPU.currentPCB.setState("READY");
+            _CPU.currentPCB = nextPCB;
+            _CPU.currentPCB.setState("RUNNING");
+            //do something with the queues?? 
+            //maybe we check the queue to figure out what is nextPID
+            //(in the beginning)
         }
         //
         // System Calls... that generate software interrupts via tha Application Programming Interface library routines.

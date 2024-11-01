@@ -45,6 +45,7 @@ module TSOS {
             this.isVirgin = true; //virgin = cpu has never ran a process before
         }
 
+        /* moving this context switch thing to the kernel as an interupt
         // GET SET...
         public contextSwitch(nextPID: number) {
             
@@ -61,16 +62,6 @@ module TSOS {
                 this.currentPCB.processZflag = this.Zflag;
                 this.currentPCB.processIR =  this.instructionRegister; 
             }
-            
-            // //find PCB from mem manager
-            // if (pid >= 0 && pid < _MemoryManager.pidCounter) {
-            //     var pcb = _MemoryManager.getProcessByPID(pid);
-            // }
-            // //if not found return error (this should not occur)
-            // else {
-            //     _StdOut.putText("Unknown pid");
-            //     return;
-            // }
 
             var nextPCB = _MemoryManager.getProcessByPID(nextPID);
             //set all CPU's registers to next PCB's registers
@@ -86,6 +77,7 @@ module TSOS {
             nextPCB.setState("READY"); //this should eventually get done in the ready queue?
             
         }
+            */
 
         // GO!
         public run() {
@@ -313,7 +305,7 @@ module TSOS {
             if (this.PC >= this.currentBase + SEGMENT_SIZE - 1) {
                 _StdOut.putText("PC out of bounds.");
 
-                //create an interupt and enqueue it
+                //create a kill interupt and enqueue it
                 var systemCall = new Interrupt(KILL_PROCESS_IRQ, [this.currentPCB]);
                 _KernelInterruptQueue.enqueue(systemCall);
             }

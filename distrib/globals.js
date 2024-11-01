@@ -20,6 +20,7 @@ const KEYBOARD_IRQ = 1;
 const OUTPUT_CPU_IRQ = 2; //on system call, print stuff
 const KILL_PROCESS_IRQ = 3; // ctrl c or kill
 const OUT_OF_BOUNDS_IRQ = 4;
+const CONTEXT_SWITCH_IRQ = 5; //switch pcbs in the cpus
 //
 // Global Variables
 // TODO: Make a global object and use that instead of the "_" naming convention in the global namespace.

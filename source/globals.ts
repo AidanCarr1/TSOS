@@ -23,6 +23,7 @@ const KEYBOARD_IRQ: number = 1;
 const OUTPUT_CPU_IRQ: number = 2; //on system call, print stuff
 const KILL_PROCESS_IRQ: number = 3; // ctrl c or kill
 const OUT_OF_BOUNDS_IRQ: number = 4;
+const CONTEXT_SWITCH_IRQ: number = 5; //switch pcbs in the cpus
 
 
 //

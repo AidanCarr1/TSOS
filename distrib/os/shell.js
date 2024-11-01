@@ -425,8 +425,9 @@ var TSOS;
                     //run the given pid
                     _StdOut.putText("Running program...");
                     _StdOut.advanceLine();
-                    //run the process in cpu
-                    _CPU.contextSwitch(numPID);
+                    //context switch for our PID, enqueue it
+                    var systemCall = new TSOS.Interrupt(CONTEXT_SWITCH_IRQ, [numPID]);
+                    _KernelInterruptQueue.enqueue(systemCall);
                     //add pcb to the ready queue
                     _MemoryManager.readyQueue.enqueue(_MemoryManager.getProcessByPID(numPID));
                     _CPU.run(); //comment out later
