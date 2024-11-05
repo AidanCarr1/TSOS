@@ -90,6 +90,21 @@ module TSOS {
                 var interrupt = _KernelInterruptQueue.dequeue();
                 this.krnInterruptHandler(interrupt.irq, interrupt.params);
             } 
+            /*
+            //cpu wasnt running, and now theres a program in the ready queue
+            else if (!_CPU.isExecuting && !_MemoryManager.readyQueue.isEmpty()) {
+                var nextPCB = _MemoryManager.readyQueue.dequeue();
+                var nextPID = nextPCB.pid;
+                _StdOut.putText("~"+nextPID+"~");
+
+                var systemCall = new Interrupt(CONTEXT_SWITCH_IRQ, [nextPID]);
+                _KernelInterruptQueue.enqueue(systemCall);
+                _CPU.isExecuting = true;
+            }
+                */
+
+            //check if running is terminated?
+
             //context switch!
             //BOOKMARK
             /*
@@ -104,6 +119,7 @@ module TSOS {
 
             }
             */
+
             //next cycle!
             else if (_CPU.isExecuting && _CPU.isSingleStepping == false) { // If there are no interrupts then run one CPU cycle if there is anything being processed.
                 _CPU.cycle();
@@ -111,7 +127,14 @@ module TSOS {
                 //after each cycle, update displays
                 Control.updateCPUDisplay();
                 Control.updateMemoryDisplay();
-            } else {                       // If there are no interrupts and there is nothing being executed then just be idle.
+            } 
+            
+            //cpu was running, and now theres nothing left to run
+            else if (_CPU.isExecuting && _MemoryManager.readyQueue.isEmpty()) {
+                _CPU.isExecuting = false;
+            }
+
+            else {                       // If there are no interrupts and there is nothing being executed then just be idle.
                 this.krnTrace("Idle");
             }
         }
@@ -229,10 +252,18 @@ module TSOS {
             this.killProcess(pcb);
         }
 
-        public contextSwitch(params) {
-            //get params
-            var nextPID = params[0];
-            var nextPCB = _MemoryManager.getProcessByPID(nextPID);
+        public contextSwitch(args) {
+            
+            //pid is given
+            if(args.length > 0) {
+                var nextPID = args[0];
+                var nextPCB = _MemoryManager.getProcessByPID(nextPID);
+            }
+            //pid from ready queue
+            else {
+                var nextPCB:ProcessControlBlock = _MemoryManager.readyQueue.dequeue();
+                var nextPID:any = nextPCB.pid;
+            }
 
             //save the state: set all current PCB's registers to CPU's registers
             if (_CPU.isVirgin) {

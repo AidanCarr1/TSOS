@@ -75,6 +75,19 @@ var TSOS;
                 var interrupt = _KernelInterruptQueue.dequeue();
                 this.krnInterruptHandler(interrupt.irq, interrupt.params);
             }
+            /*
+            //cpu wasnt running, and now theres a program in the ready queue
+            else if (!_CPU.isExecuting && !_MemoryManager.readyQueue.isEmpty()) {
+                var nextPCB = _MemoryManager.readyQueue.dequeue();
+                var nextPID = nextPCB.pid;
+                _StdOut.putText("~"+nextPID+"~");
+
+                var systemCall = new Interrupt(CONTEXT_SWITCH_IRQ, [nextPID]);
+                _KernelInterruptQueue.enqueue(systemCall);
+                _CPU.isExecuting = true;
+            }
+                */
+            //check if running is terminated?
             //context switch!
             //BOOKMARK
             /*
@@ -96,6 +109,10 @@ var TSOS;
                 //after each cycle, update displays
                 TSOS.Control.updateCPUDisplay();
                 TSOS.Control.updateMemoryDisplay();
+            }
+            //cpu was running, and now theres nothing left to run
+            else if (_CPU.isExecuting && _MemoryManager.readyQueue.isEmpty()) {
+                _CPU.isExecuting = false;
             }
             else { // If there are no interrupts and there is nothing being executed then just be idle.
                 this.krnTrace("Idle");
@@ -197,10 +214,17 @@ var TSOS;
             //kill it
             this.killProcess(pcb);
         }
-        contextSwitch(params) {
-            //get params
-            var nextPID = params[0];
-            var nextPCB = _MemoryManager.getProcessByPID(nextPID);
+        contextSwitch(args) {
+            //pid is given
+            if (args.length > 0) {
+                var nextPID = args[0];
+                var nextPCB = _MemoryManager.getProcessByPID(nextPID);
+            }
+            //pid from ready queue
+            else {
+                var nextPCB = _MemoryManager.readyQueue.dequeue();
+                var nextPID = nextPCB.pid;
+            }
             //save the state: set all current PCB's registers to CPU's registers
             if (_CPU.isVirgin) {
                 //if CPU is a virgin, no need to save current pcb state
