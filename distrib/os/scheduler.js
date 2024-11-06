@@ -34,6 +34,7 @@ var TSOS;
         }
         //given all cpu, memory, scheduler information, tell the dispatcher what to do
         askScheduler() {
+            //cpu on/off. quantum expired/safe. queue filled/empty. process terminated/running.
             //all the cases
             if (!_CPU.isExecuting) {
                 if (_MemoryManager.readyQueue.isEmpty()) {
@@ -61,8 +62,7 @@ var TSOS;
                         //dequeue it and context switch?
                     }
                 }
-                //BOOKMARK
-                //quantum reached
+                //quantum expired
                 else {
                     if (_MemoryManager.readyQueue.isEmpty()) {
                         if (_CPU.currentPCB.getState() === "READY") {
@@ -74,12 +74,16 @@ var TSOS;
                     }
                     //something in the ready queue
                     else {
+                        var nextPCB = _MemoryManager.readyQueue.dequeue();
+                        var nextPID = nextPCB.pid;
+                        if (nextPCB.getState() === "READY") {
+                            //context switch
+                        }
+                        else if (nextPCB.getState() === "TERMINATED") {
+                            //context swithc back to the running
+                        }
                     }
                 }
-                //if something is ready queue
-                //if it is terminated
-                //if nothing is ready queue
-                //no context swithc
             }
         }
     }
