@@ -46,17 +46,22 @@ module TSOS {
 
                 if (_MemoryManager.readyQueue.isEmpty()) {
                     //idle
+                    return "IDLE";
                 }
                 else {
                     var nextPCB = _MemoryManager.readyQueue.dequeue();
                     var nextPID = nextPCB.pid;
 
+                    return "CS";
+                    /*
                     if (nextPCB.getState() === "READY") {
                         //context switch
+                        return "CXS";
                     }
                     else if (nextPCB.getState() === "TERMINATED") {
                         //dequeue it and context switch?
-                    }
+                        return "DQ,CXS";
+                    } */
                 }
             }               
 
@@ -68,9 +73,11 @@ module TSOS {
 
                     if (_CPU.currentPCB.getState() === "READY") {
                         //increment and do the next cycle
+                        return "CYCLE";
                     }
                     else if (_CPU.currentPCB.getState() === "TERMINATED") {
                         //dequeue it and context switch?
+                        return "DQ,CS";
                     }
                 }  
 
@@ -80,9 +87,11 @@ module TSOS {
 
                         if (_CPU.currentPCB.getState() === "READY") {
                             //no context switch
+                            return "CYCLE";
                         }
                         else if (_CPU.currentPCB.getState() === "TERMINATED") {
-                            //dequeue and stop executing pc
+                            //stop executing pc
+                            return "OFF";
                         }
                     }
                     //something in the ready queue
@@ -90,12 +99,16 @@ module TSOS {
                         var nextPCB = _MemoryManager.readyQueue.dequeue();
                         var nextPID = nextPCB.pid;
 
+                        return "CS";
+                        /*
                         if (nextPCB.getState() === "READY") {
                             //context switch
+                            return "CS";
                         }
                         else if (nextPCB.getState() === "TERMINATED") {
                             //context swithc back to the running
-                        }
+                            return "CS";
+                        }*/
                     }
                 }
             }
