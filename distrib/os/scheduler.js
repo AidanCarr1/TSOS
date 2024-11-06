@@ -32,29 +32,55 @@ var TSOS;
         resetCounter() {
             this.quantum = 0;
         }
-        //given all cpu, memoyr, scheduler information, tell the dispatcher what to do
-        checkScheduler() {
+        //given all cpu, memory, scheduler information, tell the dispatcher what to do
+        askScheduler() {
             //all the cases
-            //CPU isnt executing:
-            //something is in the ready queue
-            //check the state
-            //it is ready
-            //context switch
-            //it is terminated
-            //dequeue it
-            //context switch
-            //CPU is exectuing:
-            //quantum is good
-            //is it ready:
-            //increment and do the next cycle
-            //is it terminated
-            //dequeue it
-            //context switch
-            //quantum reached
-            //if something is ready queue
-            //if it is terminated
-            //if nothing is ready queue
-            //no context swithc
+            if (!_CPU.isExecuting) {
+                if (_MemoryManager.readyQueue.isEmpty()) {
+                    //idle
+                }
+                else {
+                    var nextPCB = _MemoryManager.readyQueue.dequeue();
+                    var nextPID = nextPCB.pid;
+                    if (nextPCB.getState() === "READY") {
+                        //context switch
+                    }
+                    else if (nextPCB.getState() === "TERMINATED") {
+                        //dequeue it and context switch?
+                    }
+                }
+            }
+            //CPU is executing:
+            else {
+                //quantum safe
+                if (this.quantumCounter < this.quantum) {
+                    if (_CPU.currentPCB.getState() === "READY") {
+                        //increment and do the next cycle
+                    }
+                    else if (_CPU.currentPCB.getState() === "TERMINATED") {
+                        //dequeue it and context switch?
+                    }
+                }
+                //BOOKMARK
+                //quantum reached
+                else {
+                    if (_MemoryManager.readyQueue.isEmpty()) {
+                        if (_CPU.currentPCB.getState() === "READY") {
+                            //no context switch
+                        }
+                        else if (_CPU.currentPCB.getState() === "TERMINATED") {
+                            //dequeue and stop executing pc
+                        }
+                    }
+                    //something in the ready queue
+                    else {
+                    }
+                }
+                //if something is ready queue
+                //if it is terminated
+                //if nothing is ready queue
+                //no context swithc
+            }
         }
     }
     TSOS.Scheduler = Scheduler;

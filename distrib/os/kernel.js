@@ -75,7 +75,7 @@ var TSOS;
                 var interrupt = _KernelInterruptQueue.dequeue();
                 this.krnInterruptHandler(interrupt.irq, interrupt.params);
             }
-            var whatToDo = _Scheduler.checkScheduler();
+            var whatToDo = _Scheduler.askScheduler();
             /*
             //cpu wasnt running, and now theres a program in the ready queue
             else if (!_CPU.isExecuting && !_MemoryManager.readyQueue.isEmpty()) {

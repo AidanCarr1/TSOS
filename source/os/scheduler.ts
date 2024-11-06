@@ -36,34 +36,58 @@
                 this.quantum = 0;
             }
 
-            //given all cpu, memoyr, scheduler information, tell the dispatcher what to do
-            public checkScheduler() {
+            //given all cpu, memory, scheduler information, tell the dispatcher what to do
+            public askScheduler() {
 
                 //all the cases
-                //CPU isnt executing:
-                
-                    //something is in the ready queue
-                        //check the state
+                if (!_CPU.isExecuting) {
 
-                        //it is ready
+                    if (_MemoryManager.readyQueue.isEmpty()) {
+                        //idle
+                    }
+                    else {
+                        var nextPCB = _MemoryManager.readyQueue.dequeue();
+                        var nextPID = nextPCB.pid;
+
+                        if (nextPCB.getState() === "READY") {
                             //context switch
+                        }
+                        else if (nextPCB.getState() === "TERMINATED") {
+                            //dequeue it and context switch?
+                        }
+                    }
+                }               
 
-                        //it is terminated
-                            //dequeue it
-                            //context switch
+                //CPU is executing:
+                else {
 
-                //CPU is exectuing:
+                    //quantum safe
+                    if (this.quantumCounter < this.quantum) {
 
-                    //quantum is good
-                        
-                        //is it ready:
+                        if (_CPU.currentPCB.getState() === "READY") {
                             //increment and do the next cycle
-
-                        //is it terminated
-                            //dequeue it
-                            //context switch
-
+                        }
+                        else if (_CPU.currentPCB.getState() === "TERMINATED") {
+                            //dequeue it and context switch?
+                        }
+                    }  
+//BOOKMARK
                     //quantum reached
+                    else {
+                        if (_MemoryManager.readyQueue.isEmpty()) {
+
+                            if (_CPU.currentPCB.getState() === "READY") {
+                                //no context switch
+                            }
+                            else if (_CPU.currentPCB.getState() === "TERMINATED") {
+                                //dequeue and stop executing pc
+                            }
+                        }
+                        //something in the ready queue
+                        else {
+
+                        }
+                    }
 
 
                         //if something is ready queue
@@ -72,7 +96,7 @@
 
                         //if nothing is ready queue
                             //no context swithc
-
+                }
             }
         }
     }
