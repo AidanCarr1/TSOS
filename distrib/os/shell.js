@@ -431,7 +431,10 @@ var TSOS;
                     _StdOut.advanceLine();
                     //add pcb to the ready queue
                     _MemoryManager.readyQueue.enqueue(_MemoryManager.getProcessByPID(numPID));
-                    //context switch for our PID, enqueue it
+                    //BOOKMARK
+                    //dont do duplicate queues!
+                    //had duplicate pids in the ready queu somehow...
+                    //context switch for a given PID, enqueue it
                     var systemCall = new TSOS.Interrupt(CONTEXT_SWITCH_IRQ, [numPID]);
                     _KernelInterruptQueue.enqueue(systemCall);
                     //_CPU.run(); //comment out later

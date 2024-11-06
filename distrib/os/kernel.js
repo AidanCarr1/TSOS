@@ -75,6 +75,7 @@ var TSOS;
                 var interrupt = _KernelInterruptQueue.dequeue();
                 this.krnInterruptHandler(interrupt.irq, interrupt.params);
             }
+            var whatToDo = _Scheduler.checkScheduler();
             /*
             //cpu wasnt running, and now theres a program in the ready queue
             else if (!_CPU.isExecuting && !_MemoryManager.readyQueue.isEmpty()) {
@@ -103,7 +104,7 @@ var TSOS;
             }
             */
             //next cycle!
-            else if (_CPU.isExecuting && _CPU.isSingleStepping == false) { // If there are no interrupts then run one CPU cycle if there is anything being processed.
+            if (_CPU.isExecuting && _CPU.isSingleStepping == false) { // If there are no interrupts then run one CPU cycle if there is anything being processed.
                 _CPU.cycle();
                 _Scheduler.count();
                 //after each cycle, update displays
@@ -114,7 +115,8 @@ var TSOS;
             else if (_CPU.isExecuting && _MemoryManager.readyQueue.isEmpty()) {
                 _CPU.isExecuting = false;
             }
-            else { // If there are no interrupts and there is nothing being executed then just be idle.
+            // If there are no interrupts and there is nothing being executed then just be idle.
+            else {
                 this.krnTrace("Idle");
             }
         }
@@ -189,7 +191,7 @@ var TSOS;
         killProcess(params) {
             //get params
             var pcb = params[0];
-            //proj 3: check if ctrl c should just kill running process or ALL
+            //proj 3: should killing one process stop the whole CPU?
             _CPU.isExecuting = false;
             //terminate and get rid of it in the segment view
             pcb.setState("TERMINATED");
@@ -215,31 +217,42 @@ var TSOS;
             this.killProcess(pcb);
         }
         contextSwitch(args) {
-            //pid is given
-            if (args.length > 0) {
-                var nextPID = args[0];
-                var nextPCB = _MemoryManager.getProcessByPID(nextPID);
-            }
-            //pid from ready queue
-            else {
-                var nextPCB = _MemoryManager.readyQueue.dequeue();
-                var nextPID = nextPCB.pid;
-            }
-            //save the state: set all current PCB's registers to CPU's registers
             if (_CPU.isVirgin) {
                 //if CPU is a virgin, no need to save current pcb state
             }
+            //save the state
             else {
-                if (_CPU.currentPCB.getState() === "RUNNING") { //this prevents creating zombies
-                    _CPU.currentPCB.setState("READY");
-                }
+                //save registers from CPU->PCB
                 _CPU.currentPCB.processPC = _CPU.PC;
                 _CPU.currentPCB.processAcc = _CPU.Acc;
                 _CPU.currentPCB.processXreg = _CPU.Xreg;
                 _CPU.currentPCB.processYreg = _CPU.Yreg;
                 _CPU.currentPCB.processZflag = _CPU.Zflag;
                 _CPU.currentPCB.processIR = _CPU.instructionRegister;
+                //requeue it
+                if (_CPU.currentPCB.getState() === "RUNNING") { //this prevents creating zombies
+                    _CPU.currentPCB.setState("READY");
+                    _MemoryManager.readyQueue.enqueue(_CPU.currentPCB);
+                }
             }
+            //pid is given
+            /*
+            if(args.length > 0) {
+                var nextPID = args[0];
+                var nextPCB = _MemoryManager.getProcessByPID(nextPID);
+            }
+                */
+            //NEW LINE
+            if (_MemoryManager.readyQueue.isEmpty()) {
+                _CPU.isExecuting = false;
+                //the end!
+            }
+            //pid from ready queue
+            else {
+                var nextPCB = _MemoryManager.readyQueue.dequeue();
+                var nextPID = nextPCB.pid;
+            }
+            //BOOKMARK, check if its in the right order
             //next pcb: set all CPU's registers to next PCB's registers
             _CPU.PC = nextPCB.processPC;
             _CPU.Acc = nextPCB.processAcc;
@@ -250,6 +263,7 @@ var TSOS;
             //set new current PCB and run it
             _CPU.currentPCB = nextPCB;
             _CPU.currentPCB.setState("RUNNING");
+            //_MemoryManager.readyQueue.enqueue(nextPCB);
             _CPU.isExecuting = true;
             //do something with the queues?? 
             //maybe we check the queue to figure out what is nextPID
