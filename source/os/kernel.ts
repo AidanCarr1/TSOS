@@ -93,6 +93,39 @@ module TSOS {
 
             var whatToDo = _Scheduler.askScheduler();
 
+            //DISPATCHER
+            switch (whatToDo) {
+
+                //do nothing
+                case "IDLE": {
+
+                    break;
+                }
+
+                //context switch
+                case "CS": {
+
+                    break;
+                }
+
+                //do yet another cycle
+                case "CYCLE": {
+
+                    break;
+                }
+
+                //current program is terminated, context switch
+                case "DQ,CS": {
+
+                    break;
+                }
+
+                //turn off cpu
+                case "OFF": {
+
+                    break;
+                }
+            }
             /*
             //cpu wasnt running, and now theres a program in the ready queue
             else if (!_CPU.isExecuting && !_MemoryManager.readyQueue.isEmpty()) {
