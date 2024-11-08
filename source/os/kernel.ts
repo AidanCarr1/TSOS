@@ -91,45 +91,46 @@ module TSOS {
                 this.krnInterruptHandler(interrupt.irq, interrupt.params);
             } 
 
-            //_StdOut.putText("~"); //test line
-            var whatToDo = _Scheduler.askScheduler();
-            //_StdOut.putText(""+whatToDo+"~");
+            else {
+                //_StdOut.putText("~"); //test line
+                var whatToDo = _Scheduler.askScheduler();
+                //_StdOut.putText(""+whatToDo+"~");
 
-            //DISPATCHER
-            switch (whatToDo) {
+                //DISPATCHER
+                switch (whatToDo) {
 
-                //context switch
-                case "CS": {
-                    //context switch to the next process in ready Q
-                    var systemCall = new Interrupt(CONTEXT_SWITCH_IRQ, []);
-                    _KernelInterruptQueue.enqueue(systemCall);
-                    break;
+                    //context switch
+                    case "CS": {
+                        //context switch to the next process in ready Q
+                        var systemCall = new Interrupt(CONTEXT_SWITCH_IRQ, []);
+                        _KernelInterruptQueue.enqueue(systemCall);
+                        break;
+                    }
+
+                    //do yet another cycle
+                    case "CYCLE": {
+                        _CPU.cycle();
+                        _Scheduler.count();
+                        break;
+                    }
+
+                    //turn off cpu
+                    case "OFF": {
+                        _CPU.isExecuting = false;
+                        break;
+                    }
+
+                    //do nothing
+                    case "IDLE": {
+                        this.krnTrace("Idle");
+                        break;
+                    }
                 }
 
-                //do yet another cycle
-                case "CYCLE": {
-                    _CPU.cycle();
-                    _Scheduler.count();
-                    break;
-                }
-
-                //turn off cpu
-                case "OFF": {
-                    _CPU.isExecuting = false;
-                    break;
-                }
-
-                //do nothing
-                case "IDLE": {
-                    this.krnTrace("Idle");
-                    break;
-                }
+                //after each cycle, update displays
+                Control.updateCPUDisplay();
+                Control.updateMemoryDisplay();
             }
-
-            //after each cycle, update displays
-            Control.updateCPUDisplay();
-            Control.updateMemoryDisplay();
-
             /*
             //cpu wasnt running, and now theres a program in the ready queue
             else if (!_CPU.isExecuting && !_MemoryManager.readyQueue.isEmpty()) {
@@ -353,6 +354,7 @@ module TSOS {
             _CPU.currentPCB.setState("RUNNING");
             //_MemoryManager.readyQueue.enqueue(nextPCB);
             _CPU.isExecuting = true;
+            _StdOut.putText("/csKERNELcomplete");
 
             //do something with the queues?? 
             //maybe we check the queue to figure out what is nextPID

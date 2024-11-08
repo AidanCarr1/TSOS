@@ -39,13 +39,14 @@ var TSOS;
             if (!_CPU.isExecuting) {
                 if (_MemoryManager.readyQueue.isEmpty()) {
                     //idle
+                    //_StdOut.putText("/CS");
                     return "IDLE";
                 }
                 else {
                     //context switch
                     //var nextPCB = _MemoryManager.readyQueue.dequeue();
                     //var nextPID = nextPCB.pid;
-                    alert("CS");
+                    _StdOut.putText("/CS");
                     return "CS";
                     /*
                     if (nextPCB.getState() === "READY") {
@@ -64,12 +65,12 @@ var TSOS;
                 if (this.quantumCounter < this.quantum) {
                     if (_CPU.currentPCB.getState() === "READY") {
                         //increment and do the next cycle
-                        alert("CYCLE");
+                        _StdOut.putText("/CYCLE");
                         return "CYCLE";
                     }
                     else if (_CPU.currentPCB.getState() === "TERMINATED") {
                         //context switch
-                        alert("CS");
+                        _StdOut.putText("/CS");
                         return "CS";
                     }
                 }
@@ -78,12 +79,12 @@ var TSOS;
                     if (_MemoryManager.readyQueue.isEmpty()) {
                         if (_CPU.currentPCB.getState() === "READY") {
                             //no context switch
-                            alert("CYCLE");
+                            _StdOut.putText("/CYCLE");
                             return "CYCLE";
                         }
                         else if (_CPU.currentPCB.getState() === "TERMINATED") {
                             //stop executing pc
-                            alert("OFF");
+                            _StdOut.putText("/OFF");
                             return "OFF";
                         }
                     }
@@ -92,7 +93,7 @@ var TSOS;
                         //context switch
                         //var nextPCB = _MemoryManager.readyQueue.dequeue();
                         //var nextPID = nextPCB.pid;
-                        alert("CS");
+                        _StdOut.putText("/CS");
                         return "CS";
                         /*
                         if (nextPCB.getState() === "READY") {

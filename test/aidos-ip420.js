@@ -47,11 +47,11 @@ function Glados() {
                                     _KernelInputQueue.enqueue('d');
 								    TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]); 
                                     
-                                    _KernelInputQueue.enqueue('r');
-                                    _KernelInputQueue.enqueue('u');
-                                    _KernelInputQueue.enqueue('n');
-                                    _KernelInputQueue.enqueue(' ');
-                                    _KernelInputQueue.enqueue('0');
+                                    // _KernelInputQueue.enqueue('r');
+                                    // _KernelInputQueue.enqueue('u');
+                                    // _KernelInputQueue.enqueue('n');
+                                    // _KernelInputQueue.enqueue(' ');
+                                    // _KernelInputQueue.enqueue('0');
                                     //TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
 									}, 500);
     }
