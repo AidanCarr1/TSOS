@@ -52,55 +52,10 @@ var TSOS;
             this.isSingleStepping = false;
             this.isVirgin = true; //virgin = cpu has never ran a process before
         }
-        /* moving this context switch thing to the kernel as an interupt
-        // GET SET...
-        public contextSwitch(nextPID: number) {
-            
-            //save current state
-            if (_CPU.isVirgin) {
-                //if CPU is a virgin, no need to save current pcb state
-            }
-            else {
-                //set all current PCB's registers to CPU's registers
-                this.currentPCB.processPC = this.PC;
-                this.currentPCB.processAcc = this.Acc;
-                this.currentPCB.processXreg = this.Xreg;
-                this.currentPCB.processYreg = this.Yreg;
-                this.currentPCB.processZflag = this.Zflag;
-                this.currentPCB.processIR =  this.instructionRegister;
-            }
-
-            var nextPCB = _MemoryManager.getProcessByPID(nextPID);
-            //set all CPU's registers to next PCB's registers
-            this.PC = nextPCB.processPC;
-            this.Acc = nextPCB.processAcc;
-            this.Xreg = nextPCB.processXreg;
-            this.Yreg = nextPCB.processYreg;
-            this.Zflag = nextPCB.processZflag;
-            this.instructionRegister = nextPCB.processIR;
-
-            //new current pid
-            this.currentPCB = nextPCB;
-            nextPCB.setState("READY"); //this should eventually get done in the ready queue?
-            
-        }
-            */
-        // GO!
-        run() {
-            //for proj3 - run should actually just put the PCB on the ready queue
-            //also set the state to running
-            //maybe add a check in the cycle for the ready queue, if found, context switch and set is executing true
-            //if nothing inside, set to false
-            //test case thought! make sure to check that the PCB in this queue is not terminated. if it is throw it out
-            //in the future: change all the "set isExecuting to false" to "kill the process"
-            //this.isExecuting = true;
-            //this.currentPCB.setState("RUNNING");
-        }
         cycle() {
             this.isVirgin = false; //CPU lost its vcard
             _Kernel.krnTrace('CPU cycle');
             // TODO: Accumulate CPU usage and profiling statistics here.
-            // Do the real work here. Be sure to set this.isExecuting appropriately.
             //get the base based on the PCB
             this.currentBase = _CPU.currentPCB.getBase(); //new line
             //fetch
