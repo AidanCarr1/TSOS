@@ -46,6 +46,9 @@ module TSOS {
 
             //thats one more PCB!
             this.pidCounter ++;
+
+            //add pcb to the HTML
+            Control.addPCBDisplay(newProcess);
             
             //give pid value 
             return newProcess.pid;

@@ -47,6 +47,8 @@ var TSOS;
             this.pcbList.push(newProcess);
             //thats one more PCB!
             this.pidCounter++;
+            //add pcb to the HTML
+            TSOS.Control.addPCBDisplay(newProcess);
             //give pid value 
             return newProcess.pid;
         }
