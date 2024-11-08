@@ -58,29 +58,23 @@ module TSOS {
 
         //if pid cannot be found or should not be added to ready queue, return false
         public isValid(pid: number): boolean{
-            //pid out of range
+            //pid is out of range
             if (pid >= this.pidCounter || pid < 0) {
                 return false;
             } 
-            //pcb terminated
+            //pcb is terminated
             else if (this.getProcessByPID(pid).state === "TERMINATED") {
                 _StdOut.putText("Process " + pid + " terminated.");
                 _StdOut.advanceLine();
                 return false;
             } 
-            //pcb is is ready queue
-            else if (this.getProcessByPID(pid).state === "READY") {
-                _StdOut.putText("Process " + pid + " is in the ready queue.");
-                _StdOut.advanceLine();
-                return false;
-            } 
-            //pcb is running
-            else if (this.getProcessByPID(pid).state === "RUNNING") {
+            //pcb is ready or running
+            else if (this.getProcessByPID(pid).state === "RUNNING" || this.getProcessByPID(pid).state === "READY") {
                 _StdOut.putText("Process " + pid + " is currently running.");
                 _StdOut.advanceLine();
                 return false;
             } 
-            //pcb good  
+            //pcb is good  
             else {
                 return true;
             }

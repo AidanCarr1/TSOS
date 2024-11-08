@@ -499,15 +499,14 @@ var TSOS;
                 _StdOut.putText("Usage: quantum <int>  Please supply an integer.");
             }
         }
-        //run the given process
+        //run all unran process
         shellRunall() {
             //go through each segment
             for (var i = 0; i < NUM_OF_SEGEMENTS; i++) {
-                var thisPCB = _MemoryManager.segmentList[i];
-                var thisPID = thisPCB.pid;
-                //add pcb to ready queue if it isnt already there
-                if (_MemoryManager.isValid(thisPID)) {
-                    _MemoryManager.readyQueue.enqueue(thisPCB);
+                //only add to queue if it is resident
+                var nextPCB = _MemoryManager.segmentList[i];
+                if (nextPCB.getState() === "RESIDENT") {
+                    _MemoryManager.readyQueue.enqueue(nextPCB);
                 }
             }
         }
