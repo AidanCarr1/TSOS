@@ -75,30 +75,38 @@ var TSOS;
                 var interrupt = _KernelInterruptQueue.dequeue();
                 this.krnInterruptHandler(interrupt.irq, interrupt.params);
             }
+            //_StdOut.putText("~"); //test line
             var whatToDo = _Scheduler.askScheduler();
+            //_StdOut.putText(""+whatToDo+"~");
             //DISPATCHER
             switch (whatToDo) {
-                //do nothing
-                case "IDLE": {
-                    break;
-                }
                 //context switch
                 case "CS": {
+                    //context switch to the next process in ready Q
+                    var systemCall = new TSOS.Interrupt(CONTEXT_SWITCH_IRQ, []);
+                    _KernelInterruptQueue.enqueue(systemCall);
                     break;
                 }
                 //do yet another cycle
                 case "CYCLE": {
-                    break;
-                }
-                //current program is terminated, context switch
-                case "DQ,CS": {
+                    _CPU.cycle();
+                    _Scheduler.count();
                     break;
                 }
                 //turn off cpu
                 case "OFF": {
+                    _CPU.isExecuting = false;
+                    break;
+                }
+                //do nothing
+                case "IDLE": {
+                    this.krnTrace("Idle");
                     break;
                 }
             }
+            //after each cycle, update displays
+            TSOS.Control.updateCPUDisplay();
+            TSOS.Control.updateMemoryDisplay();
             /*
             //cpu wasnt running, and now theres a program in the ready queue
             else if (!_CPU.isExecuting && !_MemoryManager.readyQueue.isEmpty()) {
@@ -126,22 +134,27 @@ var TSOS;
 
             }
             */
+            /*
+            LEGACY CODE
             //next cycle!
             if (_CPU.isExecuting && _CPU.isSingleStepping == false) { // If there are no interrupts then run one CPU cycle if there is anything being processed.
                 _CPU.cycle();
                 _Scheduler.count();
                 //after each cycle, update displays
-                TSOS.Control.updateCPUDisplay();
-                TSOS.Control.updateMemoryDisplay();
+                Control.updateCPUDisplay();
+                Control.updateMemoryDisplay();
             }
+            
             //cpu was running, and now theres nothing left to run
             else if (_CPU.isExecuting && _MemoryManager.readyQueue.isEmpty()) {
                 _CPU.isExecuting = false;
             }
+
             // If there are no interrupts and there is nothing being executed then just be idle.
             else {
                 this.krnTrace("Idle");
             }
+                */
         }
         //
         // Interrupt Handling

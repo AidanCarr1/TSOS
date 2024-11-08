@@ -49,9 +49,10 @@ module TSOS {
                     return "IDLE";
                 }
                 else {
-                    var nextPCB = _MemoryManager.readyQueue.dequeue();
-                    var nextPID = nextPCB.pid;
-
+                    //context switch
+                    //var nextPCB = _MemoryManager.readyQueue.dequeue();
+                    //var nextPID = nextPCB.pid;
+                    alert("CS");
                     return "CS";
                     /*
                     if (nextPCB.getState() === "READY") {
@@ -73,11 +74,13 @@ module TSOS {
 
                     if (_CPU.currentPCB.getState() === "READY") {
                         //increment and do the next cycle
+                        alert("CYCLE");
                         return "CYCLE";
                     }
                     else if (_CPU.currentPCB.getState() === "TERMINATED") {
-                        //dequeue it and context switch?
-                        return "DQ,CS";
+                        //context switch
+                        alert("CS");
+                        return "CS";
                     }
                 }  
 
@@ -87,18 +90,21 @@ module TSOS {
 
                         if (_CPU.currentPCB.getState() === "READY") {
                             //no context switch
+                            alert("CYCLE");
                             return "CYCLE";
                         }
                         else if (_CPU.currentPCB.getState() === "TERMINATED") {
                             //stop executing pc
+                            alert("OFF");
                             return "OFF";
                         }
                     }
                     //something in the ready queue
                     else {
-                        var nextPCB = _MemoryManager.readyQueue.dequeue();
-                        var nextPID = nextPCB.pid;
-
+                        //context switch
+                        //var nextPCB = _MemoryManager.readyQueue.dequeue();
+                        //var nextPID = nextPCB.pid;
+                        alert("CS");
                         return "CS";
                         /*
                         if (nextPCB.getState() === "READY") {

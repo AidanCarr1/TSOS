@@ -435,10 +435,10 @@ var TSOS;
                     //dont do duplicate queues!
                     //had duplicate pids in the ready queu somehow...
                     //context switch for a given PID, enqueue it
-                    var systemCall = new TSOS.Interrupt(CONTEXT_SWITCH_IRQ, [numPID]);
-                    _KernelInterruptQueue.enqueue(systemCall);
+                    //var systemCall = new Interrupt(CONTEXT_SWITCH_IRQ, [numPID]);
+                    //_KernelInterruptQueue.enqueue(systemCall);
                     //_CPU.run(); //comment out later
-                    _CPU.isExecuting = true;
+                    //_CPU.isExecuting = true;
                 }
                 //pid does not exist or isnt a number
                 else {
