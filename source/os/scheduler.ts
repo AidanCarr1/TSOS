@@ -33,7 +33,7 @@ module TSOS {
             this.quantumCounter ++;
         }
         public resetCounter() {
-            this.quantum = 0;
+            this.quantumCounter = 0;
         }
 
         //given all cpu, memory, scheduler information, tell the dispatcher what to do

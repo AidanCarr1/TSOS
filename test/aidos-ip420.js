@@ -40,19 +40,28 @@ function Glados() {
         Process 2 - Turnaround Time = 666 cycles, Wait Time = 348 cycles     
         */
 
-            setTimeout(function(){ document.getElementById("taProgramInput").value = code1;
-                                    _KernelInputQueue.enqueue('l');
-                                    _KernelInputQueue.enqueue('o');
-                                    _KernelInputQueue.enqueue('a');
-                                    _KernelInputQueue.enqueue('d');
-								    TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]); 
-                                    
-                                    // _KernelInputQueue.enqueue('r');
-                                    // _KernelInputQueue.enqueue('u');
-                                    // _KernelInputQueue.enqueue('n');
-                                    // _KernelInputQueue.enqueue(' ');
-                                    // _KernelInputQueue.enqueue('0');
-                                    //TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
-									}, 500);
+        setTimeout(function(){ document.getElementById("taProgramInput").value = code1;
+                    _KernelInputQueue.enqueue('l');
+                    _KernelInputQueue.enqueue('o');
+                    _KernelInputQueue.enqueue('a');
+                    _KernelInputQueue.enqueue('d');
+                    TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);           	   				
+                }, 500);
+
+        setTimeout(function(){ document.getElementById("taProgramInput").value = code2;
+                    _KernelInputQueue.enqueue('l');
+                    _KernelInputQueue.enqueue('o');
+                    _KernelInputQueue.enqueue('a');
+                    _KernelInputQueue.enqueue('d');
+                    TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);           	   				
+                }, 1000);
+
+        setTimeout(function(){ document.getElementById("taProgramInput").value = code3;
+                    _KernelInputQueue.enqueue('l');
+                    _KernelInputQueue.enqueue('o');
+                    _KernelInputQueue.enqueue('a');
+                    _KernelInputQueue.enqueue('d');
+                    TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);           	   				
+                }, 1500);
     }
 }

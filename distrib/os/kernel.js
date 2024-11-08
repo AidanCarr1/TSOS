@@ -86,6 +86,7 @@ var TSOS;
                         //context switch to the next process in ready Q
                         var systemCall = new TSOS.Interrupt(CONTEXT_SWITCH_IRQ, []);
                         _KernelInterruptQueue.enqueue(systemCall);
+                        _Scheduler.resetCounter();
                         break;
                     }
                     //do yet another cycle
@@ -96,6 +97,7 @@ var TSOS;
                     }
                     //turn off cpu
                     case "OFF": {
+                        _Scheduler.resetCounter();
                         _CPU.isExecuting = false;
                         break;
                     }
@@ -267,10 +269,12 @@ var TSOS;
                 _CPU.currentPCB.processYreg = _CPU.Yreg;
                 _CPU.currentPCB.processZflag = _CPU.Zflag;
                 _CPU.currentPCB.processIR = _CPU.instructionRegister;
+                //_StdOut.putText(".p"+_CPU.currentPCB.pid+_CPU.currentPCB.getState());
                 //requeue it
                 if (_CPU.currentPCB.getState() === "RUNNING") { //this prevents creating zombies
                     _CPU.currentPCB.setState("READY");
                     _MemoryManager.readyQueue.enqueue(_CPU.currentPCB);
+                    //_StdOut.putText(".p"+_CPU.currentPCB.pid+"ready&requeued.");
                 }
             }
             //pid is given
@@ -288,7 +292,7 @@ var TSOS;
             //pid from ready queue
             else {
                 var nextPCB = _MemoryManager.readyQueue.dequeue();
-                var nextPID = nextPCB.pid;
+                //var nextPID:any = nextPCB.pid;
             }
             //BOOKMARK, check if its in the right order
             //next pcb: set all CPU's registers to next PCB's registers
