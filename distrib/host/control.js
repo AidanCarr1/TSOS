@@ -180,6 +180,19 @@ var TSOS;
             document.getElementById("Y").innerText = TSOS.Utils.toHex(_CPU.Yreg);
             document.getElementById("Z").innerText = TSOS.Utils.toHex(_CPU.Zflag);
         }
+        static addPCBDisplay(pcb) {
+            //start table row
+            var pcbRow = "<tr id='pcb" + pcb.pid + "'>";
+            pcbRow += "<td id='pid" + pcb.pid + "'      class='pcbBox'>" + pcb.pid + "</td>";
+            pcbRow += "<td id='state" + pcb.pid + "'    class='pcbBox'>" + pcb.getState() + "</td>";
+            pcbRow += "<td id='location" + pcb.pid + "' class='pcbBox'>" + "loc?" + "</td>";
+            pcbRow += "<td id='base" + pcb.pid + "'     class='pcbBox'>" + pcb.getBase() + "</td>";
+            pcbRow += "<td id='limit" + pcb.pid + "'    class='pcbBox'>" + pcb.getLimit() + "</td>";
+            pcbRow += "<td id='segment" + pcb.pid + "'  class='pcbBox'>" + pcb.segment + "</td>";
+            pcbRow += "<td id='priority" + pcb.pid + "' class='pcbBox'>" + pcb.priority + "</td>";
+            pcbRow += "</tr>";
+            document.getElementById("pcbTable").innerHTML += pcbRow;
+        }
     }
     TSOS.Control = Control;
 })(TSOS || (TSOS = {}));

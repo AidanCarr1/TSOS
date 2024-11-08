@@ -11,6 +11,7 @@ module TSOS {
     
         constructor(public pid?: number,              
                     public state?: string,
+                    public priority?: number,
 
                     //memory location
                     public base?: number,    //first memory location
@@ -39,6 +40,9 @@ module TSOS {
             //processIR will ~eventually~ be set when running and saving the state
             //but just in case:
             this.processIR = 0x00; 
+
+            //not a register, but not really used yet
+            this.priority = 5;
         }
 
         //setters
@@ -57,13 +61,17 @@ module TSOS {
             _MemoryManager.segmentList[segment] = this;
 
             //also sets the base and limit
-            this.base = SEGMENT_SIZE * segment;           //0->0x000 1->0x100 2->0x200
-            this.limit = this.base + SEGMENT_SIZE - 0x01; //0->0x0FF 1->0x1FF 2->0x2FF
+            var base = this.getBase();      //0->0x000 1->0x100 2->0x200
+            var limit = this.getLimit();    //0->0x0FF 1->0x1FF 2->0x2FF
         }
 
         //getters
         public getBase() {
             this.base = SEGMENT_SIZE * this.segment;
+            return this.base;
+        }
+        public getLimit() {
+            this.base = this.base + SEGMENT_SIZE - 0x01;
             return this.base;
         }
         public getState() {
