@@ -138,7 +138,7 @@
          <textarea name="taProgramInput"
                   id  ="taProgramInput"
                   rows="8"
-                  cols="105"
+                  cols="48"
                   value=""></textarea>
       </div>
 
@@ -186,6 +186,33 @@
                <td id="Priority">0</td>
                <td id="State">0</td>
                <td id="Location">0</td> -->
+            </tr>
+         </table>
+         
+      </div>
+
+      <div id="pcbDisplay"  style="width: 100%; margin-top: 0px;">
+         <label>Processes</label>
+         <br>
+         <table id="pbcTable">
+            <tr>
+               <td class="pcbColLabel">PID</td>
+               <td class="pcbColLabel">State</td>
+               <td class="pcbColLabel">Location</td>
+               <td class="pcbColLabel">Base</td>
+               <td class="pcbColLabel">Limit</td>
+               <td class="pcbColLabel">Segment</td>
+               <td class="pcbColLabel">Priority</td>
+
+            </tr>
+            <tr id="pcb0">
+               <td id="pid0"        class="pcbBox">0</td>
+               <td id="state0"      class="pcbBox">WAITING</td>
+               <td id="location0"   class="pcbBox">o</td>
+               <td id="base0"       class="pcbBox">o</td>
+               <td id="limit0"      class="pcbBox">ff</td>
+               <td id="segment0"    class="pcbBox">o</td>
+               <td id="priority0"   class="pcbBox">5</td>
             </tr>
          </table>
          

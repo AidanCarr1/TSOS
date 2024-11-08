@@ -143,7 +143,15 @@ table{
 }
 .cpuBox{
   background-color: lightskyblue;
+  -width: 60px;
+}
+
+.pcbColLabel{
+  background-color: darkcyan;
   width: 60px;
+}
+.pcbBox{
+  background-color: lightskyblue;
 }
 
 
