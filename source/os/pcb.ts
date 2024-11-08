@@ -54,7 +54,7 @@ module TSOS {
             this.segment = segment;
 
             //set segment in eyes of memory manager
-            _MemoryManager.segmentList[segment] = this.pid;
+            _MemoryManager.segmentList[segment] = this;
 
             //also sets the base and limit
             this.base = SEGMENT_SIZE * segment;           //0->0x000 1->0x100 2->0x200

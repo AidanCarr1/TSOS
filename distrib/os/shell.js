@@ -83,7 +83,7 @@ var TSOS;
             sc = new TSOS.ShellCommand(this.shellQuantum, "quantum", "- sets the round robin quantum to a given integer (default is 6).", "Quantum allows the round robin quantum to be changed.");
             this.commandList[this.commandList.length] = sc;
             //run all
-            sc = new TSOS.ShellCommand(this.shellRunall, "runall", "- runall.", "Runall.");
+            sc = new TSOS.ShellCommand(this.shellRunall, "runall", "- runs all unfinished programs at once.", "Runall runs all unfinished programs in memory at once.");
             this.commandList[this.commandList.length] = sc;
             // Display the initial prompt.
             this.putPrompt();
@@ -457,12 +457,11 @@ var TSOS;
             for (var i = 0x0; i < NUM_OF_SEGEMENTS; i++) {
                 _MemoryAccessor.clearSegment(i);
                 //kill the program in that segment
-                var zombiePID = _MemoryManager.segmentList[i];
-                if (zombiePID === undefined) {
+                var zombiePCB = _MemoryManager.segmentList[i];
+                if (zombiePCB === undefined) {
                     //there is not process in this segment
                 }
                 else {
-                    var zombiePCB = _MemoryManager.getProcessByPID(zombiePID);
                     //kill it!
                     var systemCall = new TSOS.Interrupt(KILL_PROCESS_IRQ, [zombiePCB]);
                     _KernelInterruptQueue.enqueue(systemCall);
@@ -502,12 +501,15 @@ var TSOS;
         }
         //run the given process
         shellRunall() {
-            //PLEASE FIX
-            //BOOKMARK
-            //extremely temporary just to see..
-            _MemoryManager.readyQueue.enqueue(_MemoryManager.getProcessByPID(0));
-            _MemoryManager.readyQueue.enqueue(_MemoryManager.getProcessByPID(1));
-            _MemoryManager.readyQueue.enqueue(_MemoryManager.getProcessByPID(2));
+            //go through each segment
+            for (var i = 0; i < NUM_OF_SEGEMENTS; i++) {
+                var thisPCB = _MemoryManager.segmentList[i];
+                var thisPID = thisPCB.pid;
+                //add pcb to ready queue if it isnt already there
+                if (_MemoryManager.isValid(thisPID)) {
+                    _MemoryManager.readyQueue.enqueue(thisPCB);
+                }
+            }
         }
     }
     TSOS.Shell = Shell;

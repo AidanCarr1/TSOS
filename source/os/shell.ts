@@ -159,10 +159,10 @@ module TSOS {
 
             //run all
             sc = new ShellCommand(this.shellRunall,
-                "runall",
-                "- runall.",
-                "Runall.");
-                this.commandList[this.commandList.length] = sc;
+                                  "runall",
+                                  "- runs all unfinished programs at once.",
+                                  "Runall runs all unfinished programs in memory at once.");
+                                  this.commandList[this.commandList.length] = sc;
                                    
 
             // Display the initial prompt.
@@ -582,12 +582,11 @@ module TSOS {
                 _MemoryAccessor.clearSegment(i); 
 
                 //kill the program in that segment
-                var zombiePID = _MemoryManager.segmentList[i];
-                if (zombiePID === undefined) {
+                var zombiePCB = _MemoryManager.segmentList[i];
+                if (zombiePCB === undefined) {
                     //there is not process in this segment
                 }
                 else {
-                    var zombiePCB = _MemoryManager.getProcessByPID(zombiePID);
                     //kill it!
                     var systemCall = new Interrupt(KILL_PROCESS_IRQ, [zombiePCB]);
                     _KernelInterruptQueue.enqueue(systemCall);
@@ -635,14 +634,18 @@ module TSOS {
 
         //run the given process
         public shellRunall() {
-
-            //PLEASE FIX
-            //BOOKMARK
-
-            //extremely temporary just to see..
-            _MemoryManager.readyQueue.enqueue(_MemoryManager.getProcessByPID(0));
-            _MemoryManager.readyQueue.enqueue(_MemoryManager.getProcessByPID(1));
-            _MemoryManager.readyQueue.enqueue(_MemoryManager.getProcessByPID(2));
+            
+            //go through each segment
+            for (var i = 0; i < NUM_OF_SEGEMENTS; i ++) {
+                
+                var thisPCB = _MemoryManager.segmentList[i];
+                var thisPID = thisPCB.pid;
+                
+                //add pcb to ready queue if it isnt already there
+                if (_MemoryManager.isValid(thisPID)) {
+                    _MemoryManager.readyQueue.enqueue(thisPCB);
+                }
+            }          
         }
     }
 }
