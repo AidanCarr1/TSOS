@@ -354,7 +354,7 @@ module TSOS {
             _CPU.currentPCB.setState("RUNNING");
             //_MemoryManager.readyQueue.enqueue(nextPCB);
             _CPU.isExecuting = true;
-            _StdOut.putText("/csKERNELcomplete");
+            //_StdOut.putText("/csKERNELcomplete");
 
             //do something with the queues?? 
             //maybe we check the queue to figure out what is nextPID

@@ -53,7 +53,7 @@ module TSOS {
                     //context switch
                     //var nextPCB = _MemoryManager.readyQueue.dequeue();
                     //var nextPID = nextPCB.pid;
-                    _StdOut.putText("/CS");
+                    //_StdOut.putText("/CS");
                     return "CS";
                     /*
                     if (nextPCB.getState() === "READY") {
@@ -70,17 +70,18 @@ module TSOS {
             //CPU is executing:
             else {
 
+                //_StdOut.putText("Q:"+this.quantumCounter+"/"+this.quantum); //test line
                 //quantum safe
                 if (this.quantumCounter < this.quantum) {
 
-                    if (_CPU.currentPCB.getState() === "READY") {
+                    if (_CPU.currentPCB.getState() === "READY" || _CPU.currentPCB.getState() === "RUNNING") {
                         //increment and do the next cycle
-                        _StdOut.putText("/CYCLE");
+                        //_StdOut.putText("/CYCLE");
                         return "CYCLE";
                     }
                     else if (_CPU.currentPCB.getState() === "TERMINATED") {
                         //context switch
-                        _StdOut.putText("/CS");
+                        //_StdOut.putText("/CS");
                         return "CS";
                     }
                 }  
@@ -89,14 +90,14 @@ module TSOS {
                 else {
                     if (_MemoryManager.readyQueue.isEmpty()) {
 
-                        if (_CPU.currentPCB.getState() === "READY") {
+                        if (_CPU.currentPCB.getState() === "READY" || _CPU.currentPCB.getState() === "RUNNING") {
                             //no context switch
-                            _StdOut.putText("/CYCLE");
+                            //_StdOut.putText("/CYCLE");
                             return "CYCLE";
                         }
                         else if (_CPU.currentPCB.getState() === "TERMINATED") {
                             //stop executing pc
-                            _StdOut.putText("/OFF");
+                            //_StdOut.putText("/OFF");
                             return "OFF";
                         }
                     }
@@ -105,7 +106,7 @@ module TSOS {
                         //context switch
                         //var nextPCB = _MemoryManager.readyQueue.dequeue();
                         //var nextPID = nextPCB.pid;
-                        _StdOut.putText("/CS");
+                        //_StdOut.putText("/CS");
                         return "CS";
                         /*
                         if (nextPCB.getState() === "READY") {
