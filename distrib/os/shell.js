@@ -82,6 +82,9 @@ var TSOS;
             //quantum
             sc = new TSOS.ShellCommand(this.shellQuantum, "quantum", "- sets the round robin quantum to a given integer (default is 6).", "Quantum allows the round robin quantum to be changed.");
             this.commandList[this.commandList.length] = sc;
+            //run all
+            sc = new TSOS.ShellCommand(this.shellRunall, "runall", "- runall.", "Runall.");
+            this.commandList[this.commandList.length] = sc;
             // Display the initial prompt.
             this.putPrompt();
         }
@@ -496,6 +499,15 @@ var TSOS;
             else {
                 _StdOut.putText("Usage: quantum <int>  Please supply an integer.");
             }
+        }
+        //run the given process
+        shellRunall() {
+            //PLEASE FIX
+            //BOOKMARK
+            //extremely temporary just to see..
+            _MemoryManager.readyQueue.enqueue(_MemoryManager.getProcessByPID(0));
+            _MemoryManager.readyQueue.enqueue(_MemoryManager.getProcessByPID(1));
+            _MemoryManager.readyQueue.enqueue(_MemoryManager.getProcessByPID(2));
         }
     }
     TSOS.Shell = Shell;
