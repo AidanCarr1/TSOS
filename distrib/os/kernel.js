@@ -76,9 +76,8 @@ var TSOS;
                 this.krnInterruptHandler(interrupt.irq, interrupt.params);
             }
             else {
-                //_StdOut.putText("~"); //test line
+                //SCHEDULER 
                 var whatToDo = _Scheduler.askScheduler();
-                //_StdOut.putText(""+whatToDo+"~");
                 //DISPATCHER
                 switch (whatToDo) {
                     //context switch
@@ -111,54 +110,6 @@ var TSOS;
                 TSOS.Control.updateCPUDisplay();
                 TSOS.Control.updateMemoryDisplay();
             }
-            /*
-            //cpu wasnt running, and now theres a program in the ready queue
-            else if (!_CPU.isExecuting && !_MemoryManager.readyQueue.isEmpty()) {
-                var nextPCB = _MemoryManager.readyQueue.dequeue();
-                var nextPID = nextPCB.pid;
-                _StdOut.putText("~"+nextPID+"~");
-
-                var systemCall = new Interrupt(CONTEXT_SWITCH_IRQ, [nextPID]);
-                _KernelInterruptQueue.enqueue(systemCall);
-                _CPU.isExecuting = true;
-            }
-                */
-            //check if running is terminated?
-            //context switch!
-            //BOOKMARK
-            /*
-            else if (_Scheduler.quantumCounter >= _Scheduler.quantum) {
-                //reset the count
-                _Scheduler.resetCounter();
-                //context switch for our PID, enqueue it
-                //TO DO:
-                //lets fix context switching to read the ready queue!, no more parameters
-                var systemCall = new Interrupt(CONTEXT_SWITCH_IRQ, [numPID]);
-                _KernelInterruptQueue.enqueue(systemCall);
-
-            }
-            */
-            /*
-            LEGACY CODE
-            //next cycle!
-            if (_CPU.isExecuting && _CPU.isSingleStepping == false) { // If there are no interrupts then run one CPU cycle if there is anything being processed.
-                _CPU.cycle();
-                _Scheduler.count();
-                //after each cycle, update displays
-                Control.updateCPUDisplay();
-                Control.updateMemoryDisplay();
-            }
-            
-            //cpu was running, and now theres nothing left to run
-            else if (_CPU.isExecuting && _MemoryManager.readyQueue.isEmpty()) {
-                _CPU.isExecuting = false;
-            }
-
-            // If there are no interrupts and there is nothing being executed then just be idle.
-            else {
-                this.krnTrace("Idle");
-            }
-                */
         }
         //
         // Interrupt Handling
@@ -257,8 +208,8 @@ var TSOS;
             this.killProcess(pcb);
         }
         contextSwitch(args) {
+            //if CPU is a virgin, no need to save current pcb state
             if (_CPU.isVirgin) {
-                //if CPU is a virgin, no need to save current pcb state
             }
             //save the state
             else {
@@ -269,22 +220,12 @@ var TSOS;
                 _CPU.currentPCB.processYreg = _CPU.Yreg;
                 _CPU.currentPCB.processZflag = _CPU.Zflag;
                 _CPU.currentPCB.processIR = _CPU.instructionRegister;
-                //_StdOut.putText(".p"+_CPU.currentPCB.pid+_CPU.currentPCB.getState());
-                //requeue it
-                if (_CPU.currentPCB.getState() === "RUNNING") { //this prevents creating zombies
+                //requeue program if its alive it
+                if (_CPU.currentPCB.getState() === "RUNNING") { //this prevents queuing terminated programs
                     _CPU.currentPCB.setState("READY");
                     _MemoryManager.readyQueue.enqueue(_CPU.currentPCB);
-                    //_StdOut.putText(".p"+_CPU.currentPCB.pid+"ready&requeued.");
                 }
             }
-            //pid is given
-            /*
-            if(args.length > 0) {
-                var nextPID = args[0];
-                var nextPCB = _MemoryManager.getProcessByPID(nextPID);
-            }
-                */
-            //NEW LINE
             if (_MemoryManager.readyQueue.isEmpty()) {
                 _CPU.isExecuting = false;
                 //the end!
@@ -292,9 +233,7 @@ var TSOS;
             //pid from ready queue
             else {
                 var nextPCB = _MemoryManager.readyQueue.dequeue();
-                //var nextPID:any = nextPCB.pid;
             }
-            //BOOKMARK, check if its in the right order
             //next pcb: set all CPU's registers to next PCB's registers
             _CPU.PC = nextPCB.processPC;
             _CPU.Acc = nextPCB.processAcc;
@@ -305,12 +244,7 @@ var TSOS;
             //set new current PCB and run it
             _CPU.currentPCB = nextPCB;
             _CPU.currentPCB.setState("RUNNING");
-            //_MemoryManager.readyQueue.enqueue(nextPCB);
             _CPU.isExecuting = true;
-            //_StdOut.putText("/csKERNELcomplete");
-            //do something with the queues?? 
-            //maybe we check the queue to figure out what is nextPID
-            //(in the beginning)
         }
         //
         // System Calls... that generate software interrupts via tha Application Programming Interface library routines.
