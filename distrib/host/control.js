@@ -181,12 +181,12 @@ var TSOS;
             document.getElementById("Z").innerText = TSOS.Utils.toHex(_CPU.Zflag);
         }
         static addPCBDisplay(pcb) {
-            var table = document.getElementById("pbcTable");
+            var table = document.getElementById("pcbTable");
             var row = table.insertRow();
             var rowHTML = "<tr id='pcb" + pcb.pid + "'>";
             rowHTML += "<td id='pid" + pcb.pid + "'      class='pcbBox'>" + pcb.pid + "</td>";
             rowHTML += "<td id='state" + pcb.pid + "'    class='pcbBox'>" + pcb.getState() + "</td>";
-            rowHTML += "<td id='location" + pcb.pid + "' class='pcbBox'>" + "loc?" + "</td>";
+            rowHTML += "<td id='location" + pcb.pid + "' class='pcbBox'>" + "Memory" + "</td>";
             rowHTML += "<td id='base" + pcb.pid + "'     class='pcbBox'>" + TSOS.Utils.toHex(pcb.getBase()) + "</td>";
             rowHTML += "<td id='limit" + pcb.pid + "'    class='pcbBox'>" + TSOS.Utils.toHex(pcb.getLimit()) + "</td>";
             rowHTML += "<td id='segment" + pcb.pid + "'  class='pcbBox'>" + TSOS.Utils.toHex(pcb.segment) + "</td>";

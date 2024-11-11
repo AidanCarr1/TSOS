@@ -152,7 +152,14 @@ table{
 }
 .pcbBox{
   background-color: lightskyblue;
+  -width: 50px;
 }
+#pcbTable{
+  max-height: 130px;
+  overflow-y: scroll;
+  background-color: none;
+}
+
 
 
 .footerText {

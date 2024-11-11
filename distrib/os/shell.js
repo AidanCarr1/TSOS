@@ -455,7 +455,6 @@ var TSOS;
         //loop thru each segment, clearing all memory
         shellClearmem() {
             for (var i = 0x0; i < NUM_OF_SEGEMENTS; i++) {
-                _MemoryAccessor.clearSegment(i);
                 //kill the program in that segment
                 var zombiePCB = _MemoryManager.segmentList[i];
                 if (zombiePCB === undefined) {
@@ -466,6 +465,8 @@ var TSOS;
                     var systemCall = new TSOS.Interrupt(KILL_PROCESS_IRQ, [zombiePCB]);
                     _KernelInterruptQueue.enqueue(systemCall);
                 }
+                //reset memory to 0x00's
+                _MemoryAccessor.clearSegment(i);
             }
             //update memory display accordingly
             TSOS.Control.updateMemoryDisplay();
@@ -509,6 +510,10 @@ var TSOS;
                     _MemoryManager.readyQueue.enqueue(nextPCB);
                 }
             }
+        }
+        killAll() {
+            //dont forget:
+            //clearmem should kill all
         }
     }
     TSOS.Shell = Shell;

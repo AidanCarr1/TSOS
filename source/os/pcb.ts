@@ -42,7 +42,7 @@ module TSOS {
             this.processIR = 0x00; 
 
             //not a register, but not really used yet
-            this.priority = 5;
+            this.priority = DEFAULT_PRIORITY;
         }
 
         //setters

@@ -226,20 +226,21 @@ module TSOS {
 
         public static addPCBDisplay(pcb: ProcessControlBlock): void {
             
-            var table: HTMLTableElement = <HTMLTableElement> document.getElementById("pbcTable");
+            var table: HTMLTableElement = <HTMLTableElement> document.getElementById("pcbTable");
             var row = table.insertRow();
 
             var rowHTML = "<tr id='pcb"+pcb.pid+"'>";
-            rowHTML +=    "<td id='pid"+pcb.pid+"'      class='pcbBox'>"+ pcb.pid+"</td>";
-            rowHTML +=    "<td id='state"+pcb.pid+"'    class='pcbBox'>"+ pcb.getState()+"</td>";
-            rowHTML +=    "<td id='location"+pcb.pid+"' class='pcbBox'>"+ "loc?"+"</td>";
-            rowHTML +=    "<td id='base"+pcb.pid+"'     class='pcbBox'>"+ Utils.toHex(pcb.getBase())+"</td>";
+            rowHTML +=    "<td id='pid"+pcb.pid+"'      class='pcbBox'>"+ pcb.pid                    +"</td>";
+            rowHTML +=    "<td id='state"+pcb.pid+"'    class='pcbBox'>"+ pcb.getState()             +"</td>";
+            rowHTML +=    "<td id='location"+pcb.pid+"' class='pcbBox'>"+ "Memory"                   +"</td>";
+            rowHTML +=    "<td id='base"+pcb.pid+"'     class='pcbBox'>"+ Utils.toHex(pcb.getBase()) +"</td>";
             rowHTML +=    "<td id='limit"+pcb.pid+"'    class='pcbBox'>"+ Utils.toHex(pcb.getLimit())+"</td>";
-            rowHTML +=    "<td id='segment"+pcb.pid+"'  class='pcbBox'>"+ Utils.toHex(pcb.segment)+"</td>";
-            rowHTML +=    "<td id='priority"+pcb.pid+"' class='pcbBox'>"+ Utils.toHex(pcb.priority)+"</td>";
+            rowHTML +=    "<td id='segment"+pcb.pid+"'  class='pcbBox'>"+ Utils.toHex(pcb.segment)   +"</td>";
+            rowHTML +=    "<td id='priority"+pcb.pid+"' class='pcbBox'>"+ Utils.toHex(pcb.priority)  +"</td>";
             rowHTML +=    "</tr>";
 
-            row.innerHTML = rowHTML;           
+            row.innerHTML = rowHTML;
+           
         }
     }
 }
