@@ -10,17 +10,14 @@ var TSOS;
     class MemoryManager {
         pidCounter;
         readyQueue;
-        residentQueue;
         pcbList;
         segmentList;
         constructor(pidCounter, //number of PIDs stored
         readyQueue, //store all processes in order of excution
-        residentQueue, //store all processes in order of excution
         //keep track of all the PCBs:
         pcbList, segmentList) {
             this.pidCounter = pidCounter;
             this.readyQueue = readyQueue;
-            this.residentQueue = residentQueue;
             this.pcbList = pcbList;
             this.segmentList = segmentList;
         }
@@ -29,7 +26,6 @@ var TSOS;
             //start at pid 0
             this.pidCounter = 0;
             this.readyQueue = new TSOS.Queue();
-            this.residentQueue = new TSOS.Queue();
             this.pcbList = new Array();
             this.segmentList = new Array(NUM_OF_SEGEMENTS);
         }
@@ -42,13 +38,11 @@ var TSOS;
             //give the segment 
             newProcess.setSegment(segment);
             //let memory manager know about the PCB
-            this.residentQueue.enqueue(newProcess); //this.readyQueue.enqueue(newProcess);
             this.pcbList.push(newProcess);
             //thats one more PCB!
             this.pidCounter++;
             //add pcb to the HTML
             TSOS.Control.addPCBDisplay(newProcess);
-            //newProcess.setState("RESIDENT");
             //give pid value 
             return newProcess.pid;
         }
