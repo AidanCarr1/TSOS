@@ -39,7 +39,6 @@ var TSOS;
             var newProcess = new TSOS.ProcessControlBlock();
             newProcess.initRegisters();
             newProcess.setPID(this.pidCounter);
-            newProcess.setState("RESIDENT");
             //give the segment 
             newProcess.setSegment(segment);
             //let memory manager know about the PCB
@@ -49,6 +48,7 @@ var TSOS;
             this.pidCounter++;
             //add pcb to the HTML
             TSOS.Control.addPCBDisplay(newProcess);
+            //newProcess.setState("RESIDENT");
             //give pid value 
             return newProcess.pid;
         }
@@ -104,7 +104,6 @@ var TSOS;
                 return;
             }
             zombiePCB.setState("TERMINATED");
-            zombiePCB.segment = ERROR_CODE;
             this.segmentList[segment] = undefined;
         }
         //if pid cannot be found or is already dead, return false

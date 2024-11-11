@@ -184,13 +184,13 @@ var TSOS;
             var table = document.getElementById("pcbTable"); //Via Google AI
             var row = table.insertRow();
             var rowHTML = "<tr id='pcb" + pcb.pid + "'>";
-            rowHTML += "<td id='pid" + pcb.pid + "'      class='pcbBox'>" + pcb.pid + "</td>";
-            rowHTML += "<td id='state" + pcb.pid + "'    style='font-size: 12px;' class='pcbBox'>" + pcb.getState() + "</td>";
-            rowHTML += "<td id='location" + pcb.pid + "' class='pcbBox'>" + "Memory" + "</td>";
-            rowHTML += "<td id='base" + pcb.pid + "'     class='pcbBox'>" + TSOS.Utils.toHex(pcb.getBase()) + "</td>";
-            rowHTML += "<td id='limit" + pcb.pid + "'    class='pcbBox'>" + TSOS.Utils.toHex(pcb.getLimit()) + "</td>";
-            rowHTML += "<td id='segment" + pcb.pid + "'  class='pcbBox'>" + TSOS.Utils.toHex(pcb.segment) + "</td>";
-            rowHTML += "<td id='priority" + pcb.pid + "' class='pcbBox'>" + TSOS.Utils.toHex(pcb.priority) + "</td>";
+            rowHTML += "<td id='pid" + pcb.pid + "'      class='pcbBox' >" + pcb.pid + "</td>";
+            rowHTML += "<td id='state" + pcb.pid + "'    class='pcbBoxS'>" + pcb.getState() + "</td>";
+            rowHTML += "<td id='location" + pcb.pid + "' class='pcbBox' >" + pcb.location + "</td>";
+            rowHTML += "<td id='base" + pcb.pid + "'     class='pcbBox' >" + TSOS.Utils.toHex(pcb.getBase()) + "</td>";
+            rowHTML += "<td id='limit" + pcb.pid + "'    class='pcbBox' >" + TSOS.Utils.toHex(pcb.getLimit()) + "</td>";
+            rowHTML += "<td id='segment" + pcb.pid + "'  class='pcbBox' >" + TSOS.Utils.toHex(pcb.segment) + "</td>";
+            rowHTML += "<td id='priority" + pcb.pid + "' class='pcbBox' >" + TSOS.Utils.toHex(pcb.priority) + "</td>";
             //rowHTML +=    "<td id='quantum"+pcb.pid+"'  class='pcbBox'>"+ Utils.toHex(pcb.quantum)   +"</td>";
             rowHTML += "</tr>";
             row.innerHTML = rowHTML;
@@ -201,9 +201,14 @@ var TSOS;
             // Simplicity courtesy of BrendOS
             var row = document.getElementById("pcb" + pid);
             document.getElementById("state" + pid).innerText = pcb.getState();
+            document.getElementById("location" + pid).innerText = pcb.location;
+            document.getElementById("base" + pid).innerText = TSOS.Utils.toHex(pcb.getBase());
+            document.getElementById("limit" + pid).innerText = TSOS.Utils.toHex(pcb.getLimit());
+            document.getElementById("segment" + pid).innerText = TSOS.Utils.toHex(pcb.segment);
+            document.getElementById("priority" + pid).innerText = TSOS.Utils.toHex(pcb.priority);
             // var row: HTMLTableRowElement = <HTMLTableRowElement> document.getElementById("pcb0"); //Via Google AI
             //(<HTMLTableCellElement> document.getElementById("pcb0")).textContent = "CHANGED";
-            _Kernel.krnTrace("FIXED IT");
+            //_Kernel.krnTrace("FIXED IT");
             // if (row) {
             //     var cell = row.cells[1] as HTMLTableCellElement;
             //     if (cell) {
@@ -212,7 +217,7 @@ var TSOS;
             // }
             //change state
             //(<HTMLInputElement> document.getElementById("state"+pid)).innerText = "CHANGED";
-            _Kernel.krnTrace("SUCCESS");
+            //_Kernel.krnTrace("SUCCESS");
         }
     }
     TSOS.Control = Control;

@@ -187,12 +187,13 @@ var TSOS;
             //terminate and get rid of it in the segment view
             pcb.setState("TERMINATED");
             _MemoryManager.segmentList[pcb.getSegment()] = undefined;
-            pcb.segment = ERROR_CODE;
             //tell the shell
             _StdOut.advanceLine();
             _StdOut.putText("Process " + pcb.pid + " terminated. ");
             _StdOut.advanceLine();
             _StdOut.putText(_OsShell.promptStr);
+            //tell the display
+            //Control.updatePCBDisplay(pcb);
         }
         outOfBounds(params) {
             //get params
@@ -225,6 +226,7 @@ var TSOS;
                     _CPU.currentPCB.setState("READY");
                     _MemoryManager.readyQueue.enqueue(_CPU.currentPCB);
                 }
+                //display old PCB
                 TSOS.Control.updatePCBDisplay(_CPU.currentPCB);
             }
             if (_MemoryManager.readyQueue.isEmpty()) {
@@ -247,6 +249,8 @@ var TSOS;
             if (_CPU.currentPCB.getState() !== "TERMINATED") { //prevents zombies
                 _CPU.currentPCB.setState("RUNNING");
             }
+            //display new PCB
+            TSOS.Control.updatePCBDisplay(_CPU.currentPCB);
             _CPU.isExecuting = true;
         }
         //

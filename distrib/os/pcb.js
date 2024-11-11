@@ -13,6 +13,7 @@ var TSOS;
         base;
         limit;
         segment;
+        location;
         processPC;
         processAcc;
         processXreg;
@@ -24,6 +25,7 @@ var TSOS;
         base, //first memory location
         limit, //last memory location
         segment, //will be changing 
+        location, 
         //saved cpu registers:
         processPC, processAcc, processXreg, processYreg, processZflag, processIR) {
             this.pid = pid;
@@ -32,6 +34,7 @@ var TSOS;
             this.base = base;
             this.limit = limit;
             this.segment = segment;
+            this.location = location;
             this.processPC = processPC;
             this.processAcc = processAcc;
             this.processXreg = processXreg;
@@ -52,6 +55,7 @@ var TSOS;
             //but just in case:
             this.processIR = 0x00;
             //not a register, but not really used yet
+            this.state = "RESIDENT";
             this.priority = DEFAULT_PRIORITY;
         }
         //setters
@@ -61,7 +65,7 @@ var TSOS;
         setState(state) {
             this.state = state;
             _Kernel.krnTrace('PID ' + this.pid + ' set to ' + this.state);
-            //update Process display here?
+            TSOS.Control.updatePCBDisplay(this);
         }
         setSegment(segment) {
             this.segment = segment;
@@ -70,6 +74,8 @@ var TSOS;
             //also sets the base and limit
             var base = this.getBase(); //0->0x000 1->0x100 2->0x200
             var limit = this.getLimit(); //0->0x0FF 1->0x1FF 2->0x2FF
+            //might change later
+            this.location = "Memory";
         }
         //getters
         getBase() {

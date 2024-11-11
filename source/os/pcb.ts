@@ -17,6 +17,7 @@ module TSOS {
                     public base?: number,    //first memory location
                     public limit?: number,   //last memory location
                     public segment?: number, //will be changing 
+                    public location?: string,
 
                     //saved cpu registers:
                     public processPC?: number,       
@@ -42,6 +43,7 @@ module TSOS {
             this.processIR = 0x00; 
 
             //not a register, but not really used yet
+            this.state = "RESIDENT";
             this.priority = DEFAULT_PRIORITY;
         }
 
@@ -52,7 +54,7 @@ module TSOS {
         public setState(state: string) {
             this.state = state;
             _Kernel.krnTrace('PID ' + this.pid + ' set to ' + this.state);
-            //update Process display here?
+            Control.updatePCBDisplay(this);
         }
         public setSegment(segment: number) {
             this.segment = segment;
@@ -63,6 +65,9 @@ module TSOS {
             //also sets the base and limit
             var base = this.getBase();      //0->0x000 1->0x100 2->0x200
             var limit = this.getLimit();    //0->0x0FF 1->0x1FF 2->0x2FF
+
+            //might change later
+            this.location = "Memory";
         }
 
         //getters

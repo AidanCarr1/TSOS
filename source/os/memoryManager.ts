@@ -35,7 +35,6 @@ module TSOS {
             var newProcess = new ProcessControlBlock();
             newProcess.initRegisters();
             newProcess.setPID(this.pidCounter);
-            newProcess.setState("RESIDENT");
 
             //give the segment 
             newProcess.setSegment(segment); 
@@ -49,6 +48,7 @@ module TSOS {
 
             //add pcb to the HTML
             Control.addPCBDisplay(newProcess);
+            //newProcess.setState("RESIDENT");
             
             //give pid value 
             return newProcess.pid;
@@ -114,7 +114,6 @@ module TSOS {
             }
 
             zombiePCB.setState("TERMINATED");
-            zombiePCB.segment = ERROR_CODE;
             this.segmentList[segment] = undefined;
         }
 
