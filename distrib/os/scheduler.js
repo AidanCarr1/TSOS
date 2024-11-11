@@ -67,8 +67,9 @@ var TSOS;
                 else {
                     if (_MemoryManager.readyQueue.isEmpty()) {
                         if (_CPU.currentPCB.getState() === "READY" || _CPU.currentPCB.getState() === "RUNNING") {
-                            //no context switch
-                            return "CYCLE";
+                            //reset quantum
+                            //no context switch, do next cycle
+                            return "QCYCLE";
                         }
                         else if (_CPU.currentPCB.getState() === "TERMINATED") {
                             //stop executing pc

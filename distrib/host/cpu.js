@@ -58,18 +58,18 @@ var TSOS;
         cycle() {
             this.isVirgin = false; //CPU lost its vcard
             _Kernel.krnTrace('CPU cycle');
-            // Accumulate CPU usage and profiling statistics here.
+            // Accumulate CPU usage of programs in memory
             for (var i = 0; i < NUM_OF_SEGEMENTS; i++) {
                 var calculatingPCB = _MemoryManager.segmentList[i];
                 if (calculatingPCB !== undefined) {
+                    //occupying CPU
                     if (calculatingPCB.getState() === "RUNNING") {
                         calculatingPCB.turnaroundTime++;
-                        _Kernel.krnTrace("pcb" + calculatingPCB.pid + "t:" + calculatingPCB.turnaroundTime);
                     }
+                    //not occupying CPU
                     else if (calculatingPCB.getState() === "READY") {
                         calculatingPCB.waitTime++;
                         calculatingPCB.turnaroundTime++;
-                        _Kernel.krnTrace("pcb" + calculatingPCB.pid + "w:" + calculatingPCB.waitTime);
                     }
                 }
             }
@@ -167,7 +167,11 @@ var TSOS;
                 }
                 //00 BRK: end of program
                 case 0x00: {
-                    //this should be a function call (but it doesnt have to be, so im keeping it here)
+                    //display turnaround time & wait time (that have been calculated)
+                    _StdOut.advanceLine();
+                    _StdOut.putText("Process " + this.currentPCB.pid + " turnaround time: " + this.currentPCB.turnaroundTime + " cycles");
+                    _StdOut.advanceLine();
+                    _StdOut.putText("Process " + this.currentPCB.pid + " wait time: " + this.currentPCB.waitTime + " cycles");
                     _StdOut.advanceLine();
                     _StdOut.putText(_OsShell.promptStr);
                     this.isExecuting = false;
