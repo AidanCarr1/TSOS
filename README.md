@@ -1,14 +1,10 @@
-PROJECT 2 GRADING INSTRUCTIONS
+PROJECT 3 GRADING INSTRUCTIONS
 ====================================
-Please grade my [Project 2 Branch](https://github.com/AidanCarr1/TSOS/tree/Project-2)
+Please grade my [Project 3 Branch](https://github.com/AidanCarr1/TSOS/tree/Project-3)
 
-- Ctrl+C has been added
-- PCB, MemoryManager, MemoryAccessor, CPU added
-- Memory and CPU displays
-- some CSS changes
-- multi enter isnt as ugly
-- many load/run sequences will work
-- load load will not work
+- Wait time and turnaround time added
+- Single step still works
+- Ctrl C terminates the RUNNING program, not all
 
 
 2024 Browser-based Operating System in TypeScript

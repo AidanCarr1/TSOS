@@ -2,8 +2,7 @@
      memoryManager.ts
 
      this class stores the pcbs and the ready queue
-     it will also maybe move and keep track of 256 byte segments
-     allocates segments
+     it also knows where there is space, and what pcbs exist and can run or be killed
      ------------ */
 var TSOS;
 (function (TSOS) {
