@@ -149,6 +149,7 @@ table{
 .pcbColLabel{
   background-color: darkcyan;
   width: 60px;
+  -font-size: 15px;
 }
 .pcbBox{
   background-color: lightskyblue;

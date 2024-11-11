@@ -82,7 +82,6 @@ var TSOS;
                 switch (whatToDo) {
                     //context switch
                     case "CS": {
-                        this.krnTrace("CS");
                         //context switch to the next process in ready Q
                         var systemCall = new TSOS.Interrupt(CONTEXT_SWITCH_IRQ, []);
                         _KernelInterruptQueue.enqueue(systemCall);
@@ -226,6 +225,7 @@ var TSOS;
                     _CPU.currentPCB.setState("READY");
                     _MemoryManager.readyQueue.enqueue(_CPU.currentPCB);
                 }
+                TSOS.Control.updatePCBDisplay(_CPU.currentPCB);
             }
             if (_MemoryManager.readyQueue.isEmpty()) {
                 _CPU.isExecuting = false;

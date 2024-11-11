@@ -226,21 +226,45 @@ module TSOS {
 
         public static addPCBDisplay(pcb: ProcessControlBlock): void {
             
-            var table: HTMLTableElement = <HTMLTableElement> document.getElementById("pcbTable");
+            var table: HTMLTableElement = <HTMLTableElement> document.getElementById("pcbTable"); //Via Google AI
             var row = table.insertRow();
 
             var rowHTML = "<tr id='pcb"+pcb.pid+"'>";
             rowHTML +=    "<td id='pid"+pcb.pid+"'      class='pcbBox'>"+ pcb.pid                    +"</td>";
-            rowHTML +=    "<td id='state"+pcb.pid+"'    class='pcbBox'>"+ pcb.getState()             +"</td>";
+            rowHTML +=    "<td id='state"+pcb.pid+"'    style='font-size: 12px;' class='pcbBox'>"+ pcb.getState()             +"</td>";
             rowHTML +=    "<td id='location"+pcb.pid+"' class='pcbBox'>"+ "Memory"                   +"</td>";
             rowHTML +=    "<td id='base"+pcb.pid+"'     class='pcbBox'>"+ Utils.toHex(pcb.getBase()) +"</td>";
             rowHTML +=    "<td id='limit"+pcb.pid+"'    class='pcbBox'>"+ Utils.toHex(pcb.getLimit())+"</td>";
             rowHTML +=    "<td id='segment"+pcb.pid+"'  class='pcbBox'>"+ Utils.toHex(pcb.segment)   +"</td>";
             rowHTML +=    "<td id='priority"+pcb.pid+"' class='pcbBox'>"+ Utils.toHex(pcb.priority)  +"</td>";
+            //rowHTML +=    "<td id='quantum"+pcb.pid+"'  class='pcbBox'>"+ Utils.toHex(pcb.quantum)   +"</td>";
             rowHTML +=    "</tr>";
+            row.innerHTML = rowHTML;   
+        }
 
-            row.innerHTML = rowHTML;
-           
+        public static updatePCBDisplay(pcb: ProcessControlBlock): void {
+            //_Kernel.krnTrace("uPCBd start");
+            
+            var pid = pcb.pid;
+
+            // Simplicity courtesy of BrendOS
+            var row = document.getElementById("pcb"+pid);
+            
+            document.getElementById("state"+pid).innerText = pcb.getState();
+
+            // var row: HTMLTableRowElement = <HTMLTableRowElement> document.getElementById("pcb0"); //Via Google AI
+            //(<HTMLTableCellElement> document.getElementById("pcb0")).textContent = "CHANGED";
+            _Kernel.krnTrace("FIXED IT");
+
+            // if (row) {
+            //     var cell = row.cells[1] as HTMLTableCellElement;
+            //     if (cell) {
+            //         cell.textContent = "CHANGED";
+            //     }
+            // }
+            //change state
+            //(<HTMLInputElement> document.getElementById("state"+pid)).innerText = "CHANGED";
+            _Kernel.krnTrace("SUCCESS");
         }
     }
 }

@@ -100,7 +100,6 @@ module TSOS {
 
                     //context switch
                     case "CS": {
-                        this.krnTrace("CS");
                         //context switch to the next process in ready Q
                         var systemCall = new Interrupt(CONTEXT_SWITCH_IRQ, []);
                         _KernelInterruptQueue.enqueue(systemCall);
@@ -268,7 +267,8 @@ module TSOS {
                 if (_CPU.currentPCB.getState() === "RUNNING") { //this prevents queuing terminated programs
                     _CPU.currentPCB.setState("READY");
                     _MemoryManager.readyQueue.enqueue(_CPU.currentPCB);
-                }    
+                }   
+                Control.updatePCBDisplay(_CPU.currentPCB); 
             }
 
             if (_MemoryManager.readyQueue.isEmpty()) {
