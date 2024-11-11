@@ -104,6 +104,17 @@ var TSOS;
                     case "OFF": {
                         _Scheduler.resetCounter();
                         _CPU.isExecuting = false;
+                        //display wait times
+                        for (var i = 0; i < NUM_OF_SEGEMENTS; i++) {
+                            //var calculatingPCB = _MemoryManager.segmentList[i];
+                            var calculatingPCB = _MemoryManager.getProcessByPID(i);
+                            var calculatingPID = calculatingPCB.pid;
+                            if (calculatingPCB !== undefined) {
+                                _StdOut.putText("Process " + calculatingPID + " wait time: " + calculatingPCB.waitTime);
+                                _StdOut.advanceLine();
+                                _StdOut.putText("Process " + calculatingPID + " turnaround time: " + calculatingPCB.turnaroundTime);
+                            }
+                        }
                         break;
                     }
                     //do nothing

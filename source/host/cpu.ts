@@ -51,7 +51,21 @@ module TSOS {
             this.isVirgin = false; //CPU lost its vcard
             _Kernel.krnTrace('CPU cycle');
             
-            // TODO: Accumulate CPU usage and profiling statistics here.
+            // Accumulate CPU usage and profiling statistics here.
+            for (var i = 0; i < NUM_OF_SEGEMENTS; i++) {
+                var calculatingPCB = _MemoryManager.segmentList[i];
+                if (calculatingPCB !== undefined) {
+                    if (calculatingPCB.getState() === "RUNNING") {
+                        calculatingPCB.turnaroundTime ++;
+                        _Kernel.krnTrace("pcb"+calculatingPCB.pid+"t:"+calculatingPCB.turnaroundTime);
+                    }
+                    else if (calculatingPCB.getState() === "READY") {
+                        calculatingPCB.waitTime ++;
+                        calculatingPCB.turnaroundTime ++;
+                        _Kernel.krnTrace("pcb"+calculatingPCB.pid+"w:"+calculatingPCB.waitTime);
+                    }
+                }
+            }
             
             //get the base based on the PCB
             this.currentBase = _CPU.currentPCB.getBase(); //new line

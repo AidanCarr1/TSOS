@@ -25,7 +25,11 @@ module TSOS {
                     public processXreg?: number,    
                     public processYreg?: number,    
                     public processZflag?: number,
-                    public processIR?: number ) { 
+                    public processIR?: number,
+                
+                    //statistics
+                    public turnaroundTime?: number,
+                    public waitTime?: number) { 
                         
             //tell the kernel
             _Kernel.krnTrace('PCB created');
@@ -42,9 +46,11 @@ module TSOS {
             //but just in case:
             this.processIR = 0x00; 
 
-            //not a register, but not really used yet
+            //not registers
             this.state = "RESIDENT";
             this.priority = DEFAULT_PRIORITY;
+            this.turnaroundTime = 0;
+            this.waitTime = 0;
         }
 
         //setters

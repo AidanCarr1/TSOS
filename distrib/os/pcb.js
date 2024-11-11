@@ -20,6 +20,8 @@ var TSOS;
         processYreg;
         processZflag;
         processIR;
+        turnaroundTime;
+        waitTime;
         constructor(pid, state, priority, 
         //memory location
         base, //first memory location
@@ -27,7 +29,9 @@ var TSOS;
         segment, //will be changing 
         location, 
         //saved cpu registers:
-        processPC, processAcc, processXreg, processYreg, processZflag, processIR) {
+        processPC, processAcc, processXreg, processYreg, processZflag, processIR, 
+        //statistics
+        turnaroundTime, waitTime) {
             this.pid = pid;
             this.state = state;
             this.priority = priority;
@@ -41,6 +45,8 @@ var TSOS;
             this.processYreg = processYreg;
             this.processZflag = processZflag;
             this.processIR = processIR;
+            this.turnaroundTime = turnaroundTime;
+            this.waitTime = waitTime;
             //tell the kernel
             _Kernel.krnTrace('PCB created');
         }
@@ -54,9 +60,11 @@ var TSOS;
             //processIR will ~eventually~ be set when running and saving the state
             //but just in case:
             this.processIR = 0x00;
-            //not a register, but not really used yet
+            //not registers
             this.state = "RESIDENT";
             this.priority = DEFAULT_PRIORITY;
+            this.turnaroundTime = 0;
+            this.waitTime = 0;
         }
         //setters
         setPID(pid) {
