@@ -655,7 +655,6 @@ module TSOS {
 
                 //pid is an integer and is killable
                 if (!isNaN(numPID) && numPID == intPID && _MemoryManager.isKillable(numPID)) {
-                    //run the given pid
                     
                     //kill it!
                     var systemCall = new Interrupt(KILL_PROCESS_IRQ, [_MemoryManager.getProcessByPID(numPID)]);
@@ -672,8 +671,21 @@ module TSOS {
             }
         }
 
+        //terminate all (killable) processes in memory
         public shellKillAll() {
-            
+            //go through each segment
+            for (var i = 0; i < NUM_OF_SEGEMENTS; i ++) {
+                
+                var nextPCB = _MemoryManager.segmentList[i];
+                var nextPID = nextPCB.pid;
+
+                //only kill if killable
+                if (_MemoryManager.isKillable(nextPID)) {
+                    //kill it!
+                    var systemCall = new Interrupt(KILL_PROCESS_IRQ, [_MemoryManager.getProcessByPID(nextPID)]);
+                    _KernelInterruptQueue.enqueue(systemCall);                
+                }
+            } 
         }
     }
 }
