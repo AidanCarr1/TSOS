@@ -11,7 +11,7 @@
 // Global CONSTANTS (TypeScript 1.5 introduced const. Very cool.)
 //
 const APP_NAME = "TSauce"; // 'cause Bob and I were at a loss for a better name.
-const APP_VERSION = "11.08"; // date of last edit, i will definetly forget to update this number
+const APP_VERSION = "11.10"; // date of last edit, i will definetly forget to update this number
 const CPU_CLOCK_INTERVAL = 50; // This is in ms (milliseconds) so 1000 = 1 second.
 const DEFAULT_QUANTUM = 6; //cycles ofr round robin quantum
 const ERROR_CODE = -1;

@@ -181,24 +181,18 @@ var TSOS;
             document.getElementById("Z").innerText = TSOS.Utils.toHex(_CPU.Zflag);
         }
         static addPCBDisplay(pcb) {
-            var table = document.getElementById("pcbTable").innerHTML;
-            alert(table);
-            //var row = table.insertRow();
-            //_StdOut.putText(" pcbdisplay"+pcb.pid);
-            //start table row
-            // var pcbRow = "<tr id='pcb"+pcb.pid+"'>";
-            // pcbRow +=    "<td id='pid"+pcb.pid+"'      class='pcbBox'>"+pcb.pid+"</td>";
-            // pcbRow +=    "<td id='state"+pcb.pid+"'    class='pcbBox'>"+pcb.getState()+"</td>";
-            // pcbRow +=    "<td id='location"+pcb.pid+"' class='pcbBox'>"+"loc?"+"</td>";
-            // pcbRow +=    "<td id='base"+pcb.pid+"'     class='pcbBox'>"+pcb.getBase()+"</td>";
-            // pcbRow +=    "<td id='limit"+pcb.pid+"'    class='pcbBox'>"+pcb.getLimit()+"</td>";
-            // pcbRow +=    "<td id='segment"+pcb.pid+"'  class='pcbBox'>"+pcb.segment+"</td>";
-            // pcbRow +=    "<td id='priority"+pcb.pid+"' class='pcbBox'>"+pcb.priority+"</td>";
-            // pcbRow +=    "</tr>";
-            //var pcbRow = "<tr id='pcb0"+pcb.pid+"'> <td id='pid"+pcb.pid+"'        class='pcbBox'>0</td> <td id='state0'      class='pcbBox'>WAITING</td>               <td id='location0'   class='pcbBox'>o</td>";
-            var pcbRow = "<tr id='pcb0'> <td>0</td> <td>1</td> <td>2</td> <td>3</td> <td>4</td> <td>5</td>";
-            pcbRow += "</tr>";
-            //https://www.w3schools.com/jsref/met_table_insertrow.asp
+            var table = document.getElementById("pbcTable");
+            var row = table.insertRow();
+            var rowHTML = "<tr id='pcb" + pcb.pid + "'>";
+            rowHTML += "<td id='pid" + pcb.pid + "'      class='pcbBox'>" + pcb.pid + "</td>";
+            rowHTML += "<td id='state" + pcb.pid + "'    class='pcbBox'>" + pcb.getState() + "</td>";
+            rowHTML += "<td id='location" + pcb.pid + "' class='pcbBox'>" + "loc?" + "</td>";
+            rowHTML += "<td id='base" + pcb.pid + "'     class='pcbBox'>" + TSOS.Utils.toHex(pcb.getBase()) + "</td>";
+            rowHTML += "<td id='limit" + pcb.pid + "'    class='pcbBox'>" + TSOS.Utils.toHex(pcb.getLimit()) + "</td>";
+            rowHTML += "<td id='segment" + pcb.pid + "'  class='pcbBox'>" + TSOS.Utils.toHex(pcb.segment) + "</td>";
+            rowHTML += "<td id='priority" + pcb.pid + "' class='pcbBox'>" + TSOS.Utils.toHex(pcb.priority) + "</td>";
+            rowHTML += "</tr>";
+            row.innerHTML = rowHTML;
         }
     }
     TSOS.Control = Control;
