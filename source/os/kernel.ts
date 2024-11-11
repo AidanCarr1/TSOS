@@ -100,6 +100,7 @@ module TSOS {
 
                     //context switch
                     case "CS": {
+                        this.krnTrace("CS");
                         //context switch to the next process in ready Q
                         var systemCall = new Interrupt(CONTEXT_SWITCH_IRQ, []);
                         _KernelInterruptQueue.enqueue(systemCall);
@@ -289,7 +290,9 @@ module TSOS {
 
             //set new current PCB and run it
             _CPU.currentPCB = nextPCB;
-            _CPU.currentPCB.setState("RUNNING");
+            if (_CPU.currentPCB.getState() !== "TERMINATED") { //prevents zombies
+                _CPU.currentPCB.setState("RUNNING");
+            }
             _CPU.isExecuting = true;
         }
 
