@@ -438,8 +438,10 @@ var TSOS;
                     //run the given pid
                     _StdOut.putText("Running program...");
                     _StdOut.advanceLine();
+                    var pcb = _MemoryManager.getProcessByPID(numPID);
                     //add pcb to the ready queue
-                    _MemoryManager.readyQueue.enqueue(_MemoryManager.getProcessByPID(numPID));
+                    _MemoryManager.readyQueue.enqueue(pcb);
+                    pcb.setState("READY");
                 }
                 //pid does not exist or isnt a number
                 else {
@@ -508,6 +510,7 @@ var TSOS;
                     var nextPCB = _MemoryManager.segmentList[i];
                     if (nextPCB.getState() === "RESIDENT") {
                         _MemoryManager.readyQueue.enqueue(nextPCB);
+                        nextPCB.setState("READY");
                     }
                 }
             }

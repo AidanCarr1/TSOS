@@ -109,6 +109,7 @@ var TSOS;
                 //after each cycle, update displays
                 TSOS.Control.updateCPUDisplay();
                 TSOS.Control.updateMemoryDisplay();
+                TSOS.Control.updatePCBDisplay(_CPU.currentPCB);
             }
         }
         //
@@ -227,7 +228,7 @@ var TSOS;
                     _MemoryManager.readyQueue.enqueue(_CPU.currentPCB);
                 }
                 //display old PCB
-                TSOS.Control.updatePCBDisplay(_CPU.currentPCB);
+                //Control.updatePCBDisplay(_CPU.currentPCB); 
             }
             if (_MemoryManager.readyQueue.isEmpty()) {
                 _CPU.isExecuting = false;
@@ -250,7 +251,7 @@ var TSOS;
                 _CPU.currentPCB.setState("RUNNING");
             }
             //display new PCB
-            TSOS.Control.updatePCBDisplay(_CPU.currentPCB);
+            //Control.updatePCBDisplay(_CPU.currentPCB); 
             _CPU.isExecuting = true;
         }
         //

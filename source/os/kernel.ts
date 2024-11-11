@@ -131,6 +131,8 @@ module TSOS {
                 //after each cycle, update displays
                 Control.updateCPUDisplay();
                 Control.updateMemoryDisplay();
+                Control.updatePCBDisplay(_CPU.currentPCB); 
+
             }
         }
 
@@ -271,7 +273,7 @@ module TSOS {
                     _MemoryManager.readyQueue.enqueue(_CPU.currentPCB);
                 }   
                 //display old PCB
-                Control.updatePCBDisplay(_CPU.currentPCB); 
+                //Control.updatePCBDisplay(_CPU.currentPCB); 
             }
 
             if (_MemoryManager.readyQueue.isEmpty()) {
@@ -297,7 +299,7 @@ module TSOS {
                 _CPU.currentPCB.setState("RUNNING");
             }
             //display new PCB
-            Control.updatePCBDisplay(_CPU.currentPCB); 
+            //Control.updatePCBDisplay(_CPU.currentPCB); 
             _CPU.isExecuting = true;
         }
 
