@@ -171,6 +171,12 @@ module TSOS {
                                   "Kill terminates a process given the process identification.");
                                   this.commandList[this.commandList.length] = sc;
 
+            //kill all
+            sc = new ShellCommand(this.shellKillall,
+                                  "killall",
+                                  "- kills all programs in memory.",
+                                  "Killall terminates programs in memory at once.");
+                                  this.commandList[this.commandList.length] = sc;
 
             // Display the initial prompt.
             this.putPrompt();
@@ -636,10 +642,14 @@ module TSOS {
             //go through each segment
             for (var i = 0; i < NUM_OF_SEGEMENTS; i ++) {
                 
-                //only add to queue if it is resident
-                var nextPCB = _MemoryManager.segmentList[i];
-                if (nextPCB.getState() === "RESIDENT") {
-                    _MemoryManager.readyQueue.enqueue(nextPCB);
+                //check if there is a PCB in this segment
+                if (_MemoryManager.segmentList[i] !== undefined) {
+
+                    //only add to queue if it is resident
+                    var nextPCB = _MemoryManager.segmentList[i];
+                    if (nextPCB.getState() === "RESIDENT") {
+                        _MemoryManager.readyQueue.enqueue(nextPCB);
+                    }
                 }
             }          
         }
@@ -672,19 +682,23 @@ module TSOS {
         }
 
         //terminate all (killable) processes in memory
-        public shellKillAll() {
+        public shellKillall() {
             //go through each segment
             for (var i = 0; i < NUM_OF_SEGEMENTS; i ++) {
                 
-                var nextPCB = _MemoryManager.segmentList[i];
-                var nextPID = nextPCB.pid;
+                //check if there is a PCB in this segment
+                if (_MemoryManager.segmentList[i] !== undefined) {
+                    
+                    var nextPCB = _MemoryManager.segmentList[i];
+                    var nextPID = nextPCB.pid;
 
-                //only kill if killable
-                if (_MemoryManager.isKillable(nextPID)) {
-                    //kill it!
-                    var systemCall = new Interrupt(KILL_PROCESS_IRQ, [_MemoryManager.getProcessByPID(nextPID)]);
-                    _KernelInterruptQueue.enqueue(systemCall);                
-                }
+                    //only kill if killable
+                    if (_MemoryManager.isKillable(nextPID)) {
+                        //kill it!
+                        var systemCall = new Interrupt(KILL_PROCESS_IRQ, [_MemoryManager.getProcessByPID(nextPID)]);
+                        _KernelInterruptQueue.enqueue(systemCall);                
+                    }
+                } 
             } 
         }
     }
