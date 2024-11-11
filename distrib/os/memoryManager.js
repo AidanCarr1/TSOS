@@ -57,14 +57,14 @@ var TSOS;
             return this.pcbList[pid];
         }
         //if pid cannot be found or should not be added to ready queue, return false
-        isValid(pid) {
+        isRunable(pid) {
             //pid is out of range
             if (pid >= this.pidCounter || pid < 0) {
                 return false;
             }
             //pcb is terminated
             else if (this.getProcessByPID(pid).state === "TERMINATED") {
-                _StdOut.putText("Process " + pid + " terminated.");
+                _StdOut.putText("Process " + pid + " is terminated.");
                 _StdOut.advanceLine();
                 return false;
             }
@@ -106,6 +106,23 @@ var TSOS;
             zombiePCB.setState("TERMINATED");
             zombiePCB.segment = ERROR_CODE;
             this.segmentList[segment] = undefined;
+        }
+        //if pid cannot be found or is already dead, return false
+        isKillable(pid) {
+            //pid is out of range
+            if (pid >= this.pidCounter || pid < 0) {
+                return false;
+            }
+            //pcb is terminated
+            else if (this.getProcessByPID(pid).state === "TERMINATED") {
+                _StdOut.putText("Process " + pid + " is already terminated.");
+                _StdOut.advanceLine();
+                return false;
+            }
+            //pcb is ready to be killed  
+            else {
+                return true;
+            }
         }
     }
     TSOS.MemoryManager = MemoryManager;

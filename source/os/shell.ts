@@ -545,25 +545,14 @@ module TSOS {
                 var numPID = +stringPID;
                 var intPID = Math.floor(numPID);
 
-                //pid is an integer and exists
-                if (!isNaN(numPID) && numPID == intPID && _MemoryManager.isValid(numPID)) {
+                //pid is an integer and is runable
+                if (!isNaN(numPID) && numPID == intPID && _MemoryManager.isRunable(numPID)) {
                     //run the given pid
                     _StdOut.putText("Running program...");
                     _StdOut.advanceLine();
                     
                     //add pcb to the ready queue
                     _MemoryManager.readyQueue.enqueue(_MemoryManager.getProcessByPID(numPID));
-
-                    //BOOKMARK
-                    //dont do duplicate queues!
-                    //had duplicate pids in the ready queu somehow...
-
-                    //context switch for a given PID, enqueue it
-                    //var systemCall = new Interrupt(CONTEXT_SWITCH_IRQ, [numPID]);
-                    //_KernelInterruptQueue.enqueue(systemCall);
-                    
-                    //_CPU.run(); //comment out later
-                    //_CPU.isExecuting = true;
                 }
                 
                 //pid does not exist or isnt a number
@@ -648,10 +637,36 @@ module TSOS {
             }          
         }
 
+        //kill a given process
+        public shellKill(args: string[]) {
+            if (args.length > 0) {
 
-        public killAll() {
-            //dont forget:
-            //clearmem should kill all
+                //convert arg to number
+                var stringPID = args[0];
+                var numPID = +stringPID;
+                var intPID = Math.floor(numPID);
+
+                //pid is an integer and is killable
+                if (!isNaN(numPID) && numPID == intPID && _MemoryManager.isKillable(numPID)) {
+                    //run the given pid
+                    
+                    //kill it!
+                    var systemCall = new Interrupt(KILL_PROCESS_IRQ, [_MemoryManager.getProcessByPID(numPID)]);
+                    _KernelInterruptQueue.enqueue(systemCall);
+                }
+                
+                //pid does not exist or isnt a number
+                else {
+                    _StdOut.putText("Please supply a valid <pid>.");
+                }
+            } 
+            else {
+                _StdOut.putText("Usage: kill <pid>  Please supply a process identification.");
+            }
+        }
+
+        public shellKillAll() {
+            
         }
     }
 }
