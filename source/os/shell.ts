@@ -164,6 +164,13 @@ module TSOS {
                                   "Runall runs all unfinished programs in memory at once.");
                                   this.commandList[this.commandList.length] = sc;
                                    
+            //kill
+            sc = new ShellCommand(this.shellKill,
+                                  "kill",
+                                  "<pid> - kill a process given the process identification.",
+                                  "Kill terminates a process given the process identification.");
+                                  this.commandList[this.commandList.length] = sc;
+
 
             // Display the initial prompt.
             this.putPrompt();
