@@ -126,17 +126,20 @@ var TSOS;
             //turn single step on
             if (_CPU.isSingleStepping == false) {
                 _CPU.isSingleStepping = true;
+                _Kernel.krnTrace("Single Step ON");
                 document.getElementById("btnTakeStep").disabled = false;
             }
             //turn single step off
             else {
                 _CPU.isSingleStepping = false;
+                _Kernel.krnTrace("Single Step OFF");
                 document.getElementById("btnTakeStep").disabled = true;
             }
         }
         static hostBtnTakeStep_click(btn) {
             if (_CPU.isExecuting) {
-                _CPU.cycle();
+                //_Kernel.krnTrace("Step");
+                _CPU.takeStep = true;
                 //after each cycle, update displays
                 Control.updateCPUDisplay();
                 Control.updateMemoryDisplay();
@@ -179,6 +182,7 @@ var TSOS;
             document.getElementById("X").innerText = TSOS.Utils.toHex(_CPU.Xreg);
             document.getElementById("Y").innerText = TSOS.Utils.toHex(_CPU.Yreg);
             document.getElementById("Z").innerText = TSOS.Utils.toHex(_CPU.Zflag);
+            document.getElementById("Quantum").innerText = TSOS.Utils.toHex(_Scheduler.quantumCounter) + "/" + TSOS.Utils.toHex(_Scheduler.quantum);
         }
         static addPCBDisplay(pcb) {
             var table = document.getElementById("pcbTable"); //Via Google AI
@@ -196,28 +200,14 @@ var TSOS;
             row.innerHTML = rowHTML;
         }
         static updatePCBDisplay(pcb) {
-            //_Kernel.krnTrace("uPCBd start");
             var pid = pcb.pid;
-            // Simplicity courtesy of BrendOS
-            var row = document.getElementById("pcb" + pid);
+            // Simplicity courtesy of BrendOS            
             document.getElementById("state" + pid).innerText = pcb.getState();
             document.getElementById("location" + pid).innerText = pcb.location;
             document.getElementById("base" + pid).innerText = TSOS.Utils.toHex(pcb.getBase());
             document.getElementById("limit" + pid).innerText = TSOS.Utils.toHex(pcb.getLimit());
             document.getElementById("segment" + pid).innerText = TSOS.Utils.toHex(pcb.segment);
             document.getElementById("priority" + pid).innerText = TSOS.Utils.toHex(pcb.priority);
-            // var row: HTMLTableRowElement = <HTMLTableRowElement> document.getElementById("pcb0"); //Via Google AI
-            //(<HTMLTableCellElement> document.getElementById("pcb0")).textContent = "CHANGED";
-            //_Kernel.krnTrace("FIXED IT");
-            // if (row) {
-            //     var cell = row.cells[1] as HTMLTableCellElement;
-            //     if (cell) {
-            //         cell.textContent = "CHANGED";
-            //     }
-            // }
-            //change state
-            //(<HTMLInputElement> document.getElementById("state"+pid)).innerText = "CHANGED";
-            //_Kernel.krnTrace("SUCCESS");
         }
     }
     TSOS.Control = Control;

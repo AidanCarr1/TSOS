@@ -78,6 +78,7 @@
                 tabindex="2"
                 onclick="TSOS.Control.hostBtnReset_click(this);">
 
+         <!-- -->      
          <input type="button"
                 id = "btnSingleStep"
                 name="btnSingleStep"
@@ -94,6 +95,7 @@
                 value="Step"
                 tabindex="4"
                 onclick="TSOS.Control.hostBtnTakeStep_click(this);">
+         <!-- -->
       </div>
    
       <div id="divTaskbar">
@@ -169,19 +171,21 @@
                <td class="cpuColLabel">X</td>
                <td class="cpuColLabel">Y</td>
                <td class="cpuColLabel">Z</td>
+               <td class="cpuColLabelS">Quantum</td>
                <!-- 
                <td>Priority</td>
                <td>State</td>
                <td>Location</td> -->
             </tr>
             <tr>
-               <td id="PID"   class="cpuBox">0</td>
-               <td id="PC"    class="cpuBox">0</td>
-               <td id="IR"    class="cpuBox">0</td>
-               <td id="Acc"   class="cpuBox">0</td>
-               <td id="X"     class="cpuBox">0</td>
-               <td id="Y"     class="cpuBox">0</td>
-               <td id="Z"     class="cpuBox">0</td>
+               <td id="PID"     class="cpuBox">0</td>
+               <td id="PC"      class="cpuBox">0</td>
+               <td id="IR"      class="cpuBox">0</td>
+               <td id="Acc"     class="cpuBox">0</td>
+               <td id="X"       class="cpuBox">0</td>
+               <td id="Y"       class="cpuBox">0</td>
+               <td id="Z"       class="cpuBox">0</td>
+               <td id="Quantum" class="cpuBox">0</td>
                <!-- 
                <td id="Priority">0</td>
                <td id="State">0</td>
@@ -203,7 +207,7 @@
                <td class="pcbColLabel">Limit</td>
                <td class="pcbColLabel">Segment</td>
                <td class="pcbColLabel">Priority</td>
-               <td class="pcbColLabel">Quantum</td>
+               <!-- <td class="pcbColLabel">Quantum</td> -->
             </tr>
          </table>        
       </div>

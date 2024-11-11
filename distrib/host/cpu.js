@@ -24,8 +24,9 @@ var TSOS;
         currentBase;
         isSingleStepping;
         isVirgin;
+        takeStep;
         constructor(PC, Acc, Xreg, Yreg, Zflag, instructionRegister, isExecuting, currentPCB, currentBase, //new line
-        isSingleStepping, isVirgin) {
+        isSingleStepping, isVirgin, takeStep) {
             this.PC = PC;
             this.Acc = Acc;
             this.Xreg = Xreg;
@@ -37,6 +38,7 @@ var TSOS;
             this.currentBase = currentBase;
             this.isSingleStepping = isSingleStepping;
             this.isVirgin = isVirgin;
+            this.takeStep = takeStep;
         }
         // ON YOUR MARKS...
         init() {
@@ -50,6 +52,7 @@ var TSOS;
             this.currentPCB = null;
             this.currentBase = 0x00; //new line
             this.isSingleStepping = false;
+            this.takeStep = false;
             this.isVirgin = true; //virgin = cpu has never ran a process before
         }
         cycle() {

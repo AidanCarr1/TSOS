@@ -25,7 +25,8 @@ module TSOS {
                     public currentPCB?: ProcessControlBlock,
                     public currentBase?: number, //new line
                     public isSingleStepping?: boolean,
-                    public isVirgin?: boolean) {
+                    public isVirgin?: boolean,
+                    public takeStep?: boolean) {
 
         }
 
@@ -41,6 +42,7 @@ module TSOS {
             this.currentPCB = null;
             this.currentBase = 0x00; //new line
             this.isSingleStepping = false;
+            this.takeStep = false;
             this.isVirgin = true; //virgin = cpu has never ran a process before
         }
 

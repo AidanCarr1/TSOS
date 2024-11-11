@@ -91,7 +91,14 @@ module TSOS {
                 this.krnInterruptHandler(interrupt.irq, interrupt.params);
             } 
 
-            else {
+            else {  
+
+                //if single step mode ON and didnt STEP, then stay IDLE
+                if(_CPU.isSingleStepping == true && _CPU.takeStep == false && !_CPU.isVirgin) {
+                    this.krnTrace("Idle");
+                    return;
+                }
+                _CPU.takeStep = false;
 
                 //SCHEDULER 
                 var whatToDo = _Scheduler.askScheduler();

@@ -141,6 +141,11 @@ table{
   width: 60px;
   -border: 1px solid black;
 }
+.cpuColLabelS{
+  background-color: darkcyan;
+  width: 60px;
+  font-size: 12px;
+}
 .cpuBox{
   background-color: lightskyblue;
   -width: 60px;
