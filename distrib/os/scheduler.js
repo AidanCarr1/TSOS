@@ -32,14 +32,14 @@ var TSOS;
         resetCounter() {
             this.quantumCounter = 0;
         }
-        //tell the dispatcher what to do
+        //tell the dispatcher what to do based on a few things...
         askScheduler() {
-            //GIVEN:
+            //TAKE INTO ACCOUNT:
             //cpu on/off
             //quantum expired/safe
             //queue filled/empty
             //current process terminated/running.
-            //all the cases
+            //CPU is off:
             if (!_CPU.isExecuting) {
                 if (_MemoryManager.readyQueue.isEmpty()) {
                     //idle

@@ -187,13 +187,13 @@ var TSOS;
             //print 00terminated string in Yreg
             else if (_CPU.Xreg == 0x02) { //magic number?
                 var currentPosition = _CPU.Yreg;
-                var currentIntValue = _MemoryAccessor.read(currentPosition, _CPU.currentBase); //new line
+                var currentIntValue = _MemoryAccessor.read(currentPosition, _CPU.currentBase);
                 while (currentIntValue != 0x00) {
                     var currentStrValue = TSOS.Utils.sysCallString(currentIntValue);
                     _StdOut.putText(currentStrValue); //print char
                     //next character
                     currentPosition++;
-                    currentIntValue = _MemoryAccessor.read(currentPosition, _CPU.currentBase); //new line
+                    currentIntValue = _MemoryAccessor.read(currentPosition, _CPU.currentBase);
                 }
             }
         }

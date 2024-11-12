@@ -251,11 +251,12 @@ module TSOS {
         public static updatePCBDisplay(pcb: ProcessControlBlock): void {
             var pid = pcb.pid;
 
-            //if it doesnt exists in HTML, dont update 
+            //if it doesnt exist in HTML, dont update the table
             if (!pcb.isInHTML) {
                 return;
             }
-            // Simplicity courtesy of BrendOS            
+
+            // change the PCB dispaly based on a new, current state           
             document.getElementById("state"+pid).innerText    = pcb.getState();
             document.getElementById("location"+pid).innerText = pcb.location;
 
@@ -265,7 +266,7 @@ module TSOS {
                 document.getElementById("limit"+pid).innerText    = "--";
                 document.getElementById("segment"+pid).innerText  = "--";
             }
-            //if it exists go back to normal
+            //if it exists show normal data
             else {
                 document.getElementById("base"+pid).innerText     = Utils.toHex(pcb.getBase());
                 document.getElementById("limit"+pid).innerText    = Utils.toHex(pcb.getLimit());

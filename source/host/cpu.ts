@@ -23,7 +23,7 @@ module TSOS {
                     public instructionRegister?: number,
                     public isExecuting?: boolean,
                     public currentPCB?: ProcessControlBlock,
-                    public currentBase?: number, //new line
+                    public currentBase?: number, 
                     public isSingleStepping?: boolean,
                     public isVirgin?: boolean,
                     public takeStep?: boolean) {
@@ -40,7 +40,7 @@ module TSOS {
             this.instructionRegister = 0x00; 
             this.isExecuting = false;
             this.currentPCB = null;
-            this.currentBase = 0x00; //new line
+            this.currentBase = 0x00; 
             this.isSingleStepping = false;
             this.takeStep = false;
             this.isVirgin = true; //virgin = cpu has never ran a process before
@@ -69,10 +69,10 @@ module TSOS {
             }
             
             //get the base based on the PCB
-            this.currentBase = _CPU.currentPCB.getBase(); //new line
+            this.currentBase = _CPU.currentPCB.getBase(); 
                     
             //fetch
-            this.instructionRegister = _MemoryAccessor.read(this.PC, this.currentBase); //new line
+            this.instructionRegister = _MemoryAccessor.read(this.PC, this.currentBase); 
 
             //decode and execute 
             switch (this.instructionRegister) {
@@ -80,7 +80,7 @@ module TSOS {
                 // A9 LDA: Load the accumulator with constant
                 case 0xA9: {
                     this.PC ++;
-                    this.Acc = _MemoryAccessor.read(this.PC, this.currentBase); //new line
+                    this.Acc = _MemoryAccessor.read(this.PC, this.currentBase); 
                     this.PC ++; //next step
                     break;
                 }
@@ -88,49 +88,49 @@ module TSOS {
                 // AD LDA: Load the accumulator from memory
                 case 0xAD: {
                     this.PC ++;
-                    var lowOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); //new line
+                    var lowOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); 
                     this.PC ++;
-                    var highOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); //new line
+                    var highOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); 
                     this.PC ++; //next step
 
                     //update accumulator (little endian)
                     var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
-                    this.Acc = _MemoryAccessor.read(memoryLocation, this.currentBase); //new line
+                    this.Acc = _MemoryAccessor.read(memoryLocation, this.currentBase); 
                     break;
                 }
 
                 // 8D STA: Store the accumulator in memory
                 case 0x8D: {
                     this.PC ++;
-                    var lowOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); //new line
+                    var lowOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); 
                     this.PC ++;
-                    var highOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); //new line
+                    var highOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); 
                     this.PC ++; //next step
     
                     //stor acc in memory location (little endian)
                     var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
-                    _MemoryAccessor.write(memoryLocation, this.Acc, this.currentBase); //new line
+                    _MemoryAccessor.write(memoryLocation, this.Acc, this.currentBase); 
                     break;
                 }
 
                 //6D ADC:  Adds contents of an address to the contents of the accumulator and keeps the result in the accumulator
                 case 0x6D: {
                     this.PC ++;
-                    var lowOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); //new line
+                    var lowOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); 
                     this.PC ++;
-                    var highOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); //new line
+                    var highOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); 
                     this.PC ++; //next step
 
                     //add
                     var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
-                    this.Acc = (this.Acc + _MemoryAccessor.read(memoryLocation, this.currentBase)) % SEGMENT_SIZE; //new line
+                    this.Acc = (this.Acc + _MemoryAccessor.read(memoryLocation, this.currentBase)) % SEGMENT_SIZE; 
                     break;
                 }
 
                 //A2 LDX: Load X register with a constant
                 case 0xA2: {
                     this.PC ++;
-                    this.Xreg = _MemoryAccessor.read(this.PC, this.currentBase); //new line
+                    this.Xreg = _MemoryAccessor.read(this.PC, this.currentBase); 
                     this.PC ++; //next step
                     break;
                 }
@@ -138,21 +138,21 @@ module TSOS {
                 //AE LDX: Load X register from memory
                 case 0xAE: {
                     this.PC ++;
-                    var lowOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); //new line
+                    var lowOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); 
                     this.PC ++;
-                    var highOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); //new line
+                    var highOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); 
                     this.PC ++; //next step
 
                     //update XReg (little endian)
                     var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
-                    this.Xreg = _MemoryAccessor.read(memoryLocation, this.currentBase); //new line
+                    this.Xreg = _MemoryAccessor.read(memoryLocation, this.currentBase); 
                     break;
                 }
 
                 //A0 LDY: Load Y register with a constant
                 case 0xA0: {
                     this.PC ++;
-                    this.Yreg = _MemoryAccessor.read(this.PC, this.currentBase); //new line
+                    this.Yreg = _MemoryAccessor.read(this.PC, this.currentBase); 
                     this.PC ++; //next step
                     break;
                 }
@@ -160,14 +160,14 @@ module TSOS {
                 //AC LDY: Load Y register from memory
                 case 0xAC: {
                     this.PC ++;
-                    var lowOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); //new line
+                    var lowOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); 
                     this.PC ++;
-                    var highOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); //new line
+                    var highOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); 
                     this.PC ++; //next step
 
                     //update YReg (little endian)
                     var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
-                    this.Yreg = _MemoryAccessor.read(memoryLocation, this.currentBase); //new line
+                    this.Yreg = _MemoryAccessor.read(memoryLocation, this.currentBase); 
                     break;
                 }
 
@@ -199,14 +199,14 @@ module TSOS {
                 //EC CPX: Compare byte in memory to XReg, set ZFlag if equal
                 case 0xEC: {
                     this.PC ++;
-                    var lowOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); //new line
+                    var lowOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); 
                     this.PC ++;
-                    var highOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); //new line
+                    var highOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); 
                     this.PC ++; //next step
 
                     //compare memory to XReg (little endian)
                     var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
-                    if (this.Xreg == _MemoryAccessor.read(memoryLocation, this.currentBase)) { //new line
+                    if (this.Xreg == _MemoryAccessor.read(memoryLocation, this.currentBase)) { 
                         this.Zflag = 0x1;
                     }
                     else {
@@ -222,7 +222,7 @@ module TSOS {
                     //branch
                     if (this.Zflag == 0x0) {
 
-                        var branchBytes = _MemoryAccessor.read(this.PC, this.currentBase); //new line
+                        var branchBytes = _MemoryAccessor.read(this.PC, this.currentBase); 
                         this.PC += branchBytes; // branch operand amount
                         //remove overflow
                         this.PC = this.PC % SEGMENT_SIZE + 1; // add with carry
@@ -237,18 +237,18 @@ module TSOS {
                 //EE INC: Increment the value of a byte
                 case 0xEE: {
                     this.PC ++;
-                    var lowOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); //new line
+                    var lowOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); 
                     this.PC ++;
-                    var highOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); //new line
+                    var highOrderByte = _MemoryAccessor.read(this.PC, this.currentBase); 
                     this.PC ++; //next step
 
                     //put byte in acc, increment, return byte to memory 
                     var memoryLocation = (HIGH_ORDER_MULTIPLIER * highOrderByte) + lowOrderByte;
-                    this.Acc = _MemoryAccessor.read(memoryLocation, this.currentBase); //new line
+                    this.Acc = _MemoryAccessor.read(memoryLocation, this.currentBase); 
                     this.Acc ++; // inc
                     this.Acc = this.Acc % SEGMENT_SIZE; //add with carry
                     //_StdOut.putText("~acc="+this.Acc+"~"); //test line
-                    _MemoryAccessor.write(memoryLocation, this.Acc, this.currentBase); //new line
+                    _MemoryAccessor.write(memoryLocation, this.Acc, this.currentBase); 
                     break;
                 }
 

@@ -11,11 +11,6 @@ module TSOS {
 
         }
         
-
-        //TODO: add base as a parameter
-        //this helps because when cpu is running its the currentPCB
-        //but when creating a process and writing to mem, there is no current PCB
-
         //return element in memory locaiton
         public read(logicalAddress: number, base: number): number{
             
@@ -24,7 +19,7 @@ module TSOS {
             var limit = base + SEGMENT_SIZE - 0x01;
 
             //make sure we are inside memory bounds
-            if (logicalAddress > limit) {
+            if (physicalAddress > limit) {
 
                 //create an interupt and enqueue it
                 var systemCall = new Interrupt(OUT_OF_BOUNDS_IRQ, [_CPU.currentPCB, physicalAddress]);

@@ -7,16 +7,13 @@ var TSOS;
     class MemoryAccessor {
         constructor() {
         }
-        //TODO: add base as a parameter
-        //this helps because when cpu is running its the currentPCB
-        //but when creating a process and writing to mem, there is no current PCB
         //return element in memory locaiton
         read(logicalAddress, base) {
             //get physical address and limit
             var physicalAddress = logicalAddress + base;
             var limit = base + SEGMENT_SIZE - 0x01;
             //make sure we are inside memory bounds
-            if (logicalAddress > limit) {
+            if (physicalAddress > limit) {
                 //create an interupt and enqueue it
                 var systemCall = new TSOS.Interrupt(OUT_OF_BOUNDS_IRQ, [_CPU.currentPCB, physicalAddress]);
                 _KernelInterruptQueue.enqueue(systemCall);
