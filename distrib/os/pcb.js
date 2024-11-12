@@ -20,6 +20,7 @@ var TSOS;
         processYreg;
         processZflag;
         processIR;
+        isInHTML;
         turnaroundTime;
         waitTime;
         constructor(pid, state, priority, 
@@ -31,7 +32,7 @@ var TSOS;
         //saved cpu registers:
         processPC, processAcc, processXreg, processYreg, processZflag, processIR, 
         //statistics
-        turnaroundTime, waitTime) {
+        isInHTML, turnaroundTime, waitTime) {
             this.pid = pid;
             this.state = state;
             this.priority = priority;
@@ -45,6 +46,7 @@ var TSOS;
             this.processYreg = processYreg;
             this.processZflag = processZflag;
             this.processIR = processIR;
+            this.isInHTML = isInHTML;
             this.turnaroundTime = turnaroundTime;
             this.waitTime = waitTime;
             //tell the kernel
@@ -61,10 +63,10 @@ var TSOS;
             //but just in case:
             this.processIR = 0x00;
             //not registers
-            this.state = "RESIDENT";
             this.priority = DEFAULT_PRIORITY;
             this.turnaroundTime = 0;
             this.waitTime = 0;
+            this.isInHTML = false;
         }
         //setters
         setPID(pid) {
@@ -84,6 +86,7 @@ var TSOS;
             var limit = this.getLimit(); //0->0x0FF 1->0x1FF 2->0x2FF
             //might change later
             this.location = "Memory";
+            TSOS.Control.updatePCBDisplay(this);
         }
         //getters
         getBase() {

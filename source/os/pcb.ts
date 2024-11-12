@@ -28,6 +28,7 @@ module TSOS {
                     public processIR?: number,
                 
                     //statistics
+                    public isInHTML?: boolean,
                     public turnaroundTime?: number,
                     public waitTime?: number) { 
                         
@@ -47,10 +48,10 @@ module TSOS {
             this.processIR = 0x00; 
 
             //not registers
-            this.state = "RESIDENT";
             this.priority = DEFAULT_PRIORITY;
             this.turnaroundTime = 0;
             this.waitTime = 0;
+            this.isInHTML = false;
         }
 
         //setters
@@ -74,6 +75,7 @@ module TSOS {
 
             //might change later
             this.location = "Memory";
+            Control.updatePCBDisplay(this);
         }
 
         //getters

@@ -410,10 +410,11 @@ var TSOS;
             }
             //if its valid, load it
             else if (isValid && programStr.length > 1) {
+                //clear old process
+                _MemoryAccessor.clearSegment(segment);
                 //create PCB at the segment
                 var pid = _MemoryManager.newProcess(decimalList, segment);
                 //load into main memory
-                _MemoryAccessor.clearSegment(segment);
                 _MemoryAccessor.writeSegment(decimalList, segment);
                 //_StdOut.putText("Loaded into segment " + segment + ". ");
                 //return PID

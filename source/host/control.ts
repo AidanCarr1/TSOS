@@ -243,18 +243,34 @@ module TSOS {
             rowHTML +=    "<td id='priority"+pcb.pid+"' class='pcbBox' >"+ Utils.toHex(pcb.priority)  +"</td>";
             //rowHTML +=    "<td id='quantum"+pcb.pid+"'  class='pcbBox'>"+ Utils.toHex(pcb.quantum)   +"</td>";
             rowHTML +=    "</tr>";
-            row.innerHTML = rowHTML;   
+            row.innerHTML = rowHTML; 
+            
+            pcb.isInHTML = true;
         }
 
         public static updatePCBDisplay(pcb: ProcessControlBlock): void {
             var pid = pcb.pid;
 
+            //if it doesnt exists in HTML, dont update 
+            if (!pcb.isInHTML) {
+                return;
+            }
             // Simplicity courtesy of BrendOS            
             document.getElementById("state"+pid).innerText    = pcb.getState();
             document.getElementById("location"+pid).innerText = pcb.location;
-            document.getElementById("base"+pid).innerText     = Utils.toHex(pcb.getBase());
-            document.getElementById("limit"+pid).innerText    = Utils.toHex(pcb.getLimit());
-            document.getElementById("segment"+pid).innerText  = Utils.toHex(pcb.segment);
+
+            //if segment no longer exists, show nothing
+            if (pcb.getSegment() == ERROR_CODE){
+                document.getElementById("base"+pid).innerText     = "--";
+                document.getElementById("limit"+pid).innerText    = "--";
+                document.getElementById("segment"+pid).innerText  = "--";
+            }
+            //if it exists go back to normal
+            else {
+                document.getElementById("base"+pid).innerText     = Utils.toHex(pcb.getBase());
+                document.getElementById("limit"+pid).innerText    = Utils.toHex(pcb.getLimit());
+                document.getElementById("segment"+pid).innerText  = Utils.toHex(pcb.segment);
+            }
             document.getElementById("priority"+pid).innerText = Utils.toHex(pcb.priority);
         }
     }

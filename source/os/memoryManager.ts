@@ -32,6 +32,7 @@ module TSOS {
             var newProcess = new ProcessControlBlock();
             newProcess.initRegisters();
             newProcess.setPID(this.pidCounter);
+            newProcess.setState("RESIDENT");
 
             //give the segment 
             newProcess.setSegment(segment); 
@@ -52,7 +53,7 @@ module TSOS {
         //return the pcb object given the pcb's pid
         public getProcessByPID(pid: number): ProcessControlBlock {
             return this.pcbList[pid];
-        }
+        }       
 
         //if pid cannot be found or should not be added to ready queue, return false
         public isRunable(pid: number): boolean{

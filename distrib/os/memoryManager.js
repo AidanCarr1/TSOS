@@ -34,6 +34,7 @@ var TSOS;
             var newProcess = new TSOS.ProcessControlBlock();
             newProcess.initRegisters();
             newProcess.setPID(this.pidCounter);
+            newProcess.setState("RESIDENT");
             //give the segment 
             newProcess.setSegment(segment);
             //let memory manager know about the PCB

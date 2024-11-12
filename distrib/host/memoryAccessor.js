@@ -59,6 +59,9 @@ var TSOS;
                 //write 0x00 in memory                
                 this.write(i, 0x00, base);
             }
+            if (_MemoryManager.segmentList[segment] !== undefined) {
+                _MemoryManager.segmentList[segment].setSegment(ERROR_CODE);
+            }
         }
     }
     TSOS.MemoryAccessor = MemoryAccessor;

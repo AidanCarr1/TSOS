@@ -245,10 +245,7 @@ module TSOS {
             //get params
             var pcb = params[0];
 
-            //proj 3: should killing one process stop the whole CPU?
-            //_CPU.isExecuting = false;
-
-            //terminate and get rid of it in the segment view
+            //terminate
             pcb.setState("TERMINATED");
             //_MemoryManager.segmentList[pcb.getSegment()] = undefined;
 
