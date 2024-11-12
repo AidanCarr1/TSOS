@@ -32,7 +32,7 @@ var TSOS;
             var physicalAddress = logicalAddress + base;
             var limit = base + SEGMENT_SIZE - 0x01;
             //make sure we are inside memory bounds
-            if (logicalAddress > limit) {
+            if (physicalAddress > limit) {
                 //create an interupt and enqueue it
                 var systemCall = new TSOS.Interrupt(OUT_OF_BOUNDS_IRQ, [_CPU.currentPCB, physicalAddress]);
                 _KernelInterruptQueue.enqueue(systemCall);

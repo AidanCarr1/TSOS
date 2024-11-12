@@ -57,7 +57,6 @@ var TSOS;
         }
         cycle() {
             this.isVirgin = false; //CPU lost its vcard
-            _Kernel.krnTrace('CPU cycle');
             // Accumulate CPU usage of programs in memory
             for (var i = 0; i < NUM_OF_SEGEMENTS; i++) {
                 var calculatingPCB = _MemoryManager.segmentList[i];

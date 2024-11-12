@@ -44,7 +44,7 @@ module TSOS {
             var limit = base + SEGMENT_SIZE - 0x01;
 
             //make sure we are inside memory bounds
-            if (logicalAddress > limit) {
+            if (physicalAddress > limit) {
                 
                 //create an interupt and enqueue it
                 var systemCall = new Interrupt(OUT_OF_BOUNDS_IRQ, [_CPU.currentPCB, physicalAddress]);

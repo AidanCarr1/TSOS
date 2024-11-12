@@ -89,6 +89,7 @@ var TSOS;
                     //context switch
                     case "CS": {
                         //context switch to the next process in ready Q
+                        this.krnTrace("Context Switch");
                         var systemCall = new TSOS.Interrupt(CONTEXT_SWITCH_IRQ, []);
                         _KernelInterruptQueue.enqueue(systemCall);
                         _Scheduler.resetCounter();
@@ -96,12 +97,14 @@ var TSOS;
                     }
                     //do yet another cycle
                     case "CYCLE": {
+                        this.krnTrace("CPU Cycle");
                         _CPU.cycle();
                         _Scheduler.count();
                         break;
                     }
                     //reset quantum, do yet another cycle
                     case "QCYCLE": {
+                        this.krnTrace("Reset Quantum, CPU Cycle");
                         _Scheduler.resetCounter();
                         _CPU.cycle();
                         _Scheduler.count();
@@ -109,19 +112,9 @@ var TSOS;
                     }
                     //turn off cpu
                     case "OFF": {
+                        this.krnTrace("Stop CPU Execution");
                         _Scheduler.resetCounter();
                         _CPU.isExecuting = false;
-                        //display wait times
-                        // for (var i = 0; i < NUM_OF_SEGEMENTS; i++) {
-                        //     //var calculatingPCB = _MemoryManager.segmentList[i];
-                        //     var calculatingPCB = _MemoryManager.getProcessByPID(i);
-                        //     var calculatingPID = calculatingPCB.pid;
-                        //     if (calculatingPCB !== undefined) {
-                        //         _StdOut.putText("Process "+calculatingPID +" wait time: "+calculatingPCB.waitTime);
-                        //         _StdOut.advanceLine();
-                        //         _StdOut.putText("Process "+calculatingPID +" turnaround time: "+calculatingPCB.turnaroundTime);
-                        //     }
-                        // }
                         break;
                     }
                     //do nothing
@@ -169,13 +162,13 @@ var TSOS;
                     this.outputCPU(); // System call from CPU (output int or string)    
                     break;
                 case KILL_PROCESS_IRQ:
-                    this.killProcess(params);
+                    this.killProcess(params); // terminate a given process
                     break;
                 case OUT_OF_BOUNDS_IRQ:
-                    this.outOfBounds(params);
+                    this.outOfBounds(params); // we went out of bounds!
                     break;
                 case CONTEXT_SWITCH_IRQ:
-                    this.contextSwitch(params);
+                    this.contextSwitch(params); // switch to the next program in the ready queue (save the state)
                     break;
                 default:
                     this.krnTrapError("Invalid Interrupt Request. irq=" + irq + " params=[" + params + "]");
@@ -209,14 +202,11 @@ var TSOS;
             var pcb = params[0];
             //terminate
             pcb.setState("TERMINATED");
-            //_MemoryManager.segmentList[pcb.getSegment()] = undefined;
             //tell the shell
             _StdOut.advanceLine();
             _StdOut.putText("Process " + pcb.pid + " terminated. ");
             _StdOut.advanceLine();
             _StdOut.putText(_OsShell.promptStr);
-            //tell the display
-            //Control.updatePCBDisplay(pcb);
         }
         outOfBounds(params) {
             //get params
@@ -226,10 +216,9 @@ var TSOS;
             _StdOut.advanceLine();
             _StdOut.putText("Out of bounds error. ");
             _StdOut.putText("Cannot access memory " + TSOS.Utils.toHex(address));
-            _StdOut.advanceLine();
-            _StdOut.putText(_OsShell.promptStr);
-            //kill it
-            this.killProcess(pcb);
+            //kill it!
+            var systemCall = new TSOS.Interrupt(KILL_PROCESS_IRQ, [pcb]);
+            _KernelInterruptQueue.enqueue(systemCall);
         }
         contextSwitch(args) {
             //if CPU is a virgin, no need to save current pcb state
@@ -249,8 +238,6 @@ var TSOS;
                     _CPU.currentPCB.setState("READY");
                     _MemoryManager.readyQueue.enqueue(_CPU.currentPCB);
                 }
-                //display old PCB
-                //Control.updatePCBDisplay(_CPU.currentPCB); 
             }
             if (_MemoryManager.readyQueue.isEmpty()) {
                 _CPU.isExecuting = false;
@@ -272,8 +259,6 @@ var TSOS;
             if (_CPU.currentPCB.getState() !== "TERMINATED") { //prevents zombies
                 _CPU.currentPCB.setState("RUNNING");
             }
-            //display new PCB
-            //Control.updatePCBDisplay(_CPU.currentPCB); 
             _CPU.isExecuting = true;
         }
         //
