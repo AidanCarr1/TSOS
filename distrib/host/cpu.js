@@ -174,8 +174,9 @@ var TSOS;
                     _StdOut.putText("Process " + this.currentPCB.pid + " wait time: " + this.currentPCB.waitTime + " cycles");
                     _StdOut.advanceLine();
                     _StdOut.putText(_OsShell.promptStr);
-                    this.isExecuting = false;
-                    this.currentPCB.setState("TERMINATED");
+                    //kill it!
+                    var systemCall = new TSOS.Interrupt(KILL_PROCESS_IRQ, [_CPU.currentPCB]);
+                    _KernelInterruptQueue.enqueue(systemCall);
                     break;
                 }
                 //EC CPX: Compare byte in memory to XReg, set ZFlag if equal

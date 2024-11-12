@@ -585,18 +585,19 @@ module TSOS {
             for (var i = 0x0; i < NUM_OF_SEGEMENTS; i++) {
                 
                 //kill the program in that segment
-                var zombiePCB = _MemoryManager.segmentList[i];
-                if (zombiePCB === undefined) {
+                var targetPCB = _MemoryManager.segmentList[i];
+                if (targetPCB === undefined) {
                     //there is not process in this segment
                 }
-                else {
+                else if (_MemoryManager.isKillable(targetPCB.pid)) { 
                     //kill it!
-                    var systemCall = new Interrupt(KILL_PROCESS_IRQ, [zombiePCB]);
+                    var systemCall = new Interrupt(KILL_PROCESS_IRQ, [targetPCB]);
                     _KernelInterruptQueue.enqueue(systemCall);
                 }
 
                 //reset memory to 0x00's
-                _MemoryAccessor.clearSegment(i); 
+                _MemoryAccessor.clearSegment(i);
+                _MemoryManager.segmentList[i] = undefined; 
             }
 
             //update memory display accordingly
@@ -663,14 +664,14 @@ module TSOS {
 
                 //convert arg to number
                 var stringPID = args[0];
-                var numPID = +stringPID;
-                var intPID = Math.floor(numPID);
+                var targetPID = +stringPID;
+                var intPID = Math.floor(targetPID);
 
                 //pid is an integer and is killable
-                if (!isNaN(numPID) && numPID == intPID && _MemoryManager.isKillable(numPID)) {
+                if (!isNaN(targetPID) && targetPID == intPID && _MemoryManager.isKillable(targetPID)) {
                     
                     //kill it!
-                    var systemCall = new Interrupt(KILL_PROCESS_IRQ, [_MemoryManager.getProcessByPID(numPID)]);
+                    var systemCall = new Interrupt(KILL_PROCESS_IRQ, [_MemoryManager.getProcessByPID(targetPID)]);
                     _KernelInterruptQueue.enqueue(systemCall);
                 }
                 
@@ -692,13 +693,13 @@ module TSOS {
                 //check if there is a PCB in this segment
                 if (_MemoryManager.segmentList[i] !== undefined) {
 
-                    var nextPCB = _MemoryManager.segmentList[i];
-                    var nextPID = nextPCB.pid;
+                    var targetPCB = _MemoryManager.segmentList[i];
+                    var targetPID = targetPCB.pid;
 
                     //only kill if killable
-                    if (_MemoryManager.isKillable(nextPID)) {
+                    if (_MemoryManager.isKillable(targetPID)) {
                         //kill it!
-                        var systemCall = new Interrupt(KILL_PROCESS_IRQ, [_MemoryManager.getProcessByPID(nextPID)]);
+                        var systemCall = new Interrupt(KILL_PROCESS_IRQ, [_MemoryManager.getProcessByPID(targetPID)]);
                         _KernelInterruptQueue.enqueue(systemCall);                
                     }
                 } 

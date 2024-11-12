@@ -208,10 +208,10 @@ var TSOS;
             //get params
             var pcb = params[0];
             //proj 3: should killing one process stop the whole CPU?
-            _CPU.isExecuting = false;
+            //_CPU.isExecuting = false;
             //terminate and get rid of it in the segment view
             pcb.setState("TERMINATED");
-            _MemoryManager.segmentList[pcb.getSegment()] = undefined;
+            //_MemoryManager.segmentList[pcb.getSegment()] = undefined;
             //tell the shell
             _StdOut.advanceLine();
             _StdOut.putText("Process " + pcb.pid + " terminated. ");

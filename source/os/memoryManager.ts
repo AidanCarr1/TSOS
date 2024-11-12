@@ -99,19 +99,6 @@ module TSOS {
             return ERROR_CODE;
         }
 
-        // kill the pcb associated with the segment
-        public killSegment(segment: number){
-            var zombiePCB = this.segmentList[segment];
-            
-            //nothing to kill
-            if (zombiePCB === undefined) {
-                return;
-            }
-
-            zombiePCB.setState("TERMINATED");
-            this.segmentList[segment] = undefined;
-        }
-
         //if pid cannot be found or is already dead, return false
         public isKillable(pid: number): boolean{
             //pid is out of range

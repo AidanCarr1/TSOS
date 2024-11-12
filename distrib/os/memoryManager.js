@@ -89,16 +89,6 @@ var TSOS;
             //checked all segments, no segments open
             return ERROR_CODE;
         }
-        // kill the pcb associated with the segment
-        killSegment(segment) {
-            var zombiePCB = this.segmentList[segment];
-            //nothing to kill
-            if (zombiePCB === undefined) {
-                return;
-            }
-            zombiePCB.setState("TERMINATED");
-            this.segmentList[segment] = undefined;
-        }
         //if pid cannot be found or is already dead, return false
         isKillable(pid) {
             //pid is out of range

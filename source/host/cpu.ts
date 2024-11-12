@@ -190,8 +190,9 @@ module TSOS {
 
                     _StdOut.putText(_OsShell.promptStr);
 
-                    this.isExecuting = false;
-                    this.currentPCB.setState("TERMINATED");
+                    //kill it!
+                    var systemCall = new Interrupt(KILL_PROCESS_IRQ, [_CPU.currentPCB]);
+                    _KernelInterruptQueue.enqueue(systemCall);
                             
                     break;
                 }
