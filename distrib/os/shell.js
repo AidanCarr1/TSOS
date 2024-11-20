@@ -91,6 +91,22 @@ var TSOS;
             //kill all
             sc = new TSOS.ShellCommand(this.shellKillall, "killall", "- kills all programs in memory.", "Killall terminates programs in memory at once.");
             this.commandList[this.commandList.length] = sc;
+            // FILE COMMANDS
+            //format
+            sc = new TSOS.ShellCommand(this.shellFormat, "format", "- format the disk.", "Format initializes the disk.");
+            this.commandList[this.commandList.length] = sc;
+            //create
+            sc = new TSOS.ShellCommand(this.shellCreate, "create", "<filename> - create a file with the given name.", "Create makes a file and stores it on the disk.");
+            this.commandList[this.commandList.length] = sc;
+            //read
+            sc = new TSOS.ShellCommand(this.shellRead, "read", "<filename> - read and display contents of the given file.", "Read dispalys the data of a file on the disk.");
+            this.commandList[this.commandList.length] = sc;
+            //write
+            sc = new TSOS.ShellCommand(this.shellWrite, "write", '<filename> "data" - write data from inside the quotes into the given file.', "Write inputs data from given quotes into a file on the disk.");
+            this.commandList[this.commandList.length] = sc;
+            //delete
+            sc = new TSOS.ShellCommand(this.shellDelete, "delete", '<filename> - destroy a given file.', "Delete the file. obvisouly.");
+            this.commandList[this.commandList.length] = sc;
             // Display the initial prompt.
             this.putPrompt();
         }
@@ -561,6 +577,7 @@ var TSOS;
         }
         shellCreate(args) {
             if (args.length > 0) {
+                _krnDiskDriver.create(args[0]);
             }
             else {
                 _StdOut.putText("Usage: createfile <filename>  Please supply a file name.");

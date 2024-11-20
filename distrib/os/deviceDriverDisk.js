@@ -25,6 +25,7 @@ var TSOS;
             // var myVar = sessionStorage.getItem('myKey');
         }
         create(fileName) {
+            alert("create filename: " + fileName);
             // sessionStorage.setItem('myKey', 'myValue'); 
             // var myVar = sessionStorage.getItem('myKey');
         }

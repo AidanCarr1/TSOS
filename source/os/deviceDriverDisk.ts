@@ -32,6 +32,7 @@
         }
 
         public create(fileName: string) {
+            alert("create filename: " + fileName);
             // sessionStorage.setItem('myKey', 'myValue'); 
             // var myVar = sessionStorage.getItem('myKey');
         }
