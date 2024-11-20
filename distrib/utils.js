@@ -69,6 +69,13 @@ var TSOS;
         static sysCallString(decimal) {
             return String.fromCharCode(decimal);
         }
+        //take a number (26) and return the oct equivalent string ("0c32")
+        static toOct(decimal) {
+            // 256    0   26   number
+            var octRaw = decimal.toString(8); // 400    0   32   octal
+            return octRaw;
+            //return "0c" + octRaw;            //0c400 0c00 0c32   add 0c
+        }
     }
     TSOS.Utils = Utils;
 })(TSOS || (TSOS = {}));

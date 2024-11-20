@@ -83,6 +83,13 @@ var _krnKeyboardDriver: TSOS.DeviceDriverKeyboard  = null;
 
 var _hardwareClockID: number = null;
 
+var _krnDiskDriver: TSOS.DeviceDriverDisk = null;
+var NUM_TRACKS = 4;
+var NUM_SECTORS = 8;
+var NUM_BLOCKS = 8;
+var DISK_SIZE = NUM_TRACKS * NUM_SECTORS * NUM_BLOCKS; //0o400;
+
+
 // For testing (and enrichment)...
 var Glados: any = null;  // This is the function Glados() in glados-ip*.js http://alanclasses.github.io/TSOS/test/ .
 var _GLaDOS: any = null; // If the above is linked in, this is the instantiated instance of Glados.

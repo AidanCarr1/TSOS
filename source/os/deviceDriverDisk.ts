@@ -24,11 +24,16 @@
         }
 
         public format() {
-
+            for (var i = 0; i < DISK_SIZE; i++) {
+                
+            }
+            // sessionStorage.setItem('myKey', 'myValue'); 
+            // var myVar = sessionStorage.getItem('myKey');
         }
 
         public create(fileName: string) {
-
+            // sessionStorage.setItem('myKey', 'myValue'); 
+            // var myVar = sessionStorage.getItem('myKey');
         }
 
         public read(fileName: string) {
@@ -49,6 +54,16 @@
 
         public rename(oldName: string, newName: string) {
 
+        }
+
+        public list() {
+
+        }
+
+        private writeData() {
+            // sessionStorage.setItem('myKey', 'myValue'); 
+            // var myVar = sessionStorage.getItem('myKey');
+            
         }
 
 

@@ -565,10 +565,6 @@ var TSOS;
             else {
                 _StdOut.putText("Usage: createfile <filename>  Please supply a file name.");
             }
-            // sessionStorage.setItem('myKey', 'myValue'); 
-            // var myVar = sessionStorage.getItem('myKey'); 
-            // localStorage.setItem('myKey', 'myValue'); 
-            // var myVar = localStorage.getItem('myKey');
         }
         shellRead(args) {
             if (args.length > 0) {
@@ -604,6 +600,9 @@ var TSOS;
             else {
                 _StdOut.putText("Usage: rename <old filename> <new filename>  Please supply a file name.");
             }
+        }
+        shellLs() {
+            //could add args, see challenge [60]
         }
     }
     TSOS.Shell = Shell;

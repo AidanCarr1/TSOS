@@ -19,8 +19,14 @@ var TSOS;
             // More?
         }
         format() {
+            for (var i = 0; i < DISK_SIZE; i++) {
+            }
+            // sessionStorage.setItem('myKey', 'myValue'); 
+            // var myVar = sessionStorage.getItem('myKey');
         }
         create(fileName) {
+            // sessionStorage.setItem('myKey', 'myValue'); 
+            // var myVar = sessionStorage.getItem('myKey');
         }
         read(fileName) {
         }
@@ -31,6 +37,12 @@ var TSOS;
         delete(fileName) {
         }
         rename(oldName, newName) {
+        }
+        list() {
+        }
+        writeData() {
+            // sessionStorage.setItem('myKey', 'myValue'); 
+            // var myVar = sessionStorage.getItem('myKey');
         }
     }
     TSOS.DeviceDriverDisk = DeviceDriverDisk;
