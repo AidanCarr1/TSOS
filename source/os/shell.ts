@@ -707,5 +707,73 @@ module TSOS {
                 } 
             } 
         }
+
+        public shellFormat(){
+
+        }
+
+        public shellCreateFile(args: string[]) {
+            if (args.length > 0) {
+
+            }
+            else {
+                _StdOut.putText("Usage: createfile <filename>  Please supply a file name.");
+            }
+
+            // sessionStorage.setItem('myKey', 'myValue'); 
+            // var myVar = sessionStorage.getItem('myKey'); 
+            // localStorage.setItem('myKey', 'myValue'); 
+            // var myVar = localStorage.getItem('myKey');
+        }
+
+        public shellRead(args: string[]) {
+            if (args.length > 0) {
+
+            }
+            else {
+                _StdOut.putText("Usage: read <filename>  Please supply a file name.");
+            }
+
+        }
+
+        public shellWrite(args: string[]) {
+            if (args.length > 0) {
+
+            }
+            else {
+                _StdOut.putText("Usage: write <filename>  Please supply a file name.");
+            }
+
+        }
+
+        public shellCopy(args: string[]) {
+            if (args.length > 1) {
+
+            } 
+            else {
+                _StdOut.putText("Usage: copy <filename> <filename> Please supply two file names.");
+            }
+
+        }
+
+        public shellDelete(args: string[]) {
+            if (args.length > 0) {
+
+            }
+            else {
+                _StdOut.putText("Usage: delete <filename>  Please supply a file name.");
+            }
+
+        }
+
+        public shellRename(args: string[]) {
+            if (args.length > 0) {
+
+            }
+            else {
+                _StdOut.putText("Usage: rename <filename>  Please supply a file name.");
+            }
+
+        }
     }
 }
