@@ -709,10 +709,10 @@ module TSOS {
         }
 
         public shellFormat(){
-
+            //could add args, see challenge [58]
         }
 
-        public shellCreateFile(args: string[]) {
+        public shellCreate(args: string[]) {
             if (args.length > 0) {
 
             }
@@ -737,11 +737,11 @@ module TSOS {
         }
 
         public shellWrite(args: string[]) {
-            if (args.length > 0) {
+            if (args.length > 1) {
 
             }
             else {
-                _StdOut.putText("Usage: write <filename>  Please supply a file name.");
+                _StdOut.putText('Usage: write <filename> "data"  Please supply a file name.');
             }
 
         }
@@ -751,7 +751,7 @@ module TSOS {
 
             } 
             else {
-                _StdOut.putText("Usage: copy <filename> <filename> Please supply two file names.");
+                _StdOut.putText("Usage: copy <from filename> <to filename> Please supply two file names.");
             }
 
         }
@@ -767,11 +767,11 @@ module TSOS {
         }
 
         public shellRename(args: string[]) {
-            if (args.length > 0) {
+            if (args.length > 1) {
 
             }
             else {
-                _StdOut.putText("Usage: rename <filename>  Please supply a file name.");
+                _StdOut.putText("Usage: rename <old filename> <new filename>  Please supply a file name.");
             }
 
         }

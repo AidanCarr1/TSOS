@@ -556,6 +556,55 @@ var TSOS;
                 }
             }
         }
+        shellFormat() {
+            //could add args, see challenge [58]
+        }
+        shellCreate(args) {
+            if (args.length > 0) {
+            }
+            else {
+                _StdOut.putText("Usage: createfile <filename>  Please supply a file name.");
+            }
+            // sessionStorage.setItem('myKey', 'myValue'); 
+            // var myVar = sessionStorage.getItem('myKey'); 
+            // localStorage.setItem('myKey', 'myValue'); 
+            // var myVar = localStorage.getItem('myKey');
+        }
+        shellRead(args) {
+            if (args.length > 0) {
+            }
+            else {
+                _StdOut.putText("Usage: read <filename>  Please supply a file name.");
+            }
+        }
+        shellWrite(args) {
+            if (args.length > 1) {
+            }
+            else {
+                _StdOut.putText('Usage: write <filename> "data"  Please supply a file name.');
+            }
+        }
+        shellCopy(args) {
+            if (args.length > 1) {
+            }
+            else {
+                _StdOut.putText("Usage: copy <from filename> <to filename> Please supply two file names.");
+            }
+        }
+        shellDelete(args) {
+            if (args.length > 0) {
+            }
+            else {
+                _StdOut.putText("Usage: delete <filename>  Please supply a file name.");
+            }
+        }
+        shellRename(args) {
+            if (args.length > 1) {
+            }
+            else {
+                _StdOut.putText("Usage: rename <old filename> <new filename>  Please supply a file name.");
+            }
+        }
     }
     TSOS.Shell = Shell;
 })(TSOS || (TSOS = {}));
