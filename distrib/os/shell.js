@@ -80,7 +80,7 @@ var TSOS;
             sc = new TSOS.ShellCommand(this.shellPs, "ps", "- display all processes and their states.", "Ps shows the PID and state for each process.");
             this.commandList[this.commandList.length] = sc;
             //quantum
-            sc = new TSOS.ShellCommand(this.shellQuantum, "quantum", "- sets the round robin quantum to a given integer (default is 6).", "Quantum allows the round robin quantum to be changed.");
+            sc = new TSOS.ShellCommand(this.shellQuantum, "quantum", "- sets the round robin quantum (default is 6).", "Quantum allows the round robin quantum to be changed.");
             this.commandList[this.commandList.length] = sc;
             //run all
             sc = new TSOS.ShellCommand(this.shellRunall, "runall", "- runs all unfinished programs at once.", "Runall runs all unfinished programs in memory at once.");
@@ -102,7 +102,7 @@ var TSOS;
             sc = new TSOS.ShellCommand(this.shellRead, "read", "<filename> - read and display contents of the given file.", "Read dispalys the data of a file on the disk.");
             this.commandList[this.commandList.length] = sc;
             //write
-            sc = new TSOS.ShellCommand(this.shellWrite, "write", '<filename> "data" - write data from inside the quotes into the given file.', "Write inputs data from given quotes into a file on the disk.");
+            sc = new TSOS.ShellCommand(this.shellWrite, "write", '<filename> "data" - write data into the given file.', "Write inputs data from given quotes into a file on the disk.");
             this.commandList[this.commandList.length] = sc;
             //delete
             sc = new TSOS.ShellCommand(this.shellDelete, "delete", '<filename> - destroy a given file.', "Delete the file. obvisouly.");

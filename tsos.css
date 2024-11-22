@@ -1,8 +1,9 @@
 /* TSOS.css */
 
 body {
-  -background: #909193 url(distrib/images/linen.png) repeat;
-  background-color:rgb(5, 121, 153);
+  background: #909193 url(distrib/images/Win\ LtBlue\ 1920x1200.jpg) fixed;
+  background-size:cover;
+  -background-color:rgb(5, 121, 153);
   font-family: Helvetica, Verdana, Arial, sans-serif;
   font-size: 12pt;
   font-weight: normal;
@@ -37,17 +38,19 @@ h3 {
 }
 
 label {
-  -background-color:rgb(188, 215, 237);
-  padding-top: 5px;
+  font-size: 14pt;
+  background-color:rgba(142, 185, 218, 0.5);
+  padding-top: 2px;
   margin-top: 5px;
-  padding-bottom: 5px;
-  padding-right: 25px;
-  -padding-left: 25px;
+  padding-bottom: 1px;
+  padding-right: 10px;
+  padding-left: 10px;
+  border-radius: 4px 4px 0px 0px;
   text-align: center;
 }
 
 #display {
-  background-color:#DFDBC3;
+  background-color:rgb(151, 188, 188);
   border: 2px solid white;
   cursor: default;
 }
@@ -58,12 +61,12 @@ label {
   margin-right: auto;
   width:1400px; 
   height:70px;
-  background-color:rgb(142, 185, 218);
+  background-color:rgb(142, 185, 218, 0.7);
 }
 
 #divButtonBar {
   -margin:4px; 
-  width:546px; 
+  width:596px; 
   height: 62px;
   padding: 4px;
   float:left;
@@ -88,19 +91,13 @@ label {
   float:left; 
   vertical-align: middle;
   -background-color: violet;
+  padding-left: 10px;
   -width: 800px;
   text-wrap: wrap;
 }
 #divStatus {
-  width: 620px;
+  width: 595px;
   -background-color: pink;
-}
-
-#meat{
-  background-color: orange;
-  margin-left: auto;
-  margin-right: auto;
-  
 }
 
 #col1{
@@ -135,7 +132,7 @@ table{
   -overflow-x: scroll;
   background-color: none;
   position: relative; 
-  width: 1350px;
+  width: 1400px;
 }
 .diskColLabel{
   background-color:darkcyan;
@@ -144,7 +141,7 @@ table{
 }
 .diskKey{
   background-color: lightsteelblue;
-  width: 50px;
+  width: 75px;
 }
 .diskInUse{
   background-color: lightsteelblue;
@@ -152,18 +149,17 @@ table{
 }
 .diskTSB{
   background-color: lightsteelblue;
-  width: 50px;
+  width: 75px;
 }
 .diskData{
   background-color: lightsteelblue;
-  -font-size: 12px;
-  width: 825px;
+  width: 875px;
 
 }
 
 
 #memoryTable{
-  height: 270px;
+  height: 263px;
   overflow-y: scroll;
   background-color: none;
 }

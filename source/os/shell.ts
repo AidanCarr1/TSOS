@@ -153,7 +153,7 @@ module TSOS {
             //quantum
             sc = new ShellCommand(this.shellQuantum,
                                   "quantum",
-                                  "- sets the round robin quantum to a given integer (default is 6).",
+                                  "- sets the round robin quantum (default is 6).",
                                   "Quantum allows the round robin quantum to be changed.");
                                   this.commandList[this.commandList.length] = sc;
 
@@ -202,7 +202,7 @@ module TSOS {
             //write
             sc = new ShellCommand(this.shellWrite,
                                 "write",
-                                '<filename> "data" - write data from inside the quotes into the given file.',
+                                '<filename> "data" - write data into the given file.',
                                 "Write inputs data from given quotes into a file on the disk.");
                                 this.commandList[this.commandList.length] = sc;
 
