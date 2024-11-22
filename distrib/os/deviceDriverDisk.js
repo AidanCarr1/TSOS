@@ -41,8 +41,14 @@ var TSOS;
         }
         list() {
         }
-        writeData() {
-            // sessionStorage.setItem('myKey', 'myValue'); 
+        writeData(key, data) {
+            var wrtingData = "1" + ERROR_CODE + ERROR_CODE + ERROR_CODE + "";
+            for (var i = 0; i < data.length; i++) {
+                var char = data[i];
+                var num = char.charCodeAt(0);
+                var hex = TSOS.Utils.toHex(num);
+            }
+            sessionStorage.setItem(key, 'myValue');
             // var myVar = sessionStorage.getItem('myKey');
         }
     }

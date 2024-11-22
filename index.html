@@ -38,8 +38,8 @@
    <script type="text/javascript" src="distrib/utils.js"></script>
 
    <!-- Testing Routines -->
-   <!-- GLaDOS testing. -->
-   <script type="text/javascript" src="http://alanclasses.github.io/TSOS/test/glados-ip3.js"></script> 
+   <!-- GLaDOS testing. 
+   <script type="text/javascript" src="http://alanclasses.github.io/TSOS/test/glados-ip3.js"></script> --> 
    <!-- AidOS testing! 
    <script type="text/javascript" src="./test/aidos-ip420.js"></script> -->
 
@@ -111,7 +111,9 @@
    
    <!-- <br style= "clear:left;"> -->
 
-   <div id="col1" style="width:550px;">
+   <div id="meat" style="background-color: orange;">
+
+   <div id="col1" style="width:550px; margin-left: 75px;">
       <div id="divConsole">
          <canvas id="display"
                width="550px"
@@ -119,29 +121,53 @@
                tabindex="3">
          </canvas>
       </div>
+
+      <div id="diskDisplay"  style="margin-top:5px;">
+         <label>Disk</label>
+         <br>
+         <table id="diskTable">
+            <tr>
+               <td class="diskColLabel">Key</td>
+               <td class="diskColLabel" style="font-size: 12px;">In Use</td>
+               <td class="diskColLabel">TSB</td>
+               <td class="diskColLabel">Data</td>
+            </tr>
+            <tr>
+               <td id="Key000"     class="diskKey">000</td>
+               <td id="InUse000"   class="diskInUse">0</td>
+               <td id="TSB000"     class="diskTSB">---</td>
+               <td id="Data000"    class="diskData">A9008D7B00A9008D7B00A9008D7C00A9008D7C00A9018D7A00A200EC7A00D039A07DA202FFAC7B00A201FFAD7B008D7A00A9016D7A008D7B00A903AE7B00</td>
+               <!-- 
+               <td id="Priority">0</td>
+               <td id="State">0</td>
+               <td id="Location">0</td> -->
+            </tr>
+         </table>
+         
+      </div>
    </div>
 
    <!-- <br style= "clear:left;"> -->
 
-   <div id="col2" style="width:370px;">
-      <div id="divLog" style="width:100%">
+   <div id="col2" style="width:300px;">
+      <div id="divLog" style="width:100%; margin-top: 5px;">
          <label>Host Log</label>
          <br>
          <textarea name="taHostLog"
                   id  ="taHostLog"
-                  rows="24"
-                  cols="48"
+                  rows="18"
+                  cols="38"
          ></textarea>
       </div>
    
 
-      <div id="divUserProgramInput" style="width:100%;">
+      <div id="divUserProgramInput" style="width:100%; margin-top: 5px;">
          <label>User Program Input</label>
          <br>
          <textarea name="taProgramInput"
                   id  ="taProgramInput"
-                  rows="8"
-                  cols="48"
+                  rows="13"
+                  cols="38"
                   value=""></textarea>
       </div>
 
@@ -151,7 +177,7 @@
 
    <div id="col3" style="width:450px;">
 
-      <div id="memoryDisplay" style="width:100%; height:300px;">
+      <div id="memoryDisplay" style="width:100%; margin-top: 5px;">
          <label>Memory</label>
          <br>
          <table id="memoryTable" >
@@ -160,7 +186,7 @@
       </div>
 
 
-      <div id="cpuDisplay"  style="width: 100%; margin-top:20px;">
+      <div id="cpuDisplay"  style="width: 100%; margin-top:5px;">
          <label>CPU</label>
          <br>
          <table id="cpuTable">
@@ -196,7 +222,7 @@
          
       </div>
 
-      <div id="pcbDisplay"  style="width: 100%; margin-top: 0px;">
+      <div id="pcbDisplay"  style="width: 100%; margin-top: 5px;">
          <label>Processes</label>
          <br>
          <table id="pcbTable">
@@ -214,6 +240,8 @@
       </div>
 
    </div>
+
+   </div> <!--meat-->
 </div>
 
 <br style= "clear:left;">

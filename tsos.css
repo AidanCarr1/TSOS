@@ -54,7 +54,9 @@ label {
 
 
 #divHead {
-  width:100%; 
+  margin-left: auto;
+  margin-right: auto;
+  width:1400px; 
   height:70px;
   background-color:rgb(142, 185, 218);
 }
@@ -94,10 +96,18 @@ label {
   -background-color: pink;
 }
 
+#meat{
+  background-color: orange;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+
 #col1{
   margin-left:0px; 
   margin-top:15px; 
   float:left;
+  overflow: visible; 
 }
 #col2 {
   margin-left:25px;
@@ -118,8 +128,42 @@ table{
 
 }
 
+
+#diskTable{
+  height: 400px;
+  overflow-y: scroll;
+  -overflow-x: scroll;
+  background-color: none;
+  position: relative; 
+  width: 1350px;
+}
+.diskColLabel{
+  background-color:darkcyan;
+  -width: 75px;
+  -border: 1px solid black;
+}
+.diskKey{
+  background-color: lightsteelblue;
+  width: 50px;
+}
+.diskInUse{
+  background-color: lightsteelblue;
+  width: 50px;
+}
+.diskTSB{
+  background-color: lightsteelblue;
+  width: 50px;
+}
+.diskData{
+  background-color: lightsteelblue;
+  -font-size: 12px;
+  width: 825px;
+
+}
+
+
 #memoryTable{
-  height: 300px;
+  height: 270px;
   overflow-y: scroll;
   background-color: none;
 }
@@ -164,7 +208,7 @@ table{
   font-size:12px;
 }
 #pcbTable{
-  max-height: 130px;
+  height: 150px;
   overflow-y: scroll;
   background-color: none;
 }
