@@ -61,23 +61,24 @@ module TSOS {
         }
 
         //take a number (26) and return the hex equivalent string ("0x1A")
-        public static toHex(decimal: number): string{
+        public static toHex(decimal: number, padding?: number): string{
                                                 // 221   0   26     number
             var hexRaw = decimal.toString(16);  // dd    0   1a     hex
             hexRaw = hexRaw.toUpperCase();      // DD    0   1A     upper
-            //if (hexRaw.length == 1) {
-            //    hexRaw = "0" + hexRaw;          // DD   00   1A     add 0
-            //}
+            if (padding == 2 && hexRaw.length == 1) {
+                hexRaw = "0" + hexRaw;          // DD   00   1A     add 0
+            }
             return hexRaw;
             //return "0x" + hexRaw;               //0xDD 0x00 0x1A    add 0x
         }
+        
 
         public static sysCallString(decimal: number): string {
             return String.fromCharCode(decimal);
         }
 
         //take a number (26) and return the oct equivalent string ("0c32")
-        public static toOct(decimal: number): string{
+        public static toOct(decimal: number, padding?: number): string{
                                                 // 256    0   26   number
             var octRaw = decimal.toString(8);   // 400    0   32   octal
             return octRaw;

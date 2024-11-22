@@ -187,7 +187,7 @@ module TSOS {
             for (var row = 0; row < MEMORY_SIZE / MEMORY_COLUMNS; row ++) {
 
                 //row label
-                tableHTML += "<tr><td class='memoryRowLabel'> 0x" + Utils.toHex(memoryCount) + "</td>";
+                tableHTML += "<tr><td class='memoryRowLabel'> 0x" + Utils.toHex(memoryCount, 2) + "</td>";
 
                 for (var col = 1; col <= MEMORY_COLUMNS; col ++) {
                     tableHTML += "<td class='memoryBox' id='mem" + memoryCount + "'> 0 </td>";
@@ -206,7 +206,7 @@ module TSOS {
                 var memoryId = "mem" + i;
                 var memoryBox = <HTMLInputElement> document.getElementById(memoryId);
 
-                memoryBox.innerHTML = "" + Utils.toHex(_Memory.mainMemory[i]);
+                memoryBox.innerHTML = "" + Utils.toHex(_Memory.mainMemory[i], 2); //with padding
                 if (i == (_CPU.currentBase + _CPU.PC)) {
                     memoryBox.className = "memoryBox highlightPC";
                 }
@@ -218,8 +218,8 @@ module TSOS {
 
         public static updateCPUDisplay(): void {
             (<HTMLInputElement> document.getElementById("PID")).innerText = "" + _CPU.currentPCB.pid; //PIDs are in base 10
-            (<HTMLInputElement> document.getElementById("PC")).innerText = Utils.toHex(_CPU.PC);
-            (<HTMLInputElement> document.getElementById("IR")).innerText = Utils.toHex(_CPU.instructionRegister);
+            (<HTMLInputElement> document.getElementById("PC")).innerText = Utils.toHex(_CPU.PC, 2);
+            (<HTMLInputElement> document.getElementById("IR")).innerText = Utils.toHex(_CPU.instructionRegister, 2);
 
             (<HTMLInputElement> document.getElementById("Acc")).innerText = Utils.toHex(_CPU.Acc);
             (<HTMLInputElement> document.getElementById("X")).innerText = Utils.toHex(_CPU.Xreg);

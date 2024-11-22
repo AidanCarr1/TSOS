@@ -56,13 +56,13 @@ var TSOS;
             return decimalValue;
         }
         //take a number (26) and return the hex equivalent string ("0x1A")
-        static toHex(decimal) {
+        static toHex(decimal, padding) {
             // 221   0   26     number
             var hexRaw = decimal.toString(16); // dd    0   1a     hex
             hexRaw = hexRaw.toUpperCase(); // DD    0   1A     upper
-            //if (hexRaw.length == 1) {
-            //    hexRaw = "0" + hexRaw;          // DD   00   1A     add 0
-            //}
+            if (padding == 2 && hexRaw.length == 1) {
+                hexRaw = "0" + hexRaw; // DD   00   1A     add 0
+            }
             return hexRaw;
             //return "0x" + hexRaw;               //0xDD 0x00 0x1A    add 0x
         }
@@ -70,7 +70,7 @@ var TSOS;
             return String.fromCharCode(decimal);
         }
         //take a number (26) and return the oct equivalent string ("0c32")
-        static toOct(decimal) {
+        static toOct(decimal, padding) {
             // 256    0   26   number
             var octRaw = decimal.toString(8); // 400    0   32   octal
             return octRaw;
