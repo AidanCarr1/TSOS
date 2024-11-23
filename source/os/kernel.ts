@@ -227,7 +227,7 @@ module TSOS {
                 var currentIntValue = _MemoryAccessor.read(currentPosition, _CPU.currentBase); 
 
                 while (currentIntValue != 0x00) {
-                    var currentStrValue = Utils.sysCallString(currentIntValue)
+                    var currentStrValue = Utils.numToChar(currentIntValue);
                     _StdOut.putText(currentStrValue); //print char
 
                     //next character

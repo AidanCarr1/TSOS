@@ -32,7 +32,9 @@
         }
 
         public create(fileName: string) {
-            alert("create filename: " + fileName);
+            //alert("create filename: " + fileName);
+            _StdOut.putText("File created: " + fileName);
+
         }
 
         public read(fileName: string) {
@@ -59,22 +61,60 @@
 
         }
 
+        public isValidFileName(fileName: string) {
+
+            //check length
+            if (fileName.length > MAX_FILE_NAME_SIZE) {
+                _StdOut.putText("Error creating file: filename too long.");
+                _StdOut.advanceLine();
+                _StdOut.putText("Maximum filename length is "+MAX_FILE_NAME_SIZE+" characters.");
+                return false;
+            }
+
+            //go through each character in filename
+            for (var i = 0; i < fileName.length; i++) {
+                var charCode = Utils.charToNum(fileName[i]);
+                //_StdOut.putText("char"+charCode);
+
+                //is this character allowed?
+                if ((charCode >= Utils.charToNum("A") && charCode <= Utils.charToNum("Z")) ||
+                        //capital is fine
+                    (charCode >= Utils.charToNum("a") && charCode <= Utils.charToNum("z")) ||
+                        //lowercase is fine
+                    (charCode >= Utils.charToNum("0") && charCode <= Utils.charToNum("9")) ||
+                        //numbers is fine
+                    (charCode == Utils.charToNum("_"))) {
+                        //underscore is fine
+                    //its good, next character
+                }
+                else {
+                    _StdOut.putText("Error creating file: Invalid filename.");
+                    _StdOut.advanceLine();
+                    _StdOut.putText("Please only use letters, numbers, and underscore.");
+                    return;
+                }
+            }
+
+            //passed tests
+            return true;
+        }
+
         private writeInuse(key: string, inuse: string) {
-            var row = sessionStorage.getItem(key);
-            var newRow = inuse + row.substring(TSB_INDEX);
-            sessionStorage.setItem(key, newRow); 
+            var block = sessionStorage.getItem(key);
+            var newBlock = inuse + block.substring(TSB_INDEX);
+            sessionStorage.setItem(key, newBlock); 
         }
 
         private writeTSB(key: string, tsb: string) {
-            var row = sessionStorage.getItem(key);
-            var newRow = row.substring(INUSE_INDEX, TSB_INDEX) + tsb + row.substring(DATA_INDEX);
-            sessionStorage.setItem(key, newRow); 
+            var block = sessionStorage.getItem(key);
+            var newBlock = block.substring(INUSE_INDEX, TSB_INDEX) + tsb + block.substring(DATA_INDEX);
+            sessionStorage.setItem(key, newBlock); 
         }
 
         private writeData(key: string, data: string) {
-            var row = sessionStorage.getItem(key);
-            var newRow = row.substring(INUSE_INDEX, DATA_INDEX) + data;
-            sessionStorage.setItem(key, newRow); 
+            var block = sessionStorage.getItem(key);
+            var newBlock = block.substring(INUSE_INDEX, DATA_INDEX) + data;
+            sessionStorage.setItem(key, newBlock); 
         }
 
             //write in use, TSB

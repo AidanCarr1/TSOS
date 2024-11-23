@@ -92,6 +92,9 @@ const DISK_SIZE = NUM_TRACKS * NUM_SECTORS * NUM_BLOCKS; //0o400;
 const INUSE_INDEX = 0;
 const TSB_INDEX = 1;
 const DATA_INDEX = 4;
+//
+const BYTES_PER_BLOCK = 64; //0o100
+const MAX_FILE_NAME_SIZE = BYTES_PER_BLOCK - DATA_INDEX;
 
 
 // For testing (and enrichment)...

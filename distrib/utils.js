@@ -66,8 +66,11 @@ var TSOS;
             return hexRaw;
             //return "0x" + hexRaw;               //0xDD 0x00 0x1A    add 0x
         }
-        static sysCallString(decimal) {
+        static numToChar(decimal) {
             return String.fromCharCode(decimal);
+        }
+        static charToNum(character) {
+            return character.charCodeAt(0);
         }
         //take a number (26) and return the oct equivalent string ("0c32")
         static toOct(decimal, padding) {

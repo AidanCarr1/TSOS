@@ -73,8 +73,12 @@ module TSOS {
         }
         
 
-        public static sysCallString(decimal: number): string {
+        public static numToChar(decimal: number): string {
             return String.fromCharCode(decimal);
+        }
+
+        public static charToNum(character: string): number {
+            return character.charCodeAt(0);
         }
 
         //take a number (26) and return the oct equivalent string ("0c32")

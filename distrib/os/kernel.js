@@ -194,7 +194,7 @@ var TSOS;
                 var currentPosition = _CPU.Yreg;
                 var currentIntValue = _MemoryAccessor.read(currentPosition, _CPU.currentBase);
                 while (currentIntValue != 0x00) {
-                    var currentStrValue = TSOS.Utils.sysCallString(currentIntValue);
+                    var currentStrValue = TSOS.Utils.numToChar(currentIntValue);
                     _StdOut.putText(currentStrValue); //print char
                     //next character
                     currentPosition++;

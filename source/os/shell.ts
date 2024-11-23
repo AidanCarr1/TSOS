@@ -770,7 +770,14 @@ module TSOS {
 
         public shellCreate(args: string[]) {
             if (args.length > 0) {
-                _krnDiskDriver.create(args[0]);
+
+                //replace spaces with _
+                var fileName = args.join("_");
+
+                //create file if it is valid
+                if (_krnDiskDriver.isValidFileName(fileName)){
+                    _krnDiskDriver.create(fileName);
+                }
             }
             else {
                 _StdOut.putText("Usage: createfile <filename>  Please supply a file name.");
