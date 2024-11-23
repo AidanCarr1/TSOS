@@ -25,7 +25,9 @@ var TSOS;
             // var myVar = sessionStorage.getItem('myKey');
         }
         create(fileName) {
-            //alert("create filename: " + fileName);
+            //add to list of files
+            this.addFile(fileName);
+            //tell the shell
             _StdOut.putText("File created: " + fileName);
         }
         read(fileName) {
@@ -59,8 +61,8 @@ var TSOS;
                     //lowercase is fine
                     (charCode >= TSOS.Utils.charToNum("0") && charCode <= TSOS.Utils.charToNum("9")) ||
                     //numbers is fine
-                    (charCode == TSOS.Utils.charToNum("_"))) {
-                    //underscore is fine
+                    (charCode == TSOS.Utils.charToNum(".") || charCode == TSOS.Utils.charToNum("_"))) {
+                    //underscore or period is fine
                     //its good, next character
                 }
                 else {
@@ -73,20 +75,47 @@ var TSOS;
             //passed tests
             return true;
         }
-        writeInuse(key, inuse) {
+        // SET FUNCTIONS
+        setInuse(key, inuse) {
             var block = sessionStorage.getItem(key);
             var newBlock = inuse + block.substring(TSB_INDEX);
             sessionStorage.setItem(key, newBlock);
         }
-        writeTSB(key, tsb) {
+        setTSB(key, tsb) {
             var block = sessionStorage.getItem(key);
             var newBlock = block.substring(INUSE_INDEX, TSB_INDEX) + tsb + block.substring(DATA_INDEX);
             sessionStorage.setItem(key, newBlock);
         }
-        writeData(key, data) {
+        setData(key, data) {
             var block = sessionStorage.getItem(key);
             var newBlock = block.substring(INUSE_INDEX, DATA_INDEX) + data;
             sessionStorage.setItem(key, newBlock);
+        }
+        // GET FUNCTIONS
+        getInuse(key) {
+            var block = sessionStorage.getItem(key);
+            return block.substring(INUSE_INDEX, TSB_INDEX);
+        }
+        getTSB(key) {
+            var block = sessionStorage.getItem(key);
+            return block.substring(TSB_INDEX, DATA_INDEX);
+        }
+        getData(key) {
+            var block = sessionStorage.getItem(key);
+            return block.substring(DATA_INDEX);
+        }
+        addFile(fileName) {
+            //loop through directory
+            for (var i = 0; i < DIRECTORY_LENGTH; i++) {
+                //check until we find an unused block
+                var key = TSOS.Utils.toOct(i, 3);
+                if (this.getInuse(key) == TSOS.Utils.toHex(0, 2)) {
+                    //set up camp here
+                    this.setInuse(key, TSOS.Utils.toHex(1, 2));
+                    //this.setTSB(key, /*to hex (-1 -1 -1) */);
+                    //this.setData(key, /*to hex filename */ )
+                }
+            }
         }
     }
     TSOS.DeviceDriverDisk = DeviceDriverDisk;

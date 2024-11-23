@@ -32,7 +32,10 @@
         }
 
         public create(fileName: string) {
-            //alert("create filename: " + fileName);
+            //add to list of files
+            this.addFile(fileName);
+
+            //tell the shell
             _StdOut.putText("File created: " + fileName);
 
         }
@@ -67,7 +70,7 @@
             if (fileName.length > MAX_FILE_NAME_SIZE) {
                 _StdOut.putText("Error creating file: filename too long.");
                 _StdOut.advanceLine();
-                _StdOut.putText("Maximum filename length is "+MAX_FILE_NAME_SIZE+" characters.");
+                _StdOut.putText("Maximum filename length is " +MAX_FILE_NAME_SIZE+ " characters.");
                 return false;
             }
 
@@ -83,8 +86,8 @@
                         //lowercase is fine
                     (charCode >= Utils.charToNum("0") && charCode <= Utils.charToNum("9")) ||
                         //numbers is fine
-                    (charCode == Utils.charToNum("_"))) {
-                        //underscore is fine
+                    (charCode == Utils.charToNum(".") || charCode == Utils.charToNum("_"))) {
+                        //underscore or period is fine
                     //its good, next character
                 }
                 else {
@@ -99,22 +102,52 @@
             return true;
         }
 
-        private writeInuse(key: string, inuse: string) {
+        // SET FUNCTIONS
+        private setInuse(key: string, inuse: string) {
             var block = sessionStorage.getItem(key);
             var newBlock = inuse + block.substring(TSB_INDEX);
             sessionStorage.setItem(key, newBlock); 
         }
-
-        private writeTSB(key: string, tsb: string) {
+        private setTSB(key: string, tsb: string) {
             var block = sessionStorage.getItem(key);
             var newBlock = block.substring(INUSE_INDEX, TSB_INDEX) + tsb + block.substring(DATA_INDEX);
             sessionStorage.setItem(key, newBlock); 
         }
-
-        private writeData(key: string, data: string) {
+        private setData(key: string, data: string) {
             var block = sessionStorage.getItem(key);
             var newBlock = block.substring(INUSE_INDEX, DATA_INDEX) + data;
             sessionStorage.setItem(key, newBlock); 
+        }
+
+        // GET FUNCTIONS
+        private getInuse(key: string): string {
+            var block = sessionStorage.getItem(key);
+            return block.substring(INUSE_INDEX, TSB_INDEX);
+        }
+        private getTSB(key: string): string {
+            var block = sessionStorage.getItem(key);
+            return block.substring(TSB_INDEX, DATA_INDEX);
+        }
+        private getData(key: string): string {
+            var block = sessionStorage.getItem(key);
+            return block.substring(DATA_INDEX);
+        }
+
+        private addFile(fileName: string) {
+            //loop through directory
+            for (var i = 0; i < DIRECTORY_LENGTH; i++) {
+
+                //check until we find an unused block
+                var key = Utils.toOct(i,3);
+                if (this.getInuse(key) == Utils.toHex(0,2)) {
+                    
+                    //set up camp here
+                    this.setInuse(key, Utils.toHex(1,2));
+                    //this.setTSB(key, /*to hex (-1 -1 -1) */);
+                    //this.setData(key, /*to hex filename */ )
+                }
+            }
+
         }
 
             //write in use, TSB
