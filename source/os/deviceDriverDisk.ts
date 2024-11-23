@@ -139,11 +139,12 @@
 
                 //check until we find an unused block
                 var key = Utils.toOct(i,3);
-                if (this.getInuse(key) == Utils.toHex(0,2)) {
+                if (this.getInuse(key) == Utils.toHex(0, HEX_WORD_SIZE)) {
                     
                     //set up camp here
-                    this.setInuse(key, Utils.toHex(1,2));
-                    //this.setTSB(key, /*to hex (-1 -1 -1) */);
+                    this.setInuse(key, Utils.toHex(1, HEX_WORD_SIZE));
+                    var emptyTSB = Utils.toHex(ERROR_CODE, HEX_WORD_SIZE).repeat(3);
+                    this.setTSB(key, emptyTSB);
                     //this.setData(key, /*to hex filename */ )
                 }
             }

@@ -45,6 +45,7 @@ const MEMORY_SIZE: number = 0x300;     // 3 segments of 0x100
 const NUM_OF_SEGEMENTS: number = 0x03;
 const SEGMENT_SIZE: number = 0x100;    // 0x000 to 0x0FF, 0x100 to 0x1FF, 0x200 to 0x2FF
 
+const HEX_WORD_SIZE: number = 2; //2 chars of hex in a byte
 const HIGH_ORDER_MULTIPLIER: number = 0x0100; //help with little endian
 const MEMORY_COLUMNS: number = 0x08; //how many memory spots to display per row
 const DEFAULT_PRIORITY: number = 5; //priority might be updated later

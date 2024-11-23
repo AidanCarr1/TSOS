@@ -57,10 +57,19 @@ var TSOS;
         }
         //take a number (26) and return the hex equivalent string ("0x1A")
         static toHex(decimal, padding) {
-            // 221   0   26     number
+            //error code
+            if (decimal == ERROR_CODE) {
+                var hex = "-";
+                if (padding > 1) {
+                    hex = hex.repeat(padding);
+                }
+                return hex;
+            }
+            //normal numbers:                   // 221   0   26     number
             var hexRaw = decimal.toString(16); // dd    0   1a     hex
             hexRaw = hexRaw.toUpperCase(); // DD    0   1A     upper
-            if (padding == 2 && hexRaw.length == 1) {
+            //padding == 2
+            if (padding == HEX_WORD_SIZE && hexRaw.length == 1) {
                 hexRaw = "0" + hexRaw; // DD   00   1A     add 0
             }
             return hexRaw;
