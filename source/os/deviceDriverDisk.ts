@@ -145,7 +145,7 @@
                     this.setInuse(key, Utils.toHex(1, HEX_WORD_SIZE));
                     var emptyTSB = Utils.toHex(ERROR_CODE, HEX_WORD_SIZE).repeat(3);
                     this.setTSB(key, emptyTSB);
-                    //this.setData(key, /*to hex filename */ )
+                    this.setData(key, Utils.stringToHex(fileName));
                 }
             }
 

@@ -151,7 +151,7 @@ var TSOS;
             var memoryCount = 0; //for id purposes - so we know which location we're at
             for (var row = 0; row < MEMORY_SIZE / MEMORY_COLUMNS; row++) {
                 //row label
-                tableHTML += "<tr><td class='memoryRowLabel'> 0x" + TSOS.Utils.toHex(memoryCount, 2) + "</td>";
+                tableHTML += "<tr><td class='memoryRowLabel'> 0x" + TSOS.Utils.toHex(memoryCount, HEX_WORD_SIZE) + "</td>";
                 for (var col = 1; col <= MEMORY_COLUMNS; col++) {
                     tableHTML += "<td class='memoryBox' id='mem" + memoryCount + "'> 0 </td>";
                     memoryCount++;
@@ -165,7 +165,7 @@ var TSOS;
             for (var i = 0; i < MEMORY_SIZE; i++) {
                 var memoryId = "mem" + i;
                 var memoryBox = document.getElementById(memoryId);
-                memoryBox.innerHTML = "" + TSOS.Utils.toHex(_Memory.mainMemory[i], 2); //with padding
+                memoryBox.innerHTML = "" + TSOS.Utils.toHex(_Memory.mainMemory[i], HEX_WORD_SIZE); //with padding
                 if (i == (_CPU.currentBase + _CPU.PC)) {
                     memoryBox.className = "memoryBox highlightPC";
                 }
@@ -176,8 +176,8 @@ var TSOS;
         }
         static updateCPUDisplay() {
             document.getElementById("PID").innerText = "" + _CPU.currentPCB.pid; //PIDs are in base 10
-            document.getElementById("PC").innerText = TSOS.Utils.toHex(_CPU.PC, 2);
-            document.getElementById("IR").innerText = TSOS.Utils.toHex(_CPU.instructionRegister, 2);
+            document.getElementById("PC").innerText = TSOS.Utils.toHex(_CPU.PC, HEX_WORD_SIZE);
+            document.getElementById("IR").innerText = TSOS.Utils.toHex(_CPU.instructionRegister, HEX_WORD_SIZE);
             document.getElementById("Acc").innerText = TSOS.Utils.toHex(_CPU.Acc);
             document.getElementById("X").innerText = TSOS.Utils.toHex(_CPU.Xreg);
             document.getElementById("Y").innerText = TSOS.Utils.toHex(_CPU.Yreg);

@@ -80,7 +80,7 @@ module TSOS {
             if (padding == HEX_WORD_SIZE && hexRaw.length == 1) {
                 hexRaw = "0" + hexRaw;          // DD   00   1A     add 0
             }
-            
+
             return hexRaw;
             //return "0x" + hexRaw;               //0xDD 0x00 0x1A    add 0x
         }
@@ -92,6 +92,21 @@ module TSOS {
 
         public static charToNum(character: string): number {
             return character.charCodeAt(0);
+        }
+
+        //take string "Hello" convert to WORDSIZE2 Hex string ""
+        public static stringToHex(str: string): string {
+            var hexString = "";
+
+            //convert each char to hex value
+            for (var i = 0; i < str.length; i++) {
+                var char = str[i];
+                var num = this.charToNum(char);
+                var hexChar = this.toHex(num, HEX_WORD_SIZE);
+                hexString += hexChar;
+            }
+            //return string of all hex values
+            return hexString;
         }
 
         //take a number (26) and return the oct equivalent string ("0c32")

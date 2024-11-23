@@ -81,6 +81,19 @@ var TSOS;
         static charToNum(character) {
             return character.charCodeAt(0);
         }
+        //take string "Hello" convert to WORDSIZE2 Hex string ""
+        static stringToHex(str) {
+            var hexString = "";
+            //convert each char to hex value
+            for (var i = 0; i < str.length; i++) {
+                var char = str[i];
+                var num = this.charToNum(char);
+                var hexChar = this.toHex(num, HEX_WORD_SIZE);
+                hexString += hexChar;
+            }
+            //return string of all hex values
+            return hexString;
+        }
         //take a number (26) and return the oct equivalent string ("0c32")
         static toOct(decimal, padding) {
             // 256    0   26   number
