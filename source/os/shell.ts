@@ -210,7 +210,28 @@ module TSOS {
             sc = new ShellCommand(this.shellDelete,
                                 "delete",
                                 '<filename> - destroy a given file.',
-                                "Delete the file. obvisouly.");
+                                "Delete the file. obviously.");
+                                this.commandList[this.commandList.length] = sc;
+
+            //copy
+            sc = new ShellCommand(this.shellCopy,
+                                "copy",
+                                '<filename> <new filename> - copies contents to a new file.',
+                                "Copy contents from one file to a newly declared one.");
+                                this.commandList[this.commandList.length] = sc;
+            
+            //rename
+            sc = new ShellCommand(this.shellRename,
+                                "rename",
+                                '<filename> <new filename> - give a file a new name.',
+                                "Rename a given file to a new, ~cooler~ name.");
+                                this.commandList[this.commandList.length] = sc;
+            
+            //ls
+            sc = new ShellCommand(this.shellLs,
+                                "ls",
+                                '- list the files currently stored on disk.',
+                                "List the files currently stored on disk.");
                                 this.commandList[this.commandList.length] = sc;
 
             // Display the initial prompt.

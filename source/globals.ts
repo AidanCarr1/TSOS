@@ -84,10 +84,14 @@ var _krnKeyboardDriver: TSOS.DeviceDriverKeyboard  = null;
 var _hardwareClockID: number = null;
 
 var _krnDiskDriver: TSOS.DeviceDriverDisk = null;
-var NUM_TRACKS = 4;
-var NUM_SECTORS = 8;
-var NUM_BLOCKS = 8;
-var DISK_SIZE = NUM_TRACKS * NUM_SECTORS * NUM_BLOCKS; //0o400;
+const NUM_TRACKS = 4;
+const NUM_SECTORS = 8;
+const NUM_BLOCKS = 8;
+const DISK_SIZE = NUM_TRACKS * NUM_SECTORS * NUM_BLOCKS; //0o400;
+//indexes for file byte data
+const INUSE_INDEX = 0;
+const TSB_INDEX = 1;
+const DATA_INDEX = 4;
 
 
 // For testing (and enrichment)...

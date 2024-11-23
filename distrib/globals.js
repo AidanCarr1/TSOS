@@ -65,10 +65,14 @@ var _SarcasticMode = false;
 var _krnKeyboardDriver = null;
 var _hardwareClockID = null;
 var _krnDiskDriver = null;
-var NUM_TRACKS = 4;
-var NUM_SECTORS = 8;
-var NUM_BLOCKS = 8;
-var DISK_SIZE = NUM_TRACKS * NUM_SECTORS * NUM_BLOCKS; //0o400;
+const NUM_TRACKS = 4;
+const NUM_SECTORS = 8;
+const NUM_BLOCKS = 8;
+const DISK_SIZE = NUM_TRACKS * NUM_SECTORS * NUM_BLOCKS; //0o400;
+//indexes for file byte data
+const INUSE_INDEX = 0;
+const TSB_INDEX = 1;
+const DATA_INDEX = 4;
 // For testing (and enrichment)...
 var Glados = null; // This is the function Glados() in glados-ip*.js http://alanclasses.github.io/TSOS/test/ .
 var _GLaDOS = null; // If the above is linked in, this is the instantiated instance of Glados.

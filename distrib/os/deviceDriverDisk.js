@@ -26,8 +26,6 @@ var TSOS;
         }
         create(fileName) {
             alert("create filename: " + fileName);
-            // sessionStorage.setItem('myKey', 'myValue'); 
-            // var myVar = sessionStorage.getItem('myKey');
         }
         read(fileName) {
         }
@@ -41,15 +39,20 @@ var TSOS;
         }
         list() {
         }
+        writeInuse(key, inuse) {
+            var row = sessionStorage.getItem(key);
+            var newRow = inuse + row.substring(TSB_INDEX);
+            sessionStorage.setItem(key, newRow);
+        }
+        writeTSB(key, tsb) {
+            var row = sessionStorage.getItem(key);
+            var newRow = row.substring(INUSE_INDEX, TSB_INDEX) + tsb + row.substring(DATA_INDEX);
+            sessionStorage.setItem(key, newRow);
+        }
         writeData(key, data) {
-            var wrtingData = "1" + ERROR_CODE + ERROR_CODE + ERROR_CODE + "";
-            for (var i = 0; i < data.length; i++) {
-                var char = data[i];
-                var num = char.charCodeAt(0);
-                var hex = TSOS.Utils.toHex(num);
-            }
-            sessionStorage.setItem(key, 'myValue');
-            // var myVar = sessionStorage.getItem('myKey');
+            var row = sessionStorage.getItem(key);
+            var newRow = row.substring(INUSE_INDEX, DATA_INDEX) + data;
+            sessionStorage.setItem(key, newRow);
         }
     }
     TSOS.DeviceDriverDisk = DeviceDriverDisk;

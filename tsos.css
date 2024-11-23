@@ -61,7 +61,8 @@ label {
   margin-right: auto;
   width:1400px; 
   height:70px;
-  background-color:rgb(142, 185, 218, 0.9);
+  background-color: rgba(0, 139, 139, 0.9);
+  -background-color:rgb(142, 185, 218, 0.9);
 }
 
 #divButtonBar {

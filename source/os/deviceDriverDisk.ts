@@ -33,8 +33,6 @@
 
         public create(fileName: string) {
             alert("create filename: " + fileName);
-            // sessionStorage.setItem('myKey', 'myValue'); 
-            // var myVar = sessionStorage.getItem('myKey');
         }
 
         public read(fileName: string) {
@@ -61,18 +59,37 @@
 
         }
 
-        private writeData(key: string, data: string) {
+        private writeInuse(key: string, inuse: string) {
+            var row = sessionStorage.getItem(key);
+            var newRow = inuse + row.substring(TSB_INDEX);
+            sessionStorage.setItem(key, newRow); 
+        }
 
-            var wrtingData = "1" + ERROR_CODE + ERROR_CODE + ERROR_CODE + "";
-            for (var i = 0; i < data.length; i++) {
-                var char = data[i];
-                var num = char.charCodeAt(0);
-                var hex = Utils.toHex(num);
-            }
-            sessionStorage.setItem(key, 'myValue'); 
+        private writeTSB(key: string, tsb: string) {
+            var row = sessionStorage.getItem(key);
+            var newRow = row.substring(INUSE_INDEX, TSB_INDEX) + tsb + row.substring(DATA_INDEX);
+            sessionStorage.setItem(key, newRow); 
+        }
+
+        private writeData(key: string, data: string) {
+            var row = sessionStorage.getItem(key);
+            var newRow = row.substring(INUSE_INDEX, DATA_INDEX) + data;
+            sessionStorage.setItem(key, newRow); 
+        }
+
+            //write in use, TSB
+            // var writingData = Utils.toHex(0x1,2);
+            // writingData += Utils.toHex(ERROR_CODE,2) + Utils.toHex(ERROR_CODE,2) + Utils.toHex(ERROR_CODE,2);
+
+            // for (var i = 0; i < data.length; i++) {
+            //     var char = data[i];
+            //     var num = char.charCodeAt(0);
+            //     var hex = Utils.toHex(num);
+            // }
+            // sessionStorage.setItem(key, 'myValue'); 
             // var myVar = sessionStorage.getItem('myKey');
             
-        }
+        
 
 
 

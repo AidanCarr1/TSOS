@@ -105,7 +105,16 @@ var TSOS;
             sc = new TSOS.ShellCommand(this.shellWrite, "write", '<filename> "data" - write data into the given file.', "Write inputs data from given quotes into a file on the disk.");
             this.commandList[this.commandList.length] = sc;
             //delete
-            sc = new TSOS.ShellCommand(this.shellDelete, "delete", '<filename> - destroy a given file.', "Delete the file. obvisouly.");
+            sc = new TSOS.ShellCommand(this.shellDelete, "delete", '<filename> - destroy a given file.', "Delete the file. obviously.");
+            this.commandList[this.commandList.length] = sc;
+            //copy
+            sc = new TSOS.ShellCommand(this.shellCopy, "copy", '<filename> <new filename> - copies contents to a new file.', "Copy contents from one file to a newly declared one.");
+            this.commandList[this.commandList.length] = sc;
+            //rename
+            sc = new TSOS.ShellCommand(this.shellRename, "rename", '<filename> <new filename> - give a file a new name.', "Rename a given file to a new, ~cooler~ name.");
+            this.commandList[this.commandList.length] = sc;
+            //ls
+            sc = new TSOS.ShellCommand(this.shellLs, "ls", '- list the files currently stored on disk.', "List the files currently stored on disk.");
             this.commandList[this.commandList.length] = sc;
             // Display the initial prompt.
             this.putPrompt();
