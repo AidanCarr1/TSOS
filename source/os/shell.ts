@@ -766,14 +766,16 @@ module TSOS {
 
         public shellFormat(){
             //could add args, see challenge [58]
+            _krnDiskDriver.format();
+            _StdOut.putText("Disk formatted!");
         }
 
         public shellCreate(args: string[]) {
-            if (_krnDiskDriver.isFormatted) {
+            if (!_krnDiskDriver.isFormatted) {
                 _StdOut.putText("Disk is not formatted. Use command: format");
             }
 
-            if (args.length > 0) {
+            else if (args.length > 0) {
 
                 //replace spaces with _
                 var fileName = args.join("_");
@@ -791,11 +793,11 @@ module TSOS {
         }
 
         public shellRead(args: string[]) {
-            if (_krnDiskDriver.isFormatted) {
+            if (!_krnDiskDriver.isFormatted) {
                 _StdOut.putText("Disk is not formatted. Use command: format");
             }
 
-            if (args.length > 0) {
+            else if (args.length > 0) {
 
             }
             else {
@@ -805,11 +807,11 @@ module TSOS {
         }
 
         public shellWrite(args: string[]) {
-            if (_krnDiskDriver.isFormatted) {
+            if (!_krnDiskDriver.isFormatted) {
                 _StdOut.putText("Disk is not formatted. Use command: format");
             }
             
-            if (args.length > 1) {
+            else if (args.length > 1) {
 
             }
             else {
@@ -819,11 +821,11 @@ module TSOS {
         }
 
         public shellCopy(args: string[]) {
-            if (_krnDiskDriver.isFormatted) {
+            if (!_krnDiskDriver.isFormatted) {
                 _StdOut.putText("Disk is not formatted. Use command: format");
             }
             
-            if (args.length > 1) {
+            else if (args.length > 1) {
 
             } 
             else {
@@ -833,11 +835,11 @@ module TSOS {
         }
 
         public shellDelete(args: string[]) {
-            if (_krnDiskDriver.isFormatted) {
+            if (!_krnDiskDriver.isFormatted) {
                 _StdOut.putText("Disk is not formatted. Use command: format");
             }
             
-            if (args.length > 0) {
+            else if (args.length > 0) {
 
             }
             else {
@@ -847,11 +849,11 @@ module TSOS {
         }
 
         public shellRename(args: string[]) {
-            if (_krnDiskDriver.isFormatted) {
+            if (!_krnDiskDriver.isFormatted) {
                 _StdOut.putText("Disk is not formatted. Use command: format");
             }
             
-            if (args.length > 1) {
+            else if (args.length > 1) {
 
             }
             else {
@@ -861,7 +863,7 @@ module TSOS {
         }
 
         public shellLs(){
-            if (_krnDiskDriver.isFormatted) {
+            if (!_krnDiskDriver.isFormatted) {
                 _StdOut.putText("Disk is not formatted. Use command: format");
             }
             

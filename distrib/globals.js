@@ -78,6 +78,7 @@ const DATA_INDEX = 4;
 const BYTES_PER_BLOCK = 64; //0o100
 const MAX_FILE_NAME_SIZE = BYTES_PER_BLOCK - DATA_INDEX;
 const DIRECTORY_LENGTH = 0o100;
+const OCT_WORD_SIZE = 3; //3 chars per key: 0o000 -> 0o377
 // For testing (and enrichment)...
 var Glados = null; // This is the function Glados() in glados-ip*.js http://alanclasses.github.io/TSOS/test/ .
 var _GLaDOS = null; // If the above is linked in, this is the instantiated instance of Glados.

@@ -23,6 +23,8 @@ var TSOS;
         }
         format() {
             for (var i = 0; i < DISK_SIZE; i++) {
+                var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
+                sessionStorage.setItem(key, "00".repeat(BYTES_PER_BLOCK));
             }
             this.isFormatted = true;
             // sessionStorage.setItem('myKey', 'myValue'); 
@@ -57,7 +59,6 @@ var TSOS;
             //go through each character in filename
             for (var i = 0; i < fileName.length; i++) {
                 var charCode = TSOS.Utils.charToNum(fileName[i]);
-                //_StdOut.putText("char"+charCode);
                 //is this character allowed?
                 if ((charCode >= TSOS.Utils.charToNum("A") && charCode <= TSOS.Utils.charToNum("Z")) ||
                     //capital is fine
@@ -109,17 +110,22 @@ var TSOS;
             return block.substring(DATA_INDEX);
         }
         addFile(fileName) {
+            _Kernel.krnTrace("adding file...");
             //loop through directory
             for (var i = 0; i < DIRECTORY_LENGTH; i++) {
                 //check until we find an unused block
-                var key = TSOS.Utils.toOct(i, 3);
+                var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
+                _Kernel.krnTrace("key: " + key);
                 if (this.getInuse(key) == TSOS.Utils.toHex(0, HEX_WORD_SIZE)) {
+                    _Kernel.krnTrace("key " + key + "open");
                     //set up camp here
                     this.setInuse(key, TSOS.Utils.toHex(1, HEX_WORD_SIZE));
                     var emptyTSB = TSOS.Utils.toHex(ERROR_CODE, HEX_WORD_SIZE).repeat(3);
                     this.setTSB(key, emptyTSB);
                     this.setData(key, TSOS.Utils.stringToHex(fileName));
+                    _Kernel.krnTrace("data set");
                     //update disk display
+                    _StdOut.putText("Key: " + key);
                     return key;
                 }
             }

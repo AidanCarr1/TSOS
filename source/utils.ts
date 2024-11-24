@@ -113,8 +113,12 @@ module TSOS {
         public static toOct(decimal: number, padding?: number): string{
                                                 // 256    0   26   number
             var octRaw = decimal.toString(8);   // 400    0   32   octal
+            
+            if (padding == OCT_WORD_SIZE && octRaw.length < padding) {
+                var extra0s = "0".repeat(padding-octRaw.length);
+                return (extra0s + octRaw);
+            }
             return octRaw;
-            //return "0c" + octRaw;            //0c400 0c00 0c32   add 0c
             }
         }
 }

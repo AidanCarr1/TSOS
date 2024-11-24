@@ -274,5 +274,63 @@ module TSOS {
             }
             document.getElementById("priority"+pid).innerText = Utils.toHex(pcb.priority);
         }
+
+        /*
+        public static createDiskDisplay(): void {
+            
+            var table: HTMLTableElement = <HTMLTableElement> document.getElementById("diskTable");
+
+            for (var i = 0; i < DISK_SIZE; i++) {
+                var row = table.insertRow();
+                var key = Utils.toOct(i, OCT_WORD_SIZE);
+
+                var rowHTML = 
+                   `<tr id="Block###">
+                    <td id="Key000"     class="diskKey">000</td>
+                    <td id="InUse000"   class="diskInUse">0</td>
+                    <td id="TSB000"     class="diskTSB">---</td>
+                    <td id="Data${}"    class="diskData">000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</td>
+                    </tr>`
+            }
+            
+
+
+            document.getElementById("diskTable").addrow;
+
+            
+
+        }
+
+
+        public static updateDiskDisplay(key: string): void {
+            
+            document.getElementById("state"+key).innerText    = pcb.getState();
+
+            var pid = pcb.pid;
+
+            //if it doesnt exist in HTML, dont update the table
+            if (!pcb.isInHTML) {
+                return;
+            }
+
+            // change the PCB dispaly based on a new, current state           
+            document.getElementById("state"+pid).innerText    = pcb.getState();
+            document.getElementById("location"+pid).innerText = pcb.location;
+
+            //if segment no longer exists, show nothing
+            if (pcb.getSegment() == ERROR_CODE){
+                document.getElementById("base"+pid).innerText     = "--";
+                document.getElementById("limit"+pid).innerText    = "--";
+                document.getElementById("segment"+pid).innerText  = "--";
+            }
+            //if it exists show normal data
+            else {
+                document.getElementById("base"+pid).innerText     = Utils.toHex(pcb.getBase());
+                document.getElementById("limit"+pid).innerText    = Utils.toHex(pcb.getLimit());
+                document.getElementById("segment"+pid).innerText  = Utils.toHex(pcb.segment);
+            }
+            document.getElementById("priority"+pid).innerText = Utils.toHex(pcb.priority);
+        }
+            */
     }
 }

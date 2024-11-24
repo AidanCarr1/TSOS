@@ -583,12 +583,14 @@ var TSOS;
         }
         shellFormat() {
             //could add args, see challenge [58]
+            _krnDiskDriver.format();
+            _StdOut.putText("Disk formatted!");
         }
         shellCreate(args) {
-            if (_krnDiskDriver.isFormatted) {
+            if (!_krnDiskDriver.isFormatted) {
                 _StdOut.putText("Disk is not formatted. Use command: format");
             }
-            if (args.length > 0) {
+            else if (args.length > 0) {
                 //replace spaces with _
                 var fileName = args.join("_");
                 //create file if it is valid
@@ -601,57 +603,57 @@ var TSOS;
             }
         }
         shellRead(args) {
-            if (_krnDiskDriver.isFormatted) {
+            if (!_krnDiskDriver.isFormatted) {
                 _StdOut.putText("Disk is not formatted. Use command: format");
             }
-            if (args.length > 0) {
+            else if (args.length > 0) {
             }
             else {
                 _StdOut.putText("Usage: read <filename>  Please supply a file name.");
             }
         }
         shellWrite(args) {
-            if (_krnDiskDriver.isFormatted) {
+            if (!_krnDiskDriver.isFormatted) {
                 _StdOut.putText("Disk is not formatted. Use command: format");
             }
-            if (args.length > 1) {
+            else if (args.length > 1) {
             }
             else {
                 _StdOut.putText('Usage: write <filename> "data"  Please supply a file name.');
             }
         }
         shellCopy(args) {
-            if (_krnDiskDriver.isFormatted) {
+            if (!_krnDiskDriver.isFormatted) {
                 _StdOut.putText("Disk is not formatted. Use command: format");
             }
-            if (args.length > 1) {
+            else if (args.length > 1) {
             }
             else {
                 _StdOut.putText("Usage: copy <from filename> <to filename> Please supply two file names.");
             }
         }
         shellDelete(args) {
-            if (_krnDiskDriver.isFormatted) {
+            if (!_krnDiskDriver.isFormatted) {
                 _StdOut.putText("Disk is not formatted. Use command: format");
             }
-            if (args.length > 0) {
+            else if (args.length > 0) {
             }
             else {
                 _StdOut.putText("Usage: delete <filename>  Please supply a file name.");
             }
         }
         shellRename(args) {
-            if (_krnDiskDriver.isFormatted) {
+            if (!_krnDiskDriver.isFormatted) {
                 _StdOut.putText("Disk is not formatted. Use command: format");
             }
-            if (args.length > 1) {
+            else if (args.length > 1) {
             }
             else {
                 _StdOut.putText("Usage: rename <old filename> <new filename>  Please supply a file name.");
             }
         }
         shellLs() {
-            if (_krnDiskDriver.isFormatted) {
+            if (!_krnDiskDriver.isFormatted) {
                 _StdOut.putText("Disk is not formatted. Use command: format");
             }
             //could add args, see challenge [60]
