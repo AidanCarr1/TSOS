@@ -7,11 +7,14 @@ var TSOS;
 (function (TSOS) {
     // Extends DeviceDriver
     class DeviceDriverDisk extends TSOS.DeviceDriver {
-        constructor() {
+        isFormatted;
+        constructor(isFormatted) {
             // Override the base method pointers.
             super();
-            this.driverEntry = this.krnDiskDriverEntry;
+            this.isFormatted = isFormatted;
             //this.isr = this.krnDiskDispatchKeyPress;
+            this.driverEntry = this.krnDiskDriverEntry;
+            this.isFormatted = false;
         }
         krnDiskDriverEntry() {
             // Initialization routine for this, the kernel-mode Disk Device Driver.
@@ -21,6 +24,7 @@ var TSOS;
         format() {
             for (var i = 0; i < DISK_SIZE; i++) {
             }
+            this.isFormatted = true;
             // sessionStorage.setItem('myKey', 'myValue'); 
             // var myVar = sessionStorage.getItem('myKey');
         }
@@ -115,8 +119,13 @@ var TSOS;
                     var emptyTSB = TSOS.Utils.toHex(ERROR_CODE, HEX_WORD_SIZE).repeat(3);
                     this.setTSB(key, emptyTSB);
                     this.setData(key, TSOS.Utils.stringToHex(fileName));
+                    //update disk display
+                    return key;
                 }
             }
+            // FILE RECOVERY: loop again, check inuse for recoverable files, over write one
+            //no unused blocks left
+            _StdOut.putText("Disk Full. Too many files in directory");
         }
     }
     TSOS.DeviceDriverDisk = DeviceDriverDisk;

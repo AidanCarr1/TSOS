@@ -769,6 +769,10 @@ module TSOS {
         }
 
         public shellCreate(args: string[]) {
+            if (_krnDiskDriver.isFormatted) {
+                _StdOut.putText("Disk is not formatted. Use command: format");
+            }
+
             if (args.length > 0) {
 
                 //replace spaces with _
@@ -787,6 +791,10 @@ module TSOS {
         }
 
         public shellRead(args: string[]) {
+            if (_krnDiskDriver.isFormatted) {
+                _StdOut.putText("Disk is not formatted. Use command: format");
+            }
+
             if (args.length > 0) {
 
             }
@@ -797,6 +805,10 @@ module TSOS {
         }
 
         public shellWrite(args: string[]) {
+            if (_krnDiskDriver.isFormatted) {
+                _StdOut.putText("Disk is not formatted. Use command: format");
+            }
+            
             if (args.length > 1) {
 
             }
@@ -807,6 +819,10 @@ module TSOS {
         }
 
         public shellCopy(args: string[]) {
+            if (_krnDiskDriver.isFormatted) {
+                _StdOut.putText("Disk is not formatted. Use command: format");
+            }
+            
             if (args.length > 1) {
 
             } 
@@ -817,6 +833,10 @@ module TSOS {
         }
 
         public shellDelete(args: string[]) {
+            if (_krnDiskDriver.isFormatted) {
+                _StdOut.putText("Disk is not formatted. Use command: format");
+            }
+            
             if (args.length > 0) {
 
             }
@@ -827,6 +847,10 @@ module TSOS {
         }
 
         public shellRename(args: string[]) {
+            if (_krnDiskDriver.isFormatted) {
+                _StdOut.putText("Disk is not formatted. Use command: format");
+            }
+            
             if (args.length > 1) {
 
             }
@@ -837,6 +861,10 @@ module TSOS {
         }
 
         public shellLs(){
+            if (_krnDiskDriver.isFormatted) {
+                _StdOut.putText("Disk is not formatted. Use command: format");
+            }
+            
             //could add args, see challenge [60]
         }
     }

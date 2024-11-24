@@ -9,12 +9,14 @@
     // Extends DeviceDriver
     export class DeviceDriverDisk extends DeviceDriver {
 
-        constructor() {
+        constructor(public isFormatted?: boolean) {
             // Override the base method pointers.
 
             super();
-            this.driverEntry = this.krnDiskDriverEntry;
             //this.isr = this.krnDiskDispatchKeyPress;
+
+            this.driverEntry = this.krnDiskDriverEntry;
+            this.isFormatted = false;
         }
 
         public krnDiskDriverEntry() {
@@ -27,6 +29,7 @@
             for (var i = 0; i < DISK_SIZE; i++) {
                 
             }
+            this.isFormatted = true;
             // sessionStorage.setItem('myKey', 'myValue'); 
             // var myVar = sessionStorage.getItem('myKey');
         }
@@ -146,9 +149,15 @@
                     var emptyTSB = Utils.toHex(ERROR_CODE, HEX_WORD_SIZE).repeat(3);
                     this.setTSB(key, emptyTSB);
                     this.setData(key, Utils.stringToHex(fileName));
+
+                    //update disk display
+                    return key;
                 }
             }
+            // FILE RECOVERY: loop again, check inuse for recoverable files, over write one
 
+            //no unused blocks left
+            _StdOut.putText("Disk Full. Too many files in directory");
         }
 
             //write in use, TSB

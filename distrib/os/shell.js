@@ -585,6 +585,9 @@ var TSOS;
             //could add args, see challenge [58]
         }
         shellCreate(args) {
+            if (_krnDiskDriver.isFormatted) {
+                _StdOut.putText("Disk is not formatted. Use command: format");
+            }
             if (args.length > 0) {
                 //replace spaces with _
                 var fileName = args.join("_");
@@ -598,6 +601,9 @@ var TSOS;
             }
         }
         shellRead(args) {
+            if (_krnDiskDriver.isFormatted) {
+                _StdOut.putText("Disk is not formatted. Use command: format");
+            }
             if (args.length > 0) {
             }
             else {
@@ -605,6 +611,9 @@ var TSOS;
             }
         }
         shellWrite(args) {
+            if (_krnDiskDriver.isFormatted) {
+                _StdOut.putText("Disk is not formatted. Use command: format");
+            }
             if (args.length > 1) {
             }
             else {
@@ -612,6 +621,9 @@ var TSOS;
             }
         }
         shellCopy(args) {
+            if (_krnDiskDriver.isFormatted) {
+                _StdOut.putText("Disk is not formatted. Use command: format");
+            }
             if (args.length > 1) {
             }
             else {
@@ -619,6 +631,9 @@ var TSOS;
             }
         }
         shellDelete(args) {
+            if (_krnDiskDriver.isFormatted) {
+                _StdOut.putText("Disk is not formatted. Use command: format");
+            }
             if (args.length > 0) {
             }
             else {
@@ -626,6 +641,9 @@ var TSOS;
             }
         }
         shellRename(args) {
+            if (_krnDiskDriver.isFormatted) {
+                _StdOut.putText("Disk is not formatted. Use command: format");
+            }
             if (args.length > 1) {
             }
             else {
@@ -633,6 +651,9 @@ var TSOS;
             }
         }
         shellLs() {
+            if (_krnDiskDriver.isFormatted) {
+                _StdOut.putText("Disk is not formatted. Use command: format");
+            }
             //could add args, see challenge [60]
         }
     }
