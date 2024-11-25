@@ -71,9 +71,9 @@ const NUM_SECTORS = 8;
 const NUM_BLOCKS = 8;
 const DISK_SIZE = NUM_TRACKS * NUM_SECTORS * NUM_BLOCKS; //0o400;
 //indexes for file byte data
-const INUSE_INDEX = 0;
-const TSB_INDEX = 1;
-const DATA_INDEX = 4;
+const INUSE_INDEX = 0; // 01  23  45  67  89  ab
+const TSB_INDEX = 2; //[00][01][00][01][a9][88][8d][10][00][00][00][00]
+const DATA_INDEX = 6;
 //
 const BYTES_PER_BLOCK = 64; //0o100
 const MAX_FILE_NAME_SIZE = BYTES_PER_BLOCK - DATA_INDEX;

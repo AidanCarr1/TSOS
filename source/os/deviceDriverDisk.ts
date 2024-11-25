@@ -137,26 +137,23 @@
         }
 
         private addFile(fileName: string) {
-            _Kernel.krnTrace("adding file...");
             //loop through directory
             for (var i = 0; i < DIRECTORY_LENGTH; i++) {
 
                 //check until we find an unused block
                 var key = Utils.toOct(i, OCT_WORD_SIZE);
-                _Kernel.krnTrace("key: " + key);
                 if (this.getInuse(key) == Utils.toHex(0, HEX_WORD_SIZE)) {
                     
-                    _Kernel.krnTrace("key " + key + "open");
                     //set up camp here
                     this.setInuse(key, Utils.toHex(1, HEX_WORD_SIZE));
                     var emptyTSB = Utils.toHex(ERROR_CODE, HEX_WORD_SIZE).repeat(3);
                     this.setTSB(key, emptyTSB);
                     this.setData(key, Utils.stringToHex(fileName));
 
-                    _Kernel.krnTrace("data set");
+                    //log it
+                    _Kernel.krnTrace("File " +fileName+ " saved at key " +key);
 
                     //update disk display
-                    _StdOut.putText("Key: " + key);
                     return key;
                 }
             }

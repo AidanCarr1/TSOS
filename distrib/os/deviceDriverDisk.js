@@ -110,22 +110,19 @@ var TSOS;
             return block.substring(DATA_INDEX);
         }
         addFile(fileName) {
-            _Kernel.krnTrace("adding file...");
             //loop through directory
             for (var i = 0; i < DIRECTORY_LENGTH; i++) {
                 //check until we find an unused block
                 var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
-                _Kernel.krnTrace("key: " + key);
                 if (this.getInuse(key) == TSOS.Utils.toHex(0, HEX_WORD_SIZE)) {
-                    _Kernel.krnTrace("key " + key + "open");
                     //set up camp here
                     this.setInuse(key, TSOS.Utils.toHex(1, HEX_WORD_SIZE));
                     var emptyTSB = TSOS.Utils.toHex(ERROR_CODE, HEX_WORD_SIZE).repeat(3);
                     this.setTSB(key, emptyTSB);
                     this.setData(key, TSOS.Utils.stringToHex(fileName));
-                    _Kernel.krnTrace("data set");
+                    //log it
+                    _Kernel.krnTrace("File " + fileName + " saved at key " + key);
                     //update disk display
-                    _StdOut.putText("Key: " + key);
                     return key;
                 }
             }
