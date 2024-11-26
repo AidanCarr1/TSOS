@@ -137,25 +137,23 @@ table{
 }
 .diskColLabel{
   background-color:darkcyan;
-  -width: 75px;
   -border: 1px solid black;
 }
 .diskKey{
-  background-color: lightsteelblue;
-  width: 75px;
+  background-color: lightskyblue;
+  width: 100px;
 }
 .diskInUse{
   background-color: lightsteelblue;
-  width: 50px;
+  width: 100px;
 }
 .diskTSB{
   background-color: lightsteelblue;
-  width: 75px;
+  width: 100px;
 }
 .diskData{
   background-color: lightsteelblue;
-  width: 875px;
-
+  width: 1100px;
 }
 
 

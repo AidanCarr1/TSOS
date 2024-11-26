@@ -275,7 +275,7 @@ module TSOS {
             document.getElementById("priority"+pid).innerText = Utils.toHex(pcb.priority);
         }
 
-        /*
+        
         public static createDiskDisplay(): void {
             
             var table: HTMLTableElement = <HTMLTableElement> document.getElementById("diskTable");
@@ -285,21 +285,17 @@ module TSOS {
                 var key = Utils.toOct(i, OCT_WORD_SIZE);
 
                 var rowHTML = 
-                   `<tr id="Block###">
-                    <td id="Key000"     class="diskKey">000</td>
-                    <td id="InUse000"   class="diskInUse">0</td>
-                    <td id="TSB000"     class="diskTSB">---</td>
-                    <td id="Data${}"    class="diskData">000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</td>
-                    </tr>`
+                   `<tr id="Block${key}">
+                    <td id="Key${key}"     class="diskKey">${key}</td>
+                    <td id="InUse${key}"   class="diskInUse">${_krnDiskDriver.getInuse(key)}</td>
+                    <td id="TSB${key}"     class="diskTSB">${_krnDiskDriver.getTSB(key)}</td>
+                    <td id="Data${key}"    class="diskData">${_krnDiskDriver.getData(key)}</td>
+                    </tr>`;
+
+                row.innerHTML = rowHTML;
             }
-            
-
-
-            document.getElementById("diskTable").addrow;
-
-            
-
         }
+        /*
 
 
         public static updateDiskDisplay(key: string): void {

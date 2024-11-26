@@ -223,6 +223,20 @@ var TSOS;
             }
             document.getElementById("priority" + pid).innerText = TSOS.Utils.toHex(pcb.priority);
         }
+        static createDiskDisplay() {
+            var table = document.getElementById("diskTable");
+            for (var i = 0; i < DISK_SIZE; i++) {
+                var row = table.insertRow();
+                var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
+                var rowHTML = `<tr id="Block${key}">
+                    <td id="Key${key}"     class="diskKey">${key}</td>
+                    <td id="InUse${key}"   class="diskInUse">${_krnDiskDriver.getInuse(key)}</td>
+                    <td id="TSB${key}"     class="diskTSB">${_krnDiskDriver.getTSB(key)}</td>
+                    <td id="Data${key}"    class="diskData">${_krnDiskDriver.getData(key)}</td>
+                    </tr>`;
+                row.innerHTML = rowHTML;
+            }
+        }
     }
     TSOS.Control = Control;
 })(TSOS || (TSOS = {}));

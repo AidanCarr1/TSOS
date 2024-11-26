@@ -11,7 +11,7 @@
 // Global CONSTANTS (TypeScript 1.5 introduced const. Very cool.)
 //
 const APP_NAME = "TSauce"; // 'cause Bob and I were at a loss for a better name.
-const APP_VERSION = "11.11.11"; // date of last edit, i will definetly forget to update this number
+const APP_VERSION = "11.25"; // date of last edit, i will definetly forget to update this number
 const CPU_CLOCK_INTERVAL = 50; // This is in ms (milliseconds) so 1000 = 1 second.
 const DEFAULT_QUANTUM = 6; //cycles ofr round robin quantum
 const ERROR_CODE = -1;
@@ -72,9 +72,8 @@ const NUM_BLOCKS = 8;
 const DISK_SIZE = NUM_TRACKS * NUM_SECTORS * NUM_BLOCKS; //0o400;
 //indexes for file byte data
 const INUSE_INDEX = 0; // 01  23  45  67  89  ab
-const TSB_INDEX = 2; //[00][01][00][01][a9][88][8d][10][00][00][00][00]
-const DATA_INDEX = 6;
-//
+const TSB_INDEX = 2; //[00][01  00  01][a9  88  8d  10  00  00  00  00]
+const DATA_INDEX = 8;
 const BYTES_PER_BLOCK = 64; //0o100
 const MAX_FILE_NAME_SIZE = BYTES_PER_BLOCK - DATA_INDEX;
 const DIRECTORY_LENGTH = 0o100;

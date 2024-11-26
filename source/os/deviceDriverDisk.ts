@@ -31,8 +31,13 @@
                 sessionStorage.setItem(key, "00".repeat(BYTES_PER_BLOCK));
             }
             this.isFormatted = true;
-            // sessionStorage.setItem('myKey', 'myValue'); 
-            // var myVar = sessionStorage.getItem('myKey');
+
+            //set Master Boot Record
+            _Kernel.krnTrace(Utils.toHex(1, HEX_WORD_SIZE));
+            this.setInuse("000", Utils.toHex(1, HEX_WORD_SIZE));
+
+            //create disk display table
+            Control.createDiskDisplay();
         }
 
         public create(fileName: string) {
@@ -106,37 +111,40 @@
         }
 
         // SET FUNCTIONS
-        private setInuse(key: string, inuse: string) {
+        public setInuse(key: string, inuse: string) {
+            _Kernel.krnTrace("setting in use");
             var block = sessionStorage.getItem(key);
             var newBlock = inuse + block.substring(TSB_INDEX);
+            _Kernel.krnTrace("new block "+newBlock);
             sessionStorage.setItem(key, newBlock); 
+            _Kernel.krnTrace("set in use");
         }
-        private setTSB(key: string, tsb: string) {
+        public setTSB(key: string, tsb: string) {
             var block = sessionStorage.getItem(key);
             var newBlock = block.substring(INUSE_INDEX, TSB_INDEX) + tsb + block.substring(DATA_INDEX);
             sessionStorage.setItem(key, newBlock); 
         }
-        private setData(key: string, data: string) {
+        public setData(key: string, data: string) {
             var block = sessionStorage.getItem(key);
             var newBlock = block.substring(INUSE_INDEX, DATA_INDEX) + data;
             sessionStorage.setItem(key, newBlock); 
         }
 
         // GET FUNCTIONS
-        private getInuse(key: string): string {
+        public getInuse(key: string): string {
             var block = sessionStorage.getItem(key);
             return block.substring(INUSE_INDEX, TSB_INDEX);
         }
-        private getTSB(key: string): string {
+        public getTSB(key: string): string {
             var block = sessionStorage.getItem(key);
             return block.substring(TSB_INDEX, DATA_INDEX);
         }
-        private getData(key: string): string {
+        public getData(key: string): string {
             var block = sessionStorage.getItem(key);
             return block.substring(DATA_INDEX);
         }
 
-        private addFile(fileName: string) {
+        public addFile(fileName: string) {
             //loop through directory
             for (var i = 0; i < DIRECTORY_LENGTH; i++) {
 

@@ -27,8 +27,11 @@ var TSOS;
                 sessionStorage.setItem(key, "00".repeat(BYTES_PER_BLOCK));
             }
             this.isFormatted = true;
-            // sessionStorage.setItem('myKey', 'myValue'); 
-            // var myVar = sessionStorage.getItem('myKey');
+            //set Master Boot Record
+            _Kernel.krnTrace(TSOS.Utils.toHex(1, HEX_WORD_SIZE));
+            this.setInuse("000", TSOS.Utils.toHex(1, HEX_WORD_SIZE));
+            //create disk display table
+            TSOS.Control.createDiskDisplay();
         }
         create(fileName) {
             //add to list of files
@@ -82,9 +85,12 @@ var TSOS;
         }
         // SET FUNCTIONS
         setInuse(key, inuse) {
+            _Kernel.krnTrace("setting in use");
             var block = sessionStorage.getItem(key);
             var newBlock = inuse + block.substring(TSB_INDEX);
+            _Kernel.krnTrace("new block " + newBlock);
             sessionStorage.setItem(key, newBlock);
+            _Kernel.krnTrace("set in use");
         }
         setTSB(key, tsb) {
             var block = sessionStorage.getItem(key);
