@@ -95,7 +95,7 @@ module TSOS {
         }
 
         //take string "Hello" convert to WORDSIZE2 Hex string ""
-        public static stringToHex(str: string): string {
+        public static stringToHex(str: string, rPadding?: number): string {
             var hexString = "";
 
             //convert each char to hex value
@@ -106,6 +106,7 @@ module TSOS {
                 hexString += hexChar;
             }
             //return string of all hex values
+            hexString += "0".repeat(rPadding*HEX_WORD_SIZE - hexString.length);
             return hexString;
         }
 

@@ -75,7 +75,8 @@ const INUSE_INDEX = 0; // 01  23  45  67  89  ab
 const TSB_INDEX = 2; //[00][01  00  01][a9  88  8d  10  00  00  00  00]
 const DATA_INDEX = 8;
 const BYTES_PER_BLOCK = 64; //0o100
-const MAX_FILE_NAME_SIZE = BYTES_PER_BLOCK - DATA_INDEX;
+const BYTES_FOR_DATA = 60;
+const MAX_FILE_NAME_SIZE = BYTES_FOR_DATA;
 const DIRECTORY_LENGTH = 0o100;
 const OCT_WORD_SIZE = 3; //3 chars per key: 0o000 -> 0o377
 // For testing (and enrichment)...

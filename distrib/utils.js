@@ -82,7 +82,7 @@ var TSOS;
             return character.charCodeAt(0);
         }
         //take string "Hello" convert to WORDSIZE2 Hex string ""
-        static stringToHex(str) {
+        static stringToHex(str, rPadding) {
             var hexString = "";
             //convert each char to hex value
             for (var i = 0; i < str.length; i++) {
@@ -92,6 +92,7 @@ var TSOS;
                 hexString += hexChar;
             }
             //return string of all hex values
+            hexString += "0".repeat(rPadding * HEX_WORD_SIZE - hexString.length);
             return hexString;
         }
         //take a number (26) and return the oct equivalent string ("0c32")

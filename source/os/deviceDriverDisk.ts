@@ -172,7 +172,7 @@
                     //set up camp here
                     this.setInuse(key, true);
                     this.resetTSB(key);
-                    this.setData(key, Utils.stringToHex(fileName));
+                    this.setData(key, Utils.stringToHex(fileName, BYTES_FOR_DATA));
 
                     //log it
                     _Kernel.krnTrace("File " +fileName+ " saved at key " +key);
