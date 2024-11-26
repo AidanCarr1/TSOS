@@ -104,6 +104,21 @@ var TSOS;
             }
             return octRaw;
         }
+        static keyToHex(key) {
+            _Kernel.krnTrace("start key to hex");
+            var hex = "";
+            for (var i = 0; i < key.length; i += HEX_WORD_SIZE) {
+                var anOct = key.substring(i, i + HEX_WORD_SIZE + 1);
+                if (anOct === "--") {
+                    hex += "-";
+                }
+                else {
+                    hex += anOct[1];
+                }
+            }
+            _Kernel.krnTrace("end key to hex");
+            return hex;
+        }
     }
     TSOS.Utils = Utils;
 })(TSOS || (TSOS = {}));

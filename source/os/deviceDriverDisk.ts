@@ -29,15 +29,16 @@
             for (var i = 0; i < DISK_SIZE; i++) {
                 var key = Utils.toOct(i, OCT_WORD_SIZE);
                 sessionStorage.setItem(key, "00".repeat(BYTES_PER_BLOCK));
+                this.resetTSB(key);
             }
-            this.isFormatted = true;
 
             //set Master Boot Record
             _Kernel.krnTrace(Utils.toHex(1, HEX_WORD_SIZE));
-            this.setInuse("000", Utils.toHex(1, HEX_WORD_SIZE));
+            this.setInuse("000", true);
 
             //create disk display table
             Control.createDiskDisplay();
+            this.isFormatted = true;
         }
 
         public create(fileName: string) {
@@ -111,23 +112,39 @@
         }
 
         // SET FUNCTIONS
-        public setInuse(key: string, inuse: string) {
-            _Kernel.krnTrace("setting in use");
+        public setInuse(key: string, inuse: boolean) {
+            var inuseHex = Utils.toHex(0, HEX_WORD_SIZE);
+            if (inuse) {
+                inuseHex = Utils.toHex(1, HEX_WORD_SIZE);
+            }
+            //_Kernel.krnTrace("setting in use");
             var block = sessionStorage.getItem(key);
-            var newBlock = inuse + block.substring(TSB_INDEX);
-            _Kernel.krnTrace("new block "+newBlock);
+            var newBlock = inuseHex + block.substring(TSB_INDEX);
+            //_Kernel.krnTrace("new block "+newBlock);
             sessionStorage.setItem(key, newBlock); 
-            _Kernel.krnTrace("set in use");
+            //_Kernel.krnTrace("set in use");
+            Control.updateDiskDisplay(key);
         }
         public setTSB(key: string, tsb: string) {
             var block = sessionStorage.getItem(key);
             var newBlock = block.substring(INUSE_INDEX, TSB_INDEX) + tsb + block.substring(DATA_INDEX);
             sessionStorage.setItem(key, newBlock); 
+
+            Control.updateDiskDisplay(key);
+        }
+        public resetTSB(key: string) {
+            var block = sessionStorage.getItem(key);
+            var newBlock = block.substring(INUSE_INDEX, TSB_INDEX) + Utils.toHex(ERROR_CODE, HEX_WORD_SIZE).repeat(OCT_WORD_SIZE) + block.substring(DATA_INDEX);
+            sessionStorage.setItem(key, newBlock); 
+
+            Control.updateDiskDisplay(key);
         }
         public setData(key: string, data: string) {
             var block = sessionStorage.getItem(key);
             var newBlock = block.substring(INUSE_INDEX, DATA_INDEX) + data;
             sessionStorage.setItem(key, newBlock); 
+
+            Control.updateDiskDisplay(key);
         }
 
         // GET FUNCTIONS
@@ -153,9 +170,8 @@
                 if (this.getInuse(key) == Utils.toHex(0, HEX_WORD_SIZE)) {
                     
                     //set up camp here
-                    this.setInuse(key, Utils.toHex(1, HEX_WORD_SIZE));
-                    var emptyTSB = Utils.toHex(ERROR_CODE, HEX_WORD_SIZE).repeat(3);
-                    this.setTSB(key, emptyTSB);
+                    this.setInuse(key, true);
+                    this.resetTSB(key);
                     this.setData(key, Utils.stringToHex(fileName));
 
                     //log it

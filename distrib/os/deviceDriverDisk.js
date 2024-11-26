@@ -25,13 +25,14 @@ var TSOS;
             for (var i = 0; i < DISK_SIZE; i++) {
                 var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
                 sessionStorage.setItem(key, "00".repeat(BYTES_PER_BLOCK));
+                this.resetTSB(key);
             }
-            this.isFormatted = true;
             //set Master Boot Record
             _Kernel.krnTrace(TSOS.Utils.toHex(1, HEX_WORD_SIZE));
-            this.setInuse("000", TSOS.Utils.toHex(1, HEX_WORD_SIZE));
+            this.setInuse("000", true);
             //create disk display table
             TSOS.Control.createDiskDisplay();
+            this.isFormatted = true;
         }
         create(fileName) {
             //add to list of files
@@ -85,22 +86,35 @@ var TSOS;
         }
         // SET FUNCTIONS
         setInuse(key, inuse) {
-            _Kernel.krnTrace("setting in use");
+            var inuseHex = TSOS.Utils.toHex(0, HEX_WORD_SIZE);
+            if (inuse) {
+                inuseHex = TSOS.Utils.toHex(1, HEX_WORD_SIZE);
+            }
+            //_Kernel.krnTrace("setting in use");
             var block = sessionStorage.getItem(key);
-            var newBlock = inuse + block.substring(TSB_INDEX);
-            _Kernel.krnTrace("new block " + newBlock);
+            var newBlock = inuseHex + block.substring(TSB_INDEX);
+            //_Kernel.krnTrace("new block "+newBlock);
             sessionStorage.setItem(key, newBlock);
-            _Kernel.krnTrace("set in use");
+            //_Kernel.krnTrace("set in use");
+            TSOS.Control.updateDiskDisplay(key);
         }
         setTSB(key, tsb) {
             var block = sessionStorage.getItem(key);
             var newBlock = block.substring(INUSE_INDEX, TSB_INDEX) + tsb + block.substring(DATA_INDEX);
             sessionStorage.setItem(key, newBlock);
+            TSOS.Control.updateDiskDisplay(key);
+        }
+        resetTSB(key) {
+            var block = sessionStorage.getItem(key);
+            var newBlock = block.substring(INUSE_INDEX, TSB_INDEX) + TSOS.Utils.toHex(ERROR_CODE, HEX_WORD_SIZE).repeat(OCT_WORD_SIZE) + block.substring(DATA_INDEX);
+            sessionStorage.setItem(key, newBlock);
+            TSOS.Control.updateDiskDisplay(key);
         }
         setData(key, data) {
             var block = sessionStorage.getItem(key);
             var newBlock = block.substring(INUSE_INDEX, DATA_INDEX) + data;
             sessionStorage.setItem(key, newBlock);
+            TSOS.Control.updateDiskDisplay(key);
         }
         // GET FUNCTIONS
         getInuse(key) {
@@ -122,9 +136,8 @@ var TSOS;
                 var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
                 if (this.getInuse(key) == TSOS.Utils.toHex(0, HEX_WORD_SIZE)) {
                     //set up camp here
-                    this.setInuse(key, TSOS.Utils.toHex(1, HEX_WORD_SIZE));
-                    var emptyTSB = TSOS.Utils.toHex(ERROR_CODE, HEX_WORD_SIZE).repeat(3);
-                    this.setTSB(key, emptyTSB);
+                    this.setInuse(key, true);
+                    this.resetTSB(key);
                     this.setData(key, TSOS.Utils.stringToHex(fileName));
                     //log it
                     _Kernel.krnTrace("File " + fileName + " saved at key " + key);

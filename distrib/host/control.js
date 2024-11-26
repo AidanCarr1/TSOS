@@ -229,12 +229,19 @@ var TSOS;
                 var row = table.insertRow();
                 var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
                 var rowHTML = `<tr id="Block${key}">
-                    <td id="Key${key}"     class="diskKey">${key}</td>
+                    <td id="Key${key}"     class="diskKey">${key}</td> 
                     <td id="InUse${key}"   class="diskInUse">${_krnDiskDriver.getInuse(key)}</td>
-                    <td id="TSB${key}"     class="diskTSB">${_krnDiskDriver.getTSB(key)}</td>
+                    <td id="TSB${key}"     class="diskTSB">${TSOS.Utils.keyToHex(_krnDiskDriver.getTSB(key))}</td>
                     <td id="Data${key}"    class="diskData">${_krnDiskDriver.getData(key)}</td>
                     </tr>`;
                 row.innerHTML = rowHTML;
+            }
+        }
+        static updateDiskDisplay(key) {
+            if (_krnDiskDriver.isFormatted) {
+                document.getElementById("InUse" + key).innerText = _krnDiskDriver.getInuse(key);
+                document.getElementById("TSB" + key).innerText = TSOS.Utils.keyToHex(_krnDiskDriver.getTSB(key));
+                document.getElementById("Data" + key).innerText = _krnDiskDriver.getData(key);
             }
         }
     }

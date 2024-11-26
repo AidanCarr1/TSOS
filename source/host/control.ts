@@ -286,47 +286,25 @@ module TSOS {
 
                 var rowHTML = 
                    `<tr id="Block${key}">
-                    <td id="Key${key}"     class="diskKey">${key}</td>
+                    <td id="Key${key}"     class="diskKey">${key}</td> 
                     <td id="InUse${key}"   class="diskInUse">${_krnDiskDriver.getInuse(key)}</td>
-                    <td id="TSB${key}"     class="diskTSB">${_krnDiskDriver.getTSB(key)}</td>
+                    <td id="TSB${key}"     class="diskTSB">${Utils.keyToHex(_krnDiskDriver.getTSB(key))}</td>
                     <td id="Data${key}"    class="diskData">${_krnDiskDriver.getData(key)}</td>
                     </tr>`;
 
                 row.innerHTML = rowHTML;
             }
         }
-        /*
+        
 
 
         public static updateDiskDisplay(key: string): void {
             
-            document.getElementById("state"+key).innerText    = pcb.getState();
-
-            var pid = pcb.pid;
-
-            //if it doesnt exist in HTML, dont update the table
-            if (!pcb.isInHTML) {
-                return;
+            if (_krnDiskDriver.isFormatted) {
+                document.getElementById("InUse"+key).innerText    = _krnDiskDriver.getInuse(key);
+                document.getElementById("TSB"+key).innerText      = Utils.keyToHex(_krnDiskDriver.getTSB(key));
+                document.getElementById("Data"+key).innerText     = _krnDiskDriver.getData(key);
             }
-
-            // change the PCB dispaly based on a new, current state           
-            document.getElementById("state"+pid).innerText    = pcb.getState();
-            document.getElementById("location"+pid).innerText = pcb.location;
-
-            //if segment no longer exists, show nothing
-            if (pcb.getSegment() == ERROR_CODE){
-                document.getElementById("base"+pid).innerText     = "--";
-                document.getElementById("limit"+pid).innerText    = "--";
-                document.getElementById("segment"+pid).innerText  = "--";
-            }
-            //if it exists show normal data
-            else {
-                document.getElementById("base"+pid).innerText     = Utils.toHex(pcb.getBase());
-                document.getElementById("limit"+pid).innerText    = Utils.toHex(pcb.getLimit());
-                document.getElementById("segment"+pid).innerText  = Utils.toHex(pcb.segment);
-            }
-            document.getElementById("priority"+pid).innerText = Utils.toHex(pcb.priority);
         }
-            */
     }
 }
