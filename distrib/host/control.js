@@ -153,7 +153,7 @@ var TSOS;
                 //row label
                 tableHTML += "<tr><td class='memoryRowLabel'> 0x" + TSOS.Utils.toHex(memoryCount, HEX_WORD_SIZE) + "</td>";
                 for (var col = 1; col <= MEMORY_COLUMNS; col++) {
-                    tableHTML += "<td class='memoryBox' id='mem" + memoryCount + "'> 0 </td>";
+                    tableHTML += "<td class='memoryBox' id='mem" + memoryCount + "'> 00 </td>";
                     memoryCount++;
                 }
                 //end row

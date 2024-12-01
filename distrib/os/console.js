@@ -75,7 +75,7 @@ var TSOS;
                 }
             }
         }
-        putText(text) {
+        putText(text, color) {
             /*  My first inclination here was to write two functions: putChar() and putString().
                 Then I remembered that JavaScript is (sadly) untyped and it won't differentiate
                 between the two. (Although TypeScript would. But we're compiling to JavaScipt anyway.)
@@ -83,6 +83,13 @@ var TSOS;
                 do the same thing, thereby encouraging confusion and decreasing readability, I
                 decided to write one function and use the term "text" to connote string or char.
             */
+            //if color is set, change the color
+            if (color) {
+                _StrokeColor = color;
+            }
+            else {
+                _StrokeColor = DEFAULT_STROKE_COLOR;
+            }
             if (text !== "") {
                 //one letter at a time
                 for (var letter in text) {

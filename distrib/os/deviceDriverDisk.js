@@ -38,19 +38,22 @@ var TSOS;
             //add to list of files
             this.addFile(fileName);
             //tell the shell
-            _StdOut.putText("File created: " + fileName);
+            _StdOut.putText("File created: ");
+            _StdOut.putText(fileName, FILE_TEXT);
         }
         read(fileName) {
             //get key
             var key = this.getKeyByFileName(fileName);
             if (key === "------") {
-                _StdOut.putText("No file found for " + fileName);
+                _StdOut.putText("No file found for ");
+                _StdOut.putText(fileName, FILE_TEXT);
                 return;
             }
             //get TSB
             var tsb = this.getTSB(key);
             if (tsb === "------") {
-                _StdOut.putText("Not data in " + fileName);
+                _StdOut.putText("Not data in ");
+                _StdOut.putText(fileName, FILE_TEXT);
                 return;
             }
             _StdOut.putText("theres data!");
@@ -70,9 +73,15 @@ var TSOS;
         isValidFileName(fileName) {
             //check length
             if (fileName.length > MAX_FILE_NAME_SIZE) {
-                _StdOut.putText("Error creating file: filename too long.");
+                _StdOut.putText("Error: filename too long, file not created.", ERROR_TEXT);
                 _StdOut.advanceLine();
                 _StdOut.putText("Maximum filename length is " + MAX_FILE_NAME_SIZE + " characters.");
+                return false;
+            }
+            //already a file
+            if (this.isAFileName(fileName)) {
+                _StdOut.putText("Error: A file already exists as ", ERROR_TEXT);
+                _StdOut.putText(fileName, FILE_TEXT);
                 return false;
             }
             //go through each character in filename
@@ -90,10 +99,10 @@ var TSOS;
                     //its good, next character
                 }
                 else {
-                    _StdOut.putText("Error creating file: Invalid filename.");
+                    _StdOut.putText("Error: invalid filename, file not created.", ERROR_TEXT);
                     _StdOut.advanceLine();
                     _StdOut.putText("Please only use letters, numbers, and underscore.");
-                    return;
+                    return false;
                 }
             }
             //passed tests
@@ -114,6 +123,18 @@ var TSOS;
             }
             _Kernel.krnTrace("file not found");
             return "------";
+        }
+        //if a file exists with this name, return true
+        isAFileName(fileName) {
+            //loop through directory
+            for (var i = 0; i < DIRECTORY_LENGTH; i++) {
+                var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
+                //find used block with same file name
+                if (this.isInuse(key) && this.getData(key) === TSOS.Utils.stringToHex(fileName, BYTES_FOR_DATA)) {
+                    return true;
+                }
+            }
+            return false;
         }
         addFile(fileName) {
             //loop through directory

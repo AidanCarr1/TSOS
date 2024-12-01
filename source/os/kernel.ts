@@ -258,8 +258,8 @@ module TSOS {
 
             //tell the shell
             _StdOut.advanceLine();
-            _StdOut.putText("Out of bounds error. ");
-            _StdOut.putText("Cannot access memory " + Utils.toHex(address));
+            _StdOut.putText("Error: Out of bounds. ", ERROR_TEXT);
+            _StdOut.putText("Cannot access memory 0x" + Utils.toHex(address), ERROR_TEXT);
 
             //kill it!
             var systemCall = new Interrupt(KILL_PROCESS_IRQ, [pcb]);

@@ -29,7 +29,7 @@ function Glados() {
         _KernelInputQueue.enqueue('t');
         TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
 
-        // create aidan_test1
+        // create test 1
         _KernelInputQueue.enqueue('c');
         _KernelInputQueue.enqueue('r');
         _KernelInputQueue.enqueue('e');
@@ -37,16 +37,11 @@ function Glados() {
         _KernelInputQueue.enqueue('t');
         _KernelInputQueue.enqueue('e');
         _KernelInputQueue.enqueue(' ');
-        _KernelInputQueue.enqueue('a');
-        _KernelInputQueue.enqueue('i');
-        _KernelInputQueue.enqueue('d');
-        _KernelInputQueue.enqueue('a');
-        _KernelInputQueue.enqueue('n');
-        _KernelInputQueue.enqueue(' ');
         _KernelInputQueue.enqueue('t');
         _KernelInputQueue.enqueue('e');
         _KernelInputQueue.enqueue('s');
         _KernelInputQueue.enqueue('t');
+        _KernelInputQueue.enqueue(' ');
         _KernelInputQueue.enqueue('1');
         TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
 
@@ -58,20 +53,15 @@ function Glados() {
         _KernelInputQueue.enqueue('t');
         _KernelInputQueue.enqueue('e');
         _KernelInputQueue.enqueue(' ');
-        _KernelInputQueue.enqueue('a');
-        _KernelInputQueue.enqueue('i');
-        _KernelInputQueue.enqueue('d');
-        _KernelInputQueue.enqueue('a');
-        _KernelInputQueue.enqueue('n');
-        _KernelInputQueue.enqueue(' ');
         _KernelInputQueue.enqueue('t');
         _KernelInputQueue.enqueue('e');
         _KernelInputQueue.enqueue('s');
         _KernelInputQueue.enqueue('t');
-        _KernelInputQueue.enqueue('1');
+        _KernelInputQueue.enqueue(' ');
+        _KernelInputQueue.enqueue('2');
         TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
 
-        // create aidan_test 3
+        // create test 3
         _KernelInputQueue.enqueue('c');
         _KernelInputQueue.enqueue('r');
         _KernelInputQueue.enqueue('e');
@@ -79,17 +69,12 @@ function Glados() {
         _KernelInputQueue.enqueue('t');
         _KernelInputQueue.enqueue('e');
         _KernelInputQueue.enqueue(' ');
-        _KernelInputQueue.enqueue('a');
-        _KernelInputQueue.enqueue('i');
-        _KernelInputQueue.enqueue('d');
-        _KernelInputQueue.enqueue('a');
-        _KernelInputQueue.enqueue('n');
-        _KernelInputQueue.enqueue(' ');
         _KernelInputQueue.enqueue('t');
         _KernelInputQueue.enqueue('e');
         _KernelInputQueue.enqueue('s');
         _KernelInputQueue.enqueue('t');
-        _KernelInputQueue.enqueue('1');
+        _KernelInputQueue.enqueue(' ');
+        _KernelInputQueue.enqueue('3');
         TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
         
         // create 123

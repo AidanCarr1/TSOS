@@ -218,14 +218,14 @@ var TSOS;
         // called from here, so kept here to avoid violating the law of least astonishment.
         //
         shellInvalidCommand() {
-            _StdOut.putText("Invalid Command. ");
+            _StdOut.putText("Invalid Command. ", ERROR_TEXT);
             if (_SarcasticMode) {
-                _StdOut.putText("Unbelievable. You, doofus,");
+                _StdOut.putText("Unbelievable. You, doofus,", ERROR_TEXT);
                 _StdOut.advanceLine();
-                _StdOut.putText("must be the pride of Camden, NJ.");
+                _StdOut.putText("must be the pride of Camden, NJ.", ERROR_TEXT);
             }
             else {
-                _StdOut.putText("Type 'help' for, well... help.");
+                _StdOut.putText("Type 'help' for help.", ERROR_TEXT);
             }
         }
         shellCurse() {
@@ -401,7 +401,8 @@ var TSOS;
             //check for availible segment or if there is memory and we arent over writing program
             var segment = _MemoryManager.whereIsSpace();
             if (segment == ERROR_CODE) {
-                _StdOut.putText("No space in memory.");
+                _StdOut.putText("Error: No space in memory.", ERROR_TEXT);
+                //BOOKMARK add something here for formatting the disk
                 return;
             }
             var userProgramStr = document.getElementById("taProgramInput").value;
@@ -430,7 +431,7 @@ var TSOS;
             }
             //input is too long
             if (decimalList.length > SEGMENT_SIZE) {
-                _StdOut.putText("Input is too large for memory segments");
+                _StdOut.putText("Error: Input is too large for memory segments", ERROR_TEXT);
                 return;
             }
             //if its valid, load it
@@ -448,7 +449,7 @@ var TSOS;
                 TSOS.Control.updateMemoryDisplay();
             }
             else {
-                _StdOut.putText("Invalid Hex");
+                _StdOut.putText("Error: Invalid Hex", ERROR_TEXT);
                 return;
             }
         }
@@ -471,7 +472,7 @@ var TSOS;
                 }
                 //pid does not exist or isnt a number
                 else {
-                    _StdOut.putText("Please supply a valid <pid>.");
+                    _StdOut.putText("Error: Please supply a valid <pid>.", ERROR_TEXT);
                 }
             }
             else {
@@ -520,7 +521,7 @@ var TSOS;
                 }
                 //pid does not exist or isnt a number
                 else {
-                    _StdOut.putText("Please supply a valid <int>.");
+                    _StdOut.putText("Error: Please supply a valid <int>.", ERROR_TEXT);
                 }
             }
             else {
@@ -557,7 +558,7 @@ var TSOS;
                 }
                 //pid does not exist or isnt a number
                 else {
-                    _StdOut.putText("Please supply a valid <pid>.");
+                    _StdOut.putText("Error: Please supply a valid <pid>.", ERROR_TEXT);
                 }
             }
             else {
@@ -583,12 +584,17 @@ var TSOS;
         }
         shellFormat() {
             //could add args, see challenge [58]
-            _krnDiskDriver.format();
-            _StdOut.putText("Disk formatted!");
+            if (_krnDiskDriver.isFormatted) {
+                _StdOut.putText("Disk is already formatted");
+            }
+            else {
+                _krnDiskDriver.format();
+                _StdOut.putText("Disk formatted!");
+            }
         }
         shellCreate(args) {
             if (!_krnDiskDriver.isFormatted) {
-                _StdOut.putText("Disk is not formatted. Use command: format");
+                _StdOut.putText("Error: Disk is not formatted. Use command: format", ERROR_TEXT);
             }
             else if (args.length > 0) {
                 //replace spaces with _
@@ -599,12 +605,12 @@ var TSOS;
                 }
             }
             else {
-                _StdOut.putText("Usage: createfile <filename>  Please supply a file name.");
+                _StdOut.putText("Usage: create <filename>  Please supply a file name.");
             }
         }
         shellRead(args) {
             if (!_krnDiskDriver.isFormatted) {
-                _StdOut.putText("Disk is not formatted. Use command: format");
+                _StdOut.putText("Error: Disk is not formatted. Use command: format", ERROR_TEXT);
             }
             else if (args.length > 0) {
                 _krnDiskDriver.read(args[0]);
@@ -615,20 +621,26 @@ var TSOS;
         }
         shellWrite(args) {
             if (!_krnDiskDriver.isFormatted) {
-                _StdOut.putText("Disk is not formatted. Use command: format");
+                _StdOut.putText("Error: Disk is not formatted. Use command: format", ERROR_TEXT);
             }
             else if (args.length > 1) {
-                //replace spaces with space
+                // is it a real file?
                 var fileName = args[0];
+                if (!_krnDiskDriver.isAFileName(fileName)) {
+                    _StdOut.putText("Could not find the file ", ERROR_TEXT);
+                    _StdOut.putText(fileName, FILE_TEXT);
+                    return;
+                }
+                //get data
                 var rawData = args.slice(1).join(" ");
-                //_StdOut.putText(rawData);
                 var firstQuote = rawData.indexOf('"');
                 var secondQuote = rawData.indexOf('"', firstQuote + 1);
+                //not enough quotes found
                 if (firstQuote == ERROR_CODE || secondQuote == ERROR_CODE) {
-                    //not enough quotes found
                     _StdOut.putText('Usage: write <filename> "data"  Please supply a file name.');
                     return;
                 }
+                //write data to the file
                 var refinedData = rawData.substring(firstQuote + 1, secondQuote);
                 _StdOut.putText(refinedData);
                 //_krnDiskDriver.write(fileName, data);
@@ -639,7 +651,7 @@ var TSOS;
         }
         shellCopy(args) {
             if (!_krnDiskDriver.isFormatted) {
-                _StdOut.putText("Disk is not formatted. Use command: format");
+                _StdOut.putText("Error: Disk is not formatted. Use command: format", ERROR_TEXT);
             }
             else if (args.length > 1) {
             }
@@ -649,7 +661,7 @@ var TSOS;
         }
         shellDelete(args) {
             if (!_krnDiskDriver.isFormatted) {
-                _StdOut.putText("Disk is not formatted. Use command: format");
+                _StdOut.putText("Error: Disk is not formatted. Use command: format", ERROR_TEXT);
             }
             else if (args.length > 0) {
             }
@@ -659,7 +671,7 @@ var TSOS;
         }
         shellRename(args) {
             if (!_krnDiskDriver.isFormatted) {
-                _StdOut.putText("Disk is not formatted. Use command: format");
+                _StdOut.putText("Error: Disk is not formatted. Use command: format", ERROR_TEXT);
             }
             else if (args.length > 1) {
             }
@@ -669,7 +681,7 @@ var TSOS;
         }
         shellLs() {
             if (!_krnDiskDriver.isFormatted) {
-                _StdOut.putText("Disk is not formatted. Use command: format");
+                _StdOut.putText("Error: Disk is not formatted. Use command: format", ERROR_TEXT);
             }
             //could add args, see challenge [60]
         }
