@@ -186,7 +186,7 @@ table{
   font-size: 12px;
 }
 .cpuBox{
-  background-color: lightskyblue;
+  background-color: lightsteelblue; /*lightskyblue;*/
   -width: 60px;
 }
 
@@ -194,12 +194,15 @@ table{
   background-color: darkcyan;
   width: 60px;
 }
-.pcbBox{
+.pidBox{
   background-color: lightskyblue;
+}
+.pcbBox{
+  background-color: lightsteelblue;
   -width: 50px;
 }
 .pcbBoxS{
-  background-color: lightskyblue;
+  background-color: lightsteelblue;
   font-size:12px;
 }
 #pcbTable{

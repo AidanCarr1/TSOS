@@ -55,7 +55,7 @@
             
             //get key
             var key = this.getKeyByFileName(fileName);
-            if (key === "------") {
+            if (key === "------") { //shouldn't see this...
                 _StdOut.putText("No file found for ");
                 _StdOut.putText(fileName, FILE_TEXT);
                 return;
@@ -84,8 +84,21 @@
 
         }
 
-        public rename(oldName: string, newName: string) {
+        public rename(oldFileName: string, newFileName: string) {
+            //get key
+            var key = this.getKeyByFileName(oldFileName);
+            if (key === "------") { //shouldn't see this...
+                _StdOut.putText("No file found for ");
+                _StdOut.putText(oldFileName, FILE_TEXT);
+                return;
+            }
 
+            //rename
+            this.setData(key, Utils.stringToHex(newFileName, BYTES_FOR_DATA));
+            _StdOut.putText("File ");
+            _StdOut.putText(oldFileName, FILE_TEXT);
+            _StdOut.putText(" renamed to ");
+            _StdOut.putText(newFileName, FILE_TEXT);
         }
 
         public list() {

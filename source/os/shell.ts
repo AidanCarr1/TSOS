@@ -821,7 +821,7 @@ module TSOS {
                 // is it a real file?
                 var fileName = args[0];
                 if (!_krnDiskDriver.isAFileName(fileName)) {
-                    _StdOut.putText("Could not find the file ", ERROR_TEXT);
+                    _StdOut.putText("Error: Could not find the file ", ERROR_TEXT);
                     _StdOut.putText(fileName, FILE_TEXT);
                     return;
                 }
@@ -883,7 +883,19 @@ module TSOS {
             }
             
             else if (args.length > 1) {
+                // is it a real file?
+                var fileName = args[0];
+                if (!_krnDiskDriver.isAFileName(fileName)) {
+                    _StdOut.putText("Error: Could not find the file ", ERROR_TEXT);
+                    _StdOut.putText(fileName, FILE_TEXT);
+                    return;
+                }
 
+                //get new name
+                var newFileName = args.slice(1).join("_");
+                
+                //rename
+                _krnDiskDriver.rename(fileName, newFileName);
             }
             else {
                 _StdOut.putText("Usage: rename <old filename> <new filename>  Please supply a file name.");

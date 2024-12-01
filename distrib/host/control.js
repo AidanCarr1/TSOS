@@ -188,7 +188,7 @@ var TSOS;
             var table = document.getElementById("pcbTable"); //Via Google AI
             var row = table.insertRow();
             var rowHTML = "<tr id='pcb" + pcb.pid + "'>";
-            rowHTML += "<td id='pid" + pcb.pid + "'      class='pcbBox' >" + pcb.pid + "</td>";
+            rowHTML += "<td id='pid" + pcb.pid + "'      class='pidBox' >" + pcb.pid + "</td>";
             rowHTML += "<td id='state" + pcb.pid + "'    class='pcbBoxS'>" + pcb.getState() + "</td>";
             rowHTML += "<td id='location" + pcb.pid + "' class='pcbBox' >" + pcb.location + "</td>";
             rowHTML += "<td id='base" + pcb.pid + "'     class='pcbBox' >" + TSOS.Utils.toHex(pcb.getBase()) + "</td>";
