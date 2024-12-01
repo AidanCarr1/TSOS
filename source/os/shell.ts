@@ -812,7 +812,25 @@ module TSOS {
             }
             
             else if (args.length > 1) {
-                //_krnDiskDriver.write(args[0]);
+                //replace spaces with space
+                var fileName = args[0];
+                var rawData = args.slice(1).join(" ");
+                //_StdOut.putText(rawData);
+
+                var firstQuote = rawData.indexOf('"');
+                var secondQuote = rawData.indexOf('"', firstQuote + 1);
+
+                if (firstQuote == ERROR_CODE || secondQuote == ERROR_CODE) {
+                    //not enough quotes found
+                    _StdOut.putText('Usage: write <filename> "data"  Please supply a file name.');
+                    return;
+                }
+
+                var refinedData = rawData.substring(firstQuote+1, secondQuote);
+                _StdOut.putText(refinedData);
+
+
+                //_krnDiskDriver.write(fileName, data);
             }
             else {
                 _StdOut.putText('Usage: write <filename> "data"  Please supply a file name.');
