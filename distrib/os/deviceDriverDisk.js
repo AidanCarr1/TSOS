@@ -41,6 +41,7 @@ var TSOS;
             _StdOut.putText("File created: " + fileName);
         }
         read(fileName) {
+            this.getKeyByFileName(fileName);
         }
         write(fileName, fileData) {
         }
@@ -52,6 +53,8 @@ var TSOS;
         }
         list() {
         }
+        // FUNCTIONAL FUNCTIONS
+        // check filename length and characters
         isValidFileName(fileName) {
             //check length
             if (fileName.length > MAX_FILE_NAME_SIZE) {
@@ -83,6 +86,22 @@ var TSOS;
             }
             //passed tests
             return true;
+        }
+        // given the filename string, return key
+        getKeyByFileName(fileName) {
+            //loop through directory
+            for (var i = 0; i < DIRECTORY_LENGTH; i++) {
+                var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
+                //find used block with same file name
+                if (this.isInuse(key) && this.getData(key) === TSOS.Utils.stringToHex(fileName, BYTES_FOR_DATA)) {
+                    //log it
+                    _Kernel.krnTrace("the file is at " + key);
+                    //update disk display
+                    return key;
+                }
+            }
+            _Kernel.krnTrace("file not found");
+            return ERROR_CODE;
         }
         // SET FUNCTIONS
         setInuse(key, inuse) {
@@ -120,6 +139,12 @@ var TSOS;
         getInuse(key) {
             var block = sessionStorage.getItem(key);
             return block.substring(INUSE_INDEX, TSB_INDEX);
+        }
+        isInuse(key) {
+            var block = sessionStorage.getItem(key);
+            // true == 01
+            // false == 00
+            return block.substring(INUSE_INDEX, TSB_INDEX) == TSOS.Utils.toHex(1, HEX_WORD_SIZE);
         }
         getTSB(key) {
             var block = sessionStorage.getItem(key);

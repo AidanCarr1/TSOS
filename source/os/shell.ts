@@ -798,7 +798,7 @@ module TSOS {
             }
 
             else if (args.length > 0) {
-
+                _krnDiskDriver.read(args[0]);
             }
             else {
                 _StdOut.putText("Usage: read <filename>  Please supply a file name.");
@@ -812,7 +812,7 @@ module TSOS {
             }
             
             else if (args.length > 1) {
-
+                //_krnDiskDriver.write(args[0]);
             }
             else {
                 _StdOut.putText('Usage: write <filename> "data"  Please supply a file name.');
