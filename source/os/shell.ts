@@ -892,11 +892,15 @@ module TSOS {
         }
 
         public shellLs(){
+            //could add args, see challenge [60]
+
             if (!_krnDiskDriver.isFormatted) {
                 _StdOut.putText("Error: Disk is not formatted. Use command: format", ERROR_TEXT);
             }
             
-            //could add args, see challenge [60]
+            else {
+                _krnDiskDriver.list();
+            }
         }
     }
 }

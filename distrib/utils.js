@@ -120,6 +120,23 @@ var TSOS;
             _Kernel.krnTrace("end key to hex");
             return hex;
         }
+        //convert hex ASCII to readable english
+        static hexToString(longHex) {
+            var str = "";
+            for (var i = 0; i < longHex.length; i += HEX_WORD_SIZE) {
+                //get two characters from long hex
+                var hex = longHex.substring(i, i + HEX_WORD_SIZE);
+                //convert to decimal value (0 means end of word)
+                var num = this.hexStringToDecimal(hex);
+                if (num == 0) {
+                    return str;
+                }
+                //convert ASCII decimal to ASCII char
+                var char = String.fromCharCode(num);
+                str += char;
+            }
+            return str;
+        }
     }
     TSOS.Utils = Utils;
 })(TSOS || (TSOS = {}));

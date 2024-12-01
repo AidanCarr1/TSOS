@@ -67,6 +67,17 @@ var TSOS;
         rename(oldName, newName) {
         }
         list() {
+            for (var i = 0; i < DIRECTORY_LENGTH; i++) {
+                var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
+                if (i == 0) {
+                    //skip MBR
+                }
+                else if (this.isInuse(key)) {
+                    var fileName = TSOS.Utils.hexToString(this.getData(key));
+                    _StdOut.putText("  " + fileName, FILE_TEXT);
+                    _StdOut.advanceLine();
+                }
+            }
         }
         // FUNCTIONAL FUNCTIONS
         // check filename length and characters
