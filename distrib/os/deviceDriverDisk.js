@@ -41,7 +41,19 @@ var TSOS;
             _StdOut.putText("File created: " + fileName);
         }
         read(fileName) {
-            this.getKeyByFileName(fileName);
+            //get key
+            var key = this.getKeyByFileName(fileName);
+            if (key === "------") {
+                _StdOut.putText("No file found for " + fileName);
+                return;
+            }
+            //get TSB
+            var tsb = this.getTSB(key);
+            if (tsb === "------") {
+                _StdOut.putText("Not data in " + fileName);
+                return;
+            }
+            _StdOut.putText("theres data!");
         }
         write(fileName, fileData) {
         }
@@ -101,7 +113,27 @@ var TSOS;
                 }
             }
             _Kernel.krnTrace("file not found");
-            return ERROR_CODE;
+            return "------";
+        }
+        addFile(fileName) {
+            //loop through directory
+            for (var i = 0; i < DIRECTORY_LENGTH; i++) {
+                //check until we find an unused block
+                var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
+                if (this.getInuse(key) == TSOS.Utils.toHex(0, HEX_WORD_SIZE)) {
+                    //set up camp here
+                    this.setInuse(key, true);
+                    this.resetTSB(key);
+                    this.setData(key, TSOS.Utils.stringToHex(fileName, BYTES_FOR_DATA));
+                    //log it
+                    _Kernel.krnTrace("File " + fileName + " saved at key " + key);
+                    //update disk display
+                    return key;
+                }
+            }
+            // FILE RECOVERY: loop again, check inuse for recoverable files, over write one
+            //no unused blocks left
+            _StdOut.putText("Disk Full. Too many files in directory");
         }
         // SET FUNCTIONS
         setInuse(key, inuse) {
@@ -125,7 +157,8 @@ var TSOS;
         }
         resetTSB(key) {
             var block = sessionStorage.getItem(key);
-            var newBlock = block.substring(INUSE_INDEX, TSB_INDEX) + TSOS.Utils.toHex(ERROR_CODE, HEX_WORD_SIZE).repeat(OCT_WORD_SIZE) + block.substring(DATA_INDEX);
+            // "------"
+            var newBlock = block.substring(INUSE_INDEX, TSB_INDEX) + "------" /*Utils.toHex(ERROR_CODE, HEX_WORD_SIZE).repeat(OCT_WORD_SIZE)*/ + block.substring(DATA_INDEX);
             sessionStorage.setItem(key, newBlock);
             TSOS.Control.updateDiskDisplay(key);
         }
@@ -153,26 +186,6 @@ var TSOS;
         getData(key) {
             var block = sessionStorage.getItem(key);
             return block.substring(DATA_INDEX);
-        }
-        addFile(fileName) {
-            //loop through directory
-            for (var i = 0; i < DIRECTORY_LENGTH; i++) {
-                //check until we find an unused block
-                var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
-                if (this.getInuse(key) == TSOS.Utils.toHex(0, HEX_WORD_SIZE)) {
-                    //set up camp here
-                    this.setInuse(key, true);
-                    this.resetTSB(key);
-                    this.setData(key, TSOS.Utils.stringToHex(fileName, BYTES_FOR_DATA));
-                    //log it
-                    _Kernel.krnTrace("File " + fileName + " saved at key " + key);
-                    //update disk display
-                    return key;
-                }
-            }
-            // FILE RECOVERY: loop again, check inuse for recoverable files, over write one
-            //no unused blocks left
-            _StdOut.putText("Disk Full. Too many files in directory");
         }
     }
     TSOS.DeviceDriverDisk = DeviceDriverDisk;

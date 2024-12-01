@@ -12,7 +12,7 @@
 // Global CONSTANTS (TypeScript 1.5 introduced const. Very cool.)
 //
 const APP_NAME: string    = "TSauce";   // 'cause Bob and I were at a loss for a better name.
-const APP_VERSION: string = "11.25";   // date of last edit, i will definetly forget to update this number
+const APP_VERSION: string = "11.30";   // date of last edit, i will definetly forget to update this number
 
 const CPU_CLOCK_INTERVAL: number = 50;   // This is in ms (milliseconds) so 1000 = 1 second.
 const DEFAULT_QUANTUM: number = 6; //cycles ofr round robin quantum
@@ -99,7 +99,6 @@ const BYTES_FOR_DATA = 60;
 const MAX_FILE_NAME_SIZE = BYTES_FOR_DATA;
 const DIRECTORY_LENGTH = 0o100;
 const OCT_WORD_SIZE: number = 3; //3 chars per key: 0o000 -> 0o377
-
 
 
 // For testing (and enrichment)...

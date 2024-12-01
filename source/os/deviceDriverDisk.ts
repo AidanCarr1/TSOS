@@ -51,7 +51,22 @@
         }
 
         public read(fileName: string) {
-            this.getKeyByFileName(fileName);
+            
+            //get key
+            var key = this.getKeyByFileName(fileName);
+            if (key === "------") {
+                _StdOut.putText("No file found for " + fileName);
+                return;
+            }
+
+            //get TSB
+            var tsb = this.getTSB(key);
+            if (tsb === "------") {
+                _StdOut.putText("Not data in " + fileName);
+                return;
+            }
+
+            _StdOut.putText("theres data!");
         }
 
         public write(fileName: string, fileData: string) {
@@ -73,6 +88,7 @@
         public list() {
 
         }
+
 
         // FUNCTIONAL FUNCTIONS
 
@@ -131,63 +147,7 @@
                 }
             }
             _Kernel.krnTrace("file not found");
-            return ERROR_CODE;
-        }
-
-        // SET FUNCTIONS
-        public setInuse(key: string, inuse: boolean) {
-            var inuseHex = Utils.toHex(0, HEX_WORD_SIZE);
-            if (inuse) {
-                inuseHex = Utils.toHex(1, HEX_WORD_SIZE);
-            }
-            //_Kernel.krnTrace("setting in use");
-            var block = sessionStorage.getItem(key);
-            var newBlock = inuseHex + block.substring(TSB_INDEX);
-            //_Kernel.krnTrace("new block "+newBlock);
-            sessionStorage.setItem(key, newBlock); 
-            //_Kernel.krnTrace("set in use");
-            Control.updateDiskDisplay(key);
-        }
-        public setTSB(key: string, tsb: string) {
-            var block = sessionStorage.getItem(key);
-            var newBlock = block.substring(INUSE_INDEX, TSB_INDEX) + tsb + block.substring(DATA_INDEX);
-            sessionStorage.setItem(key, newBlock); 
-
-            Control.updateDiskDisplay(key);
-        }
-        public resetTSB(key: string) {
-            var block = sessionStorage.getItem(key);
-            var newBlock = block.substring(INUSE_INDEX, TSB_INDEX) + Utils.toHex(ERROR_CODE, HEX_WORD_SIZE).repeat(OCT_WORD_SIZE) + block.substring(DATA_INDEX);
-            sessionStorage.setItem(key, newBlock); 
-
-            Control.updateDiskDisplay(key);
-        }
-        public setData(key: string, data: string) {
-            var block = sessionStorage.getItem(key);
-            var newBlock = block.substring(INUSE_INDEX, DATA_INDEX) + data;
-            sessionStorage.setItem(key, newBlock); 
-
-            Control.updateDiskDisplay(key);
-        }
-
-        // GET FUNCTIONS
-        public getInuse(key: string): string {
-            var block = sessionStorage.getItem(key);
-            return block.substring(INUSE_INDEX, TSB_INDEX);
-        }
-        public isInuse(key: string): boolean {
-            var block = sessionStorage.getItem(key);
-            // true == 01
-            // false == 00
-            return block.substring(INUSE_INDEX, TSB_INDEX) == Utils.toHex(1, HEX_WORD_SIZE);
-        }
-        public getTSB(key: string): string {
-            var block = sessionStorage.getItem(key);
-            return block.substring(TSB_INDEX, DATA_INDEX);
-        }
-        public getData(key: string): string {
-            var block = sessionStorage.getItem(key);
-            return block.substring(DATA_INDEX);
+            return "------";
         }
 
         public addFile(fileName: string) {
@@ -215,6 +175,71 @@
             //no unused blocks left
             _StdOut.putText("Disk Full. Too many files in directory");
         }
+
+
+
+        // SET FUNCTIONS
+        public setInuse(key: string, inuse: boolean) {
+            var inuseHex = Utils.toHex(0, HEX_WORD_SIZE);
+            if (inuse) {
+                inuseHex = Utils.toHex(1, HEX_WORD_SIZE);
+            }
+            //_Kernel.krnTrace("setting in use");
+            var block = sessionStorage.getItem(key);
+            var newBlock = inuseHex + block.substring(TSB_INDEX);
+            //_Kernel.krnTrace("new block "+newBlock);
+            sessionStorage.setItem(key, newBlock); 
+            //_Kernel.krnTrace("set in use");
+            Control.updateDiskDisplay(key);
+        }
+        public setTSB(key: string, tsb: string) {
+            var block = sessionStorage.getItem(key);
+            var newBlock = block.substring(INUSE_INDEX, TSB_INDEX) + tsb + block.substring(DATA_INDEX);
+            sessionStorage.setItem(key, newBlock); 
+
+            Control.updateDiskDisplay(key);
+        }
+        public resetTSB(key: string) {
+            var block = sessionStorage.getItem(key);
+            // "------"
+            var newBlock = block.substring(INUSE_INDEX, TSB_INDEX) + "------" /*Utils.toHex(ERROR_CODE, HEX_WORD_SIZE).repeat(OCT_WORD_SIZE)*/ + block.substring(DATA_INDEX);
+            sessionStorage.setItem(key, newBlock); 
+
+            Control.updateDiskDisplay(key);
+        }
+        public setData(key: string, data: string) {
+            var block = sessionStorage.getItem(key);
+            var newBlock = block.substring(INUSE_INDEX, DATA_INDEX) + data;
+            sessionStorage.setItem(key, newBlock); 
+
+            Control.updateDiskDisplay(key);
+        }
+
+
+        // GET FUNCTIONS
+        public getInuse(key: string): string {
+            var block = sessionStorage.getItem(key);
+            return block.substring(INUSE_INDEX, TSB_INDEX);
+        }
+        public isInuse(key: string): boolean {
+            var block = sessionStorage.getItem(key);
+            // true == 01
+            // false == 00
+            return block.substring(INUSE_INDEX, TSB_INDEX) == Utils.toHex(1, HEX_WORD_SIZE);
+        }
+        public getTSB(key: string): string {
+            var block = sessionStorage.getItem(key);
+            return block.substring(TSB_INDEX, DATA_INDEX);
+        }
+        public getData(key: string): string {
+            var block = sessionStorage.getItem(key);
+            return block.substring(DATA_INDEX);
+        }
+
+
+
+
+        
 
             //write in use, TSB
             // var writingData = Utils.toHex(0x1,2);
