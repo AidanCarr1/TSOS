@@ -291,11 +291,20 @@ var TSOS;
             //"100" -> 0o100 or 64
             return TSOS.Utils.octStringToDecimal(tsbShortStr);
         }
-        hasTSB(key) {
+        //return boolean is key has a tsb
+        hasTSB(numKey) {
+            //string key
+            var key = TSOS.Utils.toOct(numKey, OCT_WORD_SIZE);
+            //get tsb check if it == "---"
             var block = sessionStorage.getItem(key);
+            //probably wrong here!
             return block.substring(TSB_INDEX, DATA_INDEX) !== "------";
         }
-        getData(key) {
+        //return data given a key
+        getData(numKey) {
+            //string key
+            var key = TSOS.Utils.toOct(numKey, OCT_WORD_SIZE);
+            //return data
             var block = sessionStorage.getItem(key);
             return block.substring(DATA_INDEX);
         }

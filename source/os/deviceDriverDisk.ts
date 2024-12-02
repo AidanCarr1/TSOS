@@ -363,11 +363,24 @@
             //"100" -> 0o100 or 64
             return Utils.octStringToDecimal(tsbShortStr);
         }
-        public hasTSB(key: string): boolean {
+
+        //return boolean is key has a tsb
+        public hasTSB(numKey: number): boolean {
+            //string key
+            var key = Utils.toOct(numKey, OCT_WORD_SIZE);
+            
+            //get tsb check if it == "---"
             var block = sessionStorage.getItem(key);
+            //probably wrong here!
             return block.substring(TSB_INDEX, DATA_INDEX) !== "------";
         }
-        public getData(key: string): string {
+
+        //return data given a key
+        public getData(numKey: number): string {
+            //string key
+            var key = Utils.toOct(numKey, OCT_WORD_SIZE);
+
+            //return data
             var block = sessionStorage.getItem(key);
             return block.substring(DATA_INDEX);
         }
