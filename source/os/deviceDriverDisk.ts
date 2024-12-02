@@ -56,7 +56,7 @@
             //get key
             var key = this.getKeyByFileName(fileName);
             if (key === "------") { //shouldn't see this...
-                _StdOut.putText("No file found for ");
+                _StdOut.putText("!No file found for ");
                 _StdOut.putText(fileName, FILE_TEXT);
                 return;
             }
@@ -88,7 +88,7 @@
             //get key
             var key = this.getKeyByFileName(oldFileName);
             if (key === "------") { //shouldn't see this...
-                _StdOut.putText("No file found for ");
+                _StdOut.putText("!No file found for ");
                 _StdOut.putText(oldFileName, FILE_TEXT);
                 return;
             }
@@ -223,6 +223,25 @@
 
             //no unused blocks left
             _StdOut.putText("Disk Full. Too many files in directory");
+        }
+
+        // find the first file data block that is not inuse
+        public findOpenBlock(): string {
+            
+            //loop through directory
+            for (var i = DIRECTORY_LENGTH; i < DISK_SIZE; i++) {
+                var key = Utils.toOct(i, OCT_WORD_SIZE);
+                
+                //find used block with same file name
+                if (! this.isInuse(key)) {
+                    
+                    //log it
+                    _Kernel.krnTrace("Open line at " +key);
+                    return key;
+                }
+            }
+            _Kernel.krnTrace("No space on disk!");
+            return "------";
         }
 
 

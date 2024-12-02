@@ -3,7 +3,7 @@
 body {
   background: #909193 url(distrib/images/WinLtBlue.jpg) fixed;
   background-size:cover;
-  -background-color:rgb(5, 121, 153);
+  /*background-color:rgb(5, 121, 153);*/
   font-family: Helvetica, Verdana, Arial, sans-serif;
   font-size: 12pt;
   font-weight: normal;
@@ -62,16 +62,16 @@ label {
   width:1400px; 
   height:70px;
   background-color: rgba(0, 139, 139, 0.9);
-  -background-color:rgb(142, 185, 218, 0.9);
+  /*background-color:rgb(142, 185, 218, 0.9);*/
 }
 
 #divButtonBar {
-  -margin:4px; 
+  /*margin:4px; */
   width:596px; 
   height: 62px;
   padding: 4px;
   float:left;
-  -background-color: yellow;
+  /*background-color: yellow;*/
   text-align: center;
 
 }
@@ -91,14 +91,14 @@ label {
   height:100%; 
   float:left; 
   vertical-align: middle;
-  -background-color: violet;
+  /*background-color: violet;*/
   padding-left: 10px;
   -width: 800px;
   text-wrap: wrap;
 }
 #divStatus {
   width: 595px;
-  -background-color: pink;
+  /*background-color: pink;*/
 }
 
 #col1{
@@ -130,7 +130,7 @@ table{
 #diskTable{
   height: 400px;
   overflow-y: scroll;
-  -overflow-x: scroll;
+  /*overflow-x: scroll;*/
   background-color: none;
   position: relative; 
   width: 1400px;
@@ -178,7 +178,7 @@ table{
 .cpuColLabel{
   background-color: darkcyan;
   width: 60px;
-  -border: 1px solid black;
+  /*border: 1px solid black;*/
 }
 .cpuColLabelS{
   background-color: darkcyan;
@@ -187,7 +187,7 @@ table{
 }
 .cpuBox{
   background-color: lightsteelblue; /*lightskyblue;*/
-  -width: 60px;
+  /*width: 60px;*/
 }
 
 .pcbColLabel{
@@ -199,7 +199,7 @@ table{
 }
 .pcbBox{
   background-color: lightsteelblue;
-  -width: 50px;
+  /*width: 50px;*/
 }
 .pcbBoxS{
   background-color: lightsteelblue;

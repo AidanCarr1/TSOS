@@ -45,7 +45,7 @@ var TSOS;
             //get key
             var key = this.getKeyByFileName(fileName);
             if (key === "------") { //shouldn't see this...
-                _StdOut.putText("No file found for ");
+                _StdOut.putText("!No file found for ");
                 _StdOut.putText(fileName, FILE_TEXT);
                 return;
             }
@@ -68,7 +68,7 @@ var TSOS;
             //get key
             var key = this.getKeyByFileName(oldFileName);
             if (key === "------") { //shouldn't see this...
-                _StdOut.putText("No file found for ");
+                _StdOut.putText("!No file found for ");
                 _StdOut.putText(oldFileName, FILE_TEXT);
                 return;
             }
@@ -179,6 +179,21 @@ var TSOS;
             // FILE RECOVERY: loop again, check inuse for recoverable files, over write one
             //no unused blocks left
             _StdOut.putText("Disk Full. Too many files in directory");
+        }
+        // find the first file data block that is not inuse
+        findOpenBlock() {
+            //loop through directory
+            for (var i = DIRECTORY_LENGTH; i < DISK_SIZE; i++) {
+                var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
+                //find used block with same file name
+                if (!this.isInuse(key)) {
+                    //log it
+                    _Kernel.krnTrace("Open line at " + key);
+                    return key;
+                }
+            }
+            _Kernel.krnTrace("No space on disk!");
+            return "------";
         }
         // SET FUNCTIONS
         setInuse(key, inuse) {
