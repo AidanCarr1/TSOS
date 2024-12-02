@@ -227,21 +227,28 @@ var TSOS;
             var table = document.getElementById("diskTable");
             for (var i = 0; i < DISK_SIZE; i++) {
                 var row = table.insertRow();
-                var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
-                var rowHTML = `<tr id="Block${key}">
-                    <td id="Key${key}"     class="diskKey">${key}</td> 
-                    <td id="InUse${key}"   class="diskInUse">${_krnDiskDriver.getInuse(key)}</td>
-                    <td id="TSB${key}"     class="diskTSB">${TSOS.Utils.keyToHex(_krnDiskDriver.getTSB(key))}</td>
-                    <td id="Data${key}"    class="diskData">${_krnDiskDriver.getData(key)}</td>
+                var key = i;
+                var octKey = TSOS.Utils.toOct(key);
+                var rowHTML = `<tr id="Block${octKey}">
+                    <td id="Key${octKey}"     class="diskKey">${octKey}</td> 
+                    <td id="InUse${octKey}"   class="diskInUse">${_krnDiskDriver.isInuse(key)}</td>
+                    <td id="TSB${octKey}"     class="diskTSB">${TSOS.Utils.toOct(_krnDiskDriver.getTSB(key))}</td>
+                    <td id="Data${octKey}"    class="diskData">${_krnDiskDriver.getData(key)}</td>
                     </tr>`;
                 row.innerHTML = rowHTML;
             }
         }
-        static updateDiskDisplay(key) {
+        static updateDiskDisplay(numKey) {
+            var octKey = TSOS.Utils.toOct(numKey);
             if (_krnDiskDriver.isFormatted) {
-                document.getElementById("InUse" + key).innerText = _krnDiskDriver.getInuse(key);
-                document.getElementById("TSB" + key).innerText = TSOS.Utils.keyToHex(_krnDiskDriver.getTSB(key));
-                document.getElementById("Data" + key).innerText = _krnDiskDriver.getData(key);
+                if (_krnDiskDriver.isInuse(numKey)) {
+                    document.getElementById("InUse" + octKey).innerText = "01";
+                }
+                else {
+                    document.getElementById("InUse" + octKey).innerText = "00";
+                }
+                document.getElementById("TSB" + octKey).innerText = TSOS.Utils.toOct(_krnDiskDriver.getTSB(numKey));
+                document.getElementById("Data" + octKey).innerText = _krnDiskDriver.getData(numKey);
             }
         }
     }

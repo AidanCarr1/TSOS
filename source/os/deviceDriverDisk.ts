@@ -286,7 +286,7 @@
             sessionStorage.setItem(key, newBlock); 
 
             //update display
-            Control.updateDiskDisplay(key);
+            Control.updateDiskDisplay(numKey);
         }
 
         //set tsb for a key given tsb
@@ -308,7 +308,7 @@
             sessionStorage.setItem(key, newBlock); 
 
             //update display
-            Control.updateDiskDisplay(key);
+            Control.updateDiskDisplay(numKey);
         }
 
         //set t,s,b to -1,-1,-1
@@ -327,7 +327,7 @@
             sessionStorage.setItem(key, newBlock); 
 
             //update display
-            Control.updateDiskDisplay(key);
+            Control.updateDiskDisplay(numKey);
         }
 
 

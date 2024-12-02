@@ -228,7 +228,7 @@ var TSOS;
             var newBlock = inuseHex + block.substring(TSB_INDEX);
             sessionStorage.setItem(key, newBlock);
             //update display
-            TSOS.Control.updateDiskDisplay(key);
+            TSOS.Control.updateDiskDisplay(numKey);
         }
         //set tsb for a key given tsb
         setTSB(numKey, numTsb) {
@@ -246,7 +246,7 @@ var TSOS;
             //alert(newBlock);
             sessionStorage.setItem(key, newBlock);
             //update display
-            TSOS.Control.updateDiskDisplay(key);
+            TSOS.Control.updateDiskDisplay(numKey);
         }
         //set t,s,b to -1,-1,-1
         resetTSB(numKey) {
@@ -261,7 +261,7 @@ var TSOS;
             var newBlock = block.substring(INUSE_INDEX, DATA_INDEX) + hexData;
             sessionStorage.setItem(key, newBlock);
             //update display
-            TSOS.Control.updateDiskDisplay(key);
+            TSOS.Control.updateDiskDisplay(numKey);
         }
         // GET FUNCTIONS
         // public getInuse(key: string): string {
