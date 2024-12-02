@@ -151,29 +151,26 @@ var TSOS;
             //passed tests
             return true;
         }
-        // given the filename string, return key
+        // given the filename string, return number key 
         getKeyByFileName(fileName) {
             //loop through directory
-            for (var i = 0; i < DIRECTORY_LENGTH; i++) {
-                var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
+            for (var i = 0o000; i < DIRECTORY_LENGTH; i++) {
                 //find used block with same file name
-                if (this.isInuse(key) && this.getData(key) === TSOS.Utils.stringToHex(fileName, BYTES_FOR_DATA)) {
-                    //log it
-                    _Kernel.krnTrace("the file is at " + key);
-                    //update disk display
-                    return key;
+                if (this.isInuse(i) && this.getData(i) === TSOS.Utils.stringToHex(fileName, BYTES_FOR_DATA)) {
+                    //return the directory location
+                    _Kernel.krnTrace("File found at " + i);
+                    return i;
                 }
             }
-            _Kernel.krnTrace("file not found");
-            return "------";
+            _Kernel.krnTrace("!file not found");
+            return ERROR_CODE;
         }
         //if a file exists with this name, return true
         isAFileName(fileName) {
             //loop through directory
-            for (var i = 0; i < DIRECTORY_LENGTH; i++) {
-                var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
+            for (var i = 0o000; i < DIRECTORY_LENGTH; i++) {
                 //find used block with same file name
-                if (this.isInuse(key) && this.getData(key) === TSOS.Utils.stringToHex(fileName, BYTES_FOR_DATA)) {
+                if (this.isInuse(i) && this.getData(i) === TSOS.Utils.stringToHex(fileName, BYTES_FOR_DATA)) {
                     return true;
                 }
             }
@@ -181,38 +178,37 @@ var TSOS;
         }
         addFile(fileName) {
             //loop through directory
-            for (var i = 0; i < DIRECTORY_LENGTH; i++) {
+            for (var i = 0o000; i < DIRECTORY_LENGTH; i++) {
                 //check until we find an unused block
-                var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
-                if (this.getInuse(key) == TSOS.Utils.toHex(0, HEX_WORD_SIZE)) {
+                if (!this.isInuse(i)) {
                     //set up camp here
-                    this.setInuse(key, true);
-                    this.resetTSB(key);
-                    this.setData(key, TSOS.Utils.stringToHex(fileName, BYTES_FOR_DATA));
+                    this.setInuse(i, true);
+                    this.resetTSB(i);
+                    this.setData(i, TSOS.Utils.stringToHex(fileName, BYTES_FOR_DATA));
                     //log it
-                    _Kernel.krnTrace("File " + fileName + " saved at key " + key);
-                    //update disk display
-                    return key;
+                    _Kernel.krnTrace("File " + fileName + " saved at key " + i);
+                    //return the directory location
+                    return i;
                 }
             }
             // FILE RECOVERY: loop again, check inuse for recoverable files, over write one
             //no unused blocks left
             _StdOut.putText("Disk Full. Too many files in directory");
+            return ERROR_CODE;
         }
         // find the first file data block that is not inuse
         findOpenBlock() {
             //loop through directory
             for (var i = DIRECTORY_LENGTH; i < DISK_SIZE; i++) {
-                var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
                 //find used block with same file name
-                if (!this.isInuse(key)) {
+                if (!this.isInuse(i)) {
                     //log it
-                    _Kernel.krnTrace("Open line at " + key);
-                    return key;
+                    _Kernel.krnTrace("Open line at " + i);
+                    return i;
                 }
             }
             _Kernel.krnTrace("No space on disk!");
-            return "------";
+            return ERROR_CODE;
         }
         // SET FUNCTIONS
         //set inuse for a key given true/false
