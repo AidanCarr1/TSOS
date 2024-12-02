@@ -22,33 +22,38 @@ var TSOS;
             // More?
         }
         format() {
-            for (var i = 0; i < DISK_SIZE; i++) {
+            for (var i = 0o000; i < DISK_SIZE; i++) {
                 var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
                 sessionStorage.setItem(key, "00".repeat(BYTES_PER_BLOCK));
-                this.resetTSB(key);
+                this.resetTSB(i);
             }
             //set Master Boot Record
-            _Kernel.krnTrace(TSOS.Utils.toHex(1, HEX_WORD_SIZE));
-            this.setInuse("000", true);
+            //_Kernel.krnTrace(Utils.toHex(1, HEX_WORD_SIZE));
+            this.setInuse(0o000, true);
             //create disk display table
             TSOS.Control.createDiskDisplay();
             this.isFormatted = true;
         }
         create(fileName) {
             //add to list of files
-            this.addFile(fileName);
+            var key = this.addFile(fileName);
             //tell the shell
-            _StdOut.putText("File created: ");
-            _StdOut.putText(fileName, FILE_TEXT);
+            if (key != ERROR_CODE) {
+                _StdOut.putText("File created: ");
+                _StdOut.putText(fileName, FILE_TEXT);
+            }
+            else {
+                _StdOut.putText("Error: Disk full. Too many files in directory", ERROR_TEXT);
+            }
         }
         read(fileName) {
             //get key
             var key = this.getKeyByFileName(fileName);
-            if (key === "------") { //shouldn't see this...
-                _StdOut.putText("!No file found for ");
-                _StdOut.putText(fileName, FILE_TEXT);
-                return;
-            }
+            // if (key === "------") { //shouldn't see this...
+            //     _StdOut.putText("!No file found for ");
+            //     _StdOut.putText(fileName, FILE_TEXT);
+            //     return;
+            // }
             //get TSB
             var tsb = this.getTSB(key);
             //no tsb associated = no data
@@ -67,7 +72,7 @@ var TSOS;
             //first time writing to file
             if (!this.hasTSB(key)) {
                 var tsb = this.findOpenBlock();
-                _StdOut.putText("writing to " + tsb);
+                _StdOut.putText("writing to " + TSOS.Utils.toOct(tsb));
                 this.setTSB(key, tsb);
                 //only supports one line for now!
                 this.setData(tsb, fileData);
@@ -75,7 +80,7 @@ var TSOS;
             //writing over existing data
             else {
                 var tsb = this.getTSB(key);
-                _StdOut.putText("writing over data at " + tsb);
+                _StdOut.putText("writing over data at " + TSOS.Utils.toOct(tsb));
                 this.setData(tsb, fileData);
             }
         }
@@ -86,11 +91,11 @@ var TSOS;
         rename(oldFileName, newFileName) {
             //get key
             var key = this.getKeyByFileName(oldFileName);
-            if (key === "------") { //shouldn't see this...
-                _StdOut.putText("!No file found for ");
-                _StdOut.putText(oldFileName, FILE_TEXT);
-                return;
-            }
+            // if (key === "------") { //shouldn't see this...
+            //     _StdOut.putText("!No file found for ");
+            //     _StdOut.putText(oldFileName, FILE_TEXT);
+            //     return;
+            // }
             //rename
             this.setData(key, TSOS.Utils.stringToHex(newFileName, BYTES_FOR_DATA));
             _StdOut.putText("File ");
@@ -100,12 +105,11 @@ var TSOS;
         }
         list() {
             for (var i = 0; i < DIRECTORY_LENGTH; i++) {
-                var key = TSOS.Utils.toOct(i, OCT_WORD_SIZE);
                 if (i == 0) {
                     //skip MBR
                 }
-                else if (this.isInuse(key)) {
-                    var fileName = TSOS.Utils.hexToString(this.getData(key));
+                else if (this.isInuse(i)) {
+                    var fileName = TSOS.Utils.hexToString(this.getData(i));
                     _StdOut.putText("  " + fileName, FILE_TEXT);
                     _StdOut.advanceLine();
                 }
@@ -193,7 +197,6 @@ var TSOS;
             }
             // FILE RECOVERY: loop again, check inuse for recoverable files, over write one
             //no unused blocks left
-            _StdOut.putText("Disk Full. Too many files in directory");
             return ERROR_CODE;
         }
         // find the first file data block that is not inuse
