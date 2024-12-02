@@ -231,13 +231,15 @@ var TSOS;
             //update display
             TSOS.Control.updateDiskDisplay(key);
         }
-        //set tsb for a key given oct
+        //set tsb for a key given tsb
         setTSB(numKey, numTsb) {
             //string key
             var key = TSOS.Utils.toOct(numKey, OCT_WORD_SIZE);
             //hex tsb
-            var strTsb = TSOS.Utils.toOct(numTsb, OCT_WORD_SIZE); //0o100 -> "100" 
-            var tsb = TSOS.Utils.keyToLongHex(strTsb); //"100" -> "010000"
+            //0o100 -> "100" 
+            var strTsb = TSOS.Utils.toOct(numTsb, OCT_WORD_SIZE);
+            //"100" -> "010000"
+            var tsb = TSOS.Utils.keyToLongHex(strTsb);
             //set tsb hex
             var block = sessionStorage.getItem(key);
             //alert(block);
@@ -247,35 +249,47 @@ var TSOS;
             //update display
             TSOS.Control.updateDiskDisplay(key);
         }
-        //set tsb to -1 -1 -1
+        //set t,s,b to -1,-1,-1
         resetTSB(numKey) {
             this.setTSB(numKey, ERROR_CODE);
-            // var block = sessionStorage.getItem(key);
-            // // "------"
-            // var newBlock = block.substring(INUSE_INDEX, TSB_INDEX) + "------" /*Utils.toHex(ERROR_CODE, HEX_WORD_SIZE).repeat(OCT_WORD_SIZE)*/ + block.substring(DATA_INDEX);
-            // sessionStorage.setItem(key, newBlock); 
-            // Control.updateDiskDisplay(key);
         }
-        setData(key, data) {
+        //set data for a key
+        setData(numKey, hexData) {
+            //string key
+            var key = TSOS.Utils.toOct(numKey, OCT_WORD_SIZE);
+            //set data
             var block = sessionStorage.getItem(key);
-            var newBlock = block.substring(INUSE_INDEX, DATA_INDEX) + data;
+            var newBlock = block.substring(INUSE_INDEX, DATA_INDEX) + hexData;
             sessionStorage.setItem(key, newBlock);
+            //update display
             TSOS.Control.updateDiskDisplay(key);
         }
         // GET FUNCTIONS
-        getInuse(key) {
+        // public getInuse(key: string): string {
+        //     var block = sessionStorage.getItem(key);
+        //     return block.substring(INUSE_INDEX, TSB_INDEX);
+        // }
+        //get boolean for in use
+        isInuse(numKey) {
+            //string key
+            var key = TSOS.Utils.toOct(numKey, OCT_WORD_SIZE);
+            //get boolean, is it in use
             var block = sessionStorage.getItem(key);
-            return block.substring(INUSE_INDEX, TSB_INDEX);
-        }
-        isInuse(key) {
-            var block = sessionStorage.getItem(key);
-            // true == 01
-            // false == 00
+            // true == 01, false == 00
             return block.substring(INUSE_INDEX, TSB_INDEX) == TSOS.Utils.toHex(1, HEX_WORD_SIZE);
         }
-        getTSB(key) {
+        //get tsb
+        getTSB(numKey) {
+            //string key
+            var key = TSOS.Utils.toOct(numKey, OCT_WORD_SIZE);
+            //get tsb (as number)
             var block = sessionStorage.getItem(key);
-            return block.substring(TSB_INDEX, DATA_INDEX);
+            //"010000"
+            var tsbLongStr = block.substring(TSB_INDEX, DATA_INDEX);
+            //"010000" -> "100"
+            var tsbShortStr = TSOS.Utils.keyToHex(tsbLongStr);
+            //"100" -> 0o100 or 64
+            return TSOS.Utils.octStringToDecimal(tsbShortStr);
         }
         hasTSB(key) {
             var block = sessionStorage.getItem(key);

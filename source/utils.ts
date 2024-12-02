@@ -190,5 +190,22 @@ module TSOS {
             _Kernel.krnTrace("end key to hex");
             return hex;
         }
+
+        //not tested!
+        //take a oct number string ("100") and return the decimal equivalent (64)
+        public static octStringToDecimal(octStr: string): number{
+            var decimalValue = 0;
+            var octChars = "01234567";
+            var power = 0;
+
+            //start from last digit, move left
+            for (var i = octStr.length - 1; i >= 0; i--) {
+
+                var currentDigitValue = octChars.indexOf(octStr[i]);
+                decimalValue += Math.pow(0o10, power) * currentDigitValue;
+                power++;
+            }
+            return decimalValue;
+        }
     }
 }
