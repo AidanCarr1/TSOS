@@ -63,17 +63,39 @@
 
             //get TSB
             var tsb = this.getTSB(key);
-            if (tsb === "------") {
+            //no tsb associated = no data
+            if (!this.hasTSB(key)) {
                 _StdOut.putText("Not data in ");
                 _StdOut.putText(fileName, FILE_TEXT);
                 return;
+            }
+
+            else {
+                _StdOut.putText(this.getData(tsb));
             }
 
             _StdOut.putText("theres data!");
         }
 
         public write(fileName: string, fileData: string) {
+            var key = this.getKeyByFileName(fileName);
 
+            //first time writing to file
+            if (! this.hasTSB(key)) {
+                var tsb = this.findOpenBlock();
+                _StdOut.putText("writing to " + tsb);
+
+                this.setTSB(key, tsb);
+                //only supports one line for now!
+                this.setData(tsb, fileData);
+            }
+            //writing over existing data
+            else {
+                var tsb = this.getTSB(key);
+                _StdOut.putText("writing over data at " + tsb);
+                this.setData(tsb, fileData);
+            }
+            
         }
 
         public copy(fromName: string, toName: string) {
@@ -262,7 +284,9 @@
         }
         public setTSB(key: string, tsb: string) {
             var block = sessionStorage.getItem(key);
+            alert(block);
             var newBlock = block.substring(INUSE_INDEX, TSB_INDEX) + tsb + block.substring(DATA_INDEX);
+            alert(newBlock);
             sessionStorage.setItem(key, newBlock); 
 
             Control.updateDiskDisplay(key);
@@ -298,6 +322,10 @@
         public getTSB(key: string): string {
             var block = sessionStorage.getItem(key);
             return block.substring(TSB_INDEX, DATA_INDEX);
+        }
+        public hasTSB(key: string): boolean {
+            var block = sessionStorage.getItem(key);
+            return block.substring(TSB_INDEX, DATA_INDEX) !== "------";
         }
         public getData(key: string): string {
             var block = sessionStorage.getItem(key);

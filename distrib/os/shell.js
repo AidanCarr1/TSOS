@@ -643,7 +643,8 @@ var TSOS;
                 //write data to the file
                 var refinedData = rawData.substring(firstQuote + 1, secondQuote);
                 _StdOut.putText(refinedData);
-                //_krnDiskDriver.write(fileName, data);
+                _StdOut.advanceLine();
+                _krnDiskDriver.write(fileName, refinedData);
             }
             else {
                 _StdOut.putText('Usage: write <filename> "data"  Please supply a file name.');
