@@ -112,6 +112,16 @@ module TSOS {
 
         //take a number (26) and return the oct equivalent string ("0c32")
         public static toOct(decimal: number, padding?: number): string{
+            
+            //error code
+            if (decimal == ERROR_CODE) {
+                var oct = "-";
+                if (padding > 1) {
+                    oct = oct.repeat(padding);
+                }
+                return oct;
+            }
+            
                                                 // 256    0   26   number
             var octRaw = decimal.toString(8);   // 400    0   32   octal
             
@@ -161,6 +171,24 @@ module TSOS {
                 str += char;
             }
             return str;
+        }
+
+        public static keyToLongHex(key: string): string{
+            
+            _Kernel.krnTrace("start key to long hex");
+            var hex = "";
+            for (var i = 0; i < key.length; i++) {
+                var anOct = key.charAt(i);
+
+                if (anOct === "-"){
+                    hex += "--";
+                }
+                else {
+                    hex += "0" + anOct;
+                }
+            }
+            _Kernel.krnTrace("end key to hex");
+            return hex;
         }
     }
 }

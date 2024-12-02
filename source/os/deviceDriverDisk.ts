@@ -269,35 +269,56 @@
 
 
         // SET FUNCTIONS
-        public setInuse(key: string, inuse: boolean) {
+
+        //set inuse for a key given true/false
+        public setInuse(numKey: number, inuse: boolean) {
+            //string key
+            var key = Utils.toOct(numKey, OCT_WORD_SIZE);
+
+            //write inuse hex
             var inuseHex = Utils.toHex(0, HEX_WORD_SIZE);
             if (inuse) {
                 inuseHex = Utils.toHex(1, HEX_WORD_SIZE);
             }
-            //_Kernel.krnTrace("setting in use");
+
+            //set inuse hex
             var block = sessionStorage.getItem(key);
             var newBlock = inuseHex + block.substring(TSB_INDEX);
-            //_Kernel.krnTrace("new block "+newBlock);
             sessionStorage.setItem(key, newBlock); 
-            //_Kernel.krnTrace("set in use");
+
+            //update display
             Control.updateDiskDisplay(key);
         }
-        public setTSB(key: string, tsb: string) {
+
+        //set tsb for a key given oct
+        public setTSB(numKey: number, numTsb: number) {
+            //string key
+            var key = Utils.toOct(numKey, OCT_WORD_SIZE);
+
+            //hex tsb
+            var strTsb = Utils.toOct(numTsb, OCT_WORD_SIZE);    //0o100 -> "100" 
+            var tsb = Utils.keyToLongHex(strTsb);               //"100" -> "010000"
+
+            //set tsb hex
             var block = sessionStorage.getItem(key);
-            alert(block);
+            //alert(block);
             var newBlock = block.substring(INUSE_INDEX, TSB_INDEX) + tsb + block.substring(DATA_INDEX);
-            alert(newBlock);
+            //alert(newBlock);
             sessionStorage.setItem(key, newBlock); 
 
+            //update display
             Control.updateDiskDisplay(key);
         }
-        public resetTSB(key: string) {
-            var block = sessionStorage.getItem(key);
-            // "------"
-            var newBlock = block.substring(INUSE_INDEX, TSB_INDEX) + "------" /*Utils.toHex(ERROR_CODE, HEX_WORD_SIZE).repeat(OCT_WORD_SIZE)*/ + block.substring(DATA_INDEX);
-            sessionStorage.setItem(key, newBlock); 
 
-            Control.updateDiskDisplay(key);
+        //set tsb to -1 -1 -1
+        public resetTSB(numKey: number) {
+            this.setTSB(numKey, ERROR_CODE);
+            // var block = sessionStorage.getItem(key);
+            // // "------"
+            // var newBlock = block.substring(INUSE_INDEX, TSB_INDEX) + "------" /*Utils.toHex(ERROR_CODE, HEX_WORD_SIZE).repeat(OCT_WORD_SIZE)*/ + block.substring(DATA_INDEX);
+            // sessionStorage.setItem(key, newBlock); 
+
+            // Control.updateDiskDisplay(key);
         }
         public setData(key: string, data: string) {
             var block = sessionStorage.getItem(key);
