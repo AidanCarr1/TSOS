@@ -75,16 +75,15 @@ var TSOS;
             //first time writing to file
             if (!this.hasTSB(key)) {
                 var tsb = this.findOpenBlock();
-                _StdOut.putText("writing to " + TSOS.Utils.toOct(tsb));
+                _Kernel.krnTrace("Writing to " + TSOS.Utils.toOct(tsb));
                 this.setTSB(key, tsb);
                 //only supports one line for now!
-                this.setData(tsb, fileData);
-                this.setInuse(tsb, true);
+                this.writeData(tsb, fileData);
             }
             //writing over existing data
             else {
                 var tsb = this.getTSB(key);
-                _StdOut.putText("writing over data at " + TSOS.Utils.toOct(tsb));
+                _Kernel.krnTrace("Writing over data at " + TSOS.Utils.toOct(tsb));
                 this.setData(tsb, fileData);
                 this.setInuse(tsb, true);
             }
@@ -217,6 +216,20 @@ var TSOS;
             }
             _Kernel.krnTrace("No space on disk!");
             return ERROR_CODE;
+        }
+        writeData(startingKey, plainTextData) {
+            //convert plaintext to hex
+            var hexDataLength = plainTextData.length * HEX_WORD_SIZE;
+            var numBlocksNeeded = Math.ceil(hexDataLength / BYTES_FOR_DATA);
+            var numBytesNeeded = numBlocksNeeded * BYTES_FOR_DATA; //padding
+            var hexData = TSOS.Utils.stringToHex(plainTextData, numBytesNeeded);
+            //separate hexData string into block sized pieces (60 bytes)
+            var tsb = startingKey;
+            //each block of data storing
+            for (var i = 0; i < numBlocksNeeded; i++) {
+            }
+            //this.setData(tsb, fileData);
+            //this.setInuse(tsb, true);
         }
         // SET FUNCTIONS
         //set inuse for a key given true/false

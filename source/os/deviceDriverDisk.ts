@@ -90,17 +90,17 @@
             //first time writing to file
             if (! this.hasTSB(key)) {
                 var tsb = this.findOpenBlock();
-                _StdOut.putText("writing to " + Utils.toOct(tsb));
+                _Kernel.krnTrace("Writing to " + Utils.toOct(tsb));
 
                 this.setTSB(key, tsb);
                 //only supports one line for now!
-                this.setData(tsb, fileData);
-                this.setInuse(tsb, true);
+                this.writeData(tsb, fileData);
+                
             }
             //writing over existing data
             else {
                 var tsb = this.getTSB(key);
-                _StdOut.putText("writing over data at " + Utils.toOct(tsb));
+                _Kernel.krnTrace("Writing over data at " + Utils.toOct(tsb));
                 this.setData(tsb, fileData);
                 this.setInuse(tsb, true);
             }
@@ -267,6 +267,25 @@
             }
             _Kernel.krnTrace("No space on disk!");
             return ERROR_CODE;
+        }
+
+        public writeData(startingKey: number, plainTextData: string) {
+            
+            //convert plaintext to hex
+            var hexDataLength = plainTextData.length * HEX_WORD_SIZE;
+            var numBlocksNeeded = Math.ceil(hexDataLength/BYTES_FOR_DATA);
+            var numBytesNeeded = numBlocksNeeded * BYTES_FOR_DATA; //padding
+            var hexData = Utils.stringToHex(plainTextData, numBytesNeeded);
+
+            //separate hexData string into block sized pieces (60 bytes)
+            
+            var tsb = startingKey;
+            //each block of data storing
+            for (var i = 0; i < numBlocksNeeded; i++) {
+                
+            }
+            //this.setData(tsb, fileData);
+            //this.setInuse(tsb, true);
         }
 
 
