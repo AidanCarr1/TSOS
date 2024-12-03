@@ -227,19 +227,20 @@ var TSOS;
             var table = document.getElementById("diskTable");
             for (var i = 0; i < DISK_SIZE; i++) {
                 var row = table.insertRow();
-                var key = i;
-                var octKey = TSOS.Utils.toOct(key);
+                var numKey = i;
+                var octKey = TSOS.Utils.toOct(numKey, OCT_WORD_SIZE);
                 var rowHTML = `<tr id="Block${octKey}">
                     <td id="Key${octKey}"     class="diskKey">${octKey}</td> 
-                    <td id="InUse${octKey}"   class="diskInUse">${_krnDiskDriver.isInuse(key)}</td>
-                    <td id="TSB${octKey}"     class="diskTSB">${TSOS.Utils.toOct(_krnDiskDriver.getTSB(key))}</td>
-                    <td id="Data${octKey}"    class="diskData">${_krnDiskDriver.getData(key)}</td>
+                    <td id="InUse${octKey}"   class="diskInUse">00</td>
+                    <td id="TSB${octKey}"     class="diskTSB">${_krnDiskDriver.getTSBString(numKey)}</td>
+                    <td id="Data${octKey}"    class="diskData">${_krnDiskDriver.getData(numKey)}</td>
                     </tr>`;
                 row.innerHTML = rowHTML;
             }
         }
         static updateDiskDisplay(numKey) {
-            var octKey = TSOS.Utils.toOct(numKey);
+            // key in oct string
+            var octKey = TSOS.Utils.toOct(numKey, OCT_WORD_SIZE);
             if (_krnDiskDriver.isFormatted) {
                 if (_krnDiskDriver.isInuse(numKey)) {
                     document.getElementById("InUse" + octKey).innerText = "01";
@@ -247,7 +248,7 @@ var TSOS;
                 else {
                     document.getElementById("InUse" + octKey).innerText = "00";
                 }
-                document.getElementById("TSB" + octKey).innerText = TSOS.Utils.toOct(_krnDiskDriver.getTSB(numKey));
+                document.getElementById("TSB" + octKey).innerText = _krnDiskDriver.getTSBString(numKey);
                 document.getElementById("Data" + octKey).innerText = _krnDiskDriver.getData(numKey);
             }
         }

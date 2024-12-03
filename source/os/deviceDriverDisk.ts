@@ -57,7 +57,6 @@
         }
 
         public read(fileName: string) {
-            
             //get key
             var key = this.getKeyByFileName(fileName);
             // if (key === "------") { //shouldn't see this...
@@ -70,12 +69,15 @@
             var tsb = this.getTSB(key);
             //no tsb associated = no data
             if (!this.hasTSB(key)) {
-                _StdOut.putText("Not data in ");
+                _StdOut.putText("No data in ");
                 _StdOut.putText(fileName, FILE_TEXT);
                 return;
             }
 
             else {
+                _StdOut.putText("Reading data from ");
+                _StdOut.putText(fileName, FILE_TEXT);
+                _StdOut.advanceLine();
                 _StdOut.putText(this.getData(tsb));
             }
 
@@ -93,12 +95,14 @@
                 this.setTSB(key, tsb);
                 //only supports one line for now!
                 this.setData(tsb, fileData);
+                this.setInuse(tsb, true);
             }
             //writing over existing data
             else {
                 var tsb = this.getTSB(key);
                 _StdOut.putText("writing over data at " + Utils.toOct(tsb));
                 this.setData(tsb, fileData);
+                this.setInuse(tsb, true);
             }
             
         }
@@ -348,19 +352,27 @@
             return block.substring(INUSE_INDEX, TSB_INDEX) == Utils.toHex(1, HEX_WORD_SIZE);
         }
 
-        //get tsb
+        //get tsb as a real number
         public getTSB(numKey: number): number {
             //string key
             var key = Utils.toOct(numKey, OCT_WORD_SIZE);
             
             //get tsb (as number)
             var block = sessionStorage.getItem(key);
-            //"010000"
-            var tsbLongStr = block.substring(TSB_INDEX, DATA_INDEX);
-            //"010000" -> "100"
-            var tsbShortStr = Utils.keyToHex(tsbLongStr);
-            //"100" -> 0o100 or 64
-            return Utils.octStringToDecimal(tsbShortStr);
+            var tsbLongStr = block.substring(TSB_INDEX, DATA_INDEX); // "010000"      "------"
+            var tsbShortStr = Utils.keyToHex(tsbLongStr);            // "100"         "---"
+            return Utils.octStringToDecimal(tsbShortStr);            // 0o100 or 64   -1
+        }
+        //get tsb but the short string version
+        public getTSBString(numKey: number): string {
+            //string key
+            var key = Utils.toOct(numKey, OCT_WORD_SIZE);
+            
+            //get tsb (as string) 
+            var block = sessionStorage.getItem(key);
+            var tsbLongStr = block.substring(TSB_INDEX, DATA_INDEX); // "010000"      "------"
+            var tsbShortStr = Utils.keyToHex(tsbLongStr);            // "100"         "---"
+            return tsbShortStr;
         }
 
         //return boolean is key has a tsb

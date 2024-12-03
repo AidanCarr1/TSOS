@@ -20,7 +20,7 @@ function Glados() {
         _KernelInputQueue.enqueue('r');
         TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
     
-        // format.
+        // format
         _KernelInputQueue.enqueue('f');
         _KernelInputQueue.enqueue('o');
         _KernelInputQueue.enqueue('r');
@@ -29,7 +29,7 @@ function Glados() {
         _KernelInputQueue.enqueue('t');
         TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
 
-        // create test 1
+        // create test1
         _KernelInputQueue.enqueue('c');
         _KernelInputQueue.enqueue('r');
         _KernelInputQueue.enqueue('e');
@@ -41,11 +41,10 @@ function Glados() {
         _KernelInputQueue.enqueue('e');
         _KernelInputQueue.enqueue('s');
         _KernelInputQueue.enqueue('t');
-        _KernelInputQueue.enqueue(' ');
         _KernelInputQueue.enqueue('1');
         TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
 
-        // create aidan_test2
+        // create test2
         _KernelInputQueue.enqueue('c');
         _KernelInputQueue.enqueue('r');
         _KernelInputQueue.enqueue('e');
@@ -57,11 +56,10 @@ function Glados() {
         _KernelInputQueue.enqueue('e');
         _KernelInputQueue.enqueue('s');
         _KernelInputQueue.enqueue('t');
-        _KernelInputQueue.enqueue(' ');
         _KernelInputQueue.enqueue('2');
         TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
 
-        // create test 3
+        // create test3
         _KernelInputQueue.enqueue('c');
         _KernelInputQueue.enqueue('r');
         _KernelInputQueue.enqueue('e');
@@ -73,7 +71,6 @@ function Glados() {
         _KernelInputQueue.enqueue('e');
         _KernelInputQueue.enqueue('s');
         _KernelInputQueue.enqueue('t');
-        _KernelInputQueue.enqueue(' ');
         _KernelInputQueue.enqueue('3');
         TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
         
@@ -89,6 +86,87 @@ function Glados() {
         _KernelInputQueue.enqueue('2');
         _KernelInputQueue.enqueue('3');
         TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
+
+        // write test1 "burgers and fries"
+        _KernelInputQueue.enqueue('w');
+        _KernelInputQueue.enqueue('r');
+        _KernelInputQueue.enqueue('i');
+        _KernelInputQueue.enqueue('t');
+        _KernelInputQueue.enqueue('e');
+        _KernelInputQueue.enqueue(' ');
+        _KernelInputQueue.enqueue('t');
+        _KernelInputQueue.enqueue('e');
+        _KernelInputQueue.enqueue('s');
+        _KernelInputQueue.enqueue('t');
+        _KernelInputQueue.enqueue('1');
+        _KernelInputQueue.enqueue(' ');
+        _KernelInputQueue.enqueue('"');
+        _KernelInputQueue.enqueue('b');
+        _KernelInputQueue.enqueue('u');
+        _KernelInputQueue.enqueue('r');
+        _KernelInputQueue.enqueue('g');
+        _KernelInputQueue.enqueue('e');
+        _KernelInputQueue.enqueue('r');
+        _KernelInputQueue.enqueue('s');
+        _KernelInputQueue.enqueue(' ');
+        _KernelInputQueue.enqueue('a');
+        _KernelInputQueue.enqueue('n');
+        _KernelInputQueue.enqueue('d');
+        _KernelInputQueue.enqueue(' ');
+        _KernelInputQueue.enqueue('f');
+        _KernelInputQueue.enqueue('r');
+        _KernelInputQueue.enqueue('i');
+        _KernelInputQueue.enqueue('e');
+        _KernelInputQueue.enqueue('s');
+        _KernelInputQueue.enqueue('!');
+        _KernelInputQueue.enqueue('"');
+        TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
+
+        // write test2 "burger"
+        _KernelInputQueue.enqueue('w');
+        _KernelInputQueue.enqueue('r');
+        _KernelInputQueue.enqueue('i');
+        _KernelInputQueue.enqueue('t');
+        _KernelInputQueue.enqueue('e');
+        _KernelInputQueue.enqueue(' ');
+        _KernelInputQueue.enqueue('t');
+        _KernelInputQueue.enqueue('e');
+        _KernelInputQueue.enqueue('s');
+        _KernelInputQueue.enqueue('t');
+        _KernelInputQueue.enqueue('2');
+        _KernelInputQueue.enqueue(' ');
+        _KernelInputQueue.enqueue('"');
+        _KernelInputQueue.enqueue('b');
+        _KernelInputQueue.enqueue('u');
+        _KernelInputQueue.enqueue('r');
+        _KernelInputQueue.enqueue('g');
+        _KernelInputQueue.enqueue('e');
+        _KernelInputQueue.enqueue('r');
+        _KernelInputQueue.enqueue('"');
+        TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
         
+        // write test3 "SODA?"
+        _KernelInputQueue.enqueue('w');
+        _KernelInputQueue.enqueue('r');
+        _KernelInputQueue.enqueue('i');
+        _KernelInputQueue.enqueue('t');
+        _KernelInputQueue.enqueue('e');
+        _KernelInputQueue.enqueue(' ');
+        _KernelInputQueue.enqueue('t');
+        _KernelInputQueue.enqueue('e');
+        _KernelInputQueue.enqueue('s');
+        _KernelInputQueue.enqueue('t');
+        _KernelInputQueue.enqueue('3');
+        _KernelInputQueue.enqueue(' ');
+        _KernelInputQueue.enqueue('"');
+        _KernelInputQueue.enqueue('S');
+        _KernelInputQueue.enqueue('O');
+        _KernelInputQueue.enqueue('D');
+        _KernelInputQueue.enqueue('A');
+        _KernelInputQueue.enqueue('?');
+        _KernelInputQueue.enqueue('"');
+        _KernelInputQueue.enqueue(' ');
+        _KernelInputQueue.enqueue('x');
+        TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
     };
 }

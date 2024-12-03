@@ -198,6 +198,9 @@ module TSOS {
             var octChars = "01234567";
             var power = 0;
 
+            // if (octStr === "---") {
+            //     return ERROR_CODE;
+            // }
             //start from last digit, move left
             for (var i = octStr.length - 1; i >= 0; i--) {
 
