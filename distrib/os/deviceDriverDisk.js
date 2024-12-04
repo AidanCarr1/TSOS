@@ -98,6 +98,18 @@ var TSOS;
         copy(fromName, toName) {
         }
         delete(fileName) {
+            var key = this.getKeyByFileName(fileName);
+            //delete the file from directory
+            this.setInuse(key, false);
+            //delete data
+            if (this.hasTSB(key)) {
+                var tsb = this.getTSB(key);
+                this.deleteLinkedData(tsb);
+            }
+            //tell the shell
+            _StdOut.putText("Successfully deleted ");
+            _StdOut.putText(fileName, FILE_TEXT);
+            _StdOut.advanceLine();
         }
         rename(oldFileName, newFileName) {
             //get key
@@ -115,6 +127,8 @@ var TSOS;
             _StdOut.putText(newFileName, FILE_TEXT);
         }
         list() {
+            //count files
+            var count = 0;
             for (var i = 0; i < DIRECTORY_LENGTH; i++) {
                 if (i == 0) {
                     //skip MBR
@@ -123,7 +137,12 @@ var TSOS;
                     var fileName = TSOS.Utils.hexToString(this.getData(i));
                     _StdOut.putText("  " + fileName, FILE_TEXT);
                     _StdOut.advanceLine();
+                    count++;
                 }
+            }
+            //didnt print out any files, print message
+            if (count == 0) {
+                _StdOut.putText("No visible files on the disk");
             }
         }
         // FUNCTIONAL FUNCTIONS

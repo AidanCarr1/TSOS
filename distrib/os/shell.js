@@ -672,6 +672,15 @@ var TSOS;
                 _StdOut.putText("Error: Disk is not formatted. Use command: format", ERROR_TEXT);
             }
             else if (args.length > 0) {
+                // is it a real file?
+                var fileName = args[0];
+                if (!_krnDiskDriver.isAFileName(fileName)) {
+                    _StdOut.putText("Error: Could not find the file ", ERROR_TEXT);
+                    _StdOut.putText(fileName, FILE_TEXT);
+                    return;
+                }
+                //delete that fucker!
+                _krnDiskDriver.delete(fileName);
             }
             else {
                 _StdOut.putText("Usage: delete <filename>  Please supply a file name.");
