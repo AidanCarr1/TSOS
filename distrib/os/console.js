@@ -14,7 +14,8 @@ var TSOS;
         buffer;
         bufferHistory;
         historyPointer;
-        constructor(currentFont = _DefaultFontFamily, currentFontSize = _DefaultFontSize, currentXPosition = 0, currentYPosition = _DefaultFontSize, buffer = "", bufferHistory = [], historyPointer = 0) {
+        recentFarXPosition;
+        constructor(currentFont = _DefaultFontFamily, currentFontSize = _DefaultFontSize, currentXPosition = 0, currentYPosition = _DefaultFontSize, buffer = "", bufferHistory = [], historyPointer = 0, recentFarXPosition = 0) {
             this.currentFont = currentFont;
             this.currentFontSize = currentFontSize;
             this.currentXPosition = currentXPosition;
@@ -22,6 +23,7 @@ var TSOS;
             this.buffer = buffer;
             this.bufferHistory = bufferHistory;
             this.historyPointer = historyPointer;
+            this.recentFarXPosition = recentFarXPosition;
         }
         init() {
             this.clearScreen();
@@ -100,6 +102,8 @@ var TSOS;
                     this.currentXPosition = this.currentXPosition + offset;
                     //line wrap
                     if (this.currentXPosition >= _Canvas.width - _DrawingContext.measureText(this.currentFont, this.currentFontSize, "m")) {
+                        //save this! xpos
+                        this.recentFarXPosition = this.currentXPosition;
                         this.advanceLine();
                     }
                 }
@@ -110,7 +114,18 @@ var TSOS;
             var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, text);
             //Move current X position backwards
             this.currentXPosition = this.currentXPosition - offset;
-            //this.putText("-");
+            alert("pos:" + this.currentXPosition);
+            // BACKWARDS line wrap
+            if (Math.round(this.currentXPosition) <= 0) {
+                alert("going up");
+                //go up a line
+                var changeInY = this.currentFontSize +
+                    _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
+                    _FontHeightMargin;
+                this.currentYPosition -= changeInY;
+                //as far right as we were before
+                this.currentXPosition = this.recentFarXPosition;
+            }
         }
         advanceLine() {
             this.currentXPosition = 0;

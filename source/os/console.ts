@@ -15,7 +15,8 @@ module TSOS {
                     public currentYPosition = _DefaultFontSize,
                     public buffer = "",
                     public bufferHistory:string[] = [],
-                    public historyPointer = 0) {
+                    public historyPointer = 0,
+                    public recentFarXPosition = 0) {
         }
 
         public init(): void {
@@ -111,6 +112,8 @@ module TSOS {
 
                     //line wrap
                     if (this.currentXPosition >= _Canvas.width - _DrawingContext.measureText(this.currentFont, this.currentFontSize, "m")){
+                        //save this! xpos
+                        this.recentFarXPosition = this.currentXPosition;
                         this.advanceLine();
                     }
                 }
@@ -123,7 +126,21 @@ module TSOS {
             var offset = _DrawingContext.measureText(this.currentFont, this.currentFontSize, text);
             //Move current X position backwards
             this.currentXPosition = this.currentXPosition - offset;
-            //this.putText("-");
+
+            alert("pos:"+this.currentXPosition);
+            // BACKWARDS line wrap
+            if (Math.round(this.currentXPosition) <= 0){
+
+                alert("going up");
+                //go up a line
+                var changeInY:number = this.currentFontSize + 
+                                   _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
+                                   _FontHeightMargin;
+                this.currentYPosition -= changeInY;
+
+                //as far right as we were before
+                this.currentXPosition = this.recentFarXPosition;
+            }
         }
 
         public advanceLine(): void {
