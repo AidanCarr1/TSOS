@@ -106,7 +106,7 @@ module TSOS {
                 hexString += hexChar;
             }
             //return string of all hex values
-            hexString += "0".repeat(rPadding*HEX_WORD_SIZE - hexString.length);
+            hexString += "0".repeat(rPadding - hexString.length);
             return hexString;
         }
 

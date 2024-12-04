@@ -233,7 +233,7 @@ var TSOS;
                     <td id="Key${octKey}"     class="diskKey">${octKey}</td> 
                     <td id="InUse${octKey}"   class="diskInUse">00</td>
                     <td id="TSB${octKey}"     class="diskTSB">${_krnDiskDriver.getTSBString(numKey)}</td>
-                    <td id="Data${octKey}"    class="diskData">${_krnDiskDriver.getData(numKey)}</td>
+                    <td id="Data${octKey}"    class="diskData"><strong>${_krnDiskDriver.getData(numKey)}</strong></td>
                     </tr>`;
                 row.innerHTML = rowHTML;
             }
@@ -249,7 +249,7 @@ var TSOS;
                     document.getElementById("InUse" + octKey).innerText = "00";
                 }
                 document.getElementById("TSB" + octKey).innerText = _krnDiskDriver.getTSBString(numKey);
-                document.getElementById("Data" + octKey).innerText = _krnDiskDriver.getData(numKey);
+                document.getElementById("Data" + octKey).innerHTML = "<strong>" + _krnDiskDriver.getData(numKey) + "</strong>";
             }
         }
     }

@@ -92,7 +92,7 @@ var TSOS;
                 hexString += hexChar;
             }
             //return string of all hex values
-            hexString += "0".repeat(rPadding * HEX_WORD_SIZE - hexString.length);
+            hexString += "0".repeat(rPadding - hexString.length);
             return hexString;
         }
         //take a number (26) and return the oct equivalent string ("0c32")

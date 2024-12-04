@@ -101,7 +101,7 @@ var TSOS;
             //     return;
             // }
             //rename
-            this.setData(key, TSOS.Utils.stringToHex(newFileName, BYTES_FOR_DATA));
+            this.setData(key, TSOS.Utils.stringToHex(newFileName, BYTES_FOR_DATA * HEX_WORD_SIZE));
             _StdOut.putText("File ");
             _StdOut.putText(oldFileName, FILE_TEXT);
             _StdOut.putText(" renamed to ");
@@ -164,7 +164,7 @@ var TSOS;
             //loop through directory
             for (var i = 0o000; i < DIRECTORY_LENGTH; i++) {
                 //find used block with same file name
-                if (this.isInuse(i) && this.getData(i) === TSOS.Utils.stringToHex(fileName, BYTES_FOR_DATA)) {
+                if (this.isInuse(i) && this.getData(i) === TSOS.Utils.stringToHex(fileName, BYTES_FOR_DATA * HEX_WORD_SIZE)) {
                     //return the directory location
                     _Kernel.krnTrace("File found at " + i);
                     return i;
@@ -178,7 +178,7 @@ var TSOS;
             //loop through directory
             for (var i = 0o000; i < DIRECTORY_LENGTH; i++) {
                 //find used block with same file name
-                if (this.isInuse(i) && this.getData(i) === TSOS.Utils.stringToHex(fileName, BYTES_FOR_DATA)) {
+                if (this.isInuse(i) && this.getData(i) === TSOS.Utils.stringToHex(fileName, BYTES_FOR_DATA * HEX_WORD_SIZE)) {
                     return true;
                 }
             }
@@ -192,9 +192,9 @@ var TSOS;
                     //set up camp here
                     this.setInuse(i, true);
                     this.resetTSB(i);
-                    this.setData(i, TSOS.Utils.stringToHex(fileName, BYTES_FOR_DATA));
-                    _StdOut.putText(this.getData(i), ERROR_TEXT);
-                    _StdOut.advanceLine();
+                    this.setData(i, TSOS.Utils.stringToHex(fileName, BYTES_FOR_DATA * HEX_WORD_SIZE));
+                    //_StdOut.putText(this.getData(i), ERROR_TEXT);
+                    //_StdOut.advanceLine();
                     //log it
                     _Kernel.krnTrace("File " + fileName + " saved at key " + i);
                     //return the directory location
@@ -220,20 +220,23 @@ var TSOS;
             return ERROR_CODE;
         }
         writeData(startingKey, plainTextData) {
-            //convert plaintext to hex                                      //  5 "hello"
-            var hexDataLength = plainTextData.length * HEX_WORD_SIZE; //  10
-            var numBlocksNeeded = Math.ceil(hexDataLength / BYTES_FOR_DATA); //  1
-            var numBytesNeeded = numBlocksNeeded * BYTES_FOR_DATA; //padding    60
-            var hexData = TSOS.Utils.stringToHex(plainTextData, numBytesNeeded);
-            _StdOut.putText(hexData, ERROR_TEXT);
+            //convert plaintext to hex                                                      //  100 characters long
+            var hexDataLength = plainTextData.length * HEX_WORD_SIZE; //  200
+            var numBlocksNeeded = Math.ceil(hexDataLength / (BYTES_FOR_DATA * HEX_WORD_SIZE)); //  1.6 -> 2
+            var numBytesNeeded = numBlocksNeeded * BYTES_FOR_DATA; //padding                    120
+            var hexData = TSOS.Utils.stringToHex(plainTextData, numBytesNeeded * HEX_WORD_SIZE); //  240
+            _StdOut.putText("chars: " + hexDataLength + ". blocks: " + numBlocksNeeded, ERROR_TEXT);
             _StdOut.advanceLine();
             var tsb = startingKey;
+            var key;
             //each block of data storing
             for (var i = 0; i < numBlocksNeeded; i++) {
                 var key = tsb;
                 //separate hexData string into block sized pieces (60 bytes)
-                var hexDataSeparated = hexData.substring(i * BYTES_FOR_DATA * HEX_WORD_SIZE, (i + 1) * BYTES_FOR_DATA * HEX_WORD_SIZE + 1);
-                _StdOut.putText(hexDataSeparated, ERROR_TEXT);
+                var hexDataSeparated = hexData.substring(i * BYTES_FOR_DATA * HEX_WORD_SIZE, (i + 1) * BYTES_FOR_DATA * HEX_WORD_SIZE);
+                _StdOut.putText("{" + TSOS.Utils.toOct(key) + "}: '" + hexDataSeparated + "'", ERROR_TEXT);
+                _StdOut.advanceLine();
+                _StdOut.putText("Length of part " + i + ": " + hexDataSeparated.length, ERROR_TEXT);
                 _StdOut.advanceLine();
                 //insert into block
                 this.setData(key, hexDataSeparated);
@@ -244,7 +247,7 @@ var TSOS;
                 this.setTSB(key, tsb);
             }
             //the final block should not have a tsb
-            this.setTSB(tsb, ERROR_CODE);
+            this.setTSB(key, ERROR_CODE);
             //this.setData(tsb, fileData);
             //this.setInuse(tsb, true);
         }
