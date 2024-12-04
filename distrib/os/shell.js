@@ -613,6 +613,13 @@ var TSOS;
                 _StdOut.putText("Error: Disk is not formatted. Use command: format", ERROR_TEXT);
             }
             else if (args.length > 0) {
+                // is it a real file?
+                var fileName = args[0];
+                if (!_krnDiskDriver.isAFileName(fileName)) {
+                    _StdOut.putText("Error: Could not find the file ", ERROR_TEXT);
+                    _StdOut.putText(fileName, FILE_TEXT);
+                    return;
+                }
                 _krnDiskDriver.read(args[0]);
             }
             else {
@@ -642,8 +649,8 @@ var TSOS;
                 }
                 //write data to the file
                 var refinedData = rawData.substring(firstQuote + 1, secondQuote);
-                _StdOut.putText(refinedData);
-                _StdOut.advanceLine();
+                // _StdOut.putText(refinedData);
+                // _StdOut.advanceLine();
                 _krnDiskDriver.write(fileName, refinedData);
             }
             else {

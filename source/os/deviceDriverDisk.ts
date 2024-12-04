@@ -78,10 +78,10 @@
                 _StdOut.putText("Reading data from ");
                 _StdOut.putText(fileName, FILE_TEXT);
                 _StdOut.advanceLine();
-                _StdOut.putText(this.getData(tsb));
+                _StdOut.putText(Utils.hexToString(this.readLinkedData(tsb)));
             }
 
-            _StdOut.putText("theres data!");
+            //_StdOut.putText("theres data!");
         }
 
         public write(fileName: string, fileData: string) {
@@ -105,14 +105,16 @@
 
                 //delete the file data
                 this.deleteLinkedData(tsb);
-
-                // this.setData(tsb, fileData);
-                // this.setInuse(tsb, true);
             }
 
             //put in the new data
             this.writeData(tsb, fileData);
-            
+
+            //tell the shell
+            _StdOut.putText("Successfully updated ");
+            _StdOut.putText(fileName, FILE_TEXT);
+            _StdOut.advanceLine();
+            _StdOut.putText(Utils.hexToString(this.readLinkedData(tsb))); 
         }
 
         public copy(fromName: string, toName: string) {
@@ -286,8 +288,8 @@
             var numBlocksNeeded = Math.ceil(hexDataLength/(BYTES_FOR_DATA*HEX_WORD_SIZE));  //  1.6 -> 2
             var numBytesNeeded = numBlocksNeeded * BYTES_FOR_DATA; //padding                    120
             var hexData = Utils.stringToHex(plainTextData, numBytesNeeded*HEX_WORD_SIZE);   //  240
-            _StdOut.putText("chars: " + hexDataLength + ". blocks: "+numBlocksNeeded, ERROR_TEXT);
-            _StdOut.advanceLine();
+            //_StdOut.putText("chars: " + hexDataLength + ". blocks: "+numBlocksNeeded, ERROR_TEXT);
+            //_StdOut.advanceLine();
             
             var tsb = startingKey;
             var key: number;
@@ -299,10 +301,10 @@
                 //separate hexData string into block sized pieces (60 bytes)
                 var hexDataSeparated = hexData.substring(i*BYTES_FOR_DATA*HEX_WORD_SIZE, (i+1)*BYTES_FOR_DATA*HEX_WORD_SIZE);
                 
-                _StdOut.putText("{"+Utils.toOct(key)+"}: '"+hexDataSeparated+"'", ERROR_TEXT);
-                _StdOut.advanceLine();
-                _StdOut.putText("Length of part "+i+": "+hexDataSeparated.length, ERROR_TEXT);
-                _StdOut.advanceLine();
+                // _StdOut.putText("{"+Utils.toOct(key)+"}: '"+hexDataSeparated+"'", ERROR_TEXT);
+                // _StdOut.advanceLine();
+                // _StdOut.putText("Length of part "+i+": "+hexDataSeparated.length, ERROR_TEXT);
+                // _StdOut.advanceLine();
 
                 //insert into block
                 this.setData(key, hexDataSeparated);
@@ -333,6 +335,22 @@
 
             //set the final
             this.setInuse(key, false);
+        }
+
+        //given a starting key, return the linked data chain in hex string form
+        public readLinkedData(startingKey: number): string {
+            //first things first
+            var key = startingKey;
+            var hex = "";
+
+            while (this.hasTSB(key)) {
+                hex += this.getData(key);
+                key = this.getTSB(key);
+            }
+
+            //add the final and return
+            hex += this.getData(key);
+            return hex;
         }
 
 

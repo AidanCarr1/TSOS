@@ -804,6 +804,14 @@ module TSOS {
             }
 
             else if (args.length > 0) {
+                // is it a real file?
+                var fileName = args[0];
+                if (!_krnDiskDriver.isAFileName(fileName)) {
+                    _StdOut.putText("Error: Could not find the file ", ERROR_TEXT);
+                    _StdOut.putText(fileName, FILE_TEXT);
+                    return;
+                }
+
                 _krnDiskDriver.read(args[0]);
             }
             else {
@@ -839,8 +847,8 @@ module TSOS {
 
                 //write data to the file
                 var refinedData = rawData.substring(firstQuote+1, secondQuote);
-                _StdOut.putText(refinedData);
-                _StdOut.advanceLine();
+                // _StdOut.putText(refinedData);
+                // _StdOut.advanceLine();
 
                 _krnDiskDriver.write(fileName, refinedData);
             }
