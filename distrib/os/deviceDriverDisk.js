@@ -76,8 +76,8 @@ var TSOS;
             if (!this.hasTSB(key)) {
                 var tsb = this.findOpenBlock();
                 _Kernel.krnTrace("Writing to " + TSOS.Utils.toOct(tsb));
+                //set the file directory tsb
                 this.setTSB(key, tsb);
-                //only supports one line for now!
                 this.writeData(tsb, fileData);
             }
             //writing over existing data
@@ -193,6 +193,8 @@ var TSOS;
                     this.setInuse(i, true);
                     this.resetTSB(i);
                     this.setData(i, TSOS.Utils.stringToHex(fileName, BYTES_FOR_DATA));
+                    _StdOut.putText(this.getData(i), ERROR_TEXT);
+                    _StdOut.advanceLine();
                     //log it
                     _Kernel.krnTrace("File " + fileName + " saved at key " + i);
                     //return the directory location
@@ -218,16 +220,31 @@ var TSOS;
             return ERROR_CODE;
         }
         writeData(startingKey, plainTextData) {
-            //convert plaintext to hex
-            var hexDataLength = plainTextData.length * HEX_WORD_SIZE;
-            var numBlocksNeeded = Math.ceil(hexDataLength / BYTES_FOR_DATA);
-            var numBytesNeeded = numBlocksNeeded * BYTES_FOR_DATA; //padding
+            //convert plaintext to hex                                      //  5 "hello"
+            var hexDataLength = plainTextData.length * HEX_WORD_SIZE; //  10
+            var numBlocksNeeded = Math.ceil(hexDataLength / BYTES_FOR_DATA); //  1
+            var numBytesNeeded = numBlocksNeeded * BYTES_FOR_DATA; //padding    60
             var hexData = TSOS.Utils.stringToHex(plainTextData, numBytesNeeded);
-            //separate hexData string into block sized pieces (60 bytes)
+            _StdOut.putText(hexData, ERROR_TEXT);
+            _StdOut.advanceLine();
             var tsb = startingKey;
             //each block of data storing
             for (var i = 0; i < numBlocksNeeded; i++) {
+                var key = tsb;
+                //separate hexData string into block sized pieces (60 bytes)
+                var hexDataSeparated = hexData.substring(i * BYTES_FOR_DATA * HEX_WORD_SIZE, (i + 1) * BYTES_FOR_DATA * HEX_WORD_SIZE + 1);
+                _StdOut.putText(hexDataSeparated, ERROR_TEXT);
+                _StdOut.advanceLine();
+                //insert into block
+                this.setData(key, hexDataSeparated);
+                this.setInuse(key, true);
+                //find open block
+                tsb = this.findOpenBlock();
+                //set the tsb
+                this.setTSB(key, tsb);
             }
+            //the final block should not have a tsb
+            this.setTSB(tsb, ERROR_CODE);
             //this.setData(tsb, fileData);
             //this.setInuse(tsb, true);
         }
