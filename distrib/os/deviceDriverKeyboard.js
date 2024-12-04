@@ -167,7 +167,11 @@ var TSOS;
                     return;
                 }
                 //delete current line
-                _Console.deleteText(_Console.buffer);
+                //_Console.deleteText(_Console.buffer);
+                //delete current line... letter by letter!
+                for (var i = 0; i < _Console.buffer.length; i++) {
+                    _Console.deleteText(_Console.buffer[_Console.buffer.length - (i + 1)]);
+                }
                 //replace with the copied line
                 var copiedLine = _Console.bufferHistory[_Console.historyPointer];
                 _Console.buffer = copiedLine;

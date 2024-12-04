@@ -127,11 +127,11 @@ module TSOS {
             //Move current X position backwards
             this.currentXPosition = this.currentXPosition - offset;
 
-            alert("pos:"+this.currentXPosition);
+            //alert("pos:"+this.currentXPosition);
             // BACKWARDS line wrap
             if (Math.round(this.currentXPosition) <= 0){
 
-                alert("going up");
+                //alert("going up");
                 //go up a line
                 var changeInY:number = this.currentFontSize + 
                                    _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
