@@ -114,7 +114,7 @@ var TSOS;
             return octRaw;
         }
         static keyToHex(key) {
-            _Kernel.krnTrace("start key to hex");
+            //_Kernel.krnTrace("start key to hex");
             var hex = "";
             for (var i = 0; i < key.length; i += HEX_WORD_SIZE) {
                 var anOct = key.substring(i, i + HEX_WORD_SIZE + 1);
@@ -125,7 +125,7 @@ var TSOS;
                     hex += anOct[1];
                 }
             }
-            _Kernel.krnTrace("end key to hex");
+            //_Kernel.krnTrace("end key to hex");
             return hex;
         }
         //convert hex ASCII to readable english

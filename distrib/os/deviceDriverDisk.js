@@ -74,19 +74,23 @@ var TSOS;
             var key = this.getKeyByFileName(fileName);
             //first time writing to file
             if (!this.hasTSB(key)) {
+                //find a good tsb
                 var tsb = this.findOpenBlock();
                 _Kernel.krnTrace("Writing to " + TSOS.Utils.toOct(tsb));
                 //set the file directory tsb
                 this.setTSB(key, tsb);
-                this.writeData(tsb, fileData);
             }
             //writing over existing data
             else {
                 var tsb = this.getTSB(key);
                 _Kernel.krnTrace("Writing over data at " + TSOS.Utils.toOct(tsb));
-                this.setData(tsb, fileData);
-                this.setInuse(tsb, true);
+                //delete the file data
+                this.deleteLinkedData(tsb);
+                // this.setData(tsb, fileData);
+                // this.setInuse(tsb, true);
             }
+            //put in the new data
+            this.writeData(tsb, fileData);
         }
         copy(fromName, toName) {
         }
@@ -250,6 +254,18 @@ var TSOS;
             this.setTSB(key, ERROR_CODE);
             //this.setData(tsb, fileData);
             //this.setInuse(tsb, true);
+        }
+        //given a starting key, set inuse false. Do the same for each tsb linked in chain
+        deleteLinkedData(startingKey) {
+            //first things first
+            var key = startingKey;
+            while (this.hasTSB(key)) {
+                this.setInuse(key, false);
+                key = this.getTSB(key);
+                //leaving the tsb and data in place (for recovery)
+            }
+            //set the final
+            this.setInuse(key, false);
         }
         // SET FUNCTIONS
         //set inuse for a key given true/false
