@@ -399,9 +399,16 @@ var TSOS;
             //check for availible segment or if there is memory and we arent over writing program
             var segment = _MemoryManager.whereIsSpace();
             if (segment == ERROR_CODE) {
-                _StdOut.putText("Error: No space in memory.", ERROR_TEXT);
-                //BOOKMARK add something here for formatting the disk
-                return;
+                //Storing in disk!
+                if (!_krnDiskDriver.isFormatted) {
+                    _StdOut.putText("Error: No space in memory.", ERROR_TEXT);
+                    _StdOut.advanceLine();
+                    _StdOut.putText("Format disk to store more programs. Use command: format");
+                    _StdOut.advanceLine();
+                    return;
+                }
+                _Kernel.krnTrace("Memory full. Looking to store on disk");
+                segment = STORE_ON_DISK;
             }
             var userProgramStr = document.getElementById("taProgramInput").value;
             //turn input into string with no spaces or /n
@@ -434,17 +441,32 @@ var TSOS;
             }
             //if its valid, load it
             else if (isValid && programStr.length > 1) {
-                //clear old process
-                _MemoryAccessor.clearSegment(segment);
-                //create PCB at the segment
-                var pid = _MemoryManager.newProcess(decimalList, segment);
-                //load into main memory
-                _MemoryAccessor.writeSegment(decimalList, segment);
-                //_StdOut.putText("Loaded into segment " + segment + ". ");
-                //return PID
-                _StdOut.putText("Process ID: " + pid);
-                //update memory display accordingly
-                TSOS.Control.updateMemoryDisplay();
+                //for storing in memory...
+                if (segment != STORE_ON_DISK) {
+                    //clear old process
+                    _MemoryAccessor.clearSegment(segment);
+                    //create PCB at the segment
+                    var pid = _MemoryManager.newProcess(decimalList, segment);
+                    //load into main memory
+                    _MemoryAccessor.writeSegment(decimalList, segment);
+                    //_StdOut.putText("Loaded into segment " + segment + ". ");
+                    //return PID
+                    _StdOut.putText("Process ID: " + pid);
+                    //update memory display accordingly
+                    TSOS.Control.updateMemoryDisplay();
+                }
+                //for storing on disk...
+                else {
+                    //create PCB, location = disk
+                    var pid = _MemoryManager.newProcess(decimalList, STORE_ON_DISK);
+                    //load into main memory
+                    _MemoryAccessor.writeSegment(decimalList, segment);
+                    //_StdOut.putText("Loaded into segment " + segment + ". ");
+                    //return PID
+                    _StdOut.putText("Process ID: " + pid);
+                    //update memory display accordingly
+                    TSOS.Control.updateMemoryDisplay();
+                }
             }
             else {
                 _StdOut.putText("Error: Invalid Hex", ERROR_TEXT);

@@ -542,6 +542,7 @@ module TSOS {
                 //Storing in disk!
                 if (!_krnDiskDriver.isFormatted) {
                     _StdOut.putText("Error: No space in memory.", ERROR_TEXT);
+                    _StdOut.advanceLine();
                     _StdOut.putText("Format disk to store more programs. Use command: format");
                     _StdOut.advanceLine();
                     return;

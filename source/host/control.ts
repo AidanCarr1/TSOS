@@ -221,7 +221,7 @@ module TSOS {
             (<HTMLInputElement> document.getElementById("PC")).innerText = Utils.toHex(_CPU.PC, HEX_WORD_SIZE);
             (<HTMLInputElement> document.getElementById("IR")).innerText = Utils.toHex(_CPU.instructionRegister, HEX_WORD_SIZE);
 
-            (<HTMLInputElement> document.getElementById("Acc")).innerText = Utils.toHex(_CPU.Acc);
+            (<HTMLInputElement> document.getElementById("Acc")).innerText = Utils.toHex(_CPU.Acc, HEX_WORD_SIZE);
             (<HTMLInputElement> document.getElementById("X")).innerText = Utils.toHex(_CPU.Xreg);
             (<HTMLInputElement> document.getElementById("Y")).innerText = Utils.toHex(_CPU.Yreg);
             (<HTMLInputElement> document.getElementById("Z")).innerText = Utils.toHex(_CPU.Zflag);
@@ -237,8 +237,8 @@ module TSOS {
             rowHTML +=    "<td id='pid"+pcb.pid+"'      class='pidBox' >"+ pcb.pid                    +"</td>";
             rowHTML +=    "<td id='state"+pcb.pid+"'    class='pcbBoxS'>"+ pcb.getState()             +"</td>";
             rowHTML +=    "<td id='location"+pcb.pid+"' class='pcbBox' >"+ pcb.location               +"</td>";
-            rowHTML +=    "<td id='base"+pcb.pid+"'     class='pcbBox' >"+ Utils.toHex(pcb.getBase()) +"</td>";
-            rowHTML +=    "<td id='limit"+pcb.pid+"'    class='pcbBox' >"+ Utils.toHex(pcb.getLimit())+"</td>";
+            rowHTML +=    "<td id='base"+pcb.pid+"'     class='pcbBox' >"+ Utils.toHex(pcb.getBase(), BASE_LIMIT_WORD_SIZE) +"</td>";
+            rowHTML +=    "<td id='limit"+pcb.pid+"'    class='pcbBox' >"+ Utils.toHex(pcb.getLimit(), BASE_LIMIT_WORD_SIZE)+"</td>";
             rowHTML +=    "<td id='segment"+pcb.pid+"'  class='pcbBox' >"+ Utils.toHex(pcb.segment)   +"</td>";
             rowHTML +=    "<td id='priority"+pcb.pid+"' class='pcbBox' >"+ Utils.toHex(pcb.priority)  +"</td>";
             //rowHTML +=    "<td id='quantum"+pcb.pid+"'  class='pcbBox'>"+ Utils.toHex(pcb.quantum)   +"</td>";
@@ -259,19 +259,9 @@ module TSOS {
             // change the PCB dispaly based on a new, current state           
             document.getElementById("state"+pid).innerText    = pcb.getState();
             document.getElementById("location"+pid).innerText = pcb.location;
-
-            //if segment no longer exists, show nothing
-            if (pcb.getSegment() == ERROR_CODE){
-                document.getElementById("base"+pid).innerText     = "--";
-                document.getElementById("limit"+pid).innerText    = "--";
-                document.getElementById("segment"+pid).innerText  = "--";
-            }
-            //if it exists show normal data
-            else {
-                document.getElementById("base"+pid).innerText     = Utils.toHex(pcb.getBase());
-                document.getElementById("limit"+pid).innerText    = Utils.toHex(pcb.getLimit());
-                document.getElementById("segment"+pid).innerText  = Utils.toHex(pcb.segment);
-            }
+            document.getElementById("base"+pid).innerText     = Utils.toHex(pcb.getBase(), BASE_LIMIT_WORD_SIZE);
+            document.getElementById("limit"+pid).innerText    = Utils.toHex(pcb.getLimit(), BASE_LIMIT_WORD_SIZE);
+            document.getElementById("segment"+pid).innerText  = Utils.toHex(pcb.segment);
             document.getElementById("priority"+pid).innerText = Utils.toHex(pcb.priority);
         }
 

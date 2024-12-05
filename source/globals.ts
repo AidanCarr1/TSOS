@@ -45,6 +45,7 @@ const NUM_OF_SEGEMENTS: number = 0x03; //3 segments
 const STORE_ON_DISK: number = 0x04;    //"segment 4" - the virtual segment
 const SEGMENT_SIZE: number = 0x100;    // 0x000 to 0x0FF, 0x100 to 0x1FF, 0x200 to 0x2FF
 const MEMORY_SIZE: number = NUM_OF_SEGEMENTS * SEGMENT_SIZE;     // 3 segments of 0x100
+const BASE_LIMIT_WORD_SIZE: number = 3; // 0x123 to 0x123 (3 chars long)
 
 const HEX_WORD_SIZE: number = 2; //2 chars of hex in a byte
 const HIGH_ORDER_MULTIPLIER: number = 0x0100; //help with little endian
