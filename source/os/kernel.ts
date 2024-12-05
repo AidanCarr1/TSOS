@@ -248,7 +248,7 @@ module TSOS {
             _StdOut.advanceLine();
             _StdOut.putText("Process " + pcb.pid + " terminated. ");
             _StdOut.advanceLine();
-            _StdOut.putText(_OsShell.promptStr);
+            _OsShell.putPrompt();
         }
 
         public outOfBounds(params) {

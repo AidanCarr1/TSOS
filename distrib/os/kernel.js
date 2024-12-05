@@ -211,7 +211,7 @@ var TSOS;
             _StdOut.advanceLine();
             _StdOut.putText("Process " + pcb.pid + " terminated. ");
             _StdOut.advanceLine();
-            _StdOut.putText(_OsShell.promptStr);
+            _OsShell.putPrompt();
         }
         outOfBounds(params) {
             //get params

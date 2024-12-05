@@ -187,7 +187,7 @@ module TSOS {
                     _StdOut.putText("Process " + this.currentPCB.pid + " wait time: " + this.currentPCB.waitTime + " cycles");
                     _StdOut.advanceLine();
 
-                    _StdOut.putText(_OsShell.promptStr);
+                    _OsShell.putPrompt();
 
                     //kill it!
                     var systemCall = new Interrupt(KILL_PROCESS_IRQ, [_CPU.currentPCB]);
@@ -273,7 +273,6 @@ module TSOS {
                     _KernelInterruptQueue.enqueue(systemCall);
 
                     //_StdOut.advanceLine();
-                    //_StdOut.putText(_OsShell.promptStr);
                     break;
                 }
             } 

@@ -120,7 +120,7 @@ var TSOS;
             this.putPrompt();
         }
         putPrompt() {
-            _StdOut.putText(this.promptStr);
+            _StdOut.putText(this.promptStr, "#002a2a");
         }
         handleInput(buffer) {
             _Kernel.krnTrace("Shell Command~" + buffer);
@@ -175,18 +175,16 @@ var TSOS;
             _StdOut.advanceLine();
             // ... call the command function passing in the args with some über-cool functional programming ...
             fn(args);
-            // if (cmd === "shutdown" || cmd === "bsod") {
-            //     return;
-            //     this.promptStr = "";
-            // }
             //check for a new line ...
             if (_StdOut.currentXPosition > 0) {
                 _StdOut.advanceLine();
             }
-            //temporary fix, should change because isExecuting may last a while and mess with CLI typing
-            //if (_CPU.isExecuting == false) {
+            //small spacing after command is done executing
+            //(not extra space when at the top of the canvas)
+            if (_StdOut.currentYPosition > _StdOut.currentFontSize) {
+                _StdOut.advanceLine(0.5);
+            }
             this.putPrompt();
-            //}
         }
         parseInput(buffer) {
             var retVal = new TSOS.UserCommand();
@@ -675,8 +673,7 @@ var TSOS;
                 //create file if it is valid
                 if (_krnDiskDriver.isValidFileName(writingFileName)) {
                     _krnDiskDriver.create(writingFileName);
-                    _StdOut.advanceLine();
-                    _StdOut.putText("copy over here!");
+                    _krnDiskDriver.copy(readingFileName, writingFileName);
                 }
             }
             else {

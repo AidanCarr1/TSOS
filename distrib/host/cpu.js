@@ -171,7 +171,7 @@ var TSOS;
                     _StdOut.advanceLine();
                     _StdOut.putText("Process " + this.currentPCB.pid + " wait time: " + this.currentPCB.waitTime + " cycles");
                     _StdOut.advanceLine();
-                    _StdOut.putText(_OsShell.promptStr);
+                    _OsShell.putPrompt();
                     //kill it!
                     var systemCall = new TSOS.Interrupt(KILL_PROCESS_IRQ, [_CPU.currentPCB]);
                     _KernelInterruptQueue.enqueue(systemCall);
@@ -243,7 +243,6 @@ var TSOS;
                     var systemCall = new TSOS.Interrupt(KILL_PROCESS_IRQ, [this.currentPCB]);
                     _KernelInterruptQueue.enqueue(systemCall);
                     //_StdOut.advanceLine();
-                    //_StdOut.putText(_OsShell.promptStr);
                     break;
                 }
             }

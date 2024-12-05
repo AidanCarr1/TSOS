@@ -127,7 +127,7 @@ var TSOS;
                 this.currentXPosition = this.recentFarXPosition;
             }
         }
-        advanceLine() {
+        advanceLine(count) {
             this.currentXPosition = 0;
             /*
              * Font size measures from the baseline to the highest point in the font.
@@ -137,6 +137,9 @@ var TSOS;
             var changeInY = this.currentFontSize +
                 _DrawingContext.fontDescent(this.currentFont, this.currentFontSize) +
                 _FontHeightMargin;
+            if (count) {
+                changeInY *= count;
+            }
             this.currentYPosition += changeInY;
             // Scrolling: if position is off the canvas, move everything up
             if (this.currentYPosition > _Canvas.height) {
