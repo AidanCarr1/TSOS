@@ -662,6 +662,22 @@ var TSOS;
                 _StdOut.putText("Error: Disk is not formatted. Use command: format", ERROR_TEXT);
             }
             else if (args.length > 1) {
+                // is file filename a real file?
+                var readingFileName = args[0];
+                if (!_krnDiskDriver.isAFileName(readingFileName)) {
+                    _StdOut.putText("Error: Could not find the file ", ERROR_TEXT);
+                    _StdOut.putText(readingFileName, FILE_TEXT);
+                    return;
+                }
+                //new file
+                //replace spaces with _
+                var writingFileName = args.slice(1).join("_");
+                //create file if it is valid
+                if (_krnDiskDriver.isValidFileName(writingFileName)) {
+                    _krnDiskDriver.create(writingFileName);
+                    _StdOut.advanceLine();
+                    _StdOut.putText("copy over here!");
+                }
             }
             else {
                 _StdOut.putText("Usage: copy <from filename> <to filename> Please supply two file names.");

@@ -26,6 +26,7 @@
         }
 
         public format() {
+            //initialize all tracks, sectors, and blocks
             for (var i = 0o000; i < DISK_SIZE; i++) {
                 var key = Utils.toOct(i, OCT_WORD_SIZE);
                 sessionStorage.setItem(key, "00".repeat(BYTES_PER_BLOCK));
@@ -33,13 +34,12 @@
                 this.resetTSB(i);
             }
 
-            //set Master Boot Record
-            //_Kernel.krnTrace(Utils.toHex(1, HEX_WORD_SIZE));
-            this.setInuse(0o000, true);
-
             //create disk display table
             Control.createDiskDisplay();
             this.isFormatted = true;
+
+            //set Master Boot Record
+            this.setInuse(0o000, true);            
         }
 
         public create(fileName: string) {
@@ -50,6 +50,7 @@
             if (key != ERROR_CODE) {
                 _StdOut.putText("File created: ");
                 _StdOut.putText(fileName, FILE_TEXT);
+                _StdOut.advanceLine();
             }
             else {
                 _StdOut.putText("Error: Disk full. Too many files in directory", ERROR_TEXT);
@@ -71,6 +72,7 @@
             if (!this.hasTSB(key)) {
                 _StdOut.putText("No data in ");
                 _StdOut.putText(fileName, FILE_TEXT);
+                _StdOut.advanceLine();
                 return;
             }
 
@@ -79,9 +81,8 @@
                 _StdOut.putText(fileName, FILE_TEXT);
                 _StdOut.advanceLine();
                 _StdOut.putText(Utils.hexToString(this.readLinkedData(tsb)));
+                _StdOut.advanceLine();
             }
-
-            //_StdOut.putText("theres data!");
         }
 
         public write(fileName: string, fileData: string) {
@@ -115,9 +116,47 @@
             _StdOut.putText(fileName, FILE_TEXT);
             _StdOut.advanceLine();
             _StdOut.putText(Utils.hexToString(this.readLinkedData(tsb))); 
+            _StdOut.advanceLine();
         }
 
         public copy(fromName: string, toName: string) {
+            
+            //get both keys
+            var fromKey = this.getKeyByFileName(fromName);
+            var toKey = this.getKeyByFileName(toName);
+
+            //get TSB from the FROM file
+            var fromTsb = this.getTSB(fromKey);
+
+            //no tsb associated = no data
+            if (!this.hasTSB(fromKey)) {
+                _StdOut.putText("No data in ");
+                _StdOut.putText(fromKey, FILE_TEXT);
+                _StdOut.advanceLine();
+                return;
+            }
+
+            //read the FROM file
+            var fromData = Utils.hexToString(this.readLinkedData(fromTsb));
+
+            //find a good tsb for the TO file
+            var toTsb = this.findOpenBlock();
+            this.setTSB(toKey, toTsb);
+
+            //write to it
+            _Kernel.krnTrace("Writing to " + Utils.toOct(toTsb));
+            this.writeData(toTsb, fromData);
+
+            //tell the shell
+            _StdOut.putText("Successfully copied from ");
+            _StdOut.putText(fromName, FILE_TEXT);
+            _StdOut.putText(" to ");
+            _StdOut.putText(toName, FILE_TEXT);
+            _StdOut.advanceLine();
+            _StdOut.putText(Utils.hexToString(this.readLinkedData(toTsb))); 
+            _StdOut.advanceLine();
+            
+
 
         }
 
