@@ -553,6 +553,9 @@ var TSOS;
                     //kill it!
                     var systemCall = new TSOS.Interrupt(KILL_PROCESS_IRQ, [_MemoryManager.getProcessByPID(targetPID)]);
                     _KernelInterruptQueue.enqueue(systemCall);
+                    //tell shell
+                    _StdOut.putText("Process " + targetPID + " terminated.");
+                    _StdOut.advanceLine();
                 }
                 //pid does not exist or isnt a number
                 else {
@@ -576,6 +579,9 @@ var TSOS;
                         //kill it!
                         var systemCall = new TSOS.Interrupt(KILL_PROCESS_IRQ, [_MemoryManager.getProcessByPID(targetPID)]);
                         _KernelInterruptQueue.enqueue(systemCall);
+                        //tell shell
+                        _StdOut.putText("Process " + targetPID + " terminated.");
+                        _StdOut.advanceLine();
                     }
                 }
             }
@@ -670,6 +676,12 @@ var TSOS;
                 //new file
                 //replace spaces with _
                 var writingFileName = args.slice(1).join("_");
+                // is it unique?
+                if (_krnDiskDriver.isAFileName(writingFileName)) {
+                    _StdOut.putText("Error: File already exists ", ERROR_TEXT);
+                    _StdOut.putText(writingFileName, FILE_TEXT);
+                    return;
+                }
                 //create file if it is valid
                 if (_krnDiskDriver.isValidFileName(writingFileName)) {
                     _krnDiskDriver.create(writingFileName);
@@ -713,6 +725,12 @@ var TSOS;
                 }
                 //get new name
                 var newFileName = args.slice(1).join("_");
+                // is it unique?
+                if (_krnDiskDriver.isAFileName(newFileName)) {
+                    _StdOut.putText("Error: File already exists ", ERROR_TEXT);
+                    _StdOut.putText(newFileName, FILE_TEXT);
+                    return;
+                }
                 //rename
                 _krnDiskDriver.rename(fileName, newFileName);
             }

@@ -287,10 +287,10 @@ module TSOS {
 
                 var rowHTML = 
                    `<tr id="Block${octKey}">
-                    <td id="Key${octKey}"     class="diskKey">${octKey}</td> 
-                    <td id="InUse${octKey}"   class="diskInUse">00</td>
-                    <td id="TSB${octKey}"     class="diskTSB">${_krnDiskDriver.getTSBString(numKey)}</td>
-                    <td id="Data${octKey}"    class="diskData"><strong>${_krnDiskDriver.getData(numKey)}</strong></td>
+                    <td id="Key${octKey}"   class="diskKey"           > ${octKey}</td> 
+                    <td id="InUse${octKey}" class="diskInUse notInuse"> 00</td>
+                    <td id="TSB${octKey}"   class="diskTSB   notInuse"> ${_krnDiskDriver.getTSBString(numKey)}</td>
+                    <td id="Data${octKey}"  class="diskData  notInuse"> <strong>${_krnDiskDriver.getData(numKey)}</strong></td>
                     </tr>`;
 
                 row.innerHTML = rowHTML;
@@ -307,9 +307,23 @@ module TSOS {
             if (_krnDiskDriver.isFormatted) {
                 if ( _krnDiskDriver.isInuse(numKey)) {
                     document.getElementById("InUse"+octKey).innerText    = "01";
+                    //color the row based on inuse
+                    document.getElementById("InUse"+octKey).classList.remove("notInuse");
+                    document.getElementById("InUse"+octKey).classList.add("inuse");
+                    document.getElementById("TSB"+octKey).classList.remove("notInuse");
+                    document.getElementById("TSB"+octKey).classList.add("inuse");
+                    document.getElementById("Data"+octKey).classList.remove("notInuse");
+                    document.getElementById("Data"+octKey).classList.add("inuse");
                 }
                 else {
                     document.getElementById("InUse"+octKey).innerText    = "00";
+                    //color the row based on inuse
+                    document.getElementById("InUse"+octKey).classList.remove("inuse");
+                    document.getElementById("InUse"+octKey).classList.add("notInuse");
+                    document.getElementById("TSB"+octKey).classList.remove("inuse");
+                    document.getElementById("TSB"+octKey).classList.add("notInuse");
+                    document.getElementById("Data"+octKey).classList.remove("inuse");
+                    document.getElementById("Data"+octKey).classList.add("notInuse");
                 }
                 document.getElementById("TSB"+octKey).innerText      = _krnDiskDriver.getTSBString(numKey);
                 document.getElementById("Data"+octKey).innerHTML     = "<strong>"+_krnDiskDriver.getData(numKey) +"</strong>";

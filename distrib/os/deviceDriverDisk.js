@@ -107,7 +107,7 @@ var TSOS;
             //no tsb associated = no data
             if (!this.hasTSB(fromKey)) {
                 _StdOut.putText("No data in ");
-                _StdOut.putText(fromKey, FILE_TEXT);
+                _StdOut.putText(fromName, FILE_TEXT);
                 _StdOut.advanceLine();
                 return;
             }
@@ -125,8 +125,9 @@ var TSOS;
             _StdOut.putText(" to ");
             _StdOut.putText(toName, FILE_TEXT);
             _StdOut.advanceLine();
-            _StdOut.putText(TSOS.Utils.hexToString(this.readLinkedData(toTsb)));
-            _StdOut.advanceLine();
+            //print the contents? i say no
+            //_StdOut.putText(Utils.hexToString(this.readLinkedData(toTsb))); 
+            //_StdOut.advanceLine();
         }
         delete(fileName) {
             var key = this.getKeyByFileName(fileName);

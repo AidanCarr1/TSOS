@@ -120,7 +120,7 @@
         }
 
         public copy(fromName: string, toName: string) {
-            
+
             //get both keys
             var fromKey = this.getKeyByFileName(fromName);
             var toKey = this.getKeyByFileName(toName);
@@ -131,7 +131,7 @@
             //no tsb associated = no data
             if (!this.hasTSB(fromKey)) {
                 _StdOut.putText("No data in ");
-                _StdOut.putText(fromKey, FILE_TEXT);
+                _StdOut.putText(fromName, FILE_TEXT);
                 _StdOut.advanceLine();
                 return;
             }
@@ -153,11 +153,10 @@
             _StdOut.putText(" to ");
             _StdOut.putText(toName, FILE_TEXT);
             _StdOut.advanceLine();
-            _StdOut.putText(Utils.hexToString(this.readLinkedData(toTsb))); 
-            _StdOut.advanceLine();
-            
 
-
+            //print the contents? i say no
+            //_StdOut.putText(Utils.hexToString(this.readLinkedData(toTsb))); 
+            //_StdOut.advanceLine();
         }
 
         public delete(fileName: string) {

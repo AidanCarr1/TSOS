@@ -208,10 +208,12 @@ var TSOS;
             //terminate
             pcb.setState("TERMINATED");
             //tell the shell
-            _StdOut.advanceLine();
-            _StdOut.putText("Process " + pcb.pid + " terminated. ");
-            _StdOut.advanceLine();
-            _OsShell.putPrompt();
+            // if (_StdOut.currentXPosition > 0) {
+            //     _StdOut.advanceLine();
+            // }
+            // _StdOut.putText("Process " + pcb.pid + " terminated. ");
+            // _StdOut.advanceLine(1.5);
+            // _OsShell.putPrompt();
         }
         outOfBounds(params) {
             //get params

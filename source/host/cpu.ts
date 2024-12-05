@@ -181,17 +181,21 @@ module TSOS {
                 case 0x00: {
 
                     //display turnaround time & wait time (that have been calculated)
-                    _StdOut.advanceLine(); 
+                    _StdOut.advanceLine(1.5); 
                     _StdOut.putText("Process " + this.currentPCB.pid + " turnaround time: " + this.currentPCB.turnaroundTime + " cycles");
                     _StdOut.advanceLine();
                     _StdOut.putText("Process " + this.currentPCB.pid + " wait time: " + this.currentPCB.waitTime + " cycles");
                     _StdOut.advanceLine();
 
-                    _OsShell.putPrompt();
+                    //_OsShell.putPrompt();
 
                     //kill it!
                     var systemCall = new Interrupt(KILL_PROCESS_IRQ, [_CPU.currentPCB]);
                     _KernelInterruptQueue.enqueue(systemCall);
+                    //tell shell
+                    _StdOut.putText("Process " + this.currentPCB.pid + " terminated.");
+                    _StdOut.advanceLine(1.5);
+                    _OsShell.putPrompt();
                             
                     break;
                 }
@@ -266,11 +270,19 @@ module TSOS {
                 //can make this a system call
                 default: {
                     this.isExecuting = false;
-                    _StdOut.putText("Unknown instruction: " + Utils.toHex(this.instructionRegister));
+                    if (_StdOut.currentXPosition > 0) {
+                        _StdOut.advanceLine();
+                    }
+                    _StdOut.putText("Unknown instruction: " + Utils.toHex(this.instructionRegister), ERROR_TEXT);
+                    _StdOut.advanceLine();
                     
                     //create an interupt and enqueue it
                     var systemCall = new Interrupt(KILL_PROCESS_IRQ, [this.currentPCB]);
                     _KernelInterruptQueue.enqueue(systemCall);
+                    //tell shell
+                    _StdOut.putText("Process " + this.currentPCB.pid + " terminated.");
+                    _StdOut.advanceLine(1.5);
+                    _OsShell.putPrompt();
 
                     //_StdOut.advanceLine();
                     break;
@@ -279,11 +291,19 @@ module TSOS {
 
             //check program counter isnt at limit before going to next cycle (which will push over the limit)
             if (this.PC >= this.currentBase + SEGMENT_SIZE - 1) {
-                _StdOut.putText("PC out of bounds.");
+                if (_StdOut.currentXPosition > 0) {
+                    _StdOut.advanceLine();
+                }
+                _StdOut.putText("PC out of bounds.", ERROR_TEXT);
+                _StdOut.advanceLine();
 
                 //create a kill interupt and enqueue it
                 var systemCall = new Interrupt(KILL_PROCESS_IRQ, [this.currentPCB]);
                 _KernelInterruptQueue.enqueue(systemCall);
+                //tell shell
+                _StdOut.putText("Process " + this.currentPCB.pid + " terminated.");
+                _StdOut.advanceLine(1.5);
+                _OsShell.putPrompt();
             }
         }
     }
