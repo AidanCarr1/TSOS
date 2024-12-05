@@ -284,7 +284,6 @@ module TSOS {
                     _StdOut.advanceLine(1.5);
                     _OsShell.putPrompt();
 
-                    //_StdOut.advanceLine();
                     break;
                 }
             } 

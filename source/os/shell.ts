@@ -880,18 +880,28 @@ module TSOS {
                 //replace spaces with _
                 var writingFileName = args.slice(1).join("_");
 
+                //is it a valid file name?
+                if (!_krnDiskDriver.isValidFileName(writingFileName)){
+                    return;
+                }
+
                 // is it unique?
+                //alert("trying copy unique");
                 if (_krnDiskDriver.isAFileName(writingFileName)) {
                     _StdOut.putText("Error: File already exists ", ERROR_TEXT);
                     _StdOut.putText(writingFileName, FILE_TEXT);
                     return;
                 }
 
-                //create file if it is valid
-                if (_krnDiskDriver.isValidFileName(writingFileName)){
+                //create & copy file if it is valid
+                // alert("trying copy valid");
+                // if (_krnDiskDriver.isValidFileName(writingFileName)){
+                //     alert("creating and copying");
                     _krnDiskDriver.create(writingFileName);
                     _krnDiskDriver.copy(readingFileName, writingFileName);
-                }
+                //     return;
+                // }
+                // alert("uh fuhh");
             } 
             else {
                 _StdOut.putText("Usage: copy <from filename> <to filename> Please supply two file names.");

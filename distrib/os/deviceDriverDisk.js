@@ -37,15 +37,15 @@ var TSOS;
         create(fileName) {
             //add to list of files
             var key = this.addFile(fileName);
-            //tell the shell
-            if (key != ERROR_CODE) {
-                _StdOut.putText("File created: ");
-                _StdOut.putText(fileName, FILE_TEXT);
-                _StdOut.advanceLine();
-            }
-            else {
+            // could NOT add file
+            if (key == ERROR_CODE) {
                 _StdOut.putText("Error: Disk full. Too many files in directory", ERROR_TEXT);
+                return;
             }
+            //tell the shell
+            _StdOut.putText("File created: ");
+            _StdOut.putText(fileName, FILE_TEXT);
+            _StdOut.advanceLine();
         }
         read(fileName) {
             //get key
@@ -78,6 +78,10 @@ var TSOS;
             if (!this.hasTSB(key)) {
                 //find a good tsb
                 var tsb = this.findOpenBlock();
+                if (tsb == ERROR_CODE) {
+                    _StdOut.putText("Error: Out of disk space ", ERROR_TEXT);
+                    return;
+                }
                 _Kernel.krnTrace("Writing to " + TSOS.Utils.toOct(tsb));
                 //set the file directory tsb
                 this.setTSB(key, tsb);
@@ -102,6 +106,12 @@ var TSOS;
             //get both keys
             var fromKey = this.getKeyByFileName(fromName);
             var toKey = this.getKeyByFileName(toName);
+            // could NOT add file
+            if (toKey == ERROR_CODE) {
+                //already told shell in this.create()
+                //_StdOut.putText("Error: Disk full. Too many files in directory", ERROR_TEXT);
+                return;
+            }
             //get TSB from the FROM file
             var fromTsb = this.getTSB(fromKey);
             //no tsb associated = no data
@@ -115,10 +125,18 @@ var TSOS;
             var fromData = TSOS.Utils.hexToString(this.readLinkedData(fromTsb));
             //find a good tsb for the TO file
             var toTsb = this.findOpenBlock();
+            if (toTsb == ERROR_CODE) {
+                _StdOut.putText("Error: Out of disk space ", ERROR_TEXT);
+                return;
+            }
             this.setTSB(toKey, toTsb);
             //write to it
             _Kernel.krnTrace("Writing to " + TSOS.Utils.toOct(toTsb));
-            this.writeData(toTsb, fromData);
+            var wroteData = this.writeData(toTsb, fromData);
+            if (wroteData == ERROR_CODE) {
+                _StdOut.putText("Error: Out of disk space ", ERROR_TEXT);
+                return;
+            }
             //tell the shell
             _StdOut.putText("Successfully copied from ");
             _StdOut.putText(fromName, FILE_TEXT);
@@ -182,6 +200,7 @@ var TSOS;
         isValidFileName(fileName) {
             //check length
             if (fileName.length > MAX_FILE_NAME_SIZE) {
+                //alert("printing that its long");
                 _StdOut.putText("Error: filename too long, file not created.", ERROR_TEXT);
                 _StdOut.advanceLine();
                 _StdOut.putText("Maximum filename length is " + MAX_FILE_NAME_SIZE + " characters.");
@@ -228,7 +247,7 @@ var TSOS;
                     return i;
                 }
             }
-            _Kernel.krnTrace("!file not found");
+            _Kernel.krnTrace("!File not found");
             return ERROR_CODE;
         }
         //if a file exists with this name, return true
@@ -275,8 +294,12 @@ var TSOS;
                 }
             }
             _Kernel.krnTrace("No space on disk!");
+            _StdOut.putText("Error: Out of disk space ", ERROR_TEXT);
+            _StdOut.advanceLine();
             return ERROR_CODE;
         }
+        //write data in link form with given starting tsb
+        //return ERROR_CODE if unsuccessful
         writeData(startingKey, plainTextData) {
             //convert plaintext to hex                                                      //  100 characters long
             var hexDataLength = plainTextData.length * HEX_WORD_SIZE; //  200
@@ -292,17 +315,17 @@ var TSOS;
                 var key = tsb;
                 //separate hexData string into block sized pieces (60 bytes)
                 var hexDataSeparated = hexData.substring(i * BYTES_FOR_DATA * HEX_WORD_SIZE, (i + 1) * BYTES_FOR_DATA * HEX_WORD_SIZE);
-                // _StdOut.putText("{"+Utils.toOct(key)+"}: '"+hexDataSeparated+"'", ERROR_TEXT);
-                // _StdOut.advanceLine();
-                // _StdOut.putText("Length of part "+i+": "+hexDataSeparated.length, ERROR_TEXT);
-                // _StdOut.advanceLine();
                 //insert into block
                 this.setData(key, hexDataSeparated);
                 this.setInuse(key, true);
                 //find open block
                 tsb = this.findOpenBlock();
+                if (tsb == ERROR_CODE) {
+                    return ERROR_CODE;
+                }
                 //set the tsb
                 this.setTSB(key, tsb);
+                //return 1;
             }
             //the final block should not have a tsb
             this.setTSB(key, ERROR_CODE);

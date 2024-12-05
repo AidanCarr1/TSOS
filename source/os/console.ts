@@ -63,6 +63,8 @@ module TSOS {
                     //tell the shell
                     _StdOut.advanceLine();
                     _StdOut.putText("Process TERMINATED with ctrl c");
+                    _StdOut.advanceLine(1.5);
+                    _OsShell.putPrompt();
 
                     //create an interupt to kill current process?
                     //should i kill all running processes?
