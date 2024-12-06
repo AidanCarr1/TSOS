@@ -595,12 +595,12 @@ module TSOS {
                     //clear old process
                     _MemoryAccessor.clearSegment(segment);
 
-                    //create PCB at the segment
+                    //create PCB, location = disk
                     var pid = _MemoryManager.newProcess(decimalList, segment);
 
                     //load into main memory
                     _MemoryAccessor.writeSegment(decimalList, segment); 
-                    //_StdOut.putText("Loaded into segment " + segment + ". ");
+                    _Kernel.krnTrace("Loaded into segment " + segment);
 
                     //return PID
                     _StdOut.putText("Process ID: " + pid);
@@ -612,18 +612,16 @@ module TSOS {
                 //for storing on disk...
                 else {
                     //create PCB, location = disk
-                    var pid = _MemoryManager.newProcess(decimalList, STORE_ON_DISK);
+                    var pid = _MemoryManager.newProcess(decimalList, segment);
 
                     //load onto disk
-                    //BOOKMARK HERE
-                    _krnDiskDriver.createSwapFile(pid);
-                    //_krnDiskDriver.writeSwapFile(pid, decimalList); 
+                    var swapFileName = Utils.swapFileName(pid);
+                    _krnDiskDriver.create(swapFileName);
+                    _krnDiskDriver.write(swapFileName, programStr); 
+                    _Kernel.krnTrace("Loaded onto disk");
 
                     //return PID
                     _StdOut.putText("Process ID: " + pid);
-
-                    //update memory display accordingly
-                    Control.updateMemoryDisplay();
                 }
             }
 

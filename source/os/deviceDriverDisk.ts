@@ -240,10 +240,6 @@
 
         }
 
-        // //PROCESS SWAP FILES
-        // public createSwapFile(pid: number) {
-
-        // }
 
         // FUNCTIONAL FUNCTIONS
 
