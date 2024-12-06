@@ -75,14 +75,15 @@ module TSOS {
             //normal numbers:                   // 221   0   26     number
             var hexRaw = decimal.toString(16);  // dd    0   1a     hex
             hexRaw = hexRaw.toUpperCase();      // DD    0   1A     upper
-            
-            //padding == 2
-            if (padding == HEX_WORD_SIZE && hexRaw.length == 1) {
-                hexRaw = "0" + hexRaw;          // DD   00   1A     add 0
+
+            //padding
+            var zeros = "";
+            if (padding > hexRaw.length) {
+                zeros = "0".repeat(padding - hexRaw.length);
             }
+            hexRaw = zeros + hexRaw;          // DD   00   1A     add 0
 
             return hexRaw;
-            //return "0x" + hexRaw;               //0xDD 0x00 0x1A    add 0x
         }
         
 
@@ -95,7 +96,7 @@ module TSOS {
         }
 
         //take string "Hello" convert to WORDSIZE2 Hex string ""
-        public static stringToHex(str: string, rPadding?: number): string {
+        public static stringToHex(str: string, rPadding: number): string {
             var hexString = "";
 
             //convert each char to hex value
