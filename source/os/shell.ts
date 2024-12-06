@@ -615,9 +615,12 @@ module TSOS {
                     var pid = _MemoryManager.newProcess(decimalList, segment);
 
                     //load onto disk
-                    var swapFileName = Utils.swapFileName(pid);
+                    var swapFileName = _krnDiskDriver.swapFileName(pid);
+                    var swapFileData = _krnDiskDriver.swapFileData(pid, programStr);
+
+                    //alert(programStr);
                     _krnDiskDriver.create(swapFileName);
-                    _krnDiskDriver.write(swapFileName, programStr); 
+                    _krnDiskDriver.write(swapFileName, swapFileData); 
                     _Kernel.krnTrace("Loaded onto disk");
 
                     //return PID

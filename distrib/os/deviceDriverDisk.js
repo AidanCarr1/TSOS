@@ -42,19 +42,16 @@ var TSOS;
                 _StdOut.putText("Error: Disk full. Too many files in directory", ERROR_TEXT);
                 return;
             }
-            //tell the shell
-            _StdOut.putText("File created: ");
-            _StdOut.putText(fileName, FILE_TEXT);
-            _StdOut.advanceLine();
+            //tell the shell (if it is a user-made file)
+            if (!this.isSwapFileName(fileName)) {
+                _StdOut.putText("File created: ");
+                _StdOut.putText(fileName, FILE_TEXT);
+                _StdOut.advanceLine();
+            }
         }
         read(fileName) {
             //get key
             var key = this.getKeyByFileName(fileName);
-            // if (key === "------") { //shouldn't see this...
-            //     _StdOut.putText("!No file found for ");
-            //     _StdOut.putText(fileName, FILE_TEXT);
-            //     return;
-            // }
             //get TSB
             var tsb = this.getTSB(key);
             //no tsb associated = no data
@@ -64,7 +61,8 @@ var TSOS;
                 _StdOut.advanceLine();
                 return;
             }
-            else {
+            //tell the shell (if it is a user-made file)
+            else if (!this.isSwapFileName(fileName)) {
                 _StdOut.putText("Reading data from ");
                 _StdOut.putText(fileName, FILE_TEXT);
                 _StdOut.advanceLine();
@@ -79,7 +77,6 @@ var TSOS;
                 //find a good tsb
                 var tsb = this.findOpenBlock();
                 if (tsb == ERROR_CODE) {
-                    _StdOut.putText("Error: Out of disk space ", ERROR_TEXT);
                     return;
                 }
                 _Kernel.krnTrace("Writing to " + TSOS.Utils.toOct(tsb));
@@ -94,13 +91,22 @@ var TSOS;
                 this.deleteLinkedData(tsb);
             }
             //put in the new data
-            this.writeData(tsb, fileData);
-            //tell the shell
-            _StdOut.putText("Successfully updated ");
-            _StdOut.putText(fileName, FILE_TEXT);
-            _StdOut.advanceLine();
-            _StdOut.putText(TSOS.Utils.hexToString(this.readLinkedData(tsb)));
-            _StdOut.advanceLine();
+            //user-made file
+            if (!this.isSwapFileName(fileName)) {
+                this.writeData(tsb, fileData);
+            }
+            //swap file
+            else {
+                this.writeHexData(tsb, fileData, BLOCKS_FOR_SWAP);
+            }
+            //tell the shell (if it is a user-made file)
+            if (!this.isSwapFileName(fileName)) {
+                _StdOut.putText("Successfully updated ");
+                _StdOut.putText(fileName, FILE_TEXT);
+                _StdOut.advanceLine();
+                _StdOut.putText(TSOS.Utils.hexToString(this.readLinkedData(tsb)));
+                _StdOut.advanceLine();
+            }
         }
         copy(fromName, toName) {
             //get both keys
@@ -137,6 +143,9 @@ var TSOS;
                 _StdOut.putText("Error: Out of disk space ", ERROR_TEXT);
                 return;
             }
+            // Not needed... (yet?)
+            //tell the shell (if it is a user-made file)
+            //if (! this.isSwapFileName(fileName)) {
             //tell the shell
             _StdOut.putText("Successfully copied from ");
             _StdOut.putText(fromName, FILE_TEXT);
@@ -156,19 +165,16 @@ var TSOS;
                 var tsb = this.getTSB(key);
                 this.deleteLinkedData(tsb);
             }
-            //tell the shell
-            _StdOut.putText("Successfully deleted ");
-            _StdOut.putText(fileName, FILE_TEXT);
-            _StdOut.advanceLine();
+            //tell the shell (if it is a user-made file)
+            if (!this.isSwapFileName(fileName)) {
+                _StdOut.putText("Successfully deleted ");
+                _StdOut.putText(fileName, FILE_TEXT);
+                _StdOut.advanceLine();
+            }
         }
         rename(oldFileName, newFileName) {
             //get key
             var key = this.getKeyByFileName(oldFileName);
-            // if (key === "------") { //shouldn't see this...
-            //     _StdOut.putText("!No file found for ");
-            //     _StdOut.putText(oldFileName, FILE_TEXT);
-            //     return;
-            // }
             //rename
             this.setData(key, TSOS.Utils.stringToHex(newFileName, BYTES_FOR_DATA * HEX_WORD_SIZE));
             _StdOut.putText("File ");
@@ -185,9 +191,12 @@ var TSOS;
                 }
                 else if (this.isInuse(i)) {
                     var fileName = TSOS.Utils.hexToString(this.getData(i));
-                    _StdOut.putText("  " + fileName, FILE_TEXT);
-                    _StdOut.advanceLine();
-                    count++;
+                    //list it (if it is a user-made file)
+                    if (fileName[0] !== ".") {
+                        _StdOut.putText("  " + fileName, FILE_TEXT);
+                        _StdOut.advanceLine();
+                        count++;
+                    }
                 }
             }
             //didnt print out any files, print message
@@ -306,8 +315,9 @@ var TSOS;
             var numBlocksNeeded = Math.ceil(hexDataLength / (BYTES_FOR_DATA * HEX_WORD_SIZE)); //  1.6 -> 2
             var numBytesNeeded = numBlocksNeeded * BYTES_FOR_DATA; //padding                    120
             var hexData = TSOS.Utils.stringToHex(plainTextData, numBytesNeeded * HEX_WORD_SIZE); //  240
-            //_StdOut.putText("chars: " + hexDataLength + ". blocks: "+numBlocksNeeded, ERROR_TEXT);
-            //_StdOut.advanceLine();
+            return this.writeHexData(startingKey, hexData, numBlocksNeeded);
+        }
+        writeHexData(startingKey, hexData, numBlocksNeeded) {
             var tsb = startingKey;
             var key;
             //each block of data storing
@@ -325,12 +335,9 @@ var TSOS;
                 }
                 //set the tsb
                 this.setTSB(key, tsb);
-                //return 1;
             }
             //the final block should not have a tsb
             this.setTSB(key, ERROR_CODE);
-            //this.setData(tsb, fileData);
-            //this.setInuse(tsb, true);
         }
         //given a starting key, set inuse false. Do the same for each tsb linked in chain
         deleteLinkedData(startingKey) {
@@ -356,6 +363,27 @@ var TSOS;
             //add the final and return
             hex += this.getData(key);
             return hex;
+        }
+        //SWAP FILE FUNCTIONS
+        //given a pid, return the swap file name
+        swapFileName(pid) {
+            return ".$swap" + pid;
+        }
+        //given a pid, return the swap file name
+        isSwapFileName(fileName) {
+            return fileName.includes(".$swap");
+        }
+        //store program string and pcb register into a 5 block string
+        swapFileData(pid, programStr) {
+            //store program string
+            var data = programStr;
+            //pad to segment size bytes
+            var padding = SEGMENT_SIZE * HEX_WORD_SIZE;
+            data += "0".repeat(padding - programStr.length);
+            //pad to segment size bytes
+            padding = BLOCKS_FOR_SWAP * SEGMENT_SIZE * HEX_WORD_SIZE;
+            data += "0".repeat(padding - data.length);
+            return data;
         }
         // SET FUNCTIONS
         //set inuse for a key given true/false

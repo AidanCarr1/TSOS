@@ -460,9 +460,11 @@ var TSOS;
                     //create PCB, location = disk
                     var pid = _MemoryManager.newProcess(decimalList, segment);
                     //load onto disk
-                    var swapFileName = TSOS.Utils.swapFileName(pid);
+                    var swapFileName = _krnDiskDriver.swapFileName(pid);
+                    var swapFileData = _krnDiskDriver.swapFileData(pid, programStr);
+                    //alert(programStr);
                     _krnDiskDriver.create(swapFileName);
-                    _krnDiskDriver.write(swapFileName, programStr);
+                    _krnDiskDriver.write(swapFileName, swapFileData);
                     _Kernel.krnTrace("Loaded onto disk");
                     //return PID
                     _StdOut.putText("Process ID: " + pid);

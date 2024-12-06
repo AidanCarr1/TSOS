@@ -211,9 +211,6 @@ module TSOS {
             return decimalValue;
         }
 
-        //given a pid, return the swap file name
-        public static swapFileName(pid: number): string {
-            return ".$swap" + pid; 
-        }
+        
     }
 }

@@ -52,20 +52,17 @@
                 return;
             }
 
-            //tell the shell
-            _StdOut.putText("File created: ");
-            _StdOut.putText(fileName, FILE_TEXT);
-            _StdOut.advanceLine();
+            //tell the shell (if it is a user-made file)
+            if (! this.isSwapFileName(fileName)) {
+                _StdOut.putText("File created: ");
+                _StdOut.putText(fileName, FILE_TEXT);
+                _StdOut.advanceLine();
+            }
         }
 
         public read(fileName: string) {
             //get key
             var key = this.getKeyByFileName(fileName);
-            // if (key === "------") { //shouldn't see this...
-            //     _StdOut.putText("!No file found for ");
-            //     _StdOut.putText(fileName, FILE_TEXT);
-            //     return;
-            // }
 
             //get TSB
             var tsb = this.getTSB(key);
@@ -77,7 +74,8 @@
                 return;
             }
 
-            else {
+            //tell the shell (if it is a user-made file)
+            else if (! this.isSwapFileName(fileName)) {
                 _StdOut.putText("Reading data from ");
                 _StdOut.putText(fileName, FILE_TEXT);
                 _StdOut.advanceLine();
@@ -95,7 +93,6 @@
                 //find a good tsb
                 var tsb = this.findOpenBlock();
                 if (tsb == ERROR_CODE) {
-                    _StdOut.putText("Error: Out of disk space ", ERROR_TEXT);
                     return;
                 }
                 _Kernel.krnTrace("Writing to " + Utils.toOct(tsb));
@@ -114,14 +111,23 @@
             }
 
             //put in the new data
-            this.writeData(tsb, fileData);
+            //user-made file
+            if (! this.isSwapFileName(fileName)) {
+                this.writeData(tsb, fileData);
+            }
+            //swap file
+            else {
+                this.writeHexData(tsb, fileData, BLOCKS_FOR_SWAP);
+            }
 
-            //tell the shell
-            _StdOut.putText("Successfully updated ");
-            _StdOut.putText(fileName, FILE_TEXT);
-            _StdOut.advanceLine();
-            _StdOut.putText(Utils.hexToString(this.readLinkedData(tsb))); 
-            _StdOut.advanceLine();
+            //tell the shell (if it is a user-made file)
+            if (! this.isSwapFileName(fileName)) {
+                _StdOut.putText("Successfully updated ");
+                _StdOut.putText(fileName, FILE_TEXT);
+                _StdOut.advanceLine();
+                _StdOut.putText(Utils.hexToString(this.readLinkedData(tsb))); 
+                _StdOut.advanceLine();
+            }
         }
 
         public copy(fromName: string, toName: string) {
@@ -168,6 +174,10 @@
                 return;
             }
 
+            // Not needed... (yet?)
+            //tell the shell (if it is a user-made file)
+            //if (! this.isSwapFileName(fileName)) {
+
             //tell the shell
             _StdOut.putText("Successfully copied from ");
             _StdOut.putText(fromName, FILE_TEXT);
@@ -193,21 +203,18 @@
                 this.deleteLinkedData(tsb);    
             }
             
-            //tell the shell
-            _StdOut.putText("Successfully deleted ");
-            _StdOut.putText(fileName, FILE_TEXT);
-            _StdOut.advanceLine();
+            //tell the shell (if it is a user-made file)
+            if (! this.isSwapFileName(fileName)) {
+                _StdOut.putText("Successfully deleted ");
+                _StdOut.putText(fileName, FILE_TEXT);
+                _StdOut.advanceLine();
+            }
 
         }
 
         public rename(oldFileName: string, newFileName: string) {
             //get key
             var key = this.getKeyByFileName(oldFileName);
-            // if (key === "------") { //shouldn't see this...
-            //     _StdOut.putText("!No file found for ");
-            //     _StdOut.putText(oldFileName, FILE_TEXT);
-            //     return;
-            // }
 
             //rename
             this.setData(key, Utils.stringToHex(newFileName, BYTES_FOR_DATA*HEX_WORD_SIZE));
@@ -227,9 +234,13 @@
                 }
                 else if (this.isInuse(i)) {
                     var fileName = Utils.hexToString(this.getData(i));
-                    _StdOut.putText("  "+fileName, FILE_TEXT);
-                    _StdOut.advanceLine();
-                    count ++;
+
+                    //list it (if it is a user-made file)
+                    if (fileName[0] !== ".") {
+                        _StdOut.putText("  "+fileName, FILE_TEXT);
+                        _StdOut.advanceLine();
+                        count ++;
+                    }
                 }
             }
 
@@ -376,9 +387,11 @@
             var numBlocksNeeded = Math.ceil(hexDataLength/(BYTES_FOR_DATA*HEX_WORD_SIZE));  //  1.6 -> 2
             var numBytesNeeded = numBlocksNeeded * BYTES_FOR_DATA; //padding                    120
             var hexData = Utils.stringToHex(plainTextData, numBytesNeeded*HEX_WORD_SIZE);   //  240
-            //_StdOut.putText("chars: " + hexDataLength + ". blocks: "+numBlocksNeeded, ERROR_TEXT);
-            //_StdOut.advanceLine();
-            
+
+            return this.writeHexData(startingKey, hexData, numBlocksNeeded);
+        }
+        
+        public writeHexData(startingKey: number, hexData: string, numBlocksNeeded: number) {
             var tsb = startingKey;
             var key: number;
 
@@ -400,13 +413,10 @@
                 }
                 //set the tsb
                 this.setTSB(key, tsb);
-                //return 1;
             }
 
             //the final block should not have a tsb
             this.setTSB(key, ERROR_CODE);
-            //this.setData(tsb, fileData);
-            //this.setInuse(tsb, true);
         }
 
         //given a starting key, set inuse false. Do the same for each tsb linked in chain
@@ -438,6 +448,37 @@
             //add the final and return
             hex += this.getData(key);
             return hex;
+        }
+
+
+
+        //SWAP FILE FUNCTIONS
+
+        //given a pid, return the swap file name
+        public swapFileName(pid: number): string {
+            return ".$swap" + pid; 
+        }
+
+        //given a pid, return the swap file name
+        public isSwapFileName(fileName: string): boolean {
+            return fileName.includes(".$swap");
+        }
+
+        //store program string and pcb register into a 5 block string
+        public swapFileData(pid: number, programStr: string): string {
+            
+            //store program string
+            var data = programStr;
+
+            //pad to segment size bytes
+            var padding = SEGMENT_SIZE * HEX_WORD_SIZE;
+            data += "0".repeat(padding - programStr.length);
+
+            //pad to segment size bytes
+            padding = BLOCKS_FOR_SWAP * SEGMENT_SIZE * HEX_WORD_SIZE;
+            data += "0".repeat(padding - data.length);
+
+            return data;
         }
 
 

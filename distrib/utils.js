@@ -177,10 +177,6 @@ var TSOS;
             }
             return decimalValue;
         }
-        //given a pid, return the swap file name
-        static swapFileName(pid) {
-            return ".$swap" + pid;
-        }
     }
     TSOS.Utils = Utils;
 })(TSOS || (TSOS = {}));

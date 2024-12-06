@@ -105,7 +105,7 @@ const BYTES_FOR_DATA = 60;
 const MAX_FILE_NAME_SIZE = BYTES_FOR_DATA;
 const DIRECTORY_LENGTH = 0o100;
 const OCT_WORD_SIZE: number = 3; //3 chars per key: 0o000 -> 0o377
-
+const BLOCKS_FOR_SWAP: number = Math.ceil(SEGMENT_SIZE / BYTES_FOR_DATA);
 
 // For testing (and enrichment)...
 var Glados: any = null;  // This is the function Glados() in glados-ip*.js http://alanclasses.github.io/TSOS/test/ .
