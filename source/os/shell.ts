@@ -614,9 +614,10 @@ module TSOS {
                     //create PCB, location = disk
                     var pid = _MemoryManager.newProcess(decimalList, STORE_ON_DISK);
 
-                    //load into main memory
-                    _MemoryAccessor.writeSegment(decimalList, segment); 
-                    //_StdOut.putText("Loaded into segment " + segment + ". ");
+                    //load onto disk
+                    //BOOKMARK HERE
+                    _krnDiskDriver.createSwapFile(pid);
+                    //_krnDiskDriver.writeSwapFile(pid, decimalList); 
 
                     //return PID
                     _StdOut.putText("Process ID: " + pid);

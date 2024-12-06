@@ -213,6 +213,15 @@ var TSOS;
             document.getElementById("limit" + pid).innerText = TSOS.Utils.toHex(pcb.getLimit(), BASE_LIMIT_WORD_SIZE);
             document.getElementById("segment" + pid).innerText = TSOS.Utils.toHex(pcb.segment);
             document.getElementById("priority" + pid).innerText = TSOS.Utils.toHex(pcb.priority);
+            //if terminated, set pcb elements to the "not in use" color
+            if (pcb.getState() === "TERMINATED") {
+                document.getElementById("state" + pid).classList.add("notInuse");
+                document.getElementById("location" + pid).classList.add("notInuse");
+                document.getElementById("base" + pid).classList.add("notInuse");
+                document.getElementById("limit" + pid).classList.add("notInuse");
+                document.getElementById("segment" + pid).classList.add("notInuse");
+                document.getElementById("priority" + pid).classList.add("notInuse");
+            }
         }
         static createDiskDisplay() {
             var table = document.getElementById("diskTable");
@@ -236,21 +245,22 @@ var TSOS;
                 if (_krnDiskDriver.isInuse(numKey)) {
                     document.getElementById("InUse" + octKey).innerText = "01";
                     //color the row based on inuse
+                    //remove the "not in use" color
                     document.getElementById("InUse" + octKey).classList.remove("notInuse");
-                    document.getElementById("InUse" + octKey).classList.add("inuse");
+                    //document.getElementById("InUse"+octKey).classList.add("inuse");
                     document.getElementById("TSB" + octKey).classList.remove("notInuse");
-                    document.getElementById("TSB" + octKey).classList.add("inuse");
+                    //document.getElementById("TSB"+octKey).classList.add("inuse");
                     document.getElementById("Data" + octKey).classList.remove("notInuse");
-                    document.getElementById("Data" + octKey).classList.add("inuse");
+                    //document.getElementById("Data"+octKey).classList.add("inuse");
                 }
                 else {
                     document.getElementById("InUse" + octKey).innerText = "00";
-                    //color the row based on inuse
-                    document.getElementById("InUse" + octKey).classList.remove("inuse");
+                    //set to the "not in use" color
+                    //document.getElementById("InUse"+octKey).classList.remove("inuse");
                     document.getElementById("InUse" + octKey).classList.add("notInuse");
-                    document.getElementById("TSB" + octKey).classList.remove("inuse");
+                    //document.getElementById("TSB"+octKey).classList.remove("inuse");
                     document.getElementById("TSB" + octKey).classList.add("notInuse");
-                    document.getElementById("Data" + octKey).classList.remove("inuse");
+                    //document.getElementById("Data"+octKey).classList.remove("inuse");
                     document.getElementById("Data" + octKey).classList.add("notInuse");
                 }
                 document.getElementById("TSB" + octKey).innerText = _krnDiskDriver.getTSBString(numKey);

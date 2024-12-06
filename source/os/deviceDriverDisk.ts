@@ -56,8 +56,6 @@
             _StdOut.putText("File created: ");
             _StdOut.putText(fileName, FILE_TEXT);
             _StdOut.advanceLine();
-            
-         
         }
 
         public read(fileName: string) {
@@ -242,6 +240,10 @@
 
         }
 
+        // //PROCESS SWAP FILES
+        // public createSwapFile(pid: number) {
+
+        // }
 
         // FUNCTIONAL FUNCTIONS
 

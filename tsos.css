@@ -119,11 +119,11 @@ label {
 }
 
 table{
-  background-color: whitesmoke;
+  background-color: rgba(245, 245, 245, .9);
   border: 1px solid black;
   display: block;  
   text-align: center;
-
+  border: none;
 }
 
 
@@ -131,7 +131,6 @@ table{
   height: 400px;
   overflow-y: scroll;
   /*overflow-x: scroll;*/
-  background-color: none;
   position: relative; 
   width: 1400px;
 }
@@ -156,20 +155,12 @@ table{
   width: 1100px;
   font-family: 'Courier New', Courier, monospace;
 }
-.inuse{
-  -color: black;
-  background-color: rgb(167, 191, 222);
-}
-.notInuse{
-  -color:rgba(0, 0, 0, 0.5);
-  background-color: rgb(189, 204, 224)
-}
+/*see noInuse */
 
 
 #memoryTable{
   height: 263px;
   overflow-y: scroll;
-  background-color: none;
 }
 .memoryRowLabel{
   background-color:darkcyan;
@@ -199,6 +190,11 @@ table{
   /*width: 60px;*/
 }
 
+#pcbTable{
+  height: 150px;
+  overflow-y: scroll;
+  background-color: none;
+}
 .pcbColLabel{
   background-color: darkcyan;
   width: 60px;
@@ -214,11 +210,12 @@ table{
   background-color: lightsteelblue;
   font-size:12px;
 }
-#pcbTable{
-  height: 150px;
-  overflow-y: scroll;
-  background-color: none;
+
+/*disk block not in use. also used for terminated processes*/
+.notInuse{
+  background-color: rgb(197, 209, 224);
 }
+
 
 
 
