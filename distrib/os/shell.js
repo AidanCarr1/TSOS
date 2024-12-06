@@ -114,7 +114,7 @@ var TSOS;
             sc = new TSOS.ShellCommand(this.shellRename, "rename", '<filename> <new filename> - give a file a new name.', "Rename a given file to a new, ~cooler~ name.");
             this.commandList[this.commandList.length] = sc;
             //ls
-            sc = new TSOS.ShellCommand(this.shellLs, "ls", '- list the files currently stored on disk.', "List the files currently stored on disk.");
+            sc = new TSOS.ShellCommand(this.shellLs, "ls", '[-a] - list the files currently stored on disk.', "List the files currently stored on disk.");
             this.commandList[this.commandList.length] = sc;
             // Display the initial prompt.
             this.putPrompt();
@@ -771,13 +771,20 @@ var TSOS;
                 _StdOut.putText("Usage: rename <old filename> <new filename>  Please supply a file name.");
             }
         }
-        shellLs() {
+        shellLs(args) {
             //could add args, see challenge [60]
             if (!_krnDiskDriver.isFormatted) {
                 _StdOut.putText("Error: Disk is not formatted. Use command: format", ERROR_TEXT);
             }
-            else {
+            else if (args.length == 0) {
                 _krnDiskDriver.list();
+            }
+            else if (args[0] === "-a") {
+                _krnDiskDriver.list("-a");
+            }
+            //invalid parameters
+            else {
+                _StdOut.putText("Usage: ls [-a]");
             }
         }
     }

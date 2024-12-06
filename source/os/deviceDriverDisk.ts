@@ -224,7 +224,7 @@
             _StdOut.putText(newFileName, FILE_TEXT);
         }
 
-        public list() {
+        public list(parameter?: string) {
             //count files
             var count = 0;
             for (var i = 0; i < DIRECTORY_LENGTH; i++) {
@@ -235,8 +235,8 @@
                 else if (this.isInuse(i)) {
                     var fileName = Utils.hexToString(this.getData(i));
 
-                    //list it (if it is a user-made file)
-                    if (fileName[0] !== ".") {
+                    //list it (if it is a user-made file) or (we're showing -all)
+                    if (fileName[0] !== "." || parameter === "-a") {
                         _StdOut.putText("  "+fileName, FILE_TEXT);
                         _StdOut.advanceLine();
                         count ++;

@@ -230,7 +230,7 @@ module TSOS {
             //ls
             sc = new ShellCommand(this.shellLs,
                                 "ls",
-                                '- list the files currently stored on disk.',
+                                '[-a] - list the files currently stored on disk.',
                                 "List the files currently stored on disk.");
                                 this.commandList[this.commandList.length] = sc;
 
@@ -992,15 +992,23 @@ module TSOS {
 
         }
 
-        public shellLs(){
+        public shellLs(args: string[]){
             //could add args, see challenge [60]
 
             if (!_krnDiskDriver.isFormatted) {
                 _StdOut.putText("Error: Disk is not formatted. Use command: format", ERROR_TEXT);
             }
             
-            else {
+            else if (args.length == 0) {
                 _krnDiskDriver.list();
+            }
+            else if (args[0] === "-a") {
+                _krnDiskDriver.list("-a");
+            }
+
+            //invalid parameters
+            else {
+                _StdOut.putText("Usage: ls [-a]");
             }
         }
     }
