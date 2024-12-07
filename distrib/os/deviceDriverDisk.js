@@ -385,6 +385,21 @@ var TSOS;
             data += "0".repeat(padding - data.length);
             return data;
         }
+        // swap out process into a swap file 
+        swapOutByPID(pid) {
+            var pcb = _MemoryManager.getProcessByPID(pid);
+            //store a snapshot of the memory segment
+            var memory = "";
+            for (var i = 0; i < SEGMENT_SIZE; i++) {
+                memory += _MemoryAccessor.read(i, pcb.getBase());
+            }
+            alert(memory);
+            //create swap file if it does not exist
+            var swapFileName = this.swapFileName(pid);
+            if (!this.isAFileName(swapFileName)) {
+                this.create(swapFileName);
+            }
+        }
         // SET FUNCTIONS
         //set inuse for a key given true/false
         setInuse(numKey, inuse) {
