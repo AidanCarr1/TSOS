@@ -465,7 +465,7 @@
         }
 
         //store program string and pcb register into a 5 block string
-        public swapFileData(pid: number, programStr: string): string {
+        public toSwapFileData(programStr: string): string {
             
             //store program string
             var data = programStr;
@@ -481,15 +481,15 @@
             return data;
         }
 
-        // swap out process into a swap file 
-        public swapOutByPID(pid: number) {
+        // swap out process from memory segment to swap file on disk
+        public swapOut(pid: number) {
             
             var pcb = _MemoryManager.getProcessByPID(pid);
             
             //store a snapshot of the memory segment
             var memory = "";
             for (var i = 0; i < SEGMENT_SIZE; i++) {
-                memory += _MemoryAccessor.read(i, pcb.getBase());
+                memory += Utils.toHex(_MemoryAccessor.read(i, pcb.getBase()), HEX_WORD_SIZE);
             }
             alert(memory);
 
@@ -499,7 +499,12 @@
                 this.create(swapFileName);
             }
 
-            
+            //write to swapfile
+            var swapFileData = this.toSwapFileData(memory);
+            this.write(swapFileName, swapFileData);
+
+            //change location to disk
+            pcb.setSegment(STORE_ON_DISK);
         }
 
 

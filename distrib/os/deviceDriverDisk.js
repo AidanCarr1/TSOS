@@ -374,7 +374,7 @@ var TSOS;
             return fileName.includes(".$swap");
         }
         //store program string and pcb register into a 5 block string
-        swapFileData(pid, programStr) {
+        toSwapFileData(programStr) {
             //store program string
             var data = programStr;
             //pad to segment size bytes
@@ -385,13 +385,13 @@ var TSOS;
             data += "0".repeat(padding - data.length);
             return data;
         }
-        // swap out process into a swap file 
-        swapOutByPID(pid) {
+        // swap out process from memory segment to swap file on disk
+        swapOut(pid) {
             var pcb = _MemoryManager.getProcessByPID(pid);
             //store a snapshot of the memory segment
             var memory = "";
             for (var i = 0; i < SEGMENT_SIZE; i++) {
-                memory += _MemoryAccessor.read(i, pcb.getBase());
+                memory += TSOS.Utils.toHex(_MemoryAccessor.read(i, pcb.getBase()), HEX_WORD_SIZE);
             }
             alert(memory);
             //create swap file if it does not exist
@@ -399,6 +399,11 @@ var TSOS;
             if (!this.isAFileName(swapFileName)) {
                 this.create(swapFileName);
             }
+            //write to swapfile
+            var swapFileData = this.toSwapFileData(memory);
+            this.write(swapFileName, swapFileData);
+            //change location to disk
+            pcb.setSegment(STORE_ON_DISK);
         }
         // SET FUNCTIONS
         //set inuse for a key given true/false

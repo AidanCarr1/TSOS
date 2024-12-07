@@ -616,7 +616,7 @@ module TSOS {
 
                     //load onto disk
                     var swapFileName = _krnDiskDriver.swapFileName(pid);
-                    var swapFileData = _krnDiskDriver.swapFileData(pid, programStr);
+                    var swapFileData = _krnDiskDriver.toSwapFileData(programStr);
 
                     //alert(programStr);
                     _krnDiskDriver.create(swapFileName);
