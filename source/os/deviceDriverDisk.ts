@@ -486,7 +486,7 @@
             
             var pcb = _MemoryManager.getProcessByPID(pid);
             
-            //store a snapshot of the memory segment
+            //grab memory segment
             var memory = "";
             for (var i = 0; i < SEGMENT_SIZE; i++) {
                 memory += Utils.toHex(_MemoryAccessor.read(i, pcb.getBase()), HEX_WORD_SIZE);
@@ -500,7 +500,7 @@
                 this.create(swapFileName);
             }
 
-            //write to swapfile
+            //write memory to swapfile
             var swapFileData = this.toSwapFileData(memory);
             this.write(swapFileName, swapFileData);
             _StdOut.putText("swap file data: "+swapFileData,TEST_TEXT);
@@ -512,11 +512,31 @@
 
 
         // swap in process from swap file on disk to memory segment
-        public swapIn(pid: number, whichSegment: number) {
+        public swapIn(pid: number, insertSegment: number) {
 
             var pcb = _MemoryManager.getProcessByPID(pid);
+            var swapFileName = this.swapFileName(pid);
+            var key = this.getKeyByFileName(swapFileName);
+            var base = SEGMENT_SIZE * insertSegment;
 
+            //grab the swap file data
+            var data = this.getData(key);
+            _StdOut.putText("data: "+data, TEST_TEXT);
+            _StdOut.advanceLine();
+
+            //put in into memory segment
+            for (var i = 0; i < SEGMENT_SIZE; i++) {
+                var dataAsHex = data.substring(i*HEX_WORD_SIZE, (i+1)*HEX_WORD_SIZE);
+                var dataAsNumber = Utils.hexStringToDecimal(dataAsHex);
+                _MemoryAccessor.write(i, dataAsNumber, base);
+            }
+
+            //change location to disk
+            pcb.setSegment(insertSegment);
         }
+
+
+
 
         // SET FUNCTIONS
 

@@ -388,7 +388,7 @@ var TSOS;
         // swap out process from memory segment to swap file on disk
         swapOut(pid) {
             var pcb = _MemoryManager.getProcessByPID(pid);
-            //store a snapshot of the memory segment
+            //grab memory segment
             var memory = "";
             for (var i = 0; i < SEGMENT_SIZE; i++) {
                 memory += TSOS.Utils.toHex(_MemoryAccessor.read(i, pcb.getBase()), HEX_WORD_SIZE);
@@ -400,7 +400,7 @@ var TSOS;
             if (!this.isAFileName(swapFileName)) {
                 this.create(swapFileName);
             }
-            //write to swapfile
+            //write memory to swapfile
             var swapFileData = this.toSwapFileData(memory);
             this.write(swapFileName, swapFileData);
             _StdOut.putText("swap file data: " + swapFileData, TEST_TEXT);
@@ -409,8 +409,23 @@ var TSOS;
             pcb.setSegment(STORE_ON_DISK);
         }
         // swap in process from swap file on disk to memory segment
-        swapIn(pid, whichSegment) {
+        swapIn(pid, insertSegment) {
             var pcb = _MemoryManager.getProcessByPID(pid);
+            var swapFileName = this.swapFileName(pid);
+            var key = this.getKeyByFileName(swapFileName);
+            var base = SEGMENT_SIZE * insertSegment;
+            //grab the swap file data
+            var data = this.getData(key);
+            _StdOut.putText("data: " + data, TEST_TEXT);
+            _StdOut.advanceLine();
+            //put in into memory segment
+            for (var i = 0; i < SEGMENT_SIZE; i++) {
+                var dataAsHex = data.substring(i * HEX_WORD_SIZE, (i + 1) * HEX_WORD_SIZE);
+                var dataAsNumber = TSOS.Utils.hexStringToDecimal(dataAsHex);
+                _MemoryAccessor.write(i, dataAsNumber, base);
+            }
+            //change location to disk
+            pcb.setSegment(insertSegment);
         }
         // SET FUNCTIONS
         //set inuse for a key given true/false
