@@ -393,7 +393,8 @@ var TSOS;
             for (var i = 0; i < SEGMENT_SIZE; i++) {
                 memory += TSOS.Utils.toHex(_MemoryAccessor.read(i, pcb.getBase()), HEX_WORD_SIZE);
             }
-            alert(memory);
+            _StdOut.putText("memory: " + memory, TEST_TEXT);
+            _StdOut.advanceLine();
             //create swap file if it does not exist
             var swapFileName = this.swapFileName(pid);
             if (!this.isAFileName(swapFileName)) {
@@ -402,8 +403,14 @@ var TSOS;
             //write to swapfile
             var swapFileData = this.toSwapFileData(memory);
             this.write(swapFileName, swapFileData);
+            _StdOut.putText("swap file data: " + swapFileData, TEST_TEXT);
+            _StdOut.advanceLine();
             //change location to disk
             pcb.setSegment(STORE_ON_DISK);
+        }
+        // swap in process from swap file on disk to memory segment
+        swapIn(pid, whichSegment) {
+            var pcb = _MemoryManager.getProcessByPID(pid);
         }
         // SET FUNCTIONS
         //set inuse for a key given true/false

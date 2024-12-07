@@ -54,6 +54,7 @@ const DEFAULT_STROKE_COLOR = "black";
 var _StrokeColor = DEFAULT_STROKE_COLOR;
 const FILE_TEXT = "blue";
 const ERROR_TEXT = "maroon";
+const TEST_TEXT = "darkgreen";
 var _Trace = true; // Default the OS trace to be on.
 // The OS Kernel and its queues.
 var _Kernel;
