@@ -300,16 +300,39 @@ module TSOS {
                 var nextPCB:ProcessControlBlock = _MemoryManager.readyQueue.dequeue();
             }
 
-            //_Kernel.krnTrace("pid"+nextPCB.pid+"on disk?:"+(nextPCB.getSegment() === STORE_ON_DISK) +"("+nextPCB.getSegment()+")");
             //if next pcb is on disk...
             if (_krnDiskDriver.isFormatted && (nextPCB.location === "Disk")) {
-                var intoSegment = _CPU.currentPCB.getSegment();
-                //swap out with the old
-                _Kernel.krnTrace("about to swap out...");
-                _krnDiskDriver.swapOut(_CPU.currentPCB.pid);
-                //swap in with the new
-                _Kernel.krnTrace("about to swap in...");
-                _krnDiskDriver.swapIn(nextPCB.pid, intoSegment);
+                
+                //check for open memory segment...
+                var openSegment = ERROR_CODE;
+                for (var i = 0; i < NUM_OF_SEGEMENTS; i++) {
+                    if (_MemoryManager.segmentList[i].getState() === "TERMINATED") {
+                        //set open segment
+                        openSegment = i;
+                    }
+                }
+                
+                //memory segments are full...
+                if (openSegment === ERROR_CODE) {
+                    var intoSegment = _CPU.currentPCB.getSegment();
+                    //swap out the old
+                    _Kernel.krnTrace("about to swap out...");
+                    _krnDiskDriver.swapOut(_CPU.currentPCB.pid);
+                    //swap in the new
+                    _Kernel.krnTrace("about to swap in...");
+                    _krnDiskDriver.swapIn(nextPCB.pid, intoSegment);
+                }
+
+                //if there is an open memory segment...
+                else {
+                    //var intoSegment = _CPU.currentPCB.getSegment();
+                    //swap out the old
+                    //_Kernel.krnTrace("about to swap out...");
+                    //_krnDiskDriver.swapOut(_CPU.currentPCB.pid);
+                    //swap in the new
+                    _Kernel.krnTrace("about to swap in...");
+                    _krnDiskDriver.swapIn(nextPCB.pid, openSegment);
+                }
             }
 
             //next pcb: set all CPU's registers to next PCB's registers
