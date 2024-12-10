@@ -728,18 +728,20 @@ module TSOS {
         public shellRunall() {
             
             //go through each segment
-            for (var i = 0; i < NUM_OF_SEGEMENTS; i ++) {
-                
+            //for (var i = 0; i < NUM_OF_SEGEMENTS; i ++) {
+            for (var i = 0; i < _MemoryManager.pidCounter; i++) {
+    
                 //check if there is a PCB in this segment
-                if (_MemoryManager.segmentList[i] !== undefined) {
+                //if (_MemoryManager.pcbList[i] !== undefined) {
 
                     //only add to queue if it is resident
-                    var nextPCB = _MemoryManager.segmentList[i];
+                    //var nextPCB = _MemoryManager.segmentList[i];
+                    var nextPCB = _MemoryManager.getProcessByPID(i); 
                     if (nextPCB.getState() === "RESIDENT") {
                         _MemoryManager.readyQueue.enqueue(nextPCB);
                         nextPCB.setState("READY");
                     }
-                }
+                //}
             }          
         }
 

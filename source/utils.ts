@@ -176,7 +176,7 @@ module TSOS {
 
         public static keyToLongHex(key: string): string{
             
-            _Kernel.krnTrace("start key to long hex");
+            //_Kernel.krnTrace("start key to long hex");
             var hex = "";
             for (var i = 0; i < key.length; i++) {
                 var anOct = key.charAt(i);
@@ -188,7 +188,7 @@ module TSOS {
                     hex += "0" + anOct;
                 }
             }
-            _Kernel.krnTrace("end key to hex");
+            //_Kernel.krnTrace("end key to hex");
             return hex;
         }
 

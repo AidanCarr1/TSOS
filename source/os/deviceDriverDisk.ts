@@ -528,6 +528,8 @@
             for (var i = 0; i < SEGMENT_SIZE; i++) {
                 var dataAsHex = data.substring(i*HEX_WORD_SIZE, (i+1)*HEX_WORD_SIZE);
                 var dataAsNumber = Utils.hexStringToDecimal(dataAsHex);
+                //i dont think its needed:
+                //_MemoryAccessor.writeSegment(decimalList, segment);
                 _MemoryAccessor.write(i, dataAsNumber, base);
             }
 
