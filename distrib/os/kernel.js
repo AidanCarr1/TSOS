@@ -276,6 +276,8 @@ var TSOS;
                 }
                 //if there is an open memory segment...
                 else {
+                    //clear out the old
+                    _MemoryAccessor.clearSegment(openSegment);
                     //swap in the new
                     _Kernel.krnTrace("about to swap in...");
                     _krnDiskDriver.swapIn(nextPCB.pid, openSegment);
