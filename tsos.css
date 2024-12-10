@@ -75,6 +75,9 @@ label {
   text-align: center;
 
 }
+input{
+  font-family: Helvetica, Verdana, Arial, sans-serif;
+}
 .normal_button {
   width: 90px;
   height: 50px;
@@ -184,6 +187,7 @@ table{
 
 textarea{
   border: none;
+  font-family: Helvetica, Verdana, Arial, sans-serif;
 }
 
 #memoryTable{

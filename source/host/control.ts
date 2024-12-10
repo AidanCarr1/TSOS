@@ -96,7 +96,7 @@ module TSOS {
             var now: number = new Date().getTime();
 
             // Build the log string.
-            var str: string = "({ clock:" + clock + ", source:" + source + ", msg:" + msg + ", now:" + now  + " })"  + "\n";
+            var str: string = "["+source+"] "+ clock + ": "+ msg /* + ". {" + now  + "}" */ + "\n";
 
             // Update the log console.
             var taLog = <HTMLInputElement> document.getElementById("taHostLog");
@@ -159,7 +159,7 @@ module TSOS {
             (<HTMLButtonElement>document.getElementById("btnHaltOS")).disabled = true;
             (<HTMLButtonElement>document.getElementById("btnSingleStep")).disabled = true;
             (<HTMLButtonElement>document.getElementById("btnTakeStep")).disabled = true;
-            
+
             (<HTMLButtonElement>document.getElementById("btnHaltOS")).classList.add("disabled_button");
             (<HTMLButtonElement>document.getElementById("btnHaltOS")).classList.remove("normal_button");
             (<HTMLButtonElement>document.getElementById("btnSingleStep")).classList.add("disabled_button");
