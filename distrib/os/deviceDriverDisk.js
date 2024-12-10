@@ -79,7 +79,6 @@ var TSOS;
                 if (tsb == ERROR_CODE) {
                     return;
                 }
-                //_Kernel.krnTrace("Writing to " + Utils.toOct(tsb));
                 //set the file directory tsb
                 this.setTSB(key, tsb);
             }
@@ -137,24 +136,17 @@ var TSOS;
             }
             this.setTSB(toKey, toTsb);
             //write to it
-            //_Kernel.krnTrace("Writing to " + Utils.toOct(toTsb));
             var wroteData = this.writeData(toTsb, fromData);
             if (wroteData == ERROR_CODE) {
                 _StdOut.putText("Error: Out of disk space ", ERROR_TEXT);
                 return;
             }
-            // Not needed... (yet?)
-            //tell the shell (if it is a user-made file)
-            //if (! this.isSwapFileName(fileName)) {
             //tell the shell
             _StdOut.putText("Successfully copied from ");
             _StdOut.putText(fromName, FILE_TEXT);
             _StdOut.putText(" to ");
             _StdOut.putText(toName, FILE_TEXT);
             _StdOut.advanceLine();
-            //print the contents? i say no
-            //_StdOut.putText(Utils.hexToString(this.readLinkedData(toTsb))); 
-            //_StdOut.advanceLine();
         }
         delete(fileName) {
             var key = this.getKeyByFileName(fileName);
@@ -393,21 +385,14 @@ var TSOS;
             for (var i = 0; i < SEGMENT_SIZE; i++) {
                 memory += TSOS.Utils.toHex(_MemoryAccessor.read(i, pcb.getBase()), HEX_WORD_SIZE);
             }
-            //alert("memory: "+memory);
-            //_StdOut.putText("memory: "+memory, TEST_TEXT);
-            //_StdOut.advanceLine();
             //create swap file if it does not exist
             var swapFileName = this.swapFileName(pid);
             if (!this.isAFileName(swapFileName)) {
                 this.create(swapFileName);
-                //_StdOut.putText("swapfile created: "+swapFileName, TEST_TEXT);
-                //_StdOut.advanceLine();
             }
             //write memory to swapfile
             var swapFileData = this.toSwapFileData(memory);
             this.write(swapFileName, swapFileData);
-            //_StdOut.putText("swap file data: "+swapFileData,TEST_TEXT);
-            //_StdOut.advanceLine();
             //change location to disk
             pcb.setSegment(STORE_ON_DISK);
         }
@@ -420,8 +405,6 @@ var TSOS;
             var base = SEGMENT_SIZE * insertSegment;
             //grab the swap file data
             var data = this.readLinkedData(tsb);
-            //_StdOut.putText("data: "+data, TEST_TEXT);
-            //_StdOut.advanceLine();
             //put in into memory segment
             for (var i = 0; i < SEGMENT_SIZE; i++) {
                 var dataAsHex = data.substring(i * HEX_WORD_SIZE, (i + 1) * HEX_WORD_SIZE);
@@ -432,8 +415,6 @@ var TSOS;
             }
             //change location to disk
             pcb.setSegment(insertSegment);
-            //_StdOut.putText("new segment: "+pcb.getSegment(), TEST_TEXT);
-            //_StdOut.advanceLine();
         }
         // SET FUNCTIONS
         //set inuse for a key given true/false

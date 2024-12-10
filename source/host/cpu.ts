@@ -30,7 +30,7 @@ module TSOS {
 
         }
 
-        // ON YOUR MARKS...
+        // new process will change most of these anyway
         public init(): void {
             this.PC = 0;
             this.Acc = 0;
@@ -38,6 +38,7 @@ module TSOS {
             this.Yreg = 0;
             this.Zflag = 0;
             this.instructionRegister = 0x00; 
+            
             this.isExecuting = false;
             this.currentPCB = null;
             this.currentBase = 0x00; 
@@ -187,11 +188,10 @@ module TSOS {
                     _StdOut.putText("Process " + this.currentPCB.pid + " wait time: " + this.currentPCB.waitTime + " cycles");
                     _StdOut.advanceLine();
 
-                    //_OsShell.putPrompt();
-
                     //kill it!
                     var systemCall = new Interrupt(KILL_PROCESS_IRQ, [_CPU.currentPCB]);
                     _KernelInterruptQueue.enqueue(systemCall);
+                    
                     //tell shell
                     _StdOut.putText("Process " + this.currentPCB.pid + " terminated.");
                     _StdOut.advanceLine(1.5);
@@ -251,7 +251,6 @@ module TSOS {
                     this.Acc = _MemoryAccessor.read(memoryLocation, this.currentBase); 
                     this.Acc ++; // inc
                     this.Acc = this.Acc % SEGMENT_SIZE; //add with carry
-                    //_StdOut.putText("~acc="+this.Acc+"~"); //test line
                     _MemoryAccessor.write(memoryLocation, this.Acc, this.currentBase); 
                     break;
                 }

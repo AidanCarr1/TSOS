@@ -1,7 +1,8 @@
-PROJECT 3 GRADING INSTRUCTIONS
+PROJECT 4 GRADING INSTRUCTIONS
 ====================================
-Please grade my [Project 3 Branch](https://github.com/AidanCarr1/TSOS/tree/Project-3)
+Please grade my [Project 4 Branch (not complete yet)](https://github.com/AidanCarr1/TSOS/tree/Project-4)
 
+- Hidden files supported
 - Wait time and turnaround time added
 - Single step still works
 - Ctrl C terminates the RUNNING program, not all

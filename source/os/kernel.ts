@@ -244,13 +244,11 @@ module TSOS {
             //terminate
             pcb.setState("TERMINATED");
 
-            //tell the shell
-            // if (_StdOut.currentXPosition > 0) {
-            //     _StdOut.advanceLine();
-            // }
-            // _StdOut.putText("Process " + pcb.pid + " terminated. ");
-            // _StdOut.advanceLine(1.5);
-            // _OsShell.putPrompt();
+            //delete associated swap file
+            var swapFileName = _krnDiskDriver.swapFileName(pcb.pid);
+            if (_krnDiskDriver.isAFileName(swapFileName)) {
+                _krnDiskDriver.delete(swapFileName);
+            }
         }
 
         public outOfBounds(params) {
@@ -300,8 +298,8 @@ module TSOS {
                 var nextPCB:ProcessControlBlock = _MemoryManager.readyQueue.dequeue();
             }
 
-            //if next pcb is on disk...
-            if (_krnDiskDriver.isFormatted && (nextPCB.location === "Disk")) {
+            //if next pcb is alive on disk...
+            if (_krnDiskDriver.isFormatted && nextPCB.location === "Disk" && nextPCB.getState() !== "TERMINATED") {
                 
                 //check for open memory segment...
                 var openSegment = ERROR_CODE;

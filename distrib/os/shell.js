@@ -462,7 +462,7 @@ var TSOS;
                     //load onto disk
                     var swapFileName = _krnDiskDriver.swapFileName(pid);
                     var swapFileData = _krnDiskDriver.toSwapFileData(programStr);
-                    //alert(programStr);
+                    //create swap file
                     _krnDiskDriver.create(swapFileName);
                     _krnDiskDriver.write(swapFileName, swapFileData);
                     _Kernel.krnTrace("Loaded onto disk");
@@ -552,19 +552,14 @@ var TSOS;
         }
         //run all unran process
         shellRunall() {
-            //go through each segment
-            //for (var i = 0; i < NUM_OF_SEGEMENTS; i ++) {
+            //go through all processes
             for (var i = 0; i < _MemoryManager.pidCounter; i++) {
-                //check if there is a PCB in this segment
-                //if (_MemoryManager.pcbList[i] !== undefined) {
                 //only add to queue if it is resident
-                //var nextPCB = _MemoryManager.segmentList[i];
                 var nextPCB = _MemoryManager.getProcessByPID(i);
                 if (nextPCB.getState() === "RESIDENT") {
                     _MemoryManager.readyQueue.enqueue(nextPCB);
                     nextPCB.setState("READY");
                 }
-                //}
             }
         }
         //kill a given process
@@ -596,17 +591,16 @@ var TSOS;
         shellKillall() {
             //go through each segment
             for (var i = 0; i < NUM_OF_SEGMENTS; i++) {
-                //check if there is a PCB in this segment
-                if (_MemoryManager.segmentList[i] !== undefined) {
-                    var targetPCB = _MemoryManager.segmentList[i];
-                    var targetPID = targetPCB.pid;
+                //go through all processes
+                for (var i = 0; i < _MemoryManager.pidCounter; i++) {
+                    var pid = i;
                     //only kill if killable
-                    if (_MemoryManager.isKillable(targetPID)) {
+                    if (_MemoryManager.getProcessByPID(pid).getState() !== "TERMINATED" && _MemoryManager.isKillable(pid)) {
                         //kill it!
-                        var systemCall = new TSOS.Interrupt(KILL_PROCESS_IRQ, [_MemoryManager.getProcessByPID(targetPID)]);
+                        var systemCall = new TSOS.Interrupt(KILL_PROCESS_IRQ, [_MemoryManager.getProcessByPID(pid)]);
                         _KernelInterruptQueue.enqueue(systemCall);
                         //tell shell
-                        _StdOut.putText("Process " + targetPID + " terminated.");
+                        _StdOut.putText("Process " + pid + " terminated.");
                         _StdOut.advanceLine();
                     }
                 }
@@ -679,8 +673,6 @@ var TSOS;
                 }
                 //write data to the file
                 var refinedData = rawData.substring(firstQuote + 1, secondQuote);
-                // _StdOut.putText(refinedData);
-                // _StdOut.advanceLine();
                 _krnDiskDriver.write(fileName, refinedData);
             }
             else {
@@ -707,21 +699,14 @@ var TSOS;
                     return;
                 }
                 // is it unique?
-                //alert("trying copy unique");
                 if (_krnDiskDriver.isAFileName(writingFileName)) {
                     _StdOut.putText("Error: File already exists ", ERROR_TEXT);
                     _StdOut.putText(writingFileName, FILE_TEXT);
                     return;
                 }
                 //create & copy file if it is valid
-                // alert("trying copy valid");
-                // if (_krnDiskDriver.isValidFileName(writingFileName)){
-                //     alert("creating and copying");
                 _krnDiskDriver.create(writingFileName);
                 _krnDiskDriver.copy(readingFileName, writingFileName);
-                //     return;
-                // }
-                // alert("uh fuhh");
             }
             else {
                 _StdOut.putText("Usage: copy <from filename> <to filename> Please supply two file names.");
@@ -774,13 +759,13 @@ var TSOS;
             }
         }
         shellLs(args) {
-            //could add args, see challenge [60]
             if (!_krnDiskDriver.isFormatted) {
                 _StdOut.putText("Error: Disk is not formatted. Use command: format", ERROR_TEXT);
             }
             else if (args.length == 0) {
                 _krnDiskDriver.list();
             }
+            //list all
             else if (args[0] === "-a") {
                 _krnDiskDriver.list("-a");
             }

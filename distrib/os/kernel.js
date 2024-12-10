@@ -207,13 +207,11 @@ var TSOS;
             var pcb = params[0];
             //terminate
             pcb.setState("TERMINATED");
-            //tell the shell
-            // if (_StdOut.currentXPosition > 0) {
-            //     _StdOut.advanceLine();
-            // }
-            // _StdOut.putText("Process " + pcb.pid + " terminated. ");
-            // _StdOut.advanceLine(1.5);
-            // _OsShell.putPrompt();
+            //delete associated swap file
+            var swapFileName = _krnDiskDriver.swapFileName(pcb.pid);
+            if (_krnDiskDriver.isAFileName(swapFileName)) {
+                _krnDiskDriver.delete(swapFileName);
+            }
         }
         outOfBounds(params) {
             //get params
@@ -254,8 +252,8 @@ var TSOS;
             else {
                 var nextPCB = _MemoryManager.readyQueue.dequeue();
             }
-            //if next pcb is on disk...
-            if (_krnDiskDriver.isFormatted && (nextPCB.location === "Disk")) {
+            //if next pcb is alive on disk...
+            if (_krnDiskDriver.isFormatted && nextPCB.location === "Disk" && nextPCB.getState() !== "TERMINATED") {
                 //check for open memory segment...
                 var openSegment = ERROR_CODE;
                 for (var i = 0; i < NUM_OF_SEGMENTS; i++) {

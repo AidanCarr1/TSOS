@@ -39,7 +39,7 @@ var TSOS;
             this.isVirgin = isVirgin;
             this.takeStep = takeStep;
         }
-        // ON YOUR MARKS...
+        // new process will change most of these anyway
         init() {
             this.PC = 0;
             this.Acc = 0;
@@ -171,7 +171,6 @@ var TSOS;
                     _StdOut.advanceLine();
                     _StdOut.putText("Process " + this.currentPCB.pid + " wait time: " + this.currentPCB.waitTime + " cycles");
                     _StdOut.advanceLine();
-                    //_OsShell.putPrompt();
                     //kill it!
                     var systemCall = new TSOS.Interrupt(KILL_PROCESS_IRQ, [_CPU.currentPCB]);
                     _KernelInterruptQueue.enqueue(systemCall);
@@ -226,7 +225,6 @@ var TSOS;
                     this.Acc = _MemoryAccessor.read(memoryLocation, this.currentBase);
                     this.Acc++; // inc
                     this.Acc = this.Acc % SEGMENT_SIZE; //add with carry
-                    //_StdOut.putText("~acc="+this.Acc+"~"); //test line
                     _MemoryAccessor.write(memoryLocation, this.Acc, this.currentBase);
                     break;
                 }
