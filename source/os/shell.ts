@@ -667,7 +667,7 @@ module TSOS {
 
         //loop thru each segment, clearing all memory
         public shellClearmem() {            
-            for (var i = 0x0; i < NUM_OF_SEGEMENTS; i++) {
+            for (var i = 0x0; i < NUM_OF_SEGMENTS; i++) {
                 
                 //kill the program in that segment
                 var targetPCB = _MemoryManager.segmentList[i];
@@ -778,7 +778,7 @@ module TSOS {
         //terminate all (killable) processes in memory
         public shellKillall() {
             //go through each segment
-            for (var i = 0; i < NUM_OF_SEGEMENTS; i ++) {
+            for (var i = 0; i < NUM_OF_SEGMENTS; i ++) {
                 
                 //check if there is a PCB in this segment
                 if (_MemoryManager.segmentList[i] !== undefined) {

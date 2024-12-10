@@ -51,7 +51,7 @@ module TSOS {
             this.isVirgin = false; //CPU lost its vcard
             
             // Accumulate CPU usage of programs in memory
-            for (var i = 0; i < NUM_OF_SEGEMENTS; i++) {
+            for (var i = 0; i < NUM_OF_SEGMENTS; i++) {
                 var calculatingPCB = _MemoryManager.segmentList[i];
                 if (calculatingPCB !== undefined) {
 

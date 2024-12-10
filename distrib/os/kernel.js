@@ -258,7 +258,7 @@ var TSOS;
             if (_krnDiskDriver.isFormatted && (nextPCB.location === "Disk")) {
                 //check for open memory segment...
                 var openSegment = ERROR_CODE;
-                for (var i = 0; i < NUM_OF_SEGEMENTS; i++) {
+                for (var i = 0; i < NUM_OF_SEGMENTS; i++) {
                     if (_MemoryManager.segmentList[i].getState() === "TERMINATED") {
                         //set open segment
                         openSegment = i;
@@ -276,10 +276,6 @@ var TSOS;
                 }
                 //if there is an open memory segment...
                 else {
-                    //var intoSegment = _CPU.currentPCB.getSegment();
-                    //swap out the old
-                    //_Kernel.krnTrace("about to swap out...");
-                    //_krnDiskDriver.swapOut(_CPU.currentPCB.pid);
                     //swap in the new
                     _Kernel.krnTrace("about to swap in...");
                     _krnDiskDriver.swapIn(nextPCB.pid, openSegment);

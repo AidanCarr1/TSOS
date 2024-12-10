@@ -22,7 +22,7 @@ module TSOS {
             this.pidCounter = 0;
             this.readyQueue = new Queue();
             this.pcbList = new Array();
-            this.segmentList = new Array(NUM_OF_SEGEMENTS);
+            this.segmentList = new Array(NUM_OF_SEGMENTS);
         }
 
         //given a program, create a process control block, return pid
@@ -83,7 +83,7 @@ module TSOS {
         public whereIsSpace(): number {
 
             //check every pcb for any residents/readys
-            for (var i = 0; i < NUM_OF_SEGEMENTS; i++) {
+            for (var i = 0; i < NUM_OF_SEGMENTS; i++) {
                 var pcb = this.segmentList[i];
 
                 //if segment unused, use it!
