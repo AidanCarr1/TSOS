@@ -83,6 +83,31 @@ label {
   margin-left: 5px;
   margin-right: 5px;
   margin-top: 6px;
+
+  border-radius: 10px;
+  background-color: lightsteelblue;
+  border: 2px solid rgba(245, 245, 245, .9);
+  cursor: pointer;
+}
+
+.normal_button:hover {
+  border-radius: 10px;
+  -transition-duration: 0.4s;
+  background-color:lightskyblue;
+}
+
+.disabled_button {
+  width: 90px;
+  height: 50px;
+
+  /* centering: */
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 6px;
+
+  border-radius: 10px;
+  background-color: lightgray;
+  border: 2px solid rgba(245, 245, 245, .9);
 }
 
 
@@ -157,6 +182,9 @@ table{
 }
 /*see noInuse */
 
+textarea{
+  border: none;
+}
 
 #memoryTable{
   height: 263px;

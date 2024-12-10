@@ -112,11 +112,20 @@ module TSOS {
         public static hostBtnStartOS_click(btn): void {
             // Disable the (passed-in) start button...
             btn.disabled = true;
+            btn.classList.remove("normal_button");
+            btn.classList.add("disabled_button");
 
             // .. enable the Halt and Reset buttons ... and single step button!
             (<HTMLButtonElement>document.getElementById("btnHaltOS")).disabled = false;
             (<HTMLButtonElement>document.getElementById("btnReset")).disabled = false;
             (<HTMLButtonElement>document.getElementById("btnSingleStep")).disabled = false;
+            //normal button class
+            (<HTMLButtonElement>document.getElementById("btnHaltOS")).classList.remove("disabled_button");
+            (<HTMLButtonElement>document.getElementById("btnHaltOS")).classList.add("normal_button");
+            (<HTMLButtonElement>document.getElementById("btnReset")).classList.remove("disabled_button");
+            (<HTMLButtonElement>document.getElementById("btnReset")).classList.add("normal_button");
+            (<HTMLButtonElement>document.getElementById("btnSingleStep")).classList.remove("disabled_button");
+            (<HTMLButtonElement>document.getElementById("btnSingleStep")).classList.add("normal_button");
 
             // .. set focus on the OS console display ...
             document.getElementById("display").focus();
@@ -145,6 +154,19 @@ module TSOS {
             // Stop the interval that's simulating our clock pulse.
             clearInterval(_hardwareClockID);
             // TODO: Is there anything else we need to do here?
+
+            //disable all but reset
+            (<HTMLButtonElement>document.getElementById("btnHaltOS")).disabled = true;
+            (<HTMLButtonElement>document.getElementById("btnSingleStep")).disabled = true;
+            (<HTMLButtonElement>document.getElementById("btnTakeStep")).disabled = true;
+            
+            (<HTMLButtonElement>document.getElementById("btnHaltOS")).classList.add("disabled_button");
+            (<HTMLButtonElement>document.getElementById("btnHaltOS")).classList.remove("normal_button");
+            (<HTMLButtonElement>document.getElementById("btnSingleStep")).classList.add("disabled_button");
+            (<HTMLButtonElement>document.getElementById("btnSingleStep")).classList.remove("normal_button");
+            (<HTMLButtonElement>document.getElementById("btnTakeStep")).classList.add("disabled_button");
+            (<HTMLButtonElement>document.getElementById("btnTakeStep")).classList.remove("normal_button");
+            
         }
 
         public static hostBtnReset_click(btn): void {
@@ -159,6 +181,8 @@ module TSOS {
                 _CPU.isSingleStepping = true;
                 _Kernel.krnTrace("Single Step ON");
                 (<HTMLButtonElement>document.getElementById("btnTakeStep")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnTakeStep")).classList.remove("disabled_button");
+                (<HTMLButtonElement>document.getElementById("btnTakeStep")).classList.add("normal_button");
             }
 
             //turn single step off
@@ -166,6 +190,8 @@ module TSOS {
                 _CPU.isSingleStepping = false;
                 _Kernel.krnTrace("Single Step OFF");
                 (<HTMLButtonElement>document.getElementById("btnTakeStep")).disabled = true;
+                (<HTMLButtonElement>document.getElementById("btnTakeStep")).classList.add("disabled_button");
+                (<HTMLButtonElement>document.getElementById("btnTakeStep")).classList.remove("normal_button");
             }
         }
 

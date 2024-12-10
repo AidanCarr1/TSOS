@@ -90,10 +90,19 @@ var TSOS;
         static hostBtnStartOS_click(btn) {
             // Disable the (passed-in) start button...
             btn.disabled = true;
+            btn.classList.remove("normal_button");
+            btn.classList.add("disabled_button");
             // .. enable the Halt and Reset buttons ... and single step button!
             document.getElementById("btnHaltOS").disabled = false;
             document.getElementById("btnReset").disabled = false;
             document.getElementById("btnSingleStep").disabled = false;
+            //normal button class
+            document.getElementById("btnHaltOS").classList.remove("disabled_button");
+            document.getElementById("btnHaltOS").classList.add("normal_button");
+            document.getElementById("btnReset").classList.remove("disabled_button");
+            document.getElementById("btnReset").classList.add("normal_button");
+            document.getElementById("btnSingleStep").classList.remove("disabled_button");
+            document.getElementById("btnSingleStep").classList.add("normal_button");
             // .. set focus on the OS console display ...
             document.getElementById("display").focus();
             // ... Create and initialize the CPU (because it's part of the hardware)  ...
@@ -117,6 +126,16 @@ var TSOS;
             // Stop the interval that's simulating our clock pulse.
             clearInterval(_hardwareClockID);
             // TODO: Is there anything else we need to do here?
+            //disable all but reset
+            document.getElementById("btnHaltOS").disabled = true;
+            document.getElementById("btnSingleStep").disabled = true;
+            document.getElementById("btnTakeStep").disabled = true;
+            document.getElementById("btnHaltOS").classList.add("disabled_button");
+            document.getElementById("btnHaltOS").classList.remove("normal_button");
+            document.getElementById("btnSingleStep").classList.add("disabled_button");
+            document.getElementById("btnSingleStep").classList.remove("normal_button");
+            document.getElementById("btnTakeStep").classList.add("disabled_button");
+            document.getElementById("btnTakeStep").classList.remove("normal_button");
         }
         static hostBtnReset_click(btn) {
             // The easiest and most thorough way to do this is to reload (not refresh) the document.
@@ -128,12 +147,16 @@ var TSOS;
                 _CPU.isSingleStepping = true;
                 _Kernel.krnTrace("Single Step ON");
                 document.getElementById("btnTakeStep").disabled = false;
+                document.getElementById("btnTakeStep").classList.remove("disabled_button");
+                document.getElementById("btnTakeStep").classList.add("normal_button");
             }
             //turn single step off
             else {
                 _CPU.isSingleStepping = false;
                 _Kernel.krnTrace("Single Step OFF");
                 document.getElementById("btnTakeStep").disabled = true;
+                document.getElementById("btnTakeStep").classList.add("disabled_button");
+                document.getElementById("btnTakeStep").classList.remove("normal_button");
             }
         }
         static hostBtnTakeStep_click(btn) {
