@@ -303,12 +303,13 @@ module TSOS {
             //_Kernel.krnTrace("pid"+nextPCB.pid+"on disk?:"+(nextPCB.getSegment() === STORE_ON_DISK) +"("+nextPCB.getSegment()+")");
             //if next pcb is on disk...
             if (_krnDiskDriver.isFormatted && (nextPCB.location === "Disk")) {
+                var intoSegment = _CPU.currentPCB.getSegment();
                 //swap out with the old
                 _Kernel.krnTrace("about to swap out...");
                 _krnDiskDriver.swapOut(_CPU.currentPCB.pid);
                 //swap in with the new
                 _Kernel.krnTrace("about to swap in...");
-                _krnDiskDriver.swapIn(nextPCB.pid, _CPU.currentPCB.getSegment());
+                _krnDiskDriver.swapIn(nextPCB.pid, intoSegment);
             }
 
             //next pcb: set all CPU's registers to next PCB's registers

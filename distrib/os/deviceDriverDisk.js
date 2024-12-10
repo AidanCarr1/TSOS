@@ -400,6 +400,8 @@ var TSOS;
             var swapFileName = this.swapFileName(pid);
             if (!this.isAFileName(swapFileName)) {
                 this.create(swapFileName);
+                //_StdOut.putText("swapfile created: "+swapFileName, TEST_TEXT);
+                //_StdOut.advanceLine();
             }
             //write memory to swapfile
             var swapFileData = this.toSwapFileData(memory);
@@ -418,8 +420,8 @@ var TSOS;
             var base = SEGMENT_SIZE * insertSegment;
             //grab the swap file data
             var data = this.readLinkedData(tsb);
-            _StdOut.putText("data: " + data, TEST_TEXT);
-            _StdOut.advanceLine();
+            //_StdOut.putText("data: "+data, TEST_TEXT);
+            //_StdOut.advanceLine();
             //put in into memory segment
             for (var i = 0; i < SEGMENT_SIZE; i++) {
                 var dataAsHex = data.substring(i * HEX_WORD_SIZE, (i + 1) * HEX_WORD_SIZE);
@@ -430,6 +432,8 @@ var TSOS;
             }
             //change location to disk
             pcb.setSegment(insertSegment);
+            //_StdOut.putText("new segment: "+pcb.getSegment(), TEST_TEXT);
+            //_StdOut.advanceLine();
         }
         // SET FUNCTIONS
         //set inuse for a key given true/false

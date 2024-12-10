@@ -499,6 +499,8 @@
             var swapFileName = this.swapFileName(pid);
             if (! this.isAFileName(swapFileName)) {
                 this.create(swapFileName);
+                //_StdOut.putText("swapfile created: "+swapFileName, TEST_TEXT);
+                //_StdOut.advanceLine();
             }
 
             //write memory to swapfile
@@ -523,8 +525,8 @@
 
             //grab the swap file data
             var data = this.readLinkedData(tsb);
-            _StdOut.putText("data: "+data, TEST_TEXT);
-            _StdOut.advanceLine();
+            //_StdOut.putText("data: "+data, TEST_TEXT);
+            //_StdOut.advanceLine();
 
             //put in into memory segment
             for (var i = 0; i < SEGMENT_SIZE; i++) {
@@ -537,6 +539,8 @@
 
             //change location to disk
             pcb.setSegment(insertSegment);
+            //_StdOut.putText("new segment: "+pcb.getSegment(), TEST_TEXT);
+            //_StdOut.advanceLine();
         }
 
 
