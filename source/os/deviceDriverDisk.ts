@@ -218,19 +218,36 @@
             //count files
             var count = 0;
             for (var i = 0; i < DIRECTORY_LENGTH; i++) {
+                var key = i;
 
-                if (i == 0) {
+                if (key == 0) {
                     //skip MBR
                 }
                 else if (this.isInuse(i)) {
                     var fileName = Utils.hexToString(this.getData(i));
 
-                    //list it (if it is a user-made file) or (we're showing -all)
-                    if (fileName[0] !== "." || parameter === "-a") {
+                    //list -all
+                    if (parameter === "-a") {
+                        _StdOut.putText("  "+fileName, FILE_TEXT);
+
+                        //calculate size
+                        var size = this.countLinks(key) * BYTES_PER_BLOCK;
+                        if (size >= BYTES_PER_MEGABYTE) {
+                            size /= BYTES_PER_MEGABYTE;
+                            _StdOut.putText(", size: "+size+"MB");
+                        } else {
+                            _StdOut.putText(", size: "+size+"B");
+                        }
+                        
+                        _StdOut.advanceLine();   
+                    }
+
+                    //list 
+                    else if (fileName[0] !== "." ) {
                         _StdOut.putText("  "+fileName, FILE_TEXT);
                         _StdOut.advanceLine();
-                        count ++;
                     }
+                    count ++;
                 }
             }
 
@@ -438,6 +455,18 @@
             //add the final and return
             hex += this.getData(key);
             return hex;
+        }
+
+        public countLinks(key: number): number {
+
+            var count = 1;
+            while (this.hasTSB(key)) {
+                count ++;
+                key = this.getTSB(key);
+            }
+
+            //return final num of blocks
+            return count;
         }
 
 

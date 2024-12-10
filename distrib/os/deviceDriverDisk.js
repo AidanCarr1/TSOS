@@ -178,17 +178,32 @@ var TSOS;
             //count files
             var count = 0;
             for (var i = 0; i < DIRECTORY_LENGTH; i++) {
-                if (i == 0) {
+                var key = i;
+                if (key == 0) {
                     //skip MBR
                 }
                 else if (this.isInuse(i)) {
                     var fileName = TSOS.Utils.hexToString(this.getData(i));
-                    //list it (if it is a user-made file) or (we're showing -all)
-                    if (fileName[0] !== "." || parameter === "-a") {
+                    //list -all
+                    if (parameter === "-a") {
+                        _StdOut.putText("  " + fileName, FILE_TEXT);
+                        //calculate size
+                        var size = this.countLinks(key) * BYTES_PER_BLOCK;
+                        if (size >= BYTES_PER_MEGABYTE) {
+                            size /= BYTES_PER_MEGABYTE;
+                            _StdOut.putText(", size: " + size + "MB");
+                        }
+                        else {
+                            _StdOut.putText(", size: " + size + "B");
+                        }
+                        _StdOut.advanceLine();
+                    }
+                    //list 
+                    else if (fileName[0] !== ".") {
                         _StdOut.putText("  " + fileName, FILE_TEXT);
                         _StdOut.advanceLine();
-                        count++;
                     }
+                    count++;
                 }
             }
             //didnt print out any files, print message
@@ -355,6 +370,15 @@ var TSOS;
             //add the final and return
             hex += this.getData(key);
             return hex;
+        }
+        countLinks(key) {
+            var count = 1;
+            while (this.hasTSB(key)) {
+                count++;
+                key = this.getTSB(key);
+            }
+            //return final num of blocks
+            return count;
         }
         //SWAP FILE FUNCTIONS
         //given a pid, return the swap file name

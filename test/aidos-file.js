@@ -168,5 +168,43 @@ function Glados() {
         _KernelInputQueue.enqueue(' ');
         _KernelInputQueue.enqueue('x');
         TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
+
+        // create "..."
+        _KernelInputQueue.enqueue('c');
+        _KernelInputQueue.enqueue('r');
+        _KernelInputQueue.enqueue('e');
+        _KernelInputQueue.enqueue('a');
+        _KernelInputQueue.enqueue('t');
+        _KernelInputQueue.enqueue('e');
+        _KernelInputQueue.enqueue(' ');
+        _KernelInputQueue.enqueue('.');
+        _KernelInputQueue.enqueue('.');
+        _KernelInputQueue.enqueue('.');
+        TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
+        _KernelInputQueue.enqueue('w');
+        _KernelInputQueue.enqueue('r');
+        _KernelInputQueue.enqueue('i');
+        _KernelInputQueue.enqueue('t');
+        _KernelInputQueue.enqueue('e');
+        _KernelInputQueue.enqueue(' ');
+        _KernelInputQueue.enqueue('.');
+        _KernelInputQueue.enqueue('.');
+        _KernelInputQueue.enqueue('.');
+        _KernelInputQueue.enqueue(' ');
+        _KernelInputQueue.enqueue('"');
+        for (var i = 0; i < 1000; i++) {
+            _KernelInputQueue.enqueue('X');
+            _KernelInputQueue.enqueue('O');
+        }
+        _KernelInputQueue.enqueue('"');
+        TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
+
+
+        _KernelInputQueue.enqueue('l');
+        _KernelInputQueue.enqueue('s');
+        _KernelInputQueue.enqueue(' ');
+        _KernelInputQueue.enqueue('-');
+        _KernelInputQueue.enqueue('a');
+        TSOS.Kernel.prototype.krnInterruptHandler(KEYBOARD_IRQ, [13, false]);
     };
 }
