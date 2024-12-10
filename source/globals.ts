@@ -66,6 +66,8 @@ var _StrokeColor = DEFAULT_STROKE_COLOR;
 const FILE_TEXT = "blue";
 const ERROR_TEXT = "maroon";
 const TEST_TEXT = "darkgreen";
+const PROGRAM_TEXT = "#002a2a";
+const PROMPT_TEXT = "#003a3a";
 
 var _Trace: boolean = true;              // Default the OS trace to be on.
 

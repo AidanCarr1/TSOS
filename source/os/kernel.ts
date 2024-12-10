@@ -218,7 +218,7 @@ module TSOS {
         public outputCPU() {
             //print integer in Yreg
             if (_CPU.Xreg == 0x01) {
-                _StdOut.putText(Utils.toHex(_CPU.Yreg));
+                _StdOut.putText(Utils.toHex(_CPU.Yreg), PROGRAM_TEXT);
             }
 
             //print 00terminated string in Yreg
@@ -228,7 +228,7 @@ module TSOS {
 
                 while (currentIntValue != 0x00) {
                     var currentStrValue = Utils.numToChar(currentIntValue);
-                    _StdOut.putText(currentStrValue); //print char
+                    _StdOut.putText(currentStrValue, PROGRAM_TEXT); //print char
 
                     //next character
                     currentPosition ++;
@@ -257,13 +257,22 @@ module TSOS {
             var address = params[1];
 
             //tell the shell
-            _StdOut.advanceLine();
+            if (_StdOut.currentXPosition > 0) {
+                _StdOut.advanceLine();
+            }
+            //write error
             _StdOut.putText("Error: Out of bounds. ", ERROR_TEXT);
             _StdOut.putText("Cannot access memory 0x" + Utils.toHex(address), ERROR_TEXT);
+            _StdOut.advanceLine();
 
-            //kill it!
+            //create an interupt and enqueue it
             var systemCall = new Interrupt(KILL_PROCESS_IRQ, [pcb]);
             _KernelInterruptQueue.enqueue(systemCall);
+
+            //tell shell (about termination)
+            _StdOut.putText("Process " + pcb.pid + " terminated.");
+            _StdOut.advanceLine(1.5);
+            _OsShell.putPrompt();
         }
 
         public contextSwitch(args) {
@@ -314,10 +323,10 @@ module TSOS {
                 if (openSegment === ERROR_CODE) {
                     var intoSegment = _CPU.currentPCB.getSegment();
                     //swap out the old
-                    _Kernel.krnTrace("about to swap out...");
+                    this.krnTrace("about to swap out...");
                     _krnDiskDriver.swapOut(_CPU.currentPCB.pid);
                     //swap in the new
-                    _Kernel.krnTrace("about to swap in...");
+                    this.krnTrace("about to swap in...");
                     _krnDiskDriver.swapIn(nextPCB.pid, intoSegment);
                 }
 
@@ -326,7 +335,7 @@ module TSOS {
                     //clear out the old
                     _MemoryAccessor.clearSegment(openSegment);
                     //swap in the new
-                    _Kernel.krnTrace("about to swap in...");
+                    this.krnTrace("about to swap in...");
                     _krnDiskDriver.swapIn(nextPCB.pid, openSegment);
                 }
             }

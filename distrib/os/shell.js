@@ -120,7 +120,7 @@ var TSOS;
             this.putPrompt();
         }
         putPrompt() {
-            _StdOut.putText(this.promptStr, "#002a2a");
+            _StdOut.putText(this.promptStr, PROMPT_TEXT);
         }
         handleInput(buffer) {
             _Kernel.krnTrace("Shell Command~" + buffer);

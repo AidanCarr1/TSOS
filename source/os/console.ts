@@ -62,7 +62,7 @@ module TSOS {
 
                     //tell the shell
                     _StdOut.advanceLine();
-                    _StdOut.putText("Process TERMINATED with ctrl c");
+                    _StdOut.putText("Process "+_CPU.currentPCB.pid+" TERMINATED with ctrl c");
                     _StdOut.advanceLine(1.5);
                     _OsShell.putPrompt();
 

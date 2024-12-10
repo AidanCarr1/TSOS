@@ -239,7 +239,7 @@ module TSOS {
         }
 
         public putPrompt() {
-            _StdOut.putText(this.promptStr, "#002a2a");
+            _StdOut.putText(this.promptStr, PROMPT_TEXT);
         }
 
         public handleInput(buffer) {

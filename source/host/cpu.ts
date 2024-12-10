@@ -272,7 +272,7 @@ module TSOS {
                     if (_StdOut.currentXPosition > 0) {
                         _StdOut.advanceLine();
                     }
-                    _StdOut.putText("Unknown instruction: " + Utils.toHex(this.instructionRegister, HEX_WORD_SIZE), ERROR_TEXT);
+                    _StdOut.putText("Error: Unknown instruction. " + Utils.toHex(this.instructionRegister, HEX_WORD_SIZE) + " is invalid.", ERROR_TEXT);
                     _StdOut.advanceLine();
                     
                     //create an interupt and enqueue it
