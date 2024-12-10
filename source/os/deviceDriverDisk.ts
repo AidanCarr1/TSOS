@@ -95,7 +95,7 @@
                 if (tsb == ERROR_CODE) {
                     return;
                 }
-                _Kernel.krnTrace("Writing to " + Utils.toOct(tsb));
+                //_Kernel.krnTrace("Writing to " + Utils.toOct(tsb));
                 
                 //set the file directory tsb
                 this.setTSB(key, tsb);
@@ -104,7 +104,7 @@
             //writing over existing data
             else {
                 var tsb = this.getTSB(key);
-                _Kernel.krnTrace("Writing over data at " + Utils.toOct(tsb));
+                //_Kernel.krnTrace("Writing over data at " + Utils.toOct(tsb));
 
                 //delete the file data
                 this.deleteLinkedData(tsb);
@@ -166,7 +166,7 @@
             this.setTSB(toKey, toTsb);
 
             //write to it
-            _Kernel.krnTrace("Writing to " + Utils.toOct(toTsb));
+            //_Kernel.krnTrace("Writing to " + Utils.toOct(toTsb));
             var wroteData = this.writeData(toTsb, fromData);
 
             if (wroteData == ERROR_CODE) {
@@ -310,7 +310,7 @@
                 if (this.isInuse(i) && this.getData(i) === Utils.stringToHex(fileName, BYTES_FOR_DATA*HEX_WORD_SIZE)) {
                     
                     //return the directory location
-                    _Kernel.krnTrace("File found at " +i);
+                    _Kernel.krnTrace("File "+fileName+"found at " +i);
                     return i;
                 }
             }
@@ -346,7 +346,7 @@
                     //_StdOut.advanceLine();
 
                     //log it
-                    _Kernel.krnTrace("File " +fileName+ " saved at key " +i);
+                    //_Kernel.krnTrace("File " +fileName+ " saved at key " +i);
 
                     //return the directory location
                     return i;
@@ -368,7 +368,7 @@
                 if (! this.isInuse(i)) {
                     
                     //log it
-                    _Kernel.krnTrace("Open line at " +i);
+                    //_Kernel.krnTrace("Open line at " +i);
                     return i;
                 }
             }
@@ -485,14 +485,15 @@
         public swapOut(pid: number) {
             
             var pcb = _MemoryManager.getProcessByPID(pid);
-            
+
             //grab memory segment
             var memory = "";
             for (var i = 0; i < SEGMENT_SIZE; i++) {
                 memory += Utils.toHex(_MemoryAccessor.read(i, pcb.getBase()), HEX_WORD_SIZE);
             }
-            _StdOut.putText("memory: "+memory, TEST_TEXT);
-            _StdOut.advanceLine();
+            //alert("memory: "+memory);
+            //_StdOut.putText("memory: "+memory, TEST_TEXT);
+            //_StdOut.advanceLine();
 
             //create swap file if it does not exist
             var swapFileName = this.swapFileName(pid);
@@ -503,8 +504,8 @@
             //write memory to swapfile
             var swapFileData = this.toSwapFileData(memory);
             this.write(swapFileName, swapFileData);
-            _StdOut.putText("swap file data: "+swapFileData,TEST_TEXT);
-            _StdOut.advanceLine();
+            //_StdOut.putText("swap file data: "+swapFileData,TEST_TEXT);
+            //_StdOut.advanceLine();
 
             //change location to disk
             pcb.setSegment(STORE_ON_DISK);
@@ -517,10 +518,11 @@
             var pcb = _MemoryManager.getProcessByPID(pid);
             var swapFileName = this.swapFileName(pid);
             var key = this.getKeyByFileName(swapFileName);
+            var tsb = this.getTSB(key);
             var base = SEGMENT_SIZE * insertSegment;
 
             //grab the swap file data
-            var data = this.getData(key);
+            var data = this.readLinkedData(tsb);
             _StdOut.putText("data: "+data, TEST_TEXT);
             _StdOut.advanceLine();
 

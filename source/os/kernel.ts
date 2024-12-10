@@ -300,6 +300,17 @@ module TSOS {
                 var nextPCB:ProcessControlBlock = _MemoryManager.readyQueue.dequeue();
             }
 
+            //_Kernel.krnTrace("pid"+nextPCB.pid+"on disk?:"+(nextPCB.getSegment() === STORE_ON_DISK) +"("+nextPCB.getSegment()+")");
+            //if next pcb is on disk...
+            if (_krnDiskDriver.isFormatted && (nextPCB.location === "Disk")) {
+                //swap out with the old
+                _Kernel.krnTrace("about to swap out...");
+                _krnDiskDriver.swapOut(_CPU.currentPCB.pid);
+                //swap in with the new
+                _Kernel.krnTrace("about to swap in...");
+                _krnDiskDriver.swapIn(nextPCB.pid, _CPU.currentPCB.getSegment());
+            }
+
             //next pcb: set all CPU's registers to next PCB's registers
             _CPU.PC = nextPCB.processPC;
             _CPU.Acc = nextPCB.processAcc;
