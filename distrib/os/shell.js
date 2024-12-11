@@ -13,6 +13,7 @@ var TSOS;
         // Properties
         promptStr = ">";
         commandList = [];
+        aliasCommandList = [];
         curses = "[fuvg],[cvff],[shpx],[phag],[pbpxfhpxre],[zbgureshpxre],[gvgf]";
         apologies = "[sorry]";
         //public locations: string[] = ["Hancock 3007", "Arby's mobile order spot #6", "The short urinal", "308 Negra Arroyo Lane", "The dungeon", "I have no clue", "Hopefully the library", "Dublin, Ireland", "The neighborhood electrical box", "The back of an Uber", "Eddie Munson's trailer", "An elevator with way too many people in it", "The Chuck E Cheese ticket blaster", "Wing Kingdom", "Monk's Cafe", "i3n7a1s9i4m7u0l8a1t6i2o5n"];
@@ -116,6 +117,7 @@ var TSOS;
             //ls
             sc = new TSOS.ShellCommand(this.shellLs, "ls", '[-a] - list the files currently stored on disk.', "List the files currently stored on disk.");
             this.commandList[this.commandList.length] = sc;
+            //alias
             sc = new TSOS.ShellCommand(this.shellAlias, "alias", '<command> <alias> - create a new name for an existing command.', "Alias an existing shell command with a new name.");
             this.commandList[this.commandList.length] = sc;
             // Display the initial prompt.
@@ -779,23 +781,37 @@ var TSOS;
         shellAlias(args) {
             if (args.length > 1) {
                 var shellCommand = args[0].toLowerCase();
-                var userCommand = args[1].toLowerCase();
-                var shellFound = false;
+                var aliasCommand = args[1].toLowerCase();
+                var commandFound = false;
+                //check all the shell commands
                 for (var i in _OsShell.commandList) {
-                    var realCommand = _OsShell.commandList[i].command;
-                    if (shellCommand === realCommand) {
-                        shellFound = true;
+                    var existingCommand = _OsShell.commandList[i].command;
+                    if (shellCommand === existingCommand) {
+                        commandFound = true;
                     }
-                    if (userCommand === realCommand) {
-                        _StdOut.putText("Error: " + userCommand + " already exists as a shell command.", ERROR_TEXT);
+                    if (aliasCommand === existingCommand) {
+                        _StdOut.putText("Error: " + aliasCommand + " already exists as a shell command.", ERROR_TEXT);
                         return false;
                     }
                 }
-                if (!shellFound) {
+                //shell command aint even real
+                if (!commandFound) {
                     _StdOut.putText("Error: command " + shellCommand + " not found.", ERROR_TEXT);
                     return false;
                 }
-                _StdOut.putText("found! aliasing " + shellCommand + " as " + userCommand + ".");
+                //check all the alias commands
+                for (var i in _OsShell.aliasCommandList) {
+                    var existingAlias = _OsShell.aliasCommandList[i].command;
+                    if (aliasCommand === existingAlias) {
+                        _StdOut.putText("Error: " + aliasCommand + " already exists as an alias.", ERROR_TEXT);
+                        return false;
+                    }
+                }
+                //create the alias!
+                var ac;
+                ac = new TSOS.AliasCommand(shellCommand, aliasCommand);
+                this.aliasCommandList[this.aliasCommandList.length] = ac;
+                _StdOut.putText("aliasing " + shellCommand + " as " + aliasCommand + ".");
             }
             else {
                 _StdOut.putText("Usage: alias <command> <alias>  Please supply two commands.");
