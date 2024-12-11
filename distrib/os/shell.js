@@ -58,7 +58,8 @@ var TSOS;
                 "The dungeon", "I have no clue", "Hopefully the library", "Dublin, Ireland", "The neighborhood electrical box",
                 "The back of an Uber", "Eddie Munson's trailer", "An elevator with way too many people in it",
                 "The Chuck E Cheese ticket blaster", "Wing Kingdom", "Monk's Cafe", "i3n7a1s9i4m7u0l8a1t6i2o5n",
-                "The pumpkin patch", "The bottom of a wet pile of leaves", "The dairy isle"];
+                "The pumpkin patch", "The bottom of a wet pile of leaves", "The dairy isle", "The top of the nuaghty list",
+                "The looney bin", "My backyard"];
             // palindrome <string>
             sc = new TSOS.ShellCommand(this.shellPalindrome, "palindrome", "<string> - Decides if <string> is a palindrome.", "Palindrome determines if the given string is a palindrome or not.");
             this.commandList[this.commandList.length] = sc;
@@ -68,6 +69,7 @@ var TSOS;
             //bsod
             sc = new TSOS.ShellCommand(this.shellBsod, "bsod", "- test the blue screen of death.", "BSOD displays the blue screen of death.");
             this.commandList[this.commandList.length] = sc;
+            //PROCESS COMMANDS                      
             //load
             sc = new TSOS.ShellCommand(this.shellLoad, "load", "- load from user input.", "Load puts the user's program into memory and assigns it a pid.");
             this.commandList[this.commandList.length] = sc;
@@ -117,6 +119,7 @@ var TSOS;
             //ls
             sc = new TSOS.ShellCommand(this.shellLs, "ls", '[-a] - list the files currently stored on disk.', "List the files currently stored on disk.");
             this.commandList[this.commandList.length] = sc;
+            //EXTRA COMMAND
             //alias
             sc = new TSOS.ShellCommand(this.shellAlias, "alias", '<command> <alias> - create a new name for an existing command.', "Alias an existing shell command with a new name.");
             this.commandList[this.commandList.length] = sc;
@@ -143,7 +146,24 @@ var TSOS;
             // TODO: Is there a better way? Probably. Someone work it out and tell me in class.
             var index = 0;
             var found = false;
+            var foundAlias = false;
             var fn = undefined;
+            //search alias list
+            while (!foundAlias && index < this.aliasCommandList.length) {
+                if (this.aliasCommandList[index].aliasCommand === cmd) {
+                    foundAlias = true;
+                    //_StdOut.putText("found alias, real is "+this.aliasCommandList[index].shellCommand);
+                    //_StdOut.advanceLine();
+                    //set real shell command cmd
+                    cmd = this.aliasCommandList[index].shellCommand;
+                    //this.handleInput(buffer);
+                }
+                else {
+                    ++index;
+                }
+            }
+            //search command list
+            index = 0;
             while (!found && index < this.commandList.length) {
                 if (this.commandList[index].command === cmd) {
                     found = true;
@@ -810,8 +830,8 @@ var TSOS;
                 //create the alias!
                 var ac;
                 ac = new TSOS.AliasCommand(shellCommand, aliasCommand);
-                this.aliasCommandList[this.aliasCommandList.length] = ac;
-                _StdOut.putText("aliasing " + shellCommand + " as " + aliasCommand + ".");
+                _OsShell.aliasCommandList[_OsShell.aliasCommandList.length] = ac;
+                _StdOut.putText("aliasing " + shellCommand + " as " + aliasCommand);
             }
             else {
                 _StdOut.putText("Usage: alias <command> <alias>  Please supply two commands.");

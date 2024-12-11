@@ -101,7 +101,8 @@ module TSOS {
                 "The dungeon", "I have no clue", "Hopefully the library", "Dublin, Ireland", "The neighborhood electrical box", 
                 "The back of an Uber", "Eddie Munson's trailer", "An elevator with way too many people in it", 
                 "The Chuck E Cheese ticket blaster", "Wing Kingdom", "Monk's Cafe", "i3n7a1s9i4m7u0l8a1t6i2o5n", 
-                "The pumpkin patch", "The bottom of a wet pile of leaves", "The dairy isle"];
+                "The pumpkin patch", "The bottom of a wet pile of leaves", "The dairy isle", "The top of the nuaghty list",
+                "The looney bin", "My backyard"];
 
             // palindrome <string>
             sc = new ShellCommand(this.shellPalindrome,
@@ -124,6 +125,7 @@ module TSOS {
                                   "BSOD displays the blue screen of death.");
                                   this.commandList[this.commandList.length] = sc;
 
+            //PROCESS COMMANDS                      
             //load
             sc = new ShellCommand(this.shellLoad,
                                   "load",
@@ -235,6 +237,7 @@ module TSOS {
                                 "List the files currently stored on disk.");
                                 this.commandList[this.commandList.length] = sc;
 
+            //EXTRA COMMAND
             //alias
             sc = new ShellCommand(this.shellAlias,
                                 "alias",
@@ -268,7 +271,25 @@ module TSOS {
             // TODO: Is there a better way? Probably. Someone work it out and tell me in class.
             var index: number = 0;
             var found: boolean = false;
+            var foundAlias: boolean = false;
             var fn = undefined;
+
+            //search alias list
+            while (!foundAlias && index < this.aliasCommandList.length) {
+                if (this.aliasCommandList[index].aliasCommand === cmd) {
+                    foundAlias = true;
+                    //_StdOut.putText("found alias, real is "+this.aliasCommandList[index].shellCommand);
+                    //_StdOut.advanceLine();
+                    //set real shell command cmd
+                    cmd = this.aliasCommandList[index].shellCommand;
+                    //this.handleInput(buffer);
+                } else {
+                    ++index;
+                }
+            }
+
+            //search command list
+            index = 0;
             while (!found && index < this.commandList.length) {
                 if (this.commandList[index].command === cmd) {
                     found = true;
@@ -277,6 +298,9 @@ module TSOS {
                     ++index;
                 }
             }
+
+            
+
             if (found) {
                 this.execute(fn, args, cmd);  // Note that args is always supplied, though it might be empty.
             } else {
@@ -1042,9 +1066,9 @@ module TSOS {
                 //create the alias!
                 var ac: AliasCommand;
                 ac = new AliasCommand(shellCommand, aliasCommand);
-                this.aliasCommandList[this.aliasCommandList.length] = ac;
+                _OsShell.aliasCommandList[_OsShell.aliasCommandList.length] = ac;
 
-                _StdOut.putText("aliasing "+shellCommand+" as "+aliasCommand+".");
+                _StdOut.putText("aliasing "+shellCommand+" as "+aliasCommand);
             }
             else {
                 _StdOut.putText("Usage: alias <command> <alias>  Please supply two commands.");
