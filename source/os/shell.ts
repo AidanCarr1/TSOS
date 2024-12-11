@@ -234,6 +234,13 @@ module TSOS {
                                 "List the files currently stored on disk.");
                                 this.commandList[this.commandList.length] = sc;
 
+            sc = new ShellCommand(this.shellAlias,
+                                "alias",
+                                '<command> <alias> - create a new name for an existing command.',
+                                "Alias an existing shell command with a new name.");
+                                this.commandList[this.commandList.length] = sc;
+
+                                
             // Display the initial prompt.
             this.putPrompt();
         }
@@ -425,7 +432,7 @@ module TSOS {
 
             //empty <topic>
             } else {
-                _StdOut.putText("Usage: man <topic>  Please supply a topic.");
+                _StdOut.putText("Usage: man <command>  Please supply a command.");
             }
         }
 
@@ -992,6 +999,34 @@ module TSOS {
             //invalid parameters
             else {
                 _StdOut.putText("Usage: ls [-a]");
+            }
+        }
+
+        public shellAlias(args: string[]) {
+
+            if (args.length > 1) {
+                var shellCommand = args[0].toLowerCase();
+                var userCommand = args[1].toLowerCase();
+                var shellFound = false;
+
+                for (var i in _OsShell.commandList) {
+                    var realCommand = _OsShell.commandList[i].command;
+                    if (shellCommand === realCommand) {
+                        shellFound = true;
+                    }
+                    if (userCommand === realCommand) {
+                        _StdOut.putText("Error: "+userCommand+" already exists as a shell command.", ERROR_TEXT);
+                        return false;
+                    }
+                }
+                if (! shellFound) {
+                    _StdOut.putText("Error: command "+shellCommand+" not found.", ERROR_TEXT);
+                    return false;
+                }
+                _StdOut.putText("found! aliasing "+shellCommand+" as "+userCommand+".");
+            }
+            else {
+                _StdOut.putText("Usage: alias <command> <alias>  Please supply two commands.");
             }
         }
     }
