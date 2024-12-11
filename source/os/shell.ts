@@ -278,11 +278,9 @@ module TSOS {
             while (!foundAlias && index < this.aliasCommandList.length) {
                 if (this.aliasCommandList[index].aliasCommand === cmd) {
                     foundAlias = true;
-                    //_StdOut.putText("found alias, real is "+this.aliasCommandList[index].shellCommand);
-                    //_StdOut.advanceLine();
                     //set real shell command cmd
                     cmd = this.aliasCommandList[index].shellCommand;
-                    //this.handleInput(buffer);
+                    _Kernel.krnTrace(this.aliasCommandList[index].aliasCommand + "->"+cmd);
                 } else {
                     ++index;
                 }
@@ -298,8 +296,6 @@ module TSOS {
                     ++index;
                 }
             }
-
-            
 
             if (found) {
                 this.execute(fn, args, cmd);  // Note that args is always supplied, though it might be empty.
@@ -434,14 +430,29 @@ module TSOS {
         public shellMan(args: string[]) {
             if (args.length > 0) {
 
-                var topic = args[0];
-                topic = topic.toLowerCase();
+                var cmd = args[0];
+                cmd = cmd.toLowerCase();
                 var index: number = 0;
                 var found: boolean = false;
+                var foundAlias: boolean = false;
                 var manualDesc : string = "";
+
+                //search alias list
+                while (!foundAlias && index < _OsShell.aliasCommandList.length) {
+                    if (_OsShell.aliasCommandList[index].aliasCommand === cmd) {
+                        foundAlias = true;
+                        //set real shell command cmd
+                        cmd = _OsShell.aliasCommandList[index].shellCommand;
+                    } else {
+                        ++index;
+                    }
+                }
+
+                //search command list
+                index = 0;
                 //find if the <topic> is a valid command in the command list
                 while (!found && index < _OsShell.commandList.length) {
-                    if (_OsShell.commandList[index].command === topic) {
+                    if (_OsShell.commandList[index].command === cmd) {
                         found = true;
                         //set description to the command's man description attribute
                         manualDesc = _OsShell.commandList[index].manual;
@@ -453,7 +464,7 @@ module TSOS {
                 if (found) {
                     _StdOut.putText(manualDesc);
                 } else {
-                    _StdOut.putText("No manual entry for " + topic + ".");
+                    _StdOut.putText("No manual entry for " + cmd + ".");
                 }
 
             //empty <topic>
@@ -1055,7 +1066,7 @@ module TSOS {
 
                 //check all the alias commands
                 for (var i in _OsShell.aliasCommandList) {
-                    var existingAlias = _OsShell.aliasCommandList[i].command;
+                    var existingAlias = _OsShell.aliasCommandList[i].aliasCommand;
 
                     if (aliasCommand === existingAlias) {
                         _StdOut.putText("Error: "+aliasCommand+" already exists as an alias.", ERROR_TEXT);
