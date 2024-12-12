@@ -2,10 +2,12 @@ PROJECT 4 GRADING INSTRUCTIONS
 ====================================
 Please grade my [Project 4 Branch (not complete yet)](https://github.com/AidanCarr1/TSOS/tree/Project-4)
 
+- Dynamic font color
+- Alias command
 - Hidden files supported
+- File size listed
 - Wait time and turnaround time added
 - Single step still works
-- Ctrl C terminates the RUNNING program, not all
 
 
 2024 Browser-based Operating System in TypeScript

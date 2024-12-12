@@ -563,6 +563,10 @@ var TSOS;
                 _StdOut.putText("PID " + i + ": " + _MemoryManager.getProcessByPID(i).getState());
                 _StdOut.advanceLine();
             }
+            if (_MemoryManager.pidCounter == 0) {
+                _StdOut.putText("No processes");
+                _StdOut.advanceLine();
+            }
         }
         //let user set the round robin quantum
         shellQuantum(args) {

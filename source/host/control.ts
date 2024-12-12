@@ -213,7 +213,7 @@ module TSOS {
             for (var row = 0; row < MEMORY_SIZE / MEMORY_COLUMNS; row ++) {
 
                 //row label
-                tableHTML += "<tr><td class='memoryRowLabel'> 0x" + Utils.toHex(memoryCount, HEX_WORD_SIZE) + "</td>";
+                tableHTML += "<tr><td class='memoryRowLabel'> 0x" + Utils.toHex(memoryCount, BASE_LIMIT_WORD_SIZE) + "</td>";
 
                 for (var col = 1; col <= MEMORY_COLUMNS; col ++) {
                     tableHTML += "<td class='memoryBox' id='mem" + memoryCount + "'> 00 </td>";

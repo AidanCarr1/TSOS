@@ -174,7 +174,7 @@ var TSOS;
             var memoryCount = 0; //for id purposes - so we know which location we're at
             for (var row = 0; row < MEMORY_SIZE / MEMORY_COLUMNS; row++) {
                 //row label
-                tableHTML += "<tr><td class='memoryRowLabel'> 0x" + TSOS.Utils.toHex(memoryCount, HEX_WORD_SIZE) + "</td>";
+                tableHTML += "<tr><td class='memoryRowLabel'> 0x" + TSOS.Utils.toHex(memoryCount, BASE_LIMIT_WORD_SIZE) + "</td>";
                 for (var col = 1; col <= MEMORY_COLUMNS; col++) {
                     tableHTML += "<td class='memoryBox' id='mem" + memoryCount + "'> 00 </td>";
                     memoryCount++;
