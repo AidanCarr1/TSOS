@@ -1,6 +1,6 @@
 PROJECT 4 GRADING INSTRUCTIONS
 ====================================
-Please grade my [Project 4 Branch (not complete yet)](https://github.com/AidanCarr1/TSOS/tree/Project-4)
+Please grade my [Project 4 Branch](https://github.com/AidanCarr1/TSOS/tree/Project-4)
 
 - Dynamic font color
 - Alias command
