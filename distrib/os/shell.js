@@ -58,7 +58,7 @@ var TSOS;
                 "The dungeon", "I have no clue", "Hopefully the library", "Dublin, Ireland", "The neighborhood electrical box",
                 "The back of an Uber", "Eddie Munson's trailer", "An elevator with way too many people in it",
                 "The Chuck E Cheese ticket blaster", "Wing Kingdom", "Monk's Cafe", "i3n7a1s9i4m7u0l8a1t6i2o5n",
-                "The pumpkin patch", "The bottom of a wet pile of leaves", "The dairy isle", "The top of the nuaghty list",
+                "The pumpkin patch", "The bottom of a wet pile of leaves", "The dairy aisle", "The top of the naughty list",
                 "The looney bin", "My backyard"];
             // palindrome <string>
             sc = new TSOS.ShellCommand(this.shellPalindrome, "palindrome", "<string> - Decides if <string> is a palindrome.", "Palindrome determines if the given string is a palindrome or not.");
