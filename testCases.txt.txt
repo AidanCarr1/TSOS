@@ -1,0 +1,71 @@
+{
+while int a = 0
+}
+$
+
+{
+string x
+x = "hello world"
+print ( x )
+} $
+
+
+{
+inta
+stringz
+a = 7
+z = "real "
+}$
+
+stringz
+z = "real as rain"
+$
+
+/*abcd123*/{/**/
+intaintba=0b=0/*comment*/while(a!=3){print(a)while(b!=3){print(b)b=1+bif(b==2)
+{/**/print("there is no spoon"/**/)}}b=0a=1+a}}
+$ 
+
+{intaa=1{while(a!=5){a=1+aprint(a)}print(3+a)}}$
+
+
+z= "real"
+/*int*/
+a = "more"
+/* */
+/**/
+
+
+/*IN*&^&*(^=-=-0909t*/
+a /* */=  "more"
+/* */
+/**/
+print ("hello test"             )
+   $
+
+
+/*Long Test Case - Everything Except Boolean Declaration */
+{
+ /* Int Declaration */
+ int a
+ int b
+ a = 0
+ b=0
+ /* While Loop */
+ while (a != 3) {
+  print(a)
+  while (b != 3) {
+   print(b)
+   b = 1 + b
+   if (b == 2) {
+    /* Print Statement */
+    print("there is no spoon" /* This will do nothing */ )
+   }
+  }
+  b = 0
+  a = 1+a
+ }
+}
+$
+
+/***/ {intaa=9}$
